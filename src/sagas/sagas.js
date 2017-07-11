@@ -4,7 +4,8 @@ import {
   loadDevice,
   addDevice } from '../actions/loadDevices.action';
 import { deleteDevice } from '../actions/deleteDevice.action';
-import { currentUsersSaga } from './currentUsersSaga';
+import currentUsersSaga from './currentUsersSaga';
+import notificationsSaga from './notificationsSaga';
 
 export function *watchLoadDevicesAsync () {
   yield takeEvery('LOAD_DEVICES_ASYNC', loadDevices);
@@ -28,6 +29,7 @@ export default function *rootSaga () {
     watchLoadDevicesAsync(),
     watchDeleteDeviceAsync(),
     watchAddDeviceAsync(),
-    currentUsersSaga()
+    currentUsersSaga(),
+    notificationsSaga()
   ]);
 }
