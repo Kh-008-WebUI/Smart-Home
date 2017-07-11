@@ -1,7 +1,7 @@
 [{
     "id":1,
     "name":"fridge",
-	"item":[
+	"items":[
 		{
 			"id": 1,
 			"name": "Toggle",
@@ -34,7 +34,7 @@
 {
     "id":2,
     "name":"microwave",
-	"item":[
+	"itemss":[
 		{
 			"id": 5,
 			"name": "Range",
@@ -67,7 +67,7 @@
 {
 	"id":3,
 	"name":"alarm",
-	"item":[
+	"items":[
 		{
 			"id": 54,
 			"name": "Range",
@@ -80,7 +80,7 @@
 {
 	"id":4,
     "name":"car",
-	"item":[
+	"items":[
 		{
 			"id": 51,
 			"name": "Range",
@@ -93,7 +93,7 @@
 {
 	"id":5,
     "name":"coffemachine",
-	"item":[
+	"items":[
 		{
 			"id": 4,
 			"name": "Range",
@@ -106,7 +106,7 @@
 {
 	"id":6,
     "name":"washmachine",
-	"item":[
+	"items":[
 		{
 			"id": 5,
 			"name": "Range",
