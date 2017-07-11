@@ -42,7 +42,7 @@ export function *loadDevices () {
   yield put(loadDevicesSuccess(devices));
 }
 
-export function *loadDevice (action) {
+export function* loadDevice (action) {
   const device = yield call(DeviceListApi.getDevice, action.id);
 
   yield put(loadDevicesSuccess([device]));

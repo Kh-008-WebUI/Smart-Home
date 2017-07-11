@@ -5,15 +5,15 @@ import {
   addDevice } from '../actions/loadDevices.action';
 import { deleteDevice } from '../actions/deleteDevice.action';
 
-export function *watchLoadDevicesAsync () {
+export function* watchLoadDevicesAsync () {
   yield takeEvery('LOAD_DEVICES_ASYNC', loadDevices);
 }
 
-export function *watchLoadDeviceAsync () {
+export function* watchLoadDeviceAsync () {
   yield takeEvery('LOAD_DEVICE_ASYNC', loadDevice);
 }
 
-export function *watchDeleteDeviceAsync () {
+export function* watchDeleteDeviceAsync () {
   yield takeEvery('DELETE_DEVICE_ASYNC', deleteDevice);
 }
 

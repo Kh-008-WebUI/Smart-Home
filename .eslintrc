@@ -192,8 +192,8 @@
 
     "constructor-super": 2,
     "generator-star-spacing": [2, {
-      "before" : true,
-      "after"  : false
+      "before" : false,
+      "after"  : true
     }],
     "no-this-before-super": 2,
     "no-var": 0,
