@@ -23,13 +23,13 @@ export const loadDeviceAsync = (id) => {
   };
 };
 
-export function *loadDevices () {
+export function* loadDevices () {
   const devices = yield call(DeviceListApi.getDevices);
 
   yield put(loadDevicesSuccess(devices));
 }
 
-export function *loadDevice (action) {
+export function* loadDevice (action) {
   const device = yield call(DeviceListApi.getDevice, action.id);
 
   yield put(loadDevicesSuccess([device]));
