@@ -34,7 +34,7 @@
 {
     "id":2,
     "name":"microwave",
-	"itemss":[
+	"items":[
 		{
 			"id": 5,
 			"name": "Range",
