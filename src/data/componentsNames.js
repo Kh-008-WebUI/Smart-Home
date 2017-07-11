@@ -1,18 +1,16 @@
-import SettingsWrapper from
-'../components/SettingsWrapper/SettingsWrapper';
 import RangeSettings from
 '../components/RangeSettings/Range';
 import ToggleSettings from
-'../components/ToggleSettings/Toggle';
+'../components/ToggleSettings/ToggleSettings';
 import TimerSettings from
 '../components/TimerSettings/Timer';
 import ValueSettings from
 '../components/ValueSettings/Value';
-import LineChart from
-'../components/LineChart/LineChart';
+import Chart from
+'../components/Chart/Chart';
 
-export const setingsComponents = {
-  LineChart:LineChart,
+export const settingsComponents = {
+  LineChart:Chart,
   Range:RangeSettings,
   Timer:TimerSettings,
   Value:ValueSettings,

@@ -36,7 +36,7 @@ export default class ValueSettings extends React.Component {
         <input
           type='text'
           className='value_input'
-          placeholder='Search...'
+          placeholder='Input...'
           value={this.state.value}
           onChange={this.onChangeValue}
         />

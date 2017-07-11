@@ -12,11 +12,11 @@
   border-radius: 10px;
   background: $color-bg-grey;
   margin: 10px;
-  border: 1px solid $border_color;
+  border-bottom: 1px solid $border_color;
 
   .item-body{
     padding: 20px;
-    height: 70px;
+    min-height: 70px;
   }
 
   .item-header{
@@ -60,6 +60,10 @@
   }
 }
 
-.settings-chart{
+.settings-linechart{
   width: 85%;
+  order:2;
+}
+.settings-timer{
+  order:3;
 }

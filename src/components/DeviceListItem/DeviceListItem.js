@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ToggleSettings from '../ToggleSettings/ToggleSettings';
 require('./DeviceListItem.scss');
 
 class DeviceListItem extends React.Component {
@@ -25,14 +26,10 @@ class DeviceListItem extends React.Component {
             {this.props.data.name}
           </Link>
           <div className="device-item__info-status">
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={this.props.data.status}
-                onChange={this.onStatusChange}
-              />
-              <div className="slider round"></div>
-            </label>
+            <ToggleSettings
+              id={this.props.data.id}
+              checked={this.props.data.status}
+              onStatusChange={this.onStatusChange}/>
           </div>
         </div>
         <div className="device-item__description">

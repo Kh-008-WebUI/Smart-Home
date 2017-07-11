@@ -1,0 +1,139 @@
+@import "../../scss/_variables";
+
+.device-view {
+  padding-top: 20px;
+
+  &__header {
+		height: 70px;
+		border-bottom: 1px solid lightgray;
+		margin-bottom: 10px;
+	}
+	
+	&__name {
+		color:#555;
+		font-size: 24px;
+		text-transform: capitalize;
+		float: left;
+	}
+
+	&__info {
+		float: right;
+	}
+
+	.device-item__info-status {
+		float: left;
+		margin: 0;
+		padding: 5px;
+
+		.switch {
+			top:auto;
+			right:auto;
+		}
+	}
+
+	small{
+		font-size: 10px;
+	}
+
+	.device-view-2{
+		height: 200px;
+
+		&__notice{
+			background-color: $light-bg;
+			float: left;
+      width: 24%;
+      height: 100%;
+			border-radius: 3px;
+			padding: 10px;
+
+			ul{
+				margin: 0;
+        padding: 0;
+        list-style: none;
+
+				li{
+					margin: 5px 2px;
+          padding: 10px;
+          border-left-width: 3px;
+          border-left-style: solid;
+					color: white;
+					border-color: #f6a821;
+					border-radius: 3px;
+					font-size: 14px;
+				}
+			}
+		}
+
+		div:first-child{
+			width: 800px;
+			height: 200px;
+			float: right;
+		}
+	}
+
+	.device-view-2 svg{
+		height: 200px;
+	}
+
+  &__settings{
+    background: $main-bg;
+    padding: 30px;
+  }
+
+  &__location {
+		margin-bottom: 15px;
+
+		i{
+			margin-right: 5px;
+			color: #f6a821;
+		}
+	}
+
+  &__settings{
+    background: $light-bg;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &-item {
+      margin-bottom: 20px;
+      width: 100%;
+
+      @media (min-width: $tablet-min) {
+        width: 40%;
+      }
+
+      @media (min-width: $desktop-min) {
+        width: 33%;
+        margin-bottom: 50px;
+      }
+
+      &--toggle {
+        width: inherit;
+        max-width: 130px;
+        order: 1;
+      }
+
+      &--timer {
+        order: 6;
+      }
+
+      &--value {
+        order: 1;
+      }
+
+      &--range {
+        order: 1;
+      }
+
+      &--linechart {
+        order: 5;
+      }
+    }
+  }
+}
+
+i{
+	color: #f6a821;
+}

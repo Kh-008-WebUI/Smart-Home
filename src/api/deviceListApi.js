@@ -1,10 +1,22 @@
 import devices from '../data/data.json';
 
+let listDevices = [...devices];
+
 export default class DeviceListApi {
   static getDevices () {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve([...devices]);
+        resolve([...listDevices]);
+      }, 2000);
+    });
+  }
+  static addDevice (device) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        device.id = listDevices.length + 1;
+        device.status = true;
+        listDevices = [...listDevices, device];
+        resolve(device);
       }, 2000);
     });
   }
@@ -13,7 +25,7 @@ export default class DeviceListApi {
       setTimeout(() => {
         let device;
 
-        devices.map((item) => {
+        listDevices.map((item) => {
           if (item.id === id) {
             device = Object.assign({}, item);
           }
@@ -26,7 +38,7 @@ export default class DeviceListApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(id);
-      }, 500);
+      }, 300);
     });
   }
 }

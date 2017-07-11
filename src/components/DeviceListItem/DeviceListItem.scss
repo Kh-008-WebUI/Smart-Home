@@ -18,7 +18,7 @@
       line-height: 16px;
       text-decoration: none;
       text-transform: uppercase;
-      display: inline-block; 
+      display: inline-block;
       color:#f5f5f5;
       cursor: pointer;
     }
@@ -28,7 +28,7 @@
     }
   }
 
-  &__description{
+  &__description {
     background-color: #2f323b;
     padding: 5px 20px;
     height: 30px;
@@ -37,21 +37,26 @@
     font-weight: 200;
   }
 
-  &__description-location{
+  &__description-location {
     float: left;
     font-size:14px;
   }
 
-  &__description-icon{
+  &__description-icon {
     cursor: pointer;
     float: right;
-    color: $color-orange;
+    color:$light-gray;
   }
 
-  &__description-icon-delete{
+  &__description-icon-delete {
     padding: 0 10px;
     font-size: 15px;
     display: block;
     float: left;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: $color-orange;
+    }
   }
 }

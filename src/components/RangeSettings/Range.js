@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './RangeStyle.scss';
-import '../SettingsWrapper/SettingsWrapperStyle.scss';
+
 
 export default class RangeSettings extends React.Component {
 
@@ -49,7 +49,6 @@ RangeSettings.propTypes = {
   max: PropTypes.number,
   min: PropTypes.number,
   setDevice: PropTypes.func,
-  sendRangeValue: PropTypes.func,
   hideLabel: PropTypes.bool,
   onChange: PropTypes.func
 };

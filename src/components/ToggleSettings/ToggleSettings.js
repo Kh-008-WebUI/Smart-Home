@@ -6,18 +6,11 @@ export default class ToggleSettings extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      value: props.checked
-    };
-
     this.onChange = this.onChange.bind(this);
   }
 
   onChange () {
-    this.setState({
-      value: !this.state.value
-    });
-    this.props.sendToggleValue(!this.state.value);
+    this.props.onStatusChange(this.props.id);
   }
 
   render () {
@@ -26,7 +19,7 @@ export default class ToggleSettings extends React.Component {
         <label className="switch">
           <input
             type="checkbox"
-            checked={this.state.value}
+            defaultChecked={this.props.checked}
             onClick={this.onChange}
           />
           <div className="slider round"></div>
@@ -37,7 +30,8 @@ export default class ToggleSettings extends React.Component {
 }
 
 ToggleSettings.propTypes = {
+  id: PropTypes.number,
   styleName: PropTypes.string,
   checked: PropTypes.bool,
-  sendToggleValue: PropTypes.func
+  onStatusChange: PropTypes.func
 };

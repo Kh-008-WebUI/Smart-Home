@@ -1,8 +1,10 @@
-const deviceProto = (state = {
+const initialState = {
   name: '',
   location: '',
   items: []
-}, action) => {
+};
+
+const settings = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_ITEM':
       return Object.assign({}, state, { items:[...state.items, action.item] });
@@ -20,4 +22,4 @@ const deviceProto = (state = {
   }
 };
 
-export default deviceProto;
+export default settings;

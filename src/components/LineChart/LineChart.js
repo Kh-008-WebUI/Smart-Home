@@ -12,7 +12,7 @@ export default class LineChart extends Component {
   }
 
   render () {
-    const margin = { top: 5, right: 50, bottom: 20, left: 50 },
+    const margin = { top: 20, right: 50, bottom: 20, left: 50 },
       w = this.props.width - (margin.left + margin.right),
       h = this.props.height - (margin.top + margin.bottom);
     const parseDate = d3.timeParse('%x');
@@ -35,7 +35,9 @@ export default class LineChart extends Component {
     const transform = `translate(${margin.left},${margin.top})`;
 
     return (
-      <div style={ { width:this.props.width, height:this.props.height } }>
+      <div
+        className={this.props.styleName}
+        style={ { width:this.props.width, height:this.props.height } }>
         <svg
           width={ '100%' }
           height={ '100%' }>
@@ -81,7 +83,8 @@ LineChart.propTypes = {
   height: PropTypes.number,
   xData: PropTypes.string,
   yData: PropTypes.string,
-  data: PropTypes.array
+  data: PropTypes.array,
+  styleName: PropTypes.string
 };
 
 LineChart.defaultProps = {

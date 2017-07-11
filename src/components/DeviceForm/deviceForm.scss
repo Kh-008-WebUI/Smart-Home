@@ -87,3 +87,19 @@
   }
 }
 
+//phone
+@media screen and (max-width:479px) {
+  .device-form {
+    .input-container {
+      width: 100%;
+      .name-input {
+        width: 100%;
+      }
+    }
+    .form-button {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+}
+

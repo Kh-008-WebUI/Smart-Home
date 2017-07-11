@@ -34,31 +34,27 @@ export default class TimerSettings extends React.Component {
 
   render () {
     return (
-      <div className="m-time">
+<div className={`m-time ${this.props.styleName}`}>
         <div className="showtime">
           <span className="time">{this.state.hours}</span>
           <span className="separater">:</span>
           <span className="time">{this.state.minutes}</span>
         </div>
 
-        <div className="sliders">
-          <div className="time-text">Hours</div>
+        <div className='sliders'>
+          <div className='sliders__time-text'>Hours</div>
           <RangeSettings
-            className="u-slider-time"
+            className='u-slider-time'
             min={0}
             max={23}
-            useInitialValue={true}
-            initialValue={this.addLeadingZero(this.state.hours)}
             onChange={this.changeHours}
             hideLabel={true}
           />
-          <div className="time-text">Minutes</div>
+          <div className='sliders__time-text'>Minutes</div>
           <RangeSettings
-            className="u-slider-time"
+            className='u-slider-time'
             min={0}
             max={59}
-            useInitialValue={true}
-            initialValue={this.addLeadingZero(this.state.minutes)}
             onChange={this.changeMinutes}
             hideLabel={true}
           />
@@ -70,7 +66,5 @@ export default class TimerSettings extends React.Component {
 TimerSettings.propTypes = {
   styleName: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.any,
-  moment: PropTypes.any,
-  InputSlider: PropTypes.any
+  onChange: PropTypes.func
 };

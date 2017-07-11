@@ -1,4 +1,5 @@
 import { ADD_DEVICE } from '../constants/constants';
+import DeviceListApi from '../api/deviceListApi';
 
 export const addDevice = (device) => {
   return {
@@ -6,4 +7,3 @@ export const addDevice = (device) => {
     device
   };
 };
-

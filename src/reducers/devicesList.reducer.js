@@ -27,7 +27,6 @@ const devicesList = (state = [], action) => {
 
       return newDevices;
     }
-
     default:
       return state;
   }

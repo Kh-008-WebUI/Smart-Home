@@ -1,5 +1,8 @@
 import { all, takeEvery } from 'redux-saga/effects';
-import { loadDevices, loadDevice } from '../actions/loadDevices.action';
+import {
+  loadDevices,
+  loadDevice,
+  addDevice } from '../actions/loadDevices.action';
 import { deleteDevice } from '../actions/deleteDevice.action';
 
 export function* watchLoadDevicesAsync () {
@@ -14,10 +17,15 @@ export function* watchDeleteDeviceAsync () {
   yield takeEvery('DELETE_DEVICE_ASYNC', deleteDevice);
 }
 
-export default function* rootSaga () {
+export function *watchAddDeviceAsync () {
+  yield takeEvery('ADD_DEVICE', addDevice);
+}
+
+export default function *rootSaga () {
   yield all([
     watchLoadDeviceAsync(),
     watchLoadDevicesAsync(),
-    watchDeleteDeviceAsync()
+    watchDeleteDeviceAsync(),
+    watchAddDeviceAsync()
   ]);
 }

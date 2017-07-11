@@ -41,8 +41,8 @@ class DeviceList extends React.Component {
     return this.props.devices.map((item, i) => {
       return (
         <DeviceListItem data={item} key={item.id}
-        changeStatus={this.changeStatus}
-        deleteDevice={this.deleteDevice}/>
+          changeStatus={this.changeStatus}
+          deleteDevice={this.deleteDevice}/>
       );
     });
   }
