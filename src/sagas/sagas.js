@@ -10,7 +10,7 @@ import notificationsSaga from './notificationsSaga';
 import { watchAddDevice } from './addDevice.sagas';
 
 export function* watchLoadDevices () {
-  yield takeEvery('LOAD_DEVICES', loadDevices);
+  yield takeEvery('LOAD_DEVICES', loadDevicesSaga);
 }
 
 export function* watchLoadDeviceAsync () {
