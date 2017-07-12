@@ -1,6 +1,6 @@
-import { LOAD_DEVICES_SUCCESS } from '../constants/constants';
-import { CHANGE_STATUS } from '../constants/constants';
-import { DELETE_DEVICE } from '../constants/constants';
+import { LOAD_DEVICES_SUCCESS } from '../constants/index';
+import { CHANGE_STATUS } from '../constants/index';
+import { DELETE_DEVICE } from '../constants/index';
 
 const devicesList = (state = [], action) => {
   switch (action.type) {

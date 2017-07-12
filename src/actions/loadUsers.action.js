@@ -1,5 +1,5 @@
 import { LOAD_USERS_SUCCESS, UPDATE_USERS_REQUEST, LOAD_USERS_FAILED }
-from '../constants/constants';
+from '../constants/index';
 
 export const loadUsersSuccess = (payload) => {
   return {

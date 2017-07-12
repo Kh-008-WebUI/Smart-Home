@@ -1,4 +1,4 @@
-import { DELETE_DEVICE, DELETE_DEVICE_ASYNC } from '../constants/constants';
+import { DELETE_DEVICE, DELETE_DEVICE_ASYNC } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 
