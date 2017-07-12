@@ -22,6 +22,7 @@ export default function* rootSaga () {
   yield all([
     watchLoadDeviceAsync(),
     watchLoadDevices(),
-    watchDeleteDeviceAsync()
+    watchDeleteDeviceAsync(),
+    watchAddDevice()
   ]);
 }
