@@ -1,3 +1,10 @@
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  SET,
+  RESET_DEVICE_BUILDER_FORM
+} from '../constants/constants';
+
 const initialState = {
   name: '',
   location: '',
@@ -6,13 +13,13 @@ const initialState = {
 
 const settings = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_ITEM':
+    case ADD_ITEM:
       return Object.assign({}, state, { items:[...state.items, action.item] });
-    case 'SET':
+    case SET:
       return Object.assign({}, state, { [action.name]: action.value });
-    case 'RESET_DEVICE_BUILDER_FORM':
+    case RESET_DEVICE_BUILDER_FORM:
       return { name: '', location: '', items: [] };
-    case 'DELETE_ITEM':
+    case DELETE_ITEM:
       return ({
         ...state,
         items:state.items.filter((item, i) => action.id !== i)
