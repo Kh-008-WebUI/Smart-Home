@@ -1,5 +1,5 @@
-import { UPDATE_CURRENT_USERS, UPDATE_CURRENT_REQUEST }
-from '../constants/constants';
+import { NOTIFICATIONS_FETCH_SUCCEEDED, NOTIFICATIONS_FETCH_REQUESTED }
+from '../constants/index';
 
 export const fetchNotificationsSuccess = (notifications) => {
   return {
