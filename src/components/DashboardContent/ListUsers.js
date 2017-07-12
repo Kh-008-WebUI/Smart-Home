@@ -17,12 +17,6 @@ class ListUsers extends React.Component {
 
   render () {
     const list = this.props.currentUsers.users;
-
-    /* const {
-      currentUsers: {
-        users
-      }
-    } */
     const listAtHome = list.filter((item) => (item.home));
 
     return (
@@ -41,12 +35,14 @@ class ListUsers extends React.Component {
 
 ListUsers.propTypes = {
   currentUsers: PropTypes.object,
+  error: PropTypes.object,
   loadUsersRequest: PropTypes.func.isRequired
 };
 
 function mapStateToProps (store) {
   return {
-    currentUsers: store.loadUsersReducer
+    currentUsers: store.loadUsersReducer,
+    error: store.loadUsersReducer
   };
 }
 function mapDispatchToProps (dispatch) {

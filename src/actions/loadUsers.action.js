@@ -1,15 +1,22 @@
-import { UPDATE_CURRENT_USERS, UPDATE_CURRENT_REQUEST }
+import { LOAD_USERS_SUCCESS, UPDATE_USERS_REQUEST, LOAD_USERS_FAILED }
 from '../constants/constants';
 
 export const loadUsersSuccess = (payload) => {
   return {
-    type: UPDATE_CURRENT_USERS,
+    type: LOAD_USERS_SUCCESS,
+    payload
+  };
+};
+
+export const loadUsersFailed = (payload) => {
+  return {
+    type: LOAD_USERS_FAILED,
     payload
   };
 };
 
 export const loadUsersRequest = () => {
   return {
-    type: UPDATE_CURRENT_REQUEST
+    type: UPDATE_USERS_REQUEST
   };
 };
