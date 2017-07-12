@@ -1,6 +1,9 @@
 .builder {
   display: flex;
   flex-direction: column;
-  padding: 0 5%;
-  padding-top: 3%;
+  padding-top: 20px;
+
+  &__title{
+    margin-top:10px;
+  }
 }
