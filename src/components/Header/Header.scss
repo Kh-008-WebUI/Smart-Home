@@ -4,6 +4,7 @@
   position: fixed;
   border-bottom: 1px solid $border-color;
   background-color: $text_color_active;
+  z-index: 1;
   top: 0;
   left: 0;
   right: 0;
