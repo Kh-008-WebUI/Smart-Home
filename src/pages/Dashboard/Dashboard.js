@@ -28,12 +28,6 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapStateToProps = state =>({
-  devices: state.devicesList
-});
-
-const mapDispatchToProps = dispatch => ({
-});
 
 Dashboard.propTypes = {
   devices: PropTypes.array

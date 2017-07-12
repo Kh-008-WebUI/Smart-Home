@@ -25,7 +25,7 @@ export default class DeviceListApi {
       setTimeout(() => {
         let device;
 
-        devices.map((item) => {
+        listDevices.map((item) => {
           if (item.id === id) {
             device = Object.assign({}, item);
           }

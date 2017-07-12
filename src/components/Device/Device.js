@@ -31,7 +31,7 @@ export const Device = (props) => {
         </h4>
       </div>
       <section className="device-view__settings">
-        {device.item.map((setting, i) => {
+        {device.items.map((setting, i) => {
           const SettingsComponent = settingsComponents[setting.name];
 
           return (

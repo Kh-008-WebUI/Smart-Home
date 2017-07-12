@@ -1,25 +1,26 @@
-import { LOAD_DEVICES, LOAD_DEVICES_ASYNC,
-        LOAD_DEVICE_ASYNC, ADD_DEVICE_ASYNC } from '../constants/constants';
+import { LOAD_DEVICES,
+  LOAD_DEVICES_SUCCESS,
+  LOAD_DEVICE_ASYNC,
+  LOAD_DEVICES_FAILURE, ADD_DEVICE_ASYNC } from '../constants/constants';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 
+export const loadDevices = () => {
+  return {
+    type: LOAD_DEVICES
+  };
+};
+
 export const loadDevicesSuccess = (devices) => {
   return {
-    type: LOAD_DEVICES,
+    type: LOAD_DEVICES_SUCCESS,
     devices
   };
 };
 
-export const addDeviceAsync = (device) => {
+export const loadDevicesFail = () => {
   return {
-    type: ADD_DEVICE_ASYNC,
-    device
-  };
-};
-
-export const loadDevicesAsync = () => {
-  return {
-    type: LOAD_DEVICES_ASYNC
+    type: LOAD_DEVICES_FAILURE
   };
 };
 
@@ -30,19 +31,17 @@ export const loadDeviceAsync = (id) => {
   };
 };
 
-export function *addDevice (action) {
-  const device = yield call(DeviceListApi.addDevice, action.device);
+export function* loadDevicesSaga () {
+  try {
+    const devices = yield call(DeviceListApi.getDevices);
 
-  yield put(addDeviceAsync(device));
+    yield put(loadDevicesSuccess(devices));
+  } catch (e) {
+    yield put(loadDevicesFail());
+  }
 }
 
-export function *loadDevices () {
-  const devices = yield call(DeviceListApi.getDevices);
-
-  yield put(loadDevicesSuccess(devices));
-}
-
-export function *loadDevice (action) {
+export function* loadDevice (action) {
   const device = yield call(DeviceListApi.getDevice, action.id);
 
   yield put(loadDevicesSuccess([device]));

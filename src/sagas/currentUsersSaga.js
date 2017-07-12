@@ -5,12 +5,12 @@ import { loadUsersSuccess } from '../actions/loadUsers.action';
 import 'regenerator-runtime/runtime';
 require('babel-polyfill');
 
-function *getUsersList () {
+function* getUsersList () {
   const currentUsers = yield call(Api);
 
   yield put(loadUsersSuccess(currentUsers));
 }
-export default function *currentUsersSaga () {
+export default function* currentUsersSaga () {
   yield takeEvery('UPDATE_CURRENT_REQUEST', getUsersList);
 }
 

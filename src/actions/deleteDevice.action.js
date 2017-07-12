@@ -12,7 +12,7 @@ export const deleteDeviceAsync = (id) => ({
   id
 });
 
-export function *deleteDevice (action) {
+export function* deleteDevice (action) {
   const id = yield call(DeviceListApi.deleteDevice, action.id);
 
   yield put(deleteDeviceSuccess(id));

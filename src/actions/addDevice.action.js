@@ -1,4 +1,5 @@
-import { ADD_DEVICE } from '../constants/constants';
+import { ADD_DEVICE,
+  CLEAR_DEVICE_STATUS } from '../constants/constants';
 import DeviceListApi from '../api/deviceListApi';
 
 export const addDevice = (device) => {
@@ -7,3 +8,8 @@ export const addDevice = (device) => {
     device
   };
 };
+
+export const clearDeviceStatus = () => ({
+  type: CLEAR_DEVICE_STATUS
+});
+
