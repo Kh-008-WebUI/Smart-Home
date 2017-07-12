@@ -1,14 +1,17 @@
 import React from 'react';
 import DashboardListDevices from
 '../../components/DashboardContent/ListDevices';
-import DashboardListPersons from
-'../../components/DashboardContent/ListPersons';
+import DashboardListUsers from
+'../../components/DashboardContent/ListUsers';
 import Notification from
 '../../components/DashboardContent/Notification';
 import jsonData from '../../data/data';
 import './Dashboard.scss';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import deviceList from '../../api/dashListDeviceApi.js';
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   constructor (props) {
     super(props);
   }
@@ -17,11 +20,18 @@ export default class Dashboard extends React.Component {
      <div className='dashboard-block'>
         <div className='dashboard-devices-and-persons'>
           <DashboardListDevices data={jsonData} />
-          <DashboardListPersons />
+          <DashboardListUsers />
         </div>
         <Notification/>
       </div>
     );
   }
 }
+
+
+Dashboard.propTypes = {
+  devices: PropTypes.array
+};
+
+export default Dashboard;
 

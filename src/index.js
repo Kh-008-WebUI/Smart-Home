@@ -1,4 +1,5 @@
 require('./scss/index.scss');
+import createSagaMiddleware from 'redux-saga';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -10,7 +11,6 @@ import DevicePage from './pages/DevicePage/DevicePage';
 import { Builder } from './pages/Builder/Builder';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
-import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas/sagas';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
