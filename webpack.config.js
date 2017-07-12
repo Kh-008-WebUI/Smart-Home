@@ -6,42 +6,42 @@ const glob = require('glob');
 
 let isProd = process.env.NODE_ENV === 'production';
 const cssDev = [
-                    'style-loader?convertToAbsoluteUrls',
-                    'css-loader?sourceMap=true',
-                    'postcss-loader?sourceMap=true',
-                    'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
-               ];
+    'style-loader?convertToAbsoluteUrls',
+    'css-loader?sourceMap=true',
+    'postcss-loader?sourceMap=true',
+    'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+];
 const cssProd = ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: false
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                sourceMap: false
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: false,
-                                outputStyle: 'expanded',
-                                sourceMapContents: false,
-                            }
-                        },
-                    ],
-                    publicPath: ''
-                });
+    fallback: 'style-loader',
+    use: [
+        {
+            loader: 'css-loader',
+            options: {
+                sourceMap: false
+            }
+        },
+        {
+            loader: 'postcss-loader',
+            options: {
+                sourceMap: false
+            }
+        },
+        {
+            loader: 'sass-loader',
+            options: {
+                sourceMap: false,
+                outputStyle: 'expanded',
+                sourceMapContents: false,
+            }
+        },
+    ],
+    publicPath: ''
+});
 
 let cssConfig = isProd ? cssProd : cssDev;
 module.exports = {
     entry: ['babel-polyfill', './src/index.js'],
-    // devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     output: {
         filename: 'index_bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -52,24 +52,24 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: [
-                  {
-                    loader: 'babel-loader',
-                    query: {
-                      plugins: [
-                        'babel-plugin-transform-class-properties',
-                        'babel-plugin-transform-object-rest-spread'
-                      ]
-                    }
-                  },
-                  'eslint-loader'
+                    {
+                        loader: 'babel-loader',
+                        query: {
+                            plugins: [
+                                'babel-plugin-transform-class-properties',
+                                'babel-plugin-transform-object-rest-spread'
+                            ]
+                        }
+                    },
+                    'eslint-loader'
                 ]
             },
             {
-                test: /\.scss$/, 
+                test: /\.scss$/,
                 use: cssConfig
             },
             {
-                test: /\.css$/, 
+                test: /\.css$/,
                 use: ['css-loader']
             },
             {
@@ -81,8 +81,8 @@ module.exports = {
                 use: [
                     'file-loader?name=images/[hash].[ext]',
                     {
-                    loader: 'image-webpack-loader',
-                    options: {}
+                        loader: 'image-webpack-loader',
+                        options: {}
                     }
                 ]
             },
