@@ -10,13 +10,6 @@ export const loadDevicesSuccess = (devices) => {
   };
 };
 
-export const addDeviceAsync = (device) => {
-  return {
-    type: ADD_DEVICE_ASYNC,
-    device
-  };
-};
-
 export const loadDevicesAsync = () => {
   return {
     type: LOAD_DEVICES_ASYNC
@@ -30,13 +23,7 @@ export const loadDeviceAsync = (id) => {
   };
 };
 
-export function *addDevice (action) {
-  const device = yield call(DeviceListApi.addDevice, action.device);
-
-  yield put(addDeviceAsync(device));
-}
-
-export function *loadDevices () {
+export function* loadDevices () {
   const devices = yield call(DeviceListApi.getDevices);
 
   yield put(loadDevicesSuccess(devices));

@@ -73,8 +73,6 @@ class DeviceForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addDevice(this.props.settings);
-    this.props.resetProto();
-    this.props.router.push('/devices');
   };
 
 
@@ -112,7 +110,8 @@ class DeviceForm extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    settings: store.settings
+    settings: store.settings,
+    status: store.addStatus.status
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -130,6 +129,5 @@ DeviceForm.propTypes = {
   addItem: PropTypes.func,
   resetProto: PropTypes.func,
   addDevice:  PropTypes.func,
-  settings: PropTypes.object,
-  router: PropTypes.any
+  settings: PropTypes.object
 };
