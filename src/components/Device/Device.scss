@@ -4,10 +4,10 @@
   padding-top: 20px;
 
   &__header {
-		height: 70px;
-		border-bottom: 1px solid lightgray;
-		margin-bottom: 10px;
-	}
+	height: 70px;
+	border-bottom: 1px solid lightgray;
+	margin-bottom: 10px;
+}
 	
 	&__name {
 		color:#555;
@@ -109,9 +109,9 @@
         margin-bottom: 50px;
       }
 
-			&.device-view__settings-item--linechart {
-				width: 85%;
-			}
+	&.device-view__settings-item--linechart {
+		width: 85%;
+	}
 
       &--toggle {
         width: inherit;
