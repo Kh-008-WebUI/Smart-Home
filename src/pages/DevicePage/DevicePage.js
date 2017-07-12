@@ -14,9 +14,9 @@ class DevicePage extends React.Component {
 
   render () {
     const id = parseInt(this.props.match.params.id);
-    const device = this.props.devices[0];
+    const device = this.props.devices.filter(item =>
+      item.id === id)[0];
 
-    console.log(this.props);
     return (
       <div className="device-view">
         {this.props.devices.length === 0 ? <p>

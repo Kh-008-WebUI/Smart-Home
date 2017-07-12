@@ -109,6 +109,10 @@
         margin-bottom: 50px;
       }
 
+			&.device-view__settings-item--linechart {
+				width: 85%;
+			}
+
       &--toggle {
         width: inherit;
         max-width: 130px;
@@ -129,7 +133,7 @@
 
       &--linechart {
         order: 5;
-      }
+			}
     }
   }
 }
