@@ -73,8 +73,6 @@ class DeviceForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addDevice(this.props.settings);
-    this.props.resetProto();
-    this.props.router.push('/devices');
   };
 
 
@@ -105,14 +103,18 @@ class DeviceForm extends React.Component {
           <label> Device config:</label> <br />
           { this.createButtons() }
         </div>
-        <input className="main-button form-button" type="submit" value="Add" />
+        <input className="main-button form-button"
+          type="submit"
+          value="Add"
+          disabled = { this.props.status === 'PENDING' }/>
       </form>
     );
   }
 }
 function mapStateToProps (store) {
   return {
-    settings: store.settings
+    settings: store.settings,
+    status: store.addStatus.status
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -131,5 +133,5 @@ DeviceForm.propTypes = {
   resetProto: PropTypes.func,
   addDevice:  PropTypes.func,
   settings: PropTypes.object,
-  router: PropTypes.any
+  status: PropTypes.string
 };

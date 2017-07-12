@@ -1,10 +1,10 @@
-import { LOAD_DEVICES } from '../constants/constants';
+import { LOAD_DEVICES_SUCCESS } from '../constants/constants';
 import { CHANGE_STATUS } from '../constants/constants';
 import { DELETE_DEVICE } from '../constants/constants';
 
 const devicesList = (state = [], action) => {
   switch (action.type) {
-    case LOAD_DEVICES:
+    case LOAD_DEVICES_SUCCESS:
       return action.devices.map((item) => (
         Object.assign({}, item)
       ));

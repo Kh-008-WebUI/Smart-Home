@@ -9,7 +9,7 @@ import { filterAction,
   searchAction } from '../../actions/searchAndFilter.action';
 import { changeStatus } from '../../actions/changeStatus.action';
 import { filterItems } from '../../selectors';
-import { loadDevicesAsync } from '../../actions/loadDevices.action';
+import { loadDevices } from '../../actions/loadDevices.action';
 import { deleteDeviceAsync } from '../../actions/deleteDevice.action';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -92,7 +92,7 @@ const mapDispatchToProps = (dispatch) => ({
   filterAction: (filterOption) => dispatch(filterAction(filterOption)),
   changeStatus: (index) => dispatch(changeStatus(index)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
-  loadDevices: () => dispatch(loadDevicesAsync()),
+  loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDeviceAsync(id))
 });
 
