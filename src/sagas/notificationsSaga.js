@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import Api from '../api/notificationsApi';
+import notificationsApi from '../api/notificationsApi';
 import { fetchNotificationsSuccess } from '../actions/loadNotifications.action';
 
 function* fetchNotifications () {
-  const notifications = yield call(Api);
+  const notifications = yield call(notificationsApi.getNotifications);
 
   yield put(fetchNotificationsSuccess(notifications));
 }
