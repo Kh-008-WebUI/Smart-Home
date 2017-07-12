@@ -3,7 +3,7 @@ import {
   DELETE_ITEM,
   SET,
   RESET_DEVICE_BUILDER_FORM
-} from '../constants/constants';
+} from '../constants/index';
 
 const initialState = {
   name: '',

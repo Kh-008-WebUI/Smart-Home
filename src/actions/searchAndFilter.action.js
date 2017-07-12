@@ -1,5 +1,5 @@
-import { CHANGE_FILTER_OPTION } from '../constants/constants';
-import { SEARCH_ITEM } from '../constants/constants';
+import { CHANGE_FILTER_OPTION } from '../constants/index';
+import { SEARCH_ITEM } from '../constants/index';
 
 export const searchAction = (searchValue) => ({
   type: SEARCH_ITEM,
