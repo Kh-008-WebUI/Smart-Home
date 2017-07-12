@@ -4,7 +4,7 @@ const loadUsersReducer = (state = { users: [] }, action) => {
       return Object.assign({}, state, action.payload);
     }
     case 'LOAD_USERS_FAILED': {
-      return action.payload;
+      return Object.assign({}, state, action.payload);
     }
 
     default:

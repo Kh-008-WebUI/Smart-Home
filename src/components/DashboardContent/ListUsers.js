@@ -35,14 +35,12 @@ class ListUsers extends React.Component {
 
 ListUsers.propTypes = {
   currentUsers: PropTypes.object,
-  error: PropTypes.object,
   loadUsersRequest: PropTypes.func.isRequired
 };
 
 function mapStateToProps (store) {
   return {
-    currentUsers: store.loadUsersReducer,
-    error: store.loadUsersReducer
+    currentUsers: store.loadUsersReducer
   };
 }
 function mapDispatchToProps (dispatch) {
