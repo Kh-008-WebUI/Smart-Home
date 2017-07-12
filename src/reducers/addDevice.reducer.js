@@ -10,6 +10,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { status:'DONE' });
     case 'ADD_DEVICE_FAILURE':
       return Object.assign({}, state, { status:'FAIL' });
+    case 'CLEAR_DEVICE_STATUS':
+      return Object.assign({}, state, { status:'' });
     default:
       return state;
   }

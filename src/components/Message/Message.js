@@ -4,10 +4,15 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import './index.scss';
 import { resetProto } from '../../actions/builder.actions';
+import { clearDeviceStatus } from '../../actions/addDevice.action';
 
 class Message extends Component {
   constructor (props) {
     super(props);
+  }
+
+  componentWillUnmount () {
+    this.props.clearDeviceStatus();
   }
 
   chooseMessage = () => {
@@ -46,7 +51,8 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    resetProto: bindActionCreators(resetProto, dispatch)
+    resetProto: bindActionCreators(resetProto, dispatch),
+    clearDeviceStatus: bindActionCreators(clearDeviceStatus, dispatch)
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Message);
@@ -54,5 +60,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Message);
 Message.propTypes = {
   status: PropTypes.string,
   resetProto: PropTypes.func,
+  clearDeviceStatus: PropTypes.func,
   router: PropTypes.any
 };

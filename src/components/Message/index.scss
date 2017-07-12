@@ -1,11 +1,15 @@
+@import "../../scss/_variables";
+
 .Message {
   position: fixed;
   left: 45%;
   top: 45%;
-  background: black;
+  background: $light-bg;
   height: 10%;
   width: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid $border-color;
+  border-radius:20px;
 }
