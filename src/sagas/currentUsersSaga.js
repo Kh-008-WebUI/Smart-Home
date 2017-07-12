@@ -3,7 +3,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import Api from '../api/usersApi';
 import { loadUsersSuccess, loadUsersFailed } from '../actions/loadUsers.action';
 
-function *getUsersList () {
+function* getUsersList () {
   try {
     const currentUsers = yield call(Api);
 
@@ -13,7 +13,7 @@ function *getUsersList () {
   }
 }
 
-export default function *currentUsersSaga () {
+export default function* currentUsersSaga () {
   yield takeEvery('UPDATE_USERS_REQUEST', getUsersList);
 }
 

@@ -18,11 +18,11 @@ export function* watchDeleteDeviceAsync () {
   yield takeEvery('DELETE_DEVICE_ASYNC', deleteDevice);
 }
 
-export function *watchAddDeviceAsync () {
+export function* watchAddDeviceAsync () {
   yield takeEvery('ADD_DEVICE', addDevice);
 }
 
-export default function *rootSaga () {
+export default function* rootSaga () {
   yield all([
     watchLoadDeviceAsync(),
     watchLoadDevicesAsync(),

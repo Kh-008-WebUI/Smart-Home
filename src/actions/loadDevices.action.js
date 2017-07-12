@@ -30,13 +30,13 @@ export const loadDeviceAsync = (id) => {
   };
 };
 
-export function *addDevice (action) {
+export function* addDevice (action) {
   const device = yield call(DeviceListApi.addDevice, action.device);
 
   yield put(addDeviceAsync(device));
 }
 
-export function *loadDevices () {
+export function* loadDevices () {
   const devices = yield call(DeviceListApi.getDevices);
 
   yield put(loadDevicesSuccess(devices));
