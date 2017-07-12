@@ -1,7 +1,9 @@
-import { ADD_ITEM } from '../constants/constants';
-import { DELETE_ITEM } from '../constants/constants';
-import { SET } from '../constants/constants';
-import { RESET_DEVICE_BUILDER_FORM } from '../constants/constants';
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  SET,
+  RESET_DEVICE_BUILDER_FORM
+} from '../constants/constants';
 
 export const addItem = (item) => {
   return {

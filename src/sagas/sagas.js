@@ -4,6 +4,7 @@ import {
   loadDevice
 } from '../actions/loadDevices.action';
 import { deleteDevice } from '../actions/deleteDevice.action';
+import { watchAddDevice } from './addDevice.sagas';
 
 export function* watchLoadDevices () {
   yield takeEvery('LOAD_DEVICES', loadDevicesSaga);
