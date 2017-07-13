@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
 import DeviceList from './pages/DeviceList/DeviceList';
 import DevicePage from './pages/DevicePage/DevicePage';
-import { Builder } from './pages/Builder/Builder';
+import Builder from './pages/Builder/Builder';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import rootSaga from './sagas/index';

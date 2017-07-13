@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import './builder.scss';
+import { deleteItem } from '../../actions/builder.actions';
 import DeviceForm from '../../components/DeviceForm/deviceForm.js';
-import Prototype from '../../components/Prototype/Prototype.js';
+import { Prototype } from '../../components/Prototype/Prototype.js';
 import Message from '../../components/Message/Message.js';
 import PropTypes from 'prop-types';
+import { resetProto } from '../../actions/builder.actions';
 
-export const Builder = (props) => (
+class Builder extends Component {
+  constructor (props) {
+    super(props);
+  }
+  render () {
+    return (
       <section className='builder'>
         <h1 className='device-list__title'>Device Builder</h1>
         <DeviceForm />
-        <Message router={props.history}/>
+        <Message
+          router={this.props.history}
+          status={this.props.status}
+          resetBuilder={this.props.resetBuilder}
+          />
         <h3 className="builder__title">Prototype</h3>
-        <Prototype />
+        <Prototype
+          device={this.props.device}
+          deleteItem={this.props.deleteItem} />
       </section>
-);
+    );
+  }
+}
+
+function mapStateToProps (store) {
+  return {
+    device: store.builder.device,
+    status: store.builder.uploadStatus
+  };
+}
+function mapDispatchToProps (dispatch) {
+  return {
+    deleteItem: bindActionCreators(deleteItem, dispatch),
+    resetBuilder: bindActionCreators(resetProto, dispatch)
+  };
+}
 
 Builder.propTypes = {
+  status: PropTypes.string,
+  device: PropTypes.object,
+  resetBuilder: PropTypes.func,
+  clearDeviceStatus: PropTypes.func,
+  deleteItem: PropTypes.func,
   history: PropTypes.object
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Builder);
