@@ -17,6 +17,7 @@ import {
 
 export function* loadDevicesSaga () {
   try {
+    yield put({ type:'LOAD_DEVICE_PENDING' });
     const devices = yield call(DeviceListApi.getDevices);
 
     yield put(loadDevicesSuccess(devices));
