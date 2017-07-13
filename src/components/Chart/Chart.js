@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LineChart from '../LineChart/LineChart';
+import LineChart from './LineChart/LineChart';
 
 export default class Chart extends React.Component {
   constructor (props) {
