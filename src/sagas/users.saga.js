@@ -1,11 +1,11 @@
 import { UPDATE_USERS_REQUEST } from '../actions/loadUsers.action.js';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import Api from '../api/usersApi';
+import { usersList } from '../api/usersApi';
 import { loadUsersSuccess, loadUsersFailed } from '../actions/loadUsers.action';
 
 function* getUsersList () {
   try {
-    const currentUsers = yield call(Api);
+    const currentUsers = yield call(usersList);
 
     yield put(loadUsersSuccess(currentUsers));
   } catch (e) {

@@ -37,7 +37,7 @@ class Notifications extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    notifications: store.notificationsReduser
+    notifications: store.notificationsReducer
   };
 }
 function mapDispatchToProps (dispatch) {

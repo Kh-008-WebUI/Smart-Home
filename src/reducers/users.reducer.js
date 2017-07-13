@@ -1,4 +1,4 @@
-const loadUsersReducer = (state = { users: [] }, action) => {
+export const loadUsersReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case 'LOAD_USERS_SUCCESS': {
       return Object.assign({}, state, action.payload);
@@ -12,5 +12,4 @@ const loadUsersReducer = (state = { users: [] }, action) => {
   }
 };
 
-export default loadUsersReducer;
 
