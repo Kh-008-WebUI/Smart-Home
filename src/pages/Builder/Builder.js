@@ -8,7 +8,8 @@ import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
   resetProto,
-  deleteItem } from '../../actions/builder.action';
+  deleteItem,
+  addDescription } from '../../actions/builder.action';
 
 class Builder extends Component {
   constructor (props) {
@@ -26,7 +27,8 @@ class Builder extends Component {
         <h3 className="builder__title">Prototype</h3>
         <Prototype
           device={this.props.device}
-          deleteItem={this.props.deleteItem} />
+          deleteItem={this.props.deleteItem}
+          addDescription={this.props.addDescription} />
       </section>
     );
   }
@@ -41,7 +43,8 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(deleteItem, dispatch),
-    resetBuilder: bindActionCreators(resetProto, dispatch)
+    resetBuilder: bindActionCreators(resetProto, dispatch),
+    addDescription: bindActionCreators(addDescription, dispatch)
   };
 }
 
@@ -50,6 +53,7 @@ Builder.propTypes = {
   device: PropTypes.object,
   resetBuilder: PropTypes.func,
   clearDeviceStatus: PropTypes.func,
+  addDescription: PropTypes.func,
   deleteItem: PropTypes.func,
   history: PropTypes.object
 };

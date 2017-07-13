@@ -13,6 +13,7 @@ export const SettingsList = (props) => (
       return (
         <SettingsListItem
           key={i}
+          addDescription={props.addDescription}
           styleName={`settings-${setting.name.toLowerCase()}`}
           name={setting.name}
           deleteItem={props.deleteItem}
@@ -27,5 +28,6 @@ export const SettingsList = (props) => (
 SettingsList.propTypes = {
   settings: PropTypes.object,
   width: PropTypes.number,
+  addDescription: PropTypes.func,
   deleteItem: PropTypes.func
 };
