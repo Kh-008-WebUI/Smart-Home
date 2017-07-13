@@ -7,7 +7,7 @@ import {
 import { deleteDevice } from '../actions/deleteDevice.action';
 import currentUsersSaga from './users.saga';
 import notificationsSaga from './notifications.saga';
-import { watchAddDevice } from './addDevice.sagas';
+import { watchAddDevice } from './builder.saga';
 
 export function* watchLoadDevices () {
   yield takeEvery('LOAD_DEVICES', loadDevicesSaga);
