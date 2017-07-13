@@ -4,20 +4,16 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-export default class Message extends Component {
-  constructor (props) {
-    super(props);
-  }
-
-  chooseMessage = () => {
-    switch (this.props.status) {
+export const Message = (props) => {
+  const chooseMessage = () => {
+    switch (props.status) {
       case 'PENDING':
         return (<p className='Message'>
           <i className="fa fa-3x fa-spinner fa-spin"></i></p>);
       case 'DONE':
         setTimeout(()=>{
-          this.props.resetBuilder();
-          this.props.router.push('/devices');
+          props.resetBuilder();
+          props.router.push('/devices');
         }, 1000);
         return (<p className='Message'>
           <i className="fa fa-check-circle fa-3x"></i></p>);
@@ -27,16 +23,14 @@ export default class Message extends Component {
       default:
         return '';
     }
-  }
+  };
 
-  render () {
-    return (
-        <div >
-          {this.chooseMessage()}
-        </div>
-    );
-  }
-}
+  return (
+    <div >
+      {chooseMessage()}
+    </div>
+  );
+};
 
 Message.propTypes = {
   status: PropTypes.string,
