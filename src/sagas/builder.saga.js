@@ -1,11 +1,8 @@
-import { ADD_DEVICE,
-  ADD_DEVICE_SUCCESS,
-  ADD_DEVICE_FAILURE } from '../constants/index';
+import { ADD_DEVICE } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
+import { addDeviceSuccess,
+  addDeviceFailure } from '../actions/builder.action';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
-
-const addDeviceSuccess = (device) => ({ type: ADD_DEVICE_SUCCESS });
-const addDeviceFailure = (error) => ({ type: ADD_DEVICE_FAILURE, error });
 
 export function* addDevice (action) {
   try {

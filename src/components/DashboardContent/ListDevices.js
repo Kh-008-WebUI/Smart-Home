@@ -1,35 +1,60 @@
 import React from 'react';
 import './ListDevices.scss';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { loadDevices } from '../../actions/devices.action.js';
 import DeviceContent from './DeviceContent.js';
+import { filterItems } from '../../selectors/';
 
-const ListDevice = (props) => {
-  const arrDevices = [];
-  let power = '';
-  const quantityDevices = 3;
+class ListDevices extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+  componentDidMount () {
+    this.props.loadDevices();
+  }
+  render () {
+    const listDevices = this.props.devices.slice(1, 4);
 
-  for (let i = 0; i < quantityDevices; i++) {
-    if (props.data[i].status) {
-      power = 'power-on';
-    } else {
-      power = 'power-off';
-    }
-    arrDevices.push(
-      <li className="device-single" key={i}>
-        <DeviceContent device={props.data[i]} power={power}/>
-      </li>
+    return (
+      <section className="list-device">
+        {listDevices.map((item, key) => {
+          return (
+            <li className="device-single" key={key}>
+              <DeviceContent device={item}/>
+            </li>
+          );
+        })
+        }
+      </section>
     );
   }
-  return (
-      <section className="list-device">
-        {arrDevices}
-      </section>
-  );
+}
+
+const mapStateToProps = state =>({
+  devices: filterItems(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadDevices: () => dispatch(loadDevices())
+});
+
+ListDevices.propTypes = {
+  devices: PropTypes.array,
+  loadDevices: PropTypes.func
 };
 
-ListDevice.propTypes = {
-  data: PropTypes.array
-};
+export default connect(mapStateToProps, mapDispatchToProps)(ListDevices);
 
-export default ListDevice;
 
+// for (let i = 0; i < quantityDevices; i++) {
+//       if (listDevices[i].status) {
+//         power = 'power-on';
+//       } else {
+//         power = 'power-off';
+//       }
+//       arrDevices.push(
+//        <DeviceContent />
+//       );
+//     }
