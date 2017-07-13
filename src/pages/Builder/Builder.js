@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './builder.scss';
-import { deleteItem } from '../../actions/builder.actions';
-import DeviceForm from '../../components/DeviceForm/deviceForm.js';
-import { Prototype } from '../../components/Prototype/Prototype.js';
-import Message from '../../components/Message/Message.js';
+import DeviceForm from '../../components/DeviceForm/deviceForm';
+import { Prototype } from '../../components/Prototype/Prototype';
+import Message from '../../components/Message/Message';
 import PropTypes from 'prop-types';
-import { resetProto } from '../../actions/builder.actions';
+import {
+  resetProto,
+  deleteItem } from '../../actions/builder.action';
 
 class Builder extends Component {
   constructor (props) {
@@ -21,8 +22,7 @@ class Builder extends Component {
         <Message
           router={this.props.history}
           status={this.props.status}
-          resetBuilder={this.props.resetBuilder}
-          />
+          resetBuilder={this.props.resetBuilder} />
         <h3 className="builder__title">Prototype</h3>
         <Prototype
           device={this.props.device}

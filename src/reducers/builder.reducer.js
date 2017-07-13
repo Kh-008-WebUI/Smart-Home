@@ -5,8 +5,7 @@ import {
   RESET_DEVICE_BUILDER_FORM,
   ADD_DEVICE,
   ADD_DEVICE_SUCCESS,
-  ADD_DEVICE_FAILURE,
-  CLEAR_DEVICE_STATUS
+  ADD_DEVICE_FAILURE
 } from '../constants/index';
 
 const initialState = {
