@@ -1,7 +1,7 @@
 import { LOAD_DEVICES,
   LOAD_DEVICES_SUCCESS,
   LOAD_DEVICE_ASYNC,
-  LOAD_DEVICES_FAILURE, ADD_DEVICE_ASYNC } from '../constants/constants';
+  LOAD_DEVICES_FAILURE, ADD_DEVICE_ASYNC } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 

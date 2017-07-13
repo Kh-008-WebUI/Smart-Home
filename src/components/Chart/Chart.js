@@ -23,14 +23,14 @@ export default class Chart extends React.Component {
     });
   }
   getElementWidth () {
-    const ELEMENT_WIDTH = 0.85;
-
-    return document.querySelector(`.${this.props.parent}`)
-      .offsetWidth * ELEMENT_WIDTH;
+    return this.div.offsetWidth;
   }
   render () {
     return (
-      <div className={ this.props.styleName }>
+      <div className={ this.props.styleName }
+        ref={ (el)=>{
+          this.div = el;
+        } }>
          <LineChart width={this.state.calcWidth}/>
       </div>
     );

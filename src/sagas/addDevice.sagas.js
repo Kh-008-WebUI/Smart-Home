@@ -1,6 +1,6 @@
 import { ADD_DEVICE,
   ADD_DEVICE_SUCCESS,
-  ADD_DEVICE_FAILURE } from '../constants/constants';
+  ADD_DEVICE_FAILURE } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 

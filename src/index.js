@@ -5,13 +5,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './reducers/reducer';
+import rootReducer from './reducers/index';
 import DeviceList from './pages/DeviceList/DeviceList';
 import DevicePage from './pages/DevicePage/DevicePage';
 import { Builder } from './pages/Builder/Builder';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
-import rootSaga from './sagas/sagas';
+import rootSaga from './sagas/index';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
