@@ -67,25 +67,3 @@ export const filterAction = (filterOption) => {
     filterOption
   };
 };
-
-export function* loadDevicesSaga () {
-  try {
-    const devices = yield call(DeviceListApi.getDevices);
-
-    yield put(loadDevicesSuccess(devices));
-  } catch (e) {
-    yield put(loadDevicesFail());
-  }
-}
-
-export function* loadDevice (action) {
-  const device = yield call(DeviceListApi.getDevice, action.id);
-
-  yield put(loadDevicesSuccess([device]));
-}
-
-export function* deleteDevice (action) {
-  const id = yield call(DeviceListApi.deleteDevice, action.id);
-
-  yield put(deleteDeviceSuccess(id));
-}

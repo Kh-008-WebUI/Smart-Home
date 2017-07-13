@@ -1,8 +1,15 @@
 import { LOAD_DEVICES_SUCCESS } from '../constants/index';
 import { CHANGE_STATUS } from '../constants/index';
 import { DELETE_DEVICE } from '../constants/index';
+import { SEARCH_ITEM } from '../constants/index';
+import { CHANGE_FILTER_OPTION } from '../constants/index';
 
-const devicesList = (state = [], action) => {
+const initialState = {
+  filterOption: 'all',
+  searchValue: ''
+};
+
+export const devicesList = (state = [], action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
       return action.devices.map((item) => (
@@ -32,4 +39,13 @@ const devicesList = (state = [], action) => {
   }
 };
 
-export default devicesList;
+export const searchAndFilter = (state = initialState, action) => {
+  switch (action.type) {
+    case CHANGE_FILTER_OPTION:
+      return Object.assign({}, state, { filterOption: action.filterOption });
+    case SEARCH_ITEM:
+      return Object.assign({}, state, { searchValue: action.searchValue });
+    default:
+      return state;
+  }
+};
