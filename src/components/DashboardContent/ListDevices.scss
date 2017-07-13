@@ -2,11 +2,11 @@
 
 .list-device {
   background-color: $text-color-active;
-  width: 75%;
-  margin: 10px;
+  width: 78%;
+  // margin: 10px;
   padding: 15px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .device-single {
   width: 30%;
