@@ -10,22 +10,20 @@ require('./DevicePage.scss');
 class DevicePage extends React.Component {
   constructor (props) {
     super(props);
+  }
+
+  componentDidMount () {
     this.props.loadDevice(parseInt(this.props.match.params.id));
   }
 
   render () {
     const id = parseInt(this.props.match.params.id);
-    const device = this.props.devices.filter(item =>
-      item.id === id)[0];
 
     return (
       <div className="device-view">
-        {this.props.devices.length === 0 ? <p>
-            <i className="fa fa-3x fa-spinner fa-spin"></i>
-          </p> : <Device
-            device={device}
+      <Device
+            device={this.props.device}
             onStatusChange={this.props.onStatusChange}/>
-        }
       </div>
     );
   }
@@ -44,12 +42,18 @@ DevicePage.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
-  devices: PropTypes.array,
+  device: PropTypes.object,
   filter: PropTypes.array,
   filterAction: PropTypes.func,
   findItems: PropTypes.func,
   onStatusChange: PropTypes.func,
   loadDevice: PropTypes.func
+};
+
+DevicePage.defaultProps = {
+  device: {
+    items: []
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DevicePage);
