@@ -1,7 +1,7 @@
-import { UPDATE_USERS_REQUEST } from '../actions/loadUsers.action.js';
+import { UPDATE_USERS_REQUEST } from '../actions/users.action';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { usersList } from '../api/usersApi';
-import { loadUsersSuccess, loadUsersFailed } from '../actions/loadUsers.action';
+import { loadUsersSuccess, loadUsersFailed } from '../actions/users.action';
 
 function* getUsersList () {
   try {

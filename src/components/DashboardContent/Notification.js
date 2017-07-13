@@ -1,12 +1,11 @@
 import React from 'react';
-import jsonNotifications from '../../data/notifications.json';
 import './Notification.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest
-} from '../../actions/loadNotifications.action';
+} from '../../actions/notifications.action';
 
 class Notifications extends React.Component {
   constructor (props) {
