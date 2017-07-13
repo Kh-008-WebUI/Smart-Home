@@ -11,6 +11,14 @@ export const SettingsListItem = (props) => (
         onClick={()=>props.deleteItem(props.id)}
       />
     </div>
+    <div>
+      <label>
+        <p>Description</p>
+        <input
+          type="text"
+          onChange={ (e)=> props.addDescription(props.id, e.target.value) }/>
+      </label>
+    </div>
     { React.cloneElement(props.children, {
       styleName: 'item-body',
       parent: 'Prototype'
@@ -22,6 +30,7 @@ SettingsListItem.propTypes = {
   styleName: PropTypes.string,
   id: PropTypes.number,
   name: PropTypes.string,
+  addDescription: PropTypes.func,
   deleteItem: PropTypes.func.isRequired,
   children: PropTypes.any
 };

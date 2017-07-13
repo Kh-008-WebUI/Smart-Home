@@ -4,6 +4,7 @@ import {
   loadDevicesSuccess,
   loadDevicesFail,
   deleteDeviceSuccess,
+  loadDeviceSuccess,
   LOAD_DEVICES,
   LOAD_DEVICES_SUCCESS,
   LOAD_DEVICE_ASYNC,
@@ -24,10 +25,14 @@ export function* loadDevicesSaga () {
   }
 }
 
-export function* loadDevice (action) {
-  const device = yield call(DeviceListApi.getDevice, action.id);
+export function* loadDeviceSaga (action) {
+  try {
+    const device = yield call(DeviceListApi.getDevice, action.id);
 
-  yield put(loadDevicesSuccess([device]));
+    yield put(loadDeviceSuccess(device));
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export function* deleteDevice (action) {
@@ -40,8 +45,8 @@ export function* watchLoadDevices () {
   yield takeEvery('LOAD_DEVICES', loadDevicesSaga);
 }
 
-export function* watchLoadDeviceAsync () {
-  yield takeEvery('LOAD_DEVICE_ASYNC', loadDevice);
+export function* watchLoadDevice () {
+  yield takeEvery('LOAD_DEVICE_ASYNC', loadDeviceSaga);
 }
 
 export function* watchDeleteDeviceAsync () {

@@ -4,12 +4,13 @@ import notificationsSaga from './notifications.saga';
 import { watchAddDevice } from './builder.saga';
 import {
   watchLoadDevices,
+  watchLoadDevice,
   watchLoadDeviceAsync,
   watchDeleteDeviceAsync } from './devices.saga.js';
 
 export default function* rootSaga () {
   yield all([
-    watchLoadDeviceAsync(),
+    watchLoadDevice(),
     watchLoadDevices(),
     watchDeleteDeviceAsync(),
     currentUsersSaga(),

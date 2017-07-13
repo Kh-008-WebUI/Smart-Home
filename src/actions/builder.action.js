@@ -3,7 +3,10 @@ import {
   ADD_ITEM,
   DELETE_ITEM,
   SET,
-  RESET_DEVICE_BUILDER_FORM
+  RESET_DEVICE_BUILDER_FORM,
+  ADD_DEVICE_SUCCESS,
+  ADD_DEVICE_FAILURE,
+  ADD_ITEM_DESCRIPTION
 } from '../constants/index';
 
 export const addItem = (item) => {
@@ -39,3 +42,16 @@ export const addDevice = (device) => {
     device
   };
 };
+
+export const addDeviceSuccess = (device) => ({ type: ADD_DEVICE_SUCCESS });
+
+export const addDeviceFailure = (error) => ({
+  type: ADD_DEVICE_FAILURE,
+  error
+});
+
+export const addDescription = (id, value) => ({
+  type: ADD_ITEM_DESCRIPTION,
+  id,
+  value
+});
