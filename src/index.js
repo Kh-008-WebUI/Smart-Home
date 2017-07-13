@@ -27,6 +27,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path='/' component = { Dashboard } />
         <Route path='/devices/device/:id' component={DevicePage}></Route>
+        <Route path='/devices/:filterOption' component={DeviceList}></Route>
         <Route path='/devices' component={DeviceList}></Route>
         <Route path='/builder' component={Builder}></Route>
       </Switch>

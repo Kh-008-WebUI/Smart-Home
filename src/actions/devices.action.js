@@ -84,6 +84,7 @@ export const filterAction = (filterOption) => {
 
 export function* loadDevicesSaga () {
   try {
+    yield put({ type:'LOAD_DEVICE_PENDING' });
     const devices = yield call(DeviceListApi.getDevices);
 
     yield put(loadDevicesSuccess(devices));
@@ -98,7 +99,6 @@ export function* loadDeviceSaga (action) {
 
     yield put(loadDeviceSuccess(device));
   } catch (e) {
-    console.log(e);
   }
 }
 
