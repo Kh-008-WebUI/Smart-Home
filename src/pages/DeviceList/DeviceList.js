@@ -5,12 +5,13 @@ import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
-import { filterAction,
-  searchAction } from '../../actions/searchAndFilter.action';
-import { changeStatus } from '../../actions/changeStatus.action';
+import {
+  filterAction,
+  searchAction,
+  loadDevices,
+  changeStatus,
+  deleteDeviceAsync } from '../../actions/devices.action';
 import { filterItems } from '../../selectors';
-import { loadDevices } from '../../actions/loadDevices.action';
-import { deleteDeviceAsync } from '../../actions/deleteDevice.action';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';

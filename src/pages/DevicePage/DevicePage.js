@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Device } from '../../components/Device/Device';
 import PropTypes from 'prop-types';
-import { changeStatus } from '../../actions/changeStatus.action';
-import { loadDeviceAsync } from '../../actions/loadDevices.action';
+import {
+  changeStatus,
+  loadDeviceAsync } from '../../actions/devices.action';
 require('./DevicePage.scss');
 
 class DevicePage extends React.Component {
