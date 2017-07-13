@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { bindActionCreators } from 'redux';
 import {
+  addDevice,
   addItem,
   setValue,
   resetProto
-} from '../../actions/builder.actions';
-import { addDevice } from '../../actions/addDevice.action';
+} from '../../actions/builder.action';
 import { connect } from 'react-redux';
 
 const itemsToChoose = [

@@ -1,4 +1,5 @@
 import {
+  ADD_DEVICE,
   ADD_ITEM,
   DELETE_ITEM,
   SET,
@@ -32,3 +33,9 @@ export const resetProto = () => {
   };
 };
 
+export const addDevice = (device) => {
+  return {
+    type: ADD_DEVICE,
+    device
+  };
+};
