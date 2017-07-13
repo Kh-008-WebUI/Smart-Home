@@ -15,15 +15,20 @@ class Builder extends Component {
   constructor (props) {
     super(props);
   }
+  componentDidUpdate () {
+    if (this.props.status === 'DONE') {
+      setTimeout(()=>{
+        this.props.resetBuilder();
+        this.props.history.push('/devices');
+      }, 1000);
+    }
+  }
   render () {
     return (
       <section className='builder'>
         <h1 className='device-list__title'>Device Builder</h1>
         <DeviceForm />
-        <Message
-          router={this.props.history}
-          status={this.props.status}
-          resetBuilder={this.props.resetBuilder} />
+        <Message status={this.props.status} />
         <h3 className="builder__title">Prototype</h3>
         <Prototype
           device={this.props.device}

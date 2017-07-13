@@ -12,7 +12,7 @@ import {
 const initialState = {
   uploadStatus:'',
   device:{
-    name: 'Device name',
+    name: '',
     location: 'living room',
     items: []
   }
