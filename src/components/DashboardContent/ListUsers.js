@@ -3,7 +3,7 @@ import './ListUsers.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { loadUsersRequest } from '../../actions/loadUsers.action';
+import { loadUsersRequest } from '../../actions/users.action';
 import Avatar from '../Avatar/Avatar';
 
 class ListUsers extends React.Component {

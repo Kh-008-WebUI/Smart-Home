@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import './DeviceContent.scss';
 
 const DeviceContent = (props) => {
-  const classForOnOff = 'device-on_off ' + props.power;
-
   return (
     <div className='device-item'>
         <div className='device-item__info device-item-name_and_power'>
           <div className='device-item__info-name'>
             {props.device.name}
           </div>
-          <div className={classForOnOff}></div>
+          <div className={
+            props.device.status ?
+             'device-on_off power-on' :
+             'device-on_off power-off'
+            }>
+          </div>
         </div>
         <div className="device-item__description">
             <div className="device-item__description-location">

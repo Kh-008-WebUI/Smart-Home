@@ -1,12 +1,12 @@
 @import '../../scss/_variables.scss';
 
 .list-persons {
-  border: 1px solid $border-color;
   width: 20%;
-  margin: 10px;
-  margin-left: 5px;
+  // margin: 10px;
+  // margin-left: 5px;
   height: 185px;
-  overflow: scroll;
+  overflow-y: scroll;
+  background-color: $text-color-active;
 
   li {
     padding: 5px;
