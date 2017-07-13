@@ -37,10 +37,17 @@ export const loadDevice = (id) => {
     id
   };
 };
-export const loadDeviceSuccess = (id) => {
+
+export const loadDeviceAsync = (id) => {
+  return {
+    type: 'LOAD_DEVICE_ASYNC',
+    id
+  };
+};
+export const loadDeviceSuccess = (device) => {
   return {
     type: LOAD_DEVICE_SUCCESS,
-    id
+    device
   };
 };
 

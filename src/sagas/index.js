@@ -14,7 +14,7 @@ export function* watchLoadDevices () {
 }
 
 export function* watchLoadDevice () {
-  yield takeEvery('LOAD_DEVICE', loadDeviceSaga);
+  yield takeEvery('LOAD_DEVICE_ASYNC', loadDeviceSaga);
 }
 
 export function* watchDeleteDeviceAsync () {

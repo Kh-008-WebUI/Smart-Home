@@ -10,8 +10,15 @@ const devicesList = (state = {
       return { ...state, devices:action.devices.map((item) => (
         Object.assign({}, item)
       )) };
+    case 'LOAD_DEVICE': {
+      let device = state.devices.filter((item) =>{
+        return item.id === action.id;
+      })[0];
+
+      return { ...state, device };
+    }
     case 'LOAD_DEVICE_SUCCESS': {
-      return { ...state, device : { ...action.id } };
+      return { ...state, device: action.device };
     }
 
     case CHANGE_STATUS: {

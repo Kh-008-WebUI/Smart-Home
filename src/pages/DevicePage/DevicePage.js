@@ -4,6 +4,7 @@ import { Device } from '../../components/Device/Device';
 import PropTypes from 'prop-types';
 import {
   changeStatus,
+  loadDeviceAsync,
   loadDevice } from '../../actions/devices.action';
 require('./DevicePage.scss');
 
@@ -14,16 +15,24 @@ class DevicePage extends React.Component {
 
   componentDidMount () {
     this.props.loadDevice(parseInt(this.props.match.params.id));
+    if (typeof this.props.device.id === 'undefined') {
+      this.props.loadDeviceAsync(parseInt(this.props.match.params.id));
+    }
   }
 
   render () {
     const id = parseInt(this.props.match.params.id);
 
     return (
-      <div className="device-view">
-      <Device
-            device={this.props.device}
-            onStatusChange={this.props.onStatusChange}/>
+      <div>
+        {typeof this.props.device.id === 'undefined' ?
+          <p><i className="fa fa-3x fa-spinner fa-spin"></i></p> :
+        <div className="device-view">
+        <Device
+              device={this.props.device}
+              onStatusChange={this.props.onStatusChange}/>
+        </div>
+        }
       </div>
     );
   }
@@ -34,6 +43,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
   onStatusChange: (id) => dispatch(changeStatus(id))
 });
@@ -47,6 +57,7 @@ DevicePage.propTypes = {
   filterAction: PropTypes.func,
   findItems: PropTypes.func,
   onStatusChange: PropTypes.func,
+  loadDeviceAsync: PropTypes.func,
   loadDevice: PropTypes.func
 };
 
