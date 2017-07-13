@@ -81,29 +81,3 @@ export const filterAction = (filterOption) => {
     filterOption
   };
 };
-
-export function* loadDevicesSaga () {
-  try {
-    yield put({ type:'LOAD_DEVICE_PENDING' });
-    const devices = yield call(DeviceListApi.getDevices);
-
-    yield put(loadDevicesSuccess(devices));
-  } catch (e) {
-    yield put(loadDevicesFail());
-  }
-}
-
-export function* loadDeviceSaga (action) {
-  try {
-    const device = yield call(DeviceListApi.getDevice, action.id);
-
-    yield put(loadDeviceSuccess(device));
-  } catch (e) {
-  }
-}
-
-export function* deleteDevice (action) {
-  const id = yield call(DeviceListApi.deleteDevice, action.id);
-
-  yield put(deleteDeviceSuccess(id));
-}
