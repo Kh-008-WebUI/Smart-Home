@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { searchItem } from '../utils/utils';
 
 const getFilterOption = state => state.searchAndFilter.filterOption;
-const getDevices = state => state.devicesList;
+const getDevices = state => state.devicesList.devices;
 const getSearchValue = state => state.searchAndFilter.searchValue;
 
 export const filterItems = createSelector(
@@ -20,5 +20,3 @@ export const filterItems = createSelector(
     return newArr.filter(item => searchItem(item, searchValue));
   }
 );
-
-

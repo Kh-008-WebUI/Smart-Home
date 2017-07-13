@@ -4,7 +4,7 @@ import { Device } from '../../components/Device/Device';
 import PropTypes from 'prop-types';
 import {
   changeStatus,
-  loadDeviceAsync } from '../../actions/devices.action';
+  loadDevice } from '../../actions/devices.action';
 require('./DevicePage.scss');
 
 class DevicePage extends React.Component {
@@ -30,11 +30,11 @@ class DevicePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  devices: state.devicesList
+  device: state.devicesList.device
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadDevice: (id) => dispatch(loadDeviceAsync(id)),
+  loadDevice: (id) => dispatch(loadDevice(id)),
   onStatusChange: (id) => dispatch(changeStatus(id))
 });
 
@@ -42,7 +42,7 @@ DevicePage.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
-  device: PropTypes.object,
+  device: PropTypes.any,
   filter: PropTypes.array,
   filterAction: PropTypes.func,
   findItems: PropTypes.func,
