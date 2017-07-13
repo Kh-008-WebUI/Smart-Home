@@ -5,8 +5,8 @@ import {
   loadDevice
 } from '../actions/loadDevices.action';
 import { deleteDevice } from '../actions/deleteDevice.action';
-import currentUsersSaga from './currentUsersSaga';
-import notificationsSaga from './notificationsSaga';
+import currentUsersSaga from './users.saga';
+import notificationsSaga from './notifications.saga';
 import { watchAddDevice } from './addDevice.sagas';
 
 export function* watchLoadDevices () {
