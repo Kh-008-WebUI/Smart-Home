@@ -3,16 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import './index.scss';
-import { resetProto } from '../../actions/builder.actions';
-import { clearDeviceStatus } from '../../actions/addDevice.action';
 
-class Message extends Component {
+export default class Message extends Component {
   constructor (props) {
     super(props);
-  }
-
-  componentWillUnmount () {
-    this.props.clearDeviceStatus();
   }
 
   chooseMessage = () => {
@@ -22,7 +16,7 @@ class Message extends Component {
           <i className="fa fa-3x fa-spinner fa-spin"></i></p>);
       case 'DONE':
         setTimeout(()=>{
-          this.props.resetProto();
+          this.props.resetBuilder();
           this.props.router.push('/devices');
         }, 1000);
         return (<p className='Message'>
@@ -44,22 +38,9 @@ class Message extends Component {
   }
 }
 
-function mapStateToProps (store) {
-  return {
-    status: store.addStatus.status
-  };
-}
-function mapDispatchToProps (dispatch) {
-  return {
-    resetProto: bindActionCreators(resetProto, dispatch),
-    clearDeviceStatus: bindActionCreators(clearDeviceStatus, dispatch)
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Message);
-
 Message.propTypes = {
   status: PropTypes.string,
-  resetProto: PropTypes.func,
+  resetBuilder: PropTypes.func,
   clearDeviceStatus: PropTypes.func,
   router: PropTypes.any
 };

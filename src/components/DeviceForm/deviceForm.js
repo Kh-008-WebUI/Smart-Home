@@ -113,8 +113,8 @@ class DeviceForm extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    settings: store.settings,
-    status: store.addStatus.status
+    settings: store.builder.device,
+    status: store.builder.uploadStatus
   };
 }
 function mapDispatchToProps (dispatch) {
