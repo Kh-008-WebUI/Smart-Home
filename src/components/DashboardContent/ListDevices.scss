@@ -1,7 +1,7 @@
 @import '../../scss/_variables.scss';
 
 .list-device {
-  border: 1px solid $border-color;
+  // border: 1px solid $border-color;
   background-color: $text-color-active;
   width: 75%;
   // height: 185px;
@@ -11,7 +11,7 @@
   justify-content: space-around;
 }
 .device-single {
-    width: 30%;
+  width: 30%;
 }
 .device-item-name_and_power {
   display: flex;
