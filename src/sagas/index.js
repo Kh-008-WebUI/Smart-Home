@@ -2,9 +2,9 @@ import { all, takeEvery } from 'redux-saga/effects';
 import {
   loadDevicesSaga,
   loadDevices,
-  loadDevice
-} from '../actions/loadDevices.action';
-import { deleteDevice } from '../actions/deleteDevice.action';
+  loadDevice,
+  deleteDevice
+} from '../actions/devices.action';
 import currentUsersSaga from './users.saga';
 import notificationsSaga from './notifications.saga';
 import { watchAddDevice } from './builder.saga';
