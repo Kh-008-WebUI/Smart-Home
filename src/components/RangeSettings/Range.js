@@ -15,13 +15,16 @@ export default class RangeSettings extends React.Component {
   }
 
   onChange (e) {
-    this.setState({
-      value: e.target.value
-    });
+    const newValue = e.target.value;
 
-    if (this.props.onChange) {
+    this.setState({
+      value: newValue
+    });
+    this.setItemValue(newValue, this.props.itemId);
+
+    /* if (this.props.onChange) {
       this.props.onChange(e);
-    }
+    }*/
   }
 
   render () {
@@ -46,6 +49,7 @@ export default class RangeSettings extends React.Component {
 
 RangeSettings.propTypes = {
   styleName: PropTypes.string,
+  itemId: PropTypes.number,
   max: PropTypes.number,
   min: PropTypes.number,
   setDevice: PropTypes.func,

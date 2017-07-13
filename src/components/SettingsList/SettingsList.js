@@ -4,7 +4,6 @@ import { settingsComponents } from '../../data/componentsNames';
 import { SettingsListItem } from
 '../SettingsListItem/SettingsListItem';
 
-
 export const SettingsList = (props) => (
   <div className="settings-block">
     {props.settings.items.map((setting, i) => {
@@ -17,6 +16,7 @@ export const SettingsList = (props) => (
           name={setting.name}
           deleteItem={props.deleteItem}
           id={i}>
+          setItemValue={props.setItemValue}
           <Item />
         </SettingsListItem>
       );
@@ -27,5 +27,6 @@ export const SettingsList = (props) => (
 SettingsList.propTypes = {
   settings: PropTypes.object,
   width: PropTypes.number,
-  deleteItem: PropTypes.func
+  deleteItem: PropTypes.func,
+  setItemValue: PropTypes.func
 };

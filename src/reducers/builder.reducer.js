@@ -5,7 +5,8 @@ import {
   RESET_DEVICE_BUILDER_FORM,
   ADD_DEVICE,
   ADD_DEVICE_SUCCESS,
-  ADD_DEVICE_FAILURE
+  ADD_DEVICE_FAILURE,
+  SET_ITEM_VALUE
 } from '../constants/index';
 
 const initialState = {
@@ -49,6 +50,20 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { uploadStatus:'DONE' });
     case ADD_DEVICE_FAILURE:
       return Object.assign({}, state, { uploadStatus:'FAIL' });
+    case SET_ITEM_VALUE:
+      return ({
+        ...state,
+        device: {
+          ...state.device,
+          items: state.device.items.map((item, i) => {
+            console.log(item);
+            if (i === action.id) {
+              item.description = action.value;
+            }
+            return item;
+          })
+        }
+      });
     default:
       return state;
   }
