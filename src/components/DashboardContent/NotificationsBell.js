@@ -17,14 +17,21 @@ class NotificationsBell extends React.Component {
   }
 
   render () {
+    const listNotify = this.props.notifications;
+    const unViewedMessages = listNotify.filter((item) => !item.viewed);
+
     return (
     <div className="notification">
         <div className="notification-bell">
           <div className="notification-bell-self">
             <i className="fa fa-bell-o"></i>
-            <div className="notification-round">
+            <div className={
+              unViewedMessages === 0 ?
+                'notification-undisplay' :
+                'notification-round'
+              }>
               <div className="notification-messages">
-                {this.props.notifications.length}
+                {unViewedMessages.length}
               </div>
             </div>
           </div>
@@ -33,7 +40,7 @@ class NotificationsBell extends React.Component {
             <div className="notification-list__notice">
             <ul>
             {this.props.notifications.map((item, key) => {
-              return (<li key={key}>
+              return (<li className="notification-item-marker" key={key}>
                {item.time} {item.notification}
                </li>);
             })

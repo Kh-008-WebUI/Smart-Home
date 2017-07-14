@@ -25,7 +25,7 @@
 }
 
 .notification-list {
-  display: none;
+  // display: none;
   height: 400px;
   overflow-y: scroll;
   background-color: $color-bg-grey;
@@ -61,6 +61,9 @@
 		}
 	}
 }
-.notification-marker {
+.notification-item-marker {
   font-weight: bold;
+}
+.notification-undisplay {
+  display: none;
 }
