@@ -21,8 +21,7 @@ class NotificationsBell extends React.Component {
     this.bell.classList.toggle('notification-display');
   }
   getNotify = (el) => {
-    this.messageId = el.target.id;
-    console.log(this.messageId + '444');
+    this.props.changeStatusNotification(el.target.id);
   }
   render () {
     const listNotify = this.props.notifications;
@@ -57,7 +56,7 @@ class NotificationsBell extends React.Component {
                   id={item.id}
                   className="notification-item-marker"
                   key={key}>
-                  {item.time}
+                  {item.time + ' '}
                   {item.notification}
                </li>);
             })
@@ -77,15 +76,15 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
-    getNotify:
-      bindActionCreators(changeStatusNotification(this.messageId), dispatch)
+    changeStatusNotification:
+      bindActionCreators(changeStatusNotification, dispatch)
   };
 }
 
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
   getNotifications: PropTypes.any,
-  getNotify: PropTypes.object
+  changeStatusNotification: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
