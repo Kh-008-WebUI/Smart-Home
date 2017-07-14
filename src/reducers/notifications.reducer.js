@@ -1,9 +1,7 @@
 const notifications = (state = [], action) => {
   switch (action.type) {
     case 'NOTIFICATIONS_FETCH_SUCCEEDED': {
-      return [
-        ...action.notifications
-      ];
+      return [ ...action.notifications];
     }
     case 'NOTIFICATIONS_CHANGE_STATUS': {
       const item = state[action.payload];
