@@ -56,9 +56,8 @@ const reducer = (state = initialState, action) => {
         device: {
           ...state.device,
           items: state.device.items.map((item, i) => {
-            console.log(item);
             if (i === action.id) {
-              item.description = action.value;
+              item.data = action.value;
             }
             return item;
           })

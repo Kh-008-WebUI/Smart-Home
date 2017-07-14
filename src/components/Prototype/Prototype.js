@@ -6,7 +6,7 @@ import { SettingsList } from '../SettingsList/SettingsList';
 import { setItemValue } from '../../actions/builder.action';
 import { bindActionCreators } from 'redux';
 
-export const Prototype = (props) => (
+const Prototype = (props) => (
   <div className='Prototype'>
     <h3>{props.device.name}</h3>
     <SettingsList

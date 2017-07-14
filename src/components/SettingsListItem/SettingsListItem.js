@@ -22,7 +22,7 @@ export const SettingsListItem = (props) => (
 
 SettingsListItem.propTypes = {
   styleName: PropTypes.string,
-  setItemValue: PropTypes.string,
+  setItemValue: PropTypes.func,
   id: PropTypes.number,
   name: PropTypes.string,
   deleteItem: PropTypes.func.isRequired,

@@ -15,8 +15,8 @@ export const SettingsList = (props) => (
           styleName={`settings-${setting.name.toLowerCase()}`}
           name={setting.name}
           deleteItem={props.deleteItem}
-          id={i}>
           setItemValue={props.setItemValue}
+          id={i}>
           <Item />
         </SettingsListItem>
       );
