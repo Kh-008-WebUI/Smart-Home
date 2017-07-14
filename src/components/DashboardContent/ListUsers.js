@@ -19,6 +19,12 @@ class ListUsers extends React.Component {
     const list = this.props.currentUsers.users;
     const listAtHome = list.filter((item) => (item.home));
 
+    if (list.length === 0) {
+      return (<section className='list-persons'>
+        <i className="fa fa-3x fa-spinner fa-spin"></i>
+      </section>);
+    }
+
     return (
       <section className='list-persons'>
         {listAtHome.map((item, key) => {
