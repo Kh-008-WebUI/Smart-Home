@@ -1,9 +1,9 @@
-import { NOTIFICATIONS_FETCH_SUCCEEDED, NOTIFICATIONS_FETCH_REQUESTED }
+import { NOTIFICATIONS_FETCH_SUCCESS, NOTIFICATIONS_FETCH_REQUESTED }
 from '../constants/index';
 
 export const fetchNotificationsSuccess = (notifications) => {
   return {
-    type: 'NOTIFICATIONS_FETCH_SUCCEEDED',
+    type: 'NOTIFICATIONS_FETCH_SUCCESS',
     notifications
   };
 };
@@ -13,3 +13,11 @@ export const fetchNotificationsRequest = () => {
     type: 'NOTIFICATIONS_FETCH_REQUESTED'
   };
 };
+
+export const fetchNotificationsFailed = (notifications) => {
+  return {
+    type: 'NOTIFICATIONS_FETCH_FAILED',
+    notifications
+  };
+};
+
