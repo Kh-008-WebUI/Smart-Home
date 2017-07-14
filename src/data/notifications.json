@@ -14,7 +14,7 @@
     "id": 2,
     "time": "15:00",
     "notification": "Borya used a coffee machine",
-    "viewed": true
+    "viewed": false
   },
   {
     "id": 3,

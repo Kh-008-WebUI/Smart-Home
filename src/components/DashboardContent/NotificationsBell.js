@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  fetchNotificationsRequest
+  fetchNotificationsRequest,
+  changeStatusNotification
 } from '../../actions/notifications.action';
 
 class NotificationsBell extends React.Component {
@@ -16,6 +17,13 @@ class NotificationsBell extends React.Component {
     this.props.getNotifications();
   }
 
+  displayNotify = () => {
+    this.bell.classList.toggle('notification-display');
+  }
+  getNotify = (el) => {
+    this.messageId = el.target.id;
+    console.log(this.messageId + '444');
+  }
   render () {
     const listNotify = this.props.notifications;
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
@@ -23,7 +31,8 @@ class NotificationsBell extends React.Component {
     return (
     <div className="notification">
         <div className="notification-bell">
-          <div className="notification-bell-self">
+          <div className="notification-bell-self"
+            onClick={this.displayNotify}>
             <i className="fa fa-bell-o"></i>
             <div className={
               unViewedMessages === 0 ?
@@ -36,12 +45,20 @@ class NotificationsBell extends React.Component {
             </div>
           </div>
         </div>
-        <div className="notification-list">
+        <div className="notification-list"
+            ref={ (el)=>{
+              this.bell = el;
+            } }>
             <div className="notification-list__notice">
-            <ul>
+            <ul onClick={this.getNotify}>
             {this.props.notifications.map((item, key) => {
-              return (<li className="notification-item-marker" key={key}>
-               {item.time} {item.notification}
+              return (
+                <li
+                  id={item.id}
+                  className="notification-item-marker"
+                  key={key}>
+                  {item.time}
+                  {item.notification}
                </li>);
             })
             }
@@ -59,13 +76,16 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch)
+    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
+    getNotify:
+      bindActionCreators(changeStatusNotification(this.messageId), dispatch)
   };
 }
 
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
-  getNotifications: PropTypes.any
+  getNotifications: PropTypes.any,
+  getNotify: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
