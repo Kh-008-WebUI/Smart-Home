@@ -1,6 +1,7 @@
 @import '../../scss/_variables.scss';
 
-.dashboard-notification {
+.dashboard-notification1 {
+	display: none;
   height: 300px;
   overflow-y: scroll;
   background-color: $color-bg-grey;

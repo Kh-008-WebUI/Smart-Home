@@ -12,9 +12,9 @@ class NotificationsBell extends React.Component {
     super(props);
   }
 
-  // componentDidMount () {
-  //   this.props.getNotifications();
-  // }
+  componentDidMount () {
+    this.props.getNotifications();
+  }
 
   render () {
     return (
@@ -23,13 +23,14 @@ class NotificationsBell extends React.Component {
           <div className="notification-bell-self">
             <i className="fa fa-bell-o"></i>
             <div className="notification-round">
-              <div className="notification-messages">5</div>
+              <div className="notification-messages">
+                {this.props.notifications.length}
+              </div>
             </div>
           </div>
         </div>
-        <div className="dashboard-notification">
-            <div className="dashboard-notification__notice">
-            <span><i className="fa fa-bell-o"></i></span>
+        <div className="notification-list">
+            <div className="notification-list__notice">
             <ul>
             {this.props.notifications.map((item, key) => {
               return (<li key={key}>
