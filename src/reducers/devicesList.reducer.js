@@ -31,6 +31,7 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
+      console.log(action.device.status);
       const item = action.device;
 
       item.status = !item.status;
