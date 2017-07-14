@@ -5,6 +5,12 @@ const notifications = (state = [], action) => {
         ...action.notifications
       ];
     }
+    case 'NOTIFICATIONS_CHANGE_STATUS': {
+      const item = state[action.payload];
+
+      item.viewed = true;
+      return [...state, ...item];
+    }
     default:
       return state;
   }
