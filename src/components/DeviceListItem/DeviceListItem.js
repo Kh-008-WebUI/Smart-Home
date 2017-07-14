@@ -9,7 +9,7 @@ class DeviceListItem extends React.Component {
     super(props);
 
     this.onStatusChange = (e) => {
-      this.props.changeStatus(this.props.data.id);
+      this.props.changeStatus(this.props.data);
     };
     this.deleteDevice = (e) =>{
       this.props.deleteDevice(this.props.data.id);

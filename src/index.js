@@ -6,11 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
-import DeviceList from './pages/DeviceList/DeviceList';
-import DevicePage from './pages/DevicePage/DevicePage';
-import Builder from './pages/Builder/Builder';
 import MainLayout from './layouts/MainLayout/MainLayout';
-import Dashboard from './pages/Dashboard/Dashboard';
+import { Authorization } from './layouts/Authorization/Authorization';
 import rootSaga from './sagas/index';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -23,14 +20,10 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <MainLayout>
       <Switch>
-        <Route exact path='/' component = { Dashboard } />
-        <Route path='/devices/device/:id' component={DevicePage}></Route>
-        <Route path='/devices' component={DeviceList}></Route>
-        <Route path='/builder' component={Builder}></Route>
+        <Route path='/auth' component = { Authorization } />
+        <Route path='/' component = { MainLayout } />
       </Switch>
-      </MainLayout>
     </Router>
   </Provider>,
   document.getElementById('root')

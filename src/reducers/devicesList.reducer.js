@@ -29,16 +29,12 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
-      const newState = state.map((item) => (
-        Object.assign({}, item)
-      ));
+      const item = action.device;
 
-      newState.map((item, i) => {
-        if (item.id === action.id) {
-          newState[i].status = !newState[i].status;
-        }
-      });
-      return newState;
+      item.status = !item.status;
+      const arr = Object.assign([], state.devices, item);
+
+      return { ...state, device: item, devices:arr };
     }
     case DELETE_DEVICE: {
       const newDevices = state.devices.filter((item) =>{
