@@ -1,7 +1,6 @@
 @import '../../scss/_variables.scss';
 
 .dashboard-notification {
-  // margin: 10px;
   height: 300px;
   overflow-y: scroll;
   background-color: $color-bg-grey;
@@ -24,7 +23,7 @@
 		list-style: none;
 
 		  li {
-		    margin: 5px 2px;
+		  margin: 5px 2px;
 			padding: 10px;
 			border-left-width: 3px;
 			border-left-style: solid;

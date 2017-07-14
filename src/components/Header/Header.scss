@@ -9,7 +9,8 @@
   left: 0;
   right: 0;
   height: 49;
-  
+  display: flex;
+  justify-content: space-between;
 }
 
 .header-block-text {
@@ -22,12 +23,13 @@
 }
 
 .img-logo {
-  // margin: 0 auto;
   background-image: url("../../img/logo_smart_home.jpg");
   width: 100px;
-  height: 30px; // border-radius: 50%;
+  height: 30px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 }
-
+.notification-block {
+  cursor: pointer;
+}
