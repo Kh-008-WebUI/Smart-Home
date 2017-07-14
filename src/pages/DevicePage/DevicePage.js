@@ -45,7 +45,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
-  onStatusChange: (id) => dispatch(changeStatus(id))
+  onStatusChange: (device) => dispatch(changeStatus(device))
 });
 
 DevicePage.propTypes = {

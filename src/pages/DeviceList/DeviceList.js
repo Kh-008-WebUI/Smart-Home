@@ -27,8 +27,8 @@ class DeviceList extends React.Component {
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
     };
-    this.changeStatus = (index) => {
-      this.props.changeStatus(index);
+    this.changeStatus = (device) => {
+      this.props.changeStatus(device);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
@@ -101,7 +101,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = (dispatch) => ({
   filterAction: (filterOption) => dispatch(filterAction(filterOption)),
-  changeStatus: (index) => dispatch(changeStatus(index)),
+  changeStatus: (device) => dispatch(changeStatus(device)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDeviceAsync(id))

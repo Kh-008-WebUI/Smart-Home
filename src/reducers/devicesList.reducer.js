@@ -17,6 +17,7 @@ export const devicesList = (state = {
       return { ...state, pending: false, devices:action.devices.map((item) => (
         Object.assign({}, item)
       )) };
+
     case 'LOAD_DEVICE': {
       const device = state.devices.filter((item) =>{
         return item.id === action.id;
@@ -24,25 +25,22 @@ export const devicesList = (state = {
 
       return { ...state, device };
     }
+
     case 'LOAD_DEVICE_SUCCESS': {
       return { ...state, device: action.device };
     }
 
     case CHANGE_STATUS: {
-      const newState = state.devices.map((item) => (
-        Object.assign({}, item)
-      ));
+      const device = action.device;
 
-      newState.map((item, i) => {
-        if (item.id === action.id) {
-          newState[i].status = !newState[i].status;
-        }
-      });
-      return newState;
+      device.status = !device.status;
+      return { ...state, device };
     }
+
     case 'LOAD_DEVICE_PENDING': {
       return { ...state, pending: true };
     }
+
     case DELETE_DEVICE: {
       const newDevices = state.devices.filter((item) =>{
         return item.id !== action.id;
