@@ -19,7 +19,7 @@ class ListDevices extends React.Component {
 
     if (listDevices.length === 0) {
       return (<section className='list-device'>
-        <i className='fa fa-3x fa-spinner fa-spin'></i>
+        <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
       </section>);
     }
 

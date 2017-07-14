@@ -21,7 +21,7 @@ class ListUsers extends React.Component {
 
     if (list.length === 0) {
       return (<section className='list-users'>
-        <i className='fa fa-3x fa-spinner fa-spin'></i>
+        <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
       </section>);
     }
 
