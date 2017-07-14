@@ -61,10 +61,10 @@ export const deleteDeviceAsync = (id) => ({
   id
 });
 
-export const changeStatus = (id) => {
+export const changeStatus = (device) => {
   return {
     type: CHANGE_STATUS,
-    id
+    device
   };
 };
 
