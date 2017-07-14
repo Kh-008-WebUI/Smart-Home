@@ -50,7 +50,7 @@ class NotificationsBell extends React.Component {
             } }>
             <div className="notification-list__notice">
             <ul onClick={this.getNotify}>
-            {this.props.notifications.map((item, key) => {
+            {listNotify.map((item, key) => {
               return (
                 <li
                   id={item.id}
