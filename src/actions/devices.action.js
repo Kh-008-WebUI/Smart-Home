@@ -1,7 +1,8 @@
 import {
   LOAD_DEVICES,
   LOAD_DEVICES_SUCCESS,
-  LOAD_DEVICE_ASYNC,
+  LOAD_DEVICE_SUCCESS,
+  LOAD_DEVICE,
   LOAD_DEVICES_FAILURE,
   DELETE_DEVICE,
   DELETE_DEVICE_ASYNC,
@@ -30,10 +31,23 @@ export const loadDevicesFail = () => {
   };
 };
 
+export const loadDevice = (id) => {
+  return {
+    type: LOAD_DEVICE,
+    id
+  };
+};
+
 export const loadDeviceAsync = (id) => {
   return {
-    type: LOAD_DEVICE_ASYNC,
+    type: 'LOAD_DEVICE_ASYNC',
     id
+  };
+};
+export const loadDeviceSuccess = (device) => {
+  return {
+    type: LOAD_DEVICE_SUCCESS,
+    device
   };
 };
 
@@ -67,25 +81,3 @@ export const filterAction = (filterOption) => {
     filterOption
   };
 };
-
-export function* loadDevicesSaga () {
-  try {
-    const devices = yield call(DeviceListApi.getDevices);
-
-    yield put(loadDevicesSuccess(devices));
-  } catch (e) {
-    yield put(loadDevicesFail());
-  }
-}
-
-export function* loadDevice (action) {
-  const device = yield call(DeviceListApi.getDevice, action.id);
-
-  yield put(loadDevicesSuccess([device]));
-}
-
-export function* deleteDevice (action) {
-  const id = yield call(DeviceListApi.deleteDevice, action.id);
-
-  yield put(deleteDeviceSuccess(id));
-}

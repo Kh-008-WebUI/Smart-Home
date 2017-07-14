@@ -49,6 +49,6 @@ export const Device = (props) => {
 };
 
 Device.propTypes = {
-  device: PropTypes.object.isRequired,
+  device: PropTypes.any.isRequired,
   onStatusChange: PropTypes.func
 };
