@@ -27,6 +27,7 @@ class NotificationsBell extends React.Component {
     const listNotify = this.props.notifications;
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
+    console.log(unViewedMessages);
     return (
     <div className="notification">
         <div className="notification-bell">
@@ -34,8 +35,8 @@ class NotificationsBell extends React.Component {
             onClick={this.displayNotify}>
             <i className="fa fa-bell-o"></i>
             <div className={
-              unViewedMessages === 0 ?
-                'notification-undisplay' :
+              unViewedMessages.length === 0 ?
+                'remove-block' :
                 'notification-round'
               }>
               <div className="notification-messages">
@@ -54,7 +55,7 @@ class NotificationsBell extends React.Component {
               return (
                 <li
                   id={item.id}
-                  className="notification-item-marker"
+                  className={item.viewed ? '' : 'notification-item-marker'}
                   key={key}>
                   {item.time + ' '}
                   {item.notification}
