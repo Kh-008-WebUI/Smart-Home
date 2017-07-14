@@ -6,8 +6,11 @@ require('./Device.scss');
 
 export const Device = (props) => {
   const device = props.device;
-  const onStatusChange = props.onStatusChange;
+  const onStatusChange = () => {
+    props.onStatusChange(device);
+  };
 
+  console.log('devicepage', props);
   return (
     <seciton>
       <div className="device-view__header">
@@ -17,7 +20,8 @@ export const Device = (props) => {
         </div>
         <div className="device-item__info-status">
           <ToggleSettings
-            id={props.device.id}
+            device={props.device}
+            checked={props.device.status}
             onStatusChange={props.onStatusChange}/>
         </div>
         <div className="device-view__info">
