@@ -17,7 +17,8 @@ class ListUsers extends React.Component {
 
   render () {
     const list = this.props.currentUsers.users;
-    const listAtHome = list.filter((item) => (item.home));
+    // const listAtHome = list.filter((item) => (item.home));
+    const listAtHome = this.props.currentUsers.users;
 
     if (list.length === 0) {
       return (<section className='list-users'>
@@ -30,7 +31,7 @@ class ListUsers extends React.Component {
         {listAtHome.map((item, key) => {
           return (
             <li key={item.id}>
-              <Avatar name={item.name} />
+              <Avatar item={item} h/>
             </li>
           );
         })}
