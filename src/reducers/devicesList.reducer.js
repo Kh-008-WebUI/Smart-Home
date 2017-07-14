@@ -29,7 +29,7 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
-      const newState = state.map((item) => (
+      const newState = state.devices.map((item) => (
         Object.assign({}, item)
       ));
 
@@ -38,7 +38,7 @@ export const devicesList = (state = {
           newState[i].status = !newState[i].status;
         }
       });
-      return newState;
+      return { ...state, devices:newState };
     }
     case DELETE_DEVICE: {
       const newDevices = state.devices.filter((item) =>{
