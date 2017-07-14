@@ -10,6 +10,7 @@ export const Device = (props) => {
     props.onStatusChange(device);
   };
 
+  console.log('devicepage', props);
   return (
     <seciton>
       <div className="device-view__header">
@@ -20,6 +21,7 @@ export const Device = (props) => {
         <div className="device-item__info-status">
           <ToggleSettings
             device={props.device}
+            checked={props.device.status}
             onStatusChange={props.onStatusChange}/>
         </div>
         <div className="device-view__info">

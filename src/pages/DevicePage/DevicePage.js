@@ -29,8 +29,8 @@ class DevicePage extends React.Component {
           <p><i className="fa fa-3x fa-spinner fa-spin"></i></p> :
         <div className="device-view">
         <Device
-              device={this.props.device}
-              onStatusChange={this.props.onStatusChange}/>
+            device={this.props.device}
+            onStatusChange={this.props.onStatusChange}/>
         </div>
         }
       </div>

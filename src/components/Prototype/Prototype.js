@@ -5,7 +5,7 @@ import { SettingsList } from '../SettingsList/SettingsList';
 
 export const Prototype = (props) => (
   <div className='Prototype'>
-    <h3>{props.device.name}</h3>
+    <h3>{props.device.name || 'Device name'}</h3>
     <SettingsList
       addDescription={props.addDescription}
       settings={props.device}

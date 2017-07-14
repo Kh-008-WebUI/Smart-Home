@@ -30,7 +30,7 @@ export default class ToggleSettings extends React.Component {
 }
 
 ToggleSettings.propTypes = {
-  device: PropTypes.any,
+  device: PropTypes.object,
   styleName: PropTypes.string,
   checked: PropTypes.bool,
   onStatusChange: PropTypes.func

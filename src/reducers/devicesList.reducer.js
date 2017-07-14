@@ -31,10 +31,12 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
-      const device = action.device;
+      const item = action.device;
 
-      device.status = !device.status;
-      return { ...state, device };
+      item.status = !item.status;
+      const arr = Object.assign([], state.devices, item);
+
+      return { ...state, device: item, devices:arr };
     }
 
     case 'LOAD_DEVICE_PENDING': {
