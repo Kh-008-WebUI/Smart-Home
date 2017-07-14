@@ -1,9 +1,7 @@
 @import '../../scss/_variables.scss';
 
-.list-persons {
+.list-users {
   width: 20%;
-  // margin: 10px;
-  // margin-left: 5px;
   height: 185px;
   overflow-y: scroll;
   background-color: $text-color-active;
@@ -11,5 +9,11 @@
   li {
     padding: 5px;
     margin-left: 10px;
+  }
+
+  i {
+    font-size: 100px;
+    margin-top: 40px;
+    margin-left: 20px; 
   }
 }
