@@ -46,15 +46,3 @@ ListDevices.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListDevices);
-
-
-// for (let i = 0; i < quantityDevices; i++) {
-//       if (listDevices[i].status) {
-//         power = 'power-on';
-//       } else {
-//         power = 'power-off';
-//       }
-//       arrDevices.push(
-//        <DeviceContent />
-//       );
-//     }
