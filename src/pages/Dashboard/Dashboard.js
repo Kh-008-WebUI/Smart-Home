@@ -20,7 +20,6 @@ class Dashboard extends React.Component {
           <ListDevices />
           <DashboardListUsers />
         </div>
-        <Notification/>
       </div>
     );
   }

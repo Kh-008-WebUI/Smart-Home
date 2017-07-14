@@ -1,0 +1,69 @@
+@import '../../scss/_variables.scss';
+
+.notification-bell {
+  font-size: 40px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+.notification-bell-self {
+  align-self: center;
+  position: relative;
+}
+
+.notification-round {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background-color: $orange;
+  position: absolute;
+  font-size: 11px;
+  text-align: center;
+  line-height: 20px;
+  top: 41%;
+  right: 13%;
+}
+
+.notification-list {
+  display: none;
+  height: 400px;
+  overflow-y: scroll;
+  background-color: $color-bg-grey;
+  position: absolute;
+  right: 10px;
+  top: 52px;
+		
+    &__notice {
+	  	border-radius: 3px;	
+	  	padding: 10px;
+
+		span {
+		  color: $text-color-active;
+		  font-size: 24px;
+		}
+
+		ul {
+		color: $text-color-active;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		  li {
+		  margin: 5px 2px;
+			padding: 10px;
+			border-left-width: 3px;
+			border-left-style: solid;
+			color: $text-color-active;
+			border-color: $color-orange;
+			border-radius: 3px;
+			font-size: 12px;
+			}
+		}
+	}
+}
+.notification-item-marker {
+  font-weight: bold;
+}
+.notification-display {
+  display: block;
+}

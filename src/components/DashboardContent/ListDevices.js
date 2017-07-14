@@ -15,10 +15,16 @@ class ListDevices extends React.Component {
     this.props.loadDevices();
   }
   render () {
-    const listDevices = this.props.devices.slice(1, 4);
+    const listDevices = this.props.devices.slice(0, 3);
+
+    if (listDevices.length === 0) {
+      return (<section className='list-device'>
+        <i className='fa fa-3x fa-spinner fa-spin'></i>
+      </section>);
+    }
 
     return (
-      <section className="list-device">
+      <section className='list-device'>
         {listDevices.map((item, key) => {
           return (
             <li className="device-single" key={key}>
@@ -37,7 +43,7 @@ const mapStateToProps = state =>({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDevices: () => dispatch(loadDevices())
+  loadDevices: bindActionCreators(loadDevices, dispatch)
 });
 
 ListDevices.propTypes = {
@@ -46,15 +52,3 @@ ListDevices.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListDevices);
-
-
-// for (let i = 0; i < quantityDevices; i++) {
-//       if (listDevices[i].status) {
-//         power = 'power-on';
-//       } else {
-//         power = 'power-off';
-//       }
-//       arrDevices.push(
-//        <DeviceContent />
-//       );
-//     }
