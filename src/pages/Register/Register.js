@@ -68,7 +68,16 @@ export default class Register extends Component {
               Your address email to contact
             </p>
           </div>
-          <input type="button" className="btn btn--register" value="Register" />
+          <div className="signup-field-group signup-btn-group">
+            <input
+              type="button"
+              className="btn btn--signup btn--signup-active"
+              value="Register" />
+            <input
+              type="button"
+              className="btn btn--default btn--signup"
+              value="Login" />
+          </div>
         </form>
       </div>
     );

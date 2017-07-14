@@ -79,6 +79,14 @@
       }
     }
   }
+  
+  &-btn-group.signup-field-group {
+    width: 100%;
+
+    @media (min-width: $tablet-min) {
+      margin: 0;
+    }
+  }
 }
 
 .caption {
@@ -86,8 +94,13 @@
   color: $text-color-input
 }
 
-.btn.btn--register {
-  width: 100%;
-  max-width: 335px;
-  margin: 0 auto;
+.btn.btn--signup {
+  width: 50%;
+  max-width: 115px;
+  margin-right: 15px;
+
+  &-active:hover {
+    border-color: $btn-border-primary;
+    background: $btn-bg-hover;
+  }
 }
