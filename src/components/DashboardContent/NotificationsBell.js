@@ -84,7 +84,7 @@ function mapDispatchToProps (dispatch) {
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
   getNotifications: PropTypes.any,
-  changeStatusNotification: PropTypes.func,
+  changeStatusNotification: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
