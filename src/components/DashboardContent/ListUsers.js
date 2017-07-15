@@ -19,7 +19,7 @@ class ListUsers extends React.Component {
     const list = this.props.currentUsers.users;
 
     if (list.length === 0) {
-      return (<section className='list-users'>
+      return (<section className='list-users-spinner'>
         <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
       </section>);
     }
