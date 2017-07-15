@@ -3,13 +3,14 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import { BrowserRouter as Router,
   Route, Switch, NavLink } from 'react-router-dom';
+require('./Authorization.scss');
 
 export const Authorization = (props) => (
-  <div>
-    <NavLink to="/auth/login">
+  <div className="auth clearfix">
+    <NavLink to="/auth/login" className="btn btn--auth">
           login
     </NavLink>
-    <NavLink to="/auth/register">
+    <NavLink to="/auth/register" className="btn btn--auth">
           register
     </NavLink>
     <Switch>
