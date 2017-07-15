@@ -18,11 +18,11 @@ class ListDevices extends React.Component {
     const listDevices = this.props.devices.slice(0, 3);
 
     if (listDevices.length === 0) {
-      return (<section className='list-device'>
+      return (
+      <section className='list-device-spinner'>
         <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
       </section>);
     }
-
     return (
       <section className='list-device'>
         {listDevices.map((item, key) => {
