@@ -40,7 +40,9 @@ export const Device = (props) => {
           return (
             <SettingsComponent
               key={'setting' + i}
-              parent={'device-view__settings'}
+              device={props.device}
+              checked={props.device.status}
+              onStatusChange={props.onStatusChange}
               styleName={
                 'device-view__settings-item device-view__settings-item--'
                 + setting.name.toLowerCase()
