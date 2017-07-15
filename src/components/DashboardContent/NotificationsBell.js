@@ -34,8 +34,8 @@ class NotificationsBell extends React.Component {
             onClick={this.displayNotify}>
             <i className="fa fa-bell-o"></i>
             <div className={
-              unViewedMessages === 0 ?
-                'notification-undisplay' :
+              unViewedMessages.length === 0 ?
+                'remove-block' :
                 'notification-round'
               }>
               <div className="notification-messages">
@@ -50,11 +50,11 @@ class NotificationsBell extends React.Component {
             } }>
             <div className="notification-list__notice">
             <ul onClick={this.getNotify}>
-            {this.props.notifications.map((item, key) => {
+            {listNotify.map((item, key) => {
               return (
                 <li
                   id={item.id}
-                  className="notification-item-marker"
+                  className={item.viewed ? '' : 'notification-item-marker'}
                   key={key}>
                   {item.time + ' '}
                   {item.notification}

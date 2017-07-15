@@ -32,7 +32,7 @@ export default class Register extends Component {
               value="Register" />
             <span className="caption signup-form__caption">
               Already has account?
-              <NavLink to="/auth/register">
+              <NavLink to="/auth/login">
                 Login
               </NavLink>
             </span>

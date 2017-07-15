@@ -7,14 +7,8 @@ require('./Authorization.scss');
 
 export const Authorization = (props) => (
   <div className="auth clearfix">
-
-    <NavLink to="/auth/login" className="btn btn--auth">
-          login
-    </NavLink>
-    <NavLink to="/auth/register" className="btn btn--auth">
-          register
-    </NavLink>
     <Switch>
+      <Route exact path='/auth' component = { Login } />
       <Route exact path='/auth/login' component = { Login } />
       <Route exact path='/auth/register' component={ Register } />
     </Switch>
