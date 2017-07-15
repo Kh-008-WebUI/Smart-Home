@@ -8,8 +8,19 @@ import DeviceList from '../../pages/DeviceList/DeviceList';
 import DevicePage from '../../pages/DevicePage/DevicePage';
 import Builder from '../../pages/Builder/Builder';
 import Dashboard from '../../pages/Dashboard/Dashboard';
+import { connect } from 'react-redux';
 
-export default class MainLayout extends Component {
+class MainLayout extends Component {
+  componentDidMount () {
+    if (!this.props.loginStatus) {
+      this.props.history.push('/auth');
+    }
+  }
+  componentDidUpdate () {
+    if (!this.props.loginStatus) {
+      this.props.history.push('/auth');
+    }
+  }
   render () {
     return (
       <div>
@@ -27,7 +38,16 @@ export default class MainLayout extends Component {
     );
   }
 }
-
+function mapStateToProps (store) {
+  return {
+    loginStatus: store.authentication.loginStatus
+  };
+}
+function mapDispatchToProps (dispatch) {
+  return {};
+}
 MainLayout.propTypes = {
-  children: PropTypes.object
+  loginStatus: PropTypes.bool,
+  history: PropTypes.object
 };
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
