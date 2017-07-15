@@ -14,6 +14,21 @@
 
 .person-view {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.person-avatar-and-name {
+  display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.person-at-home {
+  font-size: 20px;
+  color: green;
+}
+
+.person-at-home__false {
+  color: red;
 }

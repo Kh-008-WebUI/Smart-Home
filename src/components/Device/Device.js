@@ -10,7 +10,6 @@ export const Device = (props) => {
     props.onStatusChange(device);
   };
 
-  console.log('devicepage', props);
   return (
     <seciton>
       <div className="device-view__header">
@@ -41,7 +40,12 @@ export const Device = (props) => {
           return (
             <SettingsComponent
               key={'setting' + i}
-              parent={'device-view__settings'}
+              data={setting.data}
+              device={props.device}
+              checked={props.device.status}
+              onStatusChange={props.onStatusChange}
+              setItemValue={props.setItemValue}
+              itemId={i}
               styleName={
                 'device-view__settings-item device-view__settings-item--'
                 + setting.name.toLowerCase()
@@ -54,5 +58,6 @@ export const Device = (props) => {
 
 Device.propTypes = {
   device: PropTypes.any.isRequired,
-  onStatusChange: PropTypes.func
+  onStatusChange: PropTypes.func,
+  setItemValue: PropTypes.func
 };

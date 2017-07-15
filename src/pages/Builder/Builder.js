@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './builder.scss';
 import DeviceForm from '../../components/DeviceForm/deviceForm';
-import { Prototype } from '../../components/Prototype/Prototype';
+import Prototype from '../../components/Prototype/Prototype';
 import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
@@ -45,6 +45,7 @@ function mapStateToProps (store) {
     status: store.builder.uploadStatus
   };
 }
+
 function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(deleteItem, dispatch),

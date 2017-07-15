@@ -51,6 +51,17 @@ export const devicesList = (state = {
 
       return { ...state, devices:newDevices };
     }
+    case 'LIST_SET_ITEM_VALUE': {
+      const device = state.device;
+
+      device.items = device.items.map((item, i) => {
+        if (i === action.id) {
+          item.data = action.value;
+        }
+        return item;
+      });
+      return { ...state, device };
+    }
     default:
       return state;
   }
