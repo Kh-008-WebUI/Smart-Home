@@ -1,0 +1,25 @@
+@import '../../scss/_variables.scss';
+
+.signup {
+  &-container {
+    margin: 0 auto;
+    max-width: 500px;
+    
+    position: relative;
+    top: 10vh;
+    
+
+    @media (min-width: $tablet-min) {
+      width: 400px;
+      margin: -200px 0 0 -200px;
+    }
+  }
+
+  &-field-group {
+    @media (min-width: $tablet-min) {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
