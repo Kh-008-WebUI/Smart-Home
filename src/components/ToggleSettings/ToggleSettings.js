@@ -6,11 +6,15 @@ export default class ToggleSettings extends React.Component {
 
   constructor (props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
+    this.onChangeValue = this.onChangeValue.bind(this);
   }
 
-  onChange () {
     this.props.onStatusChange(this.props.device);
+    const newValue = e.target.value;
+    this.setState({
+      value: newValue
+    });
+    this.props.setItemValue(newValue, this.props.itemId);
   }
 
   render () {
@@ -20,7 +24,7 @@ export default class ToggleSettings extends React.Component {
           <input
             type="checkbox"
             defaultChecked={this.props.checked}
-            onClick={this.onChange}
+            onChange={this.onChangeValue}
           />
           <div className="slider round"></div>
         </label>
@@ -33,5 +37,7 @@ ToggleSettings.propTypes = {
   device: PropTypes.object,
   styleName: PropTypes.string,
   checked: PropTypes.bool,
-  onStatusChange: PropTypes.func
+  setItemValue: PropTypes.func,
+  itemId: PropTypes.number,
+  newValue: PropTypes.string
 };

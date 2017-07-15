@@ -43,6 +43,8 @@ export const Device = (props) => {
               device={props.device}
               checked={props.device.status}
               onStatusChange={props.onStatusChange}
+              setItemValue={props.setItemValue}
+              itemId={props.device.id}
               styleName={
                 'device-view__settings-item device-view__settings-item--'
                 + setting.name.toLowerCase()
@@ -55,5 +57,6 @@ export const Device = (props) => {
 
 Device.propTypes = {
   device: PropTypes.any.isRequired,
-  onStatusChange: PropTypes.func
+  onStatusChange: PropTypes.func,
+  setItemValue: PropTypes.func
 };

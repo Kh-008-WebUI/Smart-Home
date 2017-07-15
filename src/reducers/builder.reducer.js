@@ -6,7 +6,8 @@ import {
   ADD_DEVICE,
   ADD_DEVICE_SUCCESS,
   ADD_DEVICE_FAILURE,
-  ADD_ITEM_DESCRIPTION
+  ADD_ITEM_DESCRIPTION,
+  SET_ITEM_VALUE
 } from '../constants/index';
 
 const initialState = {
@@ -58,6 +59,19 @@ const reducer = (state = initialState, action) => {
           items:state.device.items.map((item, i) => {
             if (i === action.id) {
               item.description = action.value;
+            }
+            return item;
+          })
+        }
+      });
+    case SET_ITEM_VALUE:
+      return ({
+        ...state,
+        device: {
+          ...state.device,
+          items: state.device.items.map((item, i) => {
+            if (i === action.id) {
+              item.data = action.value;
             }
             return item;
           })
