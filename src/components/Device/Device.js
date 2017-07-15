@@ -17,7 +17,6 @@ export const Device = (props) => {
         </div>
         <div className="device-item__info-status">
           <ToggleSettings
-            id={props.device.id}
             onStatusChange={props.onStatusChange}/>
         </div>
         <div className="device-view__info">
@@ -37,7 +36,8 @@ export const Device = (props) => {
           return (
             <SettingsComponent
               key={'setting' + i}
-              parent={'device-view__settings'}
+              setItemValue={props.setItemValue}
+              itemId={props.device.id}
               styleName={
                 'device-view__settings-item device-view__settings-item--'
                 + setting.name.toLowerCase()
@@ -50,5 +50,6 @@ export const Device = (props) => {
 
 Device.propTypes = {
   device: PropTypes.object.isRequired,
-  onStatusChange: PropTypes.func
+  onStatusChange: PropTypes.func,
+  setItemValue: PropTypes.func
 };

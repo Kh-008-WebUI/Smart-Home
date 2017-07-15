@@ -54,6 +54,14 @@ export const changeStatus = (id) => {
   };
 };
 
+export const listSetItemValue = (value, id) => {
+  return {
+    type: 'LiST_SET_ITEM_VALUE',
+    value,
+    id
+  };
+};
+
 export const searchAction = (searchValue) => {
   return {
     type: SEARCH_ITEM,

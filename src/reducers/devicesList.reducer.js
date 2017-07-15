@@ -27,6 +27,19 @@ const devicesList = (state = [], action) => {
 
       return newDevices;
     }
+    case 'LIST_SET_ITEM_VALUE':
+      return ({
+        ...state,
+        device: {
+          ...state.device,
+          items: state.device.items.map((item, i) => {
+            if (i === action.id) {
+              item.data = action.value;
+            }
+            return item;
+          })
+        }
+      });
     default:
       return state;
   }
