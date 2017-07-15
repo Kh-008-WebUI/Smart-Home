@@ -27,7 +27,6 @@ class NotificationsBell extends React.Component {
     const listNotify = this.props.notifications;
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
-    console.log(unViewedMessages);
     return (
     <div className="notification">
         <div className="notification-bell">
