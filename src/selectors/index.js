@@ -10,18 +10,12 @@ export const filterItems = createSelector(
   (filterOption, searchValue, items) => {
     let newArr = items;
 
-    // console.log(newArr);
-
     if (filterOption === 'all') {
       newArr = items;
-     // console.log(newArr);
     } else if (filterOption === 'on') {
-      console.log(items);
       newArr = items.filter(item => item.status === true);
     } else if (filterOption === 'off') {
-      console.log(items);
       newArr = items.filter(item => item.status === false);
-      console.log(newArr);
     }
     return newArr.filter(item => searchItem(item, searchValue));
   }

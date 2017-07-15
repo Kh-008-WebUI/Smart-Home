@@ -7,12 +7,6 @@
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
-  i {
-    font-size: 100px;
-    margin-top: 40px;
-    margin-left: 120px; 
-  }
-  
 }
 .device-single {
   width: 30%;
@@ -21,4 +15,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.list-device-spinner {
+  background-color: $text-color-active;
+  width: 78%;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }

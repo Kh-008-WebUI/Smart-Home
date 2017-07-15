@@ -18,7 +18,6 @@ export const fetchNotificationsRequest = () => {
 };
 
 export const changeStatusNotification = (payload) => {
-  console.log(payload);
   return {
     type: 'NOTIFICATIONS_CHANGE_STATUS',
     payload

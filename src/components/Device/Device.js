@@ -10,7 +10,6 @@ export const Device = (props) => {
     props.onStatusChange(device);
   };
 
-  console.log('devicepage', props);
   return (
     <seciton>
       <div className="device-view__header">
