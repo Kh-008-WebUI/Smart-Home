@@ -70,7 +70,7 @@ export const changeStatus = (device) => {
 
 export const listSetItemValue = (value, id) => {
   return {
-    type: 'LiST_SET_ITEM_VALUE',
+    type: 'LIST_SET_ITEM_VALUE',
     value,
     id
   };

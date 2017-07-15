@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getNotifications } from '../api/notificationsApi';
-import { fetchNotificationsSuccess } from '../actions/notifications.action';
+import { fetchNotificationsSuccess,
+    fetchNotificationsFailed } from '../actions/notifications.action';
 
 function* fetchNotifications () {
   try {

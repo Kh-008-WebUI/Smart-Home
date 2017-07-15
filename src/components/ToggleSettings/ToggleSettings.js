@@ -8,9 +8,10 @@ export default class ToggleSettings extends React.Component {
     super(props);
     this.onChangeValue = this.onChangeValue.bind(this);
   }
-
+  onChangeValue (e) {
     this.props.onStatusChange(this.props.device);
     const newValue = e.target.value;
+
     this.setState({
       value: newValue
     });
@@ -39,5 +40,6 @@ ToggleSettings.propTypes = {
   checked: PropTypes.bool,
   setItemValue: PropTypes.func,
   itemId: PropTypes.number,
-  newValue: PropTypes.string
+  newValue: PropTypes.string,
+  onStatusChange: PropTypes.func
 };

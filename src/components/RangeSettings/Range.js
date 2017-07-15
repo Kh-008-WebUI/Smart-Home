@@ -13,6 +13,14 @@ export default class RangeSettings extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
   }
+  componentDidMount () {
+    if (typeof this.props.data !== 'undefined') {
+      this.setState({
+        value: this.props.data
+      });
+      this.props.setItemValue(this.props.data, this.props.itemId);
+    }
+  }
 
   onChange (e) {
     const newValue = e.target.value;
@@ -23,8 +31,11 @@ export default class RangeSettings extends React.Component {
     this.props.setItemValue(newValue, this.props.itemId);
   }
 
+
   render () {
     const { max, min } = this.props;
+    const defaultValue = typeof this.props.data !== 'undefined' ?
+      this.props.data : 0;
 
     return (
       <div className={ `${ this.props.styleName }` }>
@@ -36,7 +47,7 @@ export default class RangeSettings extends React.Component {
           min={min || 0}
           max={max || 100}
           step={1}
-          defaultValue={0}
+          defaultValue={defaultValue}
         />
       </div>
     );
@@ -50,5 +61,6 @@ RangeSettings.propTypes = {
   min: PropTypes.number,
   setDevice: PropTypes.func,
   hideLabel: PropTypes.bool,
-  setItemValue: PropTypes.func
+  setItemValue: PropTypes.func,
+  data: PropTypes.any
 };
