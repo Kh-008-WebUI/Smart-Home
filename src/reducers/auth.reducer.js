@@ -3,7 +3,7 @@ import {
 } from '../constants/index';
 
 const initialState = {
-  loginStatus: false
+  loginStatus: true
 };
 
 const reducer = (state = initialState, action) => {
