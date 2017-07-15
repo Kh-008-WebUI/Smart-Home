@@ -3,8 +3,6 @@ import ListDevices from
 '../../components/DashboardContent/ListDevices';
 import DashboardListUsers from
 '../../components/DashboardContent/ListUsers';
-import Notification from
-'../../components/DashboardContent/Notification';
 import './Dashboard.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
