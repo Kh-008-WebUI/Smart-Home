@@ -26,6 +26,13 @@ const Navigation = () => (
           Device List
         </NavLink>
       </li>
+      <li className="navigation-item">
+        <NavLink
+          to="/register"
+          activeClassName="active">
+          Register
+        </NavLink>
+      </li>
     </ul>
 );
 
