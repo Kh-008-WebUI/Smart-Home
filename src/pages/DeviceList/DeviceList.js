@@ -38,7 +38,7 @@ class DeviceList extends React.Component {
     };
 
     // A function that changes the url depending on the selected filter
-    //and the entered search query
+    // and the entered search query
 
     this.updateUrl = (searchValue, filterOption) => {
       const match = this.props.match;
