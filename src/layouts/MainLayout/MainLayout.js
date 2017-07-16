@@ -12,12 +12,12 @@ import { connect } from 'react-redux';
 
 class MainLayout extends Component {
   componentDidMount () {
-    if (!this.props.loginStatus) {
+    if (!this.props.isLogged) {
       this.props.history.push('/auth');
     }
   }
   componentDidUpdate () {
-    if (!this.props.loginStatus) {
+    if (!this.props.isLogged) {
       this.props.history.push('/auth');
     }
   }
@@ -40,14 +40,12 @@ class MainLayout extends Component {
 }
 function mapStateToProps (store) {
   return {
-    loginStatus: store.authentication.loginStatus
+    isLogged: store.authentication.isLogged
   };
 }
-function mapDispatchToProps (dispatch) {
-  return {};
-}
+
 MainLayout.propTypes = {
-  loginStatus: PropTypes.bool,
+  isLogged: PropTypes.bool,
   history: PropTypes.object
 };
-export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
+export default connect(mapStateToProps)(MainLayout);

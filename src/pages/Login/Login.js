@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from '../../components/Auth/Header/Header';
 import { Field } from '../../components/Auth/Field/Field';
+import { Message } from '../../components/Message/Message';
 import { NavLink } from 'react-router-dom';
 import { login } from '../../actions/auth.action';
 import { bindActionCreators } from 'redux';
@@ -16,6 +17,7 @@ class Login extends Component {
           pic={'fa-unlock'}
           title={'Login'}
           text={'Please enter your credentials to login.'} />
+        <Message status={this.props.loginStatus} />
         <form className="signup-form">
           <Field
             name="Username"
@@ -56,6 +58,6 @@ function mapDispatchToProps (dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-  loginStatus: PropTypes.bool,
+  loginStatus: PropTypes.string,
   login: PropTypes.func
 };

@@ -3,9 +3,9 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import { Redirect,
   Route, Switch, NavLink } from 'react-router-dom';
-require('./Authorization.scss');
+require('./Authentication.scss');
 
-export const Authorization = (props) => (
+export const Authentication = (props) => (
   <div className="auth clearfix">
    <NavLink to="/" className="btn btn--active">Home</NavLink>
     <Switch>
