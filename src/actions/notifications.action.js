@@ -6,7 +6,7 @@ from '../constants/index';
 
 export const fetchNotificationsSuccess = (notifications) => {
   return {
-    type: 'NOTIFICATIONS_FETCH_SUCCEEDED',
+    type: 'NOTIFICATIONS_FETCH_SUCCESS',
     notifications
   };
 };

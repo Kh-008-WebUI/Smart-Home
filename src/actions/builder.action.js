@@ -5,6 +5,7 @@ import {
   SET,
   RESET_DEVICE_BUILDER_FORM,
   ADD_DEVICE_SUCCESS,
+  SET_ITEM_VALUE,
   ADD_DEVICE_FAILURE,
   ADD_ITEM_DESCRIPTION,
   CLEAR_ADD_STATUS
@@ -47,6 +48,13 @@ export const addDescription = (id, value) => ({
   value
 });
 
+export const setItemValue = (value, id) => {
+  return {
+    type: SET_ITEM_VALUE,
+    value,
+    id
+  };
+};
 export const clearAddStatus = () => ({
   type: CLEAR_ADD_STATUS
 });
