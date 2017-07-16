@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import {
   changeStatus,
   loadDeviceAsync,
-  loadDevice } from '../../actions/devices.action';
+  loadDevice,
+  listSetItemValue } from '../../actions/devices.action';
 require('./DevicePage.scss');
 
 class DevicePage extends React.Component {
@@ -30,6 +31,7 @@ class DevicePage extends React.Component {
         <div className="device-view">
         <Device
             device={this.props.device}
+            setItemValue={this.props.setItemValue}
             onStatusChange={this.props.onStatusChange}/>
         </div>
         }
@@ -45,6 +47,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
+  setItemValue: (value, id) => dispatch(listSetItemValue(value, id)),
   onStatusChange: (device) => dispatch(changeStatus(device))
 });
 
@@ -58,7 +61,8 @@ DevicePage.propTypes = {
   findItems: PropTypes.func,
   onStatusChange: PropTypes.func,
   loadDeviceAsync: PropTypes.func,
-  loadDevice: PropTypes.func
+  loadDevice: PropTypes.func,
+  setItemValue: PropTypes.func
 };
 
 DevicePage.defaultProps = {

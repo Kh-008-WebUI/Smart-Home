@@ -32,6 +32,15 @@ export default class TimerSettings extends React.Component {
     });
   }
 
+  onChangeValue (e) {
+    const newValue = e.target.value;
+
+    this.setState({
+      value: newValue
+    });
+    this.props.setItemValue(newValue, this.props.itemId);
+  }
+
   render () {
     return (
 <div className={`m-time ${this.props.styleName}`}>
@@ -66,5 +75,8 @@ export default class TimerSettings extends React.Component {
 TimerSettings.propTypes = {
   styleName: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  setItemValue: PropTypes.func,
+  itemId: PropTypes.number,
+  newValue: PropTypes.string
 };

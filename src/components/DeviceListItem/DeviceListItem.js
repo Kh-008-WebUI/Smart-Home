@@ -27,9 +27,9 @@ class DeviceListItem extends React.Component {
           </Link>
           <div className="device-item__info-status">
             <ToggleSettings
-              id={this.props.data.id}
+              device={this.props.data}
               checked={this.props.data.status}
-              onStatusChange={this.onStatusChange}/>
+              onStatusChange={this.props.changeStatus}/>
           </div>
         </div>
         <div className="device-item__description">

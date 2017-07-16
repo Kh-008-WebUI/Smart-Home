@@ -50,7 +50,11 @@ class DeviceList extends React.Component {
 
   render () {
     const searchValue = this.props.search;
-    const filterOption = this.props.filterOption;
+    const filterOption = this.props.match.params.filterOption;
+
+    if (typeof filterOption !== 'undefined') {
+      this.props.filterAction(filterOption);
+    }
 
     return (
       <section className='device-list'>
@@ -71,14 +75,19 @@ class DeviceList extends React.Component {
           </div>
         </header>
         <section className='device-list__content'>
-          { this.props.devices.length === 0 ?
-            <p><i className="fa fa-3x fa-spinner fa-spin"></i></p> :
+          { this.props.pending === false ?
             <ReactCSSTransitionGroup transitionName="hide"
               transitionEnterTimeout={500}
               transitionLeaveTimeout={300}>
               {this.renderDevices()}
-            </ReactCSSTransitionGroup>
+            </ReactCSSTransitionGroup> :
+            <p><i className="fa fa-3x fa-spinner fa-spin"></i></p>
             }
+          {
+            this.props.devices.length === 0
+            && this.props.pending === false
+            ? <span>Nothing here...</span> : <span></span>
+          }
         </section>
       </section>
     );
@@ -86,7 +95,8 @@ class DeviceList extends React.Component {
 }
 
 const mapStateToProps = state =>({
-  devices: filterItems(state)
+  devices: filterItems(state),
+  pending: state.devicesList.pending
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -106,7 +116,8 @@ DeviceList.propTypes = {
   filterAction: PropTypes.func,
   findItems: PropTypes.func,
   loadDevices: PropTypes.func,
-  deleteDevice: PropTypes.func
+  deleteDevice: PropTypes.func,
+  pending: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);
