@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './index.scss';
 import { SettingsList } from '../SettingsList/SettingsList';
-import { setItemValue } from '../../actions/builder.action';
+import { addDescription, setItemValue } from '../../actions/builder.action';
 import { bindActionCreators } from 'redux';
 
 const Prototype = (props) => (
@@ -26,6 +26,7 @@ function mapStateToProps (store) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    addDescription: bindActionCreators(addDescription, dispatch),
     setItemValue: bindActionCreators(setItemValue, dispatch)
   };
 }
