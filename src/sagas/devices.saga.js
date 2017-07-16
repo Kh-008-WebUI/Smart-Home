@@ -4,7 +4,9 @@ import {
   loadDevicesSuccess,
   loadDevicesFail,
   deleteDeviceSuccess,
-  loadDeviceSuccess,
+  loadDeviceSuccess
+  } from '../actions/devices.action';
+import {
   LOAD_DEVICES,
   LOAD_DEVICES_SUCCESS,
   LOAD_DEVICE_ASYNC,
@@ -13,10 +15,12 @@ import {
   DELETE_DEVICE_ASYNC,
   CHANGE_STATUS,
   SEARCH_ITEM,
-  CHANGE_FILTER_OPTION } from '../actions/devices.action';
+  CHANGE_FILTER_OPTION,
+  LOAD_DEVICE_PENDING } from '../constants/index';
 
 export function* loadDevicesSaga () {
   try {
+    yield put({ type:LOAD_DEVICE_PENDING });
     const devices = yield call(DeviceListApi.getDevices);
 
     yield put(loadDevicesSuccess(devices));
@@ -31,7 +35,6 @@ export function* loadDeviceSaga (action) {
 
     yield put(loadDeviceSuccess(device));
   } catch (e) {
-    console.log(e);
   }
 }
 
@@ -42,13 +45,13 @@ export function* deleteDevice (action) {
 }
 
 export function* watchLoadDevices () {
-  yield takeEvery('LOAD_DEVICES', loadDevicesSaga);
+  yield takeEvery(LOAD_DEVICES, loadDevicesSaga);
 }
 
 export function* watchLoadDevice () {
-  yield takeEvery('LOAD_DEVICE_ASYNC', loadDeviceSaga);
+  yield takeEvery(LOAD_DEVICE_ASYNC, loadDeviceSaga);
 }
 
 export function* watchDeleteDeviceAsync () {
-  yield takeEvery('DELETE_DEVICE_ASYNC', deleteDevice);
+  yield takeEvery(DELETE_DEVICE_ASYNC, deleteDevice);
 }
