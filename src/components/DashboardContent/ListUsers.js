@@ -29,7 +29,7 @@ class ListUsers extends React.Component {
         {list.map((item, key) => {
           return (
             <li key={item.id}>
-              <Avatar item={item} h/>
+              <Avatar item={item} />
             </li>
           );
         })}
