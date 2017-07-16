@@ -7,42 +7,33 @@ import {
   ADD_DEVICE_SUCCESS,
   SET_ITEM_VALUE,
   ADD_DEVICE_FAILURE,
-  ADD_ITEM_DESCRIPTION
+  ADD_ITEM_DESCRIPTION,
+  CLEAR_ADD_STATUS
 } from '../constants/index';
 
-export const addItem = (item) => {
-  return {
-    type: ADD_ITEM,
-    item
-  };
-};
-export const deleteItem = (id) => {
-  return {
-    type: DELETE_ITEM,
-    id
-  };
-};
+export const addItem = (item) => ({
+  type: ADD_ITEM,
+  item
+});
+export const deleteItem = (id) => ({
+  type: DELETE_ITEM,
+  id
+});
 
-export const setValue = (name, value) => {
-  return {
-    type: SET,
-    name,
-    value
-  };
-};
+export const setValue = (name, value) => ({
+  type: SET,
+  name,
+  value
+});
 
-export const resetProto = () => {
-  return {
-    type: RESET_DEVICE_BUILDER_FORM
-  };
-};
+export const resetProto = () => ({
+  type: RESET_DEVICE_BUILDER_FORM
+});
 
-export const addDevice = (device) => {
-  return {
-    type: ADD_DEVICE,
-    device
-  };
-};
+export const addDevice = (device) => ({
+  type: ADD_DEVICE,
+  device
+});
 
 export const addDeviceSuccess = (device) => ({ type: ADD_DEVICE_SUCCESS });
 
@@ -64,3 +55,6 @@ export const setItemValue = (value, id) => {
     id
   };
 };
+export const clearAddStatus = () => ({
+  type: CLEAR_ADD_STATUS
+});
