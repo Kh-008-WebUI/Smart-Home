@@ -1,6 +1,10 @@
 import { LOAD_DEVICES_SUCCESS } from '../constants/index';
 import { CHANGE_STATUS } from '../constants/index';
-import { DELETE_DEVICE, LOAD_DEVICE } from '../constants/index';
+import { DELETE_DEVICE, LOAD_DEVICE,
+        LOAD_DEVICE_SUCCESS,
+        LOAD_DEVICE_PENDING
+       } from '../constants/index';
+import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
 import { CHANGE_FILTER_OPTION } from '../constants/index';
 
@@ -18,7 +22,7 @@ export const devicesList = (state = {
         Object.assign({}, item)
       )) };
 
-    case 'LOAD_DEVICE': {
+    case LOAD_DEVICE: {
       const device = state.devices.filter((item) =>{
         return item.id === action.id;
       })[0];
@@ -26,7 +30,7 @@ export const devicesList = (state = {
       return { ...state, device };
     }
 
-    case 'LOAD_DEVICE_SUCCESS': {
+    case LOAD_DEVICE_SUCCESS: {
       return { ...state, device: action.device };
     }
 
@@ -39,7 +43,7 @@ export const devicesList = (state = {
       return { ...state, device: item, devices:arr };
     }
 
-    case 'LOAD_DEVICE_PENDING': {
+    case LOAD_DEVICE_PENDING: {
       return { ...state, pending: true };
     }
 
@@ -50,7 +54,7 @@ export const devicesList = (state = {
 
       return { ...state, devices:newDevices };
     }
-    case 'LIST_SET_ITEM_VALUE': {
+    case LIST_SET_ITEM_VALUE: {
       const device = state.device;
 
       device.items = device.items.map((item, i) => {

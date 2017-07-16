@@ -28,7 +28,7 @@ const Navigation = () => (
       </li>
       <li className="navigation-item">
         <NavLink
-          to="/register"
+          to="/auth"
           activeClassName="active">
           Register
         </NavLink>

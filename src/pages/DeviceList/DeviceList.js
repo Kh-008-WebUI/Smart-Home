@@ -37,6 +37,9 @@ class DeviceList extends React.Component {
       this.props.deleteDevice(id);
     };
 
+    // A function that changes the url depending on the selected filter
+    //and the entered search query
+
     this.updateUrl = (searchValue, filterOption) => {
       const match = this.props.match;
       const history = this.props.history;
