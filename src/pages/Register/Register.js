@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Formsy from 'formsy-react';
 import { Header } from '../../components/Auth/Header/Header';
 import { Field } from '../../components/Auth/Field/Field';
 import { NavLink } from 'react-router-dom';
@@ -17,14 +18,14 @@ export default class Register extends Component {
             name="Username"
             text={'Your unique username to app'}/>
           <Field
+            name="Email"
+            text={'Your address email to contact'}/>
+          <Field
             name="Password"
             text={'Your hard to guess password'}/>
           <Field
             name="Repeat-Password"
             text={'Please repeat your pasword'}/>
-          <Field
-            name="Email"
-            text={'Your address email to contact'}/>
           <div className="signup-field-group signup-btn-group">
             <input
               type="button"
@@ -32,7 +33,8 @@ export default class Register extends Component {
               value="Register" />
             <span className="caption signup-form__caption">
               Already has account?
-              <NavLink to="/auth/login">
+              <NavLink to="/auth/login"
+                className="signup-form__caption--link">
                 Login
               </NavLink>
             </span>

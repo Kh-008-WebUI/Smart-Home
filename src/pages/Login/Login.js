@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Formsy from 'formsy-react';
 import { Header } from '../../components/Auth/Header/Header';
 import { Field } from '../../components/Auth/Field/Field';
 import { Message } from '../../components/Message/Message';
@@ -33,7 +34,8 @@ class Login extends Component {
               onClick={this.props.login} />
             <span className="caption signup-form__caption">
               New here?
-              <NavLink to="/auth/register">
+              <NavLink to="/auth/register"
+                className="signup-form__caption--link">
                 Register
               </NavLink>
             </span>

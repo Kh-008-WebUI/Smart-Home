@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Formsy from 'formsy-react';
 import PropTypes from 'prop-types';
 
 export const Field = (props) => (
