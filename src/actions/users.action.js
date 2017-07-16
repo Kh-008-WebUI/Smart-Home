@@ -1,4 +1,4 @@
-import { LOAD_USERS_SUCCESS, UPDATE_USERS_REQUEST, LOAD_USERS_FAILED }
+import { LOAD_USERS_SUCCESS, UPDATE_USERS_REQUEST, LOAD_USERS_FAILURE }
 from '../constants/index';
 
 export const loadUsersSuccess = (payload) => {
@@ -10,7 +10,7 @@ export const loadUsersSuccess = (payload) => {
 
 export const loadUsersFailed = (payload) => {
   return {
-    type: LOAD_USERS_FAILED,
+    type: LOAD_USERS_FAILURE,
     payload
   };
 };
