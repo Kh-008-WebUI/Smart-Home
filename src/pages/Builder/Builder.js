@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import {
   resetProto,
   deleteItem,
-  addDescription } from '../../actions/builder.action';
+  addDescription,
+  clearAddStatus } from '../../actions/builder.action';
 
 class Builder extends Component {
   constructor (props) {
@@ -21,6 +22,11 @@ class Builder extends Component {
         this.props.resetBuilder();
         this.props.history.push('/devices');
       }, 1000);
+    }
+    if (this.props.status === 'FAIL') {
+      setTimeout(()=>{
+        this.props.clearAddStatus();
+      }, 2000);
     }
   }
   render () {
@@ -49,7 +55,8 @@ function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(deleteItem, dispatch),
     resetBuilder: bindActionCreators(resetProto, dispatch),
-    addDescription: bindActionCreators(addDescription, dispatch)
+    addDescription: bindActionCreators(addDescription, dispatch),
+    clearAddStatus: bindActionCreators(clearAddStatus, dispatch)
   };
 }
 
@@ -60,6 +67,7 @@ Builder.propTypes = {
   clearDeviceStatus: PropTypes.func,
   addDescription: PropTypes.func,
   deleteItem: PropTypes.func,
+  clearAddStatus: PropTypes.func,
   history: PropTypes.object
 };
 

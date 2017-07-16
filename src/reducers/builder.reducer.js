@@ -6,7 +6,8 @@ import {
   ADD_DEVICE,
   ADD_DEVICE_SUCCESS,
   ADD_DEVICE_FAILURE,
-  ADD_ITEM_DESCRIPTION
+  ADD_ITEM_DESCRIPTION,
+  CLEAR_ADD_STATUS
 } from '../constants/index';
 
 const initialState = {
@@ -45,11 +46,13 @@ const reducer = (state = initialState, action) => {
         }
       });
     case ADD_DEVICE:
-      return Object.assign({}, state, { uploadStatus:'PENDING' });
+      return ({ ...state, uploadStatus:'PENDING' });
     case ADD_DEVICE_SUCCESS:
-      return Object.assign({}, state, { uploadStatus:'DONE' });
+      return ({ ...state, uploadStatus:'DONE' });
     case ADD_DEVICE_FAILURE:
-      return Object.assign({}, state, { uploadStatus:'FAIL' });
+      return ({ ...state, uploadStatus:'FAIL' });
+    case CLEAR_ADD_STATUS:
+      return ({ ...state, uploadStatus:'' });
     case ADD_ITEM_DESCRIPTION:
       return ({
         ...state,

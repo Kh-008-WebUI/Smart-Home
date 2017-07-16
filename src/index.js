@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
 import MainLayout from './layouts/MainLayout/MainLayout';
-import { Authorization } from './layouts/Authorization/Authorization';
+import { Authentication } from './layouts/Authentication/Authentication';
 import rootSaga from './sagas/index';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -21,7 +21,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path='/auth' component = { Authorization } />
+        <Route path='/auth' component = { Authentication } />
         <Route path='/' component = { MainLayout } />
       </Switch>
     </Router>
