@@ -5,13 +5,15 @@ import {
   searchAndFilter } from './devicesList.reducer';
 import { loadUsersReducer } from './users.reducer';
 import notificationsReducer from './notifications.reducer';
+import authentication from './auth.reducer';
 
 const rootReducer = combineReducers({
   searchAndFilter,
   builder,
   devicesList,
   loadUsersReducer,
-  notificationsReducer
+  notificationsReducer,
+  authentication
 });
 
 export default rootReducer;

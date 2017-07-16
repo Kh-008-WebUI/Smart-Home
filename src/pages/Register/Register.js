@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from '../../components/Auth/Header/Header';
 import { Field } from '../../components/Auth/Field/Field';
-
+import { NavLink } from 'react-router-dom';
 require('./Register.scss');
 
 export default class Register extends Component {
@@ -30,10 +30,12 @@ export default class Register extends Component {
               type="button"
               className="btn btn--signup btn--signup-active"
               value="Register" />
-            <input
-              type="button"
-              className="btn btn--default btn--signup"
-              value="Login" />
+            <span className="caption signup-form__caption">
+              Already has account?
+              <NavLink to="/auth/login">
+                Login
+              </NavLink>
+            </span>
           </div>
         </form>
       </div>
