@@ -1,4 +1,5 @@
 import React from 'react';
+import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
@@ -23,9 +24,11 @@ class DeviceList extends React.Component {
 
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
+      this.updateUrl(this.props.search, filterOption);
     };
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
+      this.updateUrl(searchValue, this.props.filterOption);
     };
     this.changeStatus = (device) => {
       this.props.changeStatus(device);
@@ -33,9 +36,27 @@ class DeviceList extends React.Component {
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
     };
+
+    this.updateUrl = (searchValue, filterOption) => {
+      const match = this.props.match;
+      const history = this.props.history;
+
+      history.push({
+        pathname: match.url,
+        search:
+          '?search=' + searchValue +
+          '&filter=' + filterOption
+      });
+    };
   }
   componentDidMount () {
+    const location = this.props.location;
+    const searchValue = queryString.parse(location.search).search;
+
     this.props.loadDevices();
+    if (searchValue) {
+      this.handleSearchResult(searchValue);
+    }
   }
 
   renderDevices () {
@@ -49,7 +70,6 @@ class DeviceList extends React.Component {
   }
 
   render () {
-    const searchValue = this.props.search;
     const filterOption = this.props.match.params.filterOption;
 
     if (typeof filterOption !== 'undefined') {
@@ -109,7 +129,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 DeviceList.propTypes = {
   search: PropTypes.string,
-  filterOption:  PropTypes.object,
+  filterOption:  PropTypes.string,
   match: PropTypes.object,
   changeStatus: PropTypes.func,
   devices: PropTypes.array,
@@ -117,7 +137,9 @@ DeviceList.propTypes = {
   findItems: PropTypes.func,
   loadDevices: PropTypes.func,
   deleteDevice: PropTypes.func,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  history: PropTypes.object,
+  location: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);

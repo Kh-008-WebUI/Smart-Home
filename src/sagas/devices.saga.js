@@ -32,6 +32,7 @@ export function* loadDeviceSaga (action) {
 
     yield put(loadDeviceSuccess(device));
   } catch (e) {
+    yield put(loadDevicesFail());
   }
 }
 
