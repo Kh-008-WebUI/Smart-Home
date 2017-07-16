@@ -16,7 +16,13 @@ class ListUsers extends React.Component {
   }
 
   render () {
-    const list = this.props.currentUsers.users;
+    if (this.props.loadUsersStatus === 'Error') {
+      return (<section className='list-users-spinner'>
+        Loading error...
+      </section>);
+    }
+
+    const list = this.props.currentUsers;
 
     if (list.length === 0) {
       return (<section className='list-users-spinner'>
@@ -39,13 +45,15 @@ class ListUsers extends React.Component {
 }
 
 ListUsers.propTypes = {
-  currentUsers: PropTypes.object,
-  loadUsersRequest: PropTypes.func.isRequired
+  currentUsers: PropTypes.array,
+  loadUsersRequest: PropTypes.func.isRequired,
+  loadUsersStatus: PropTypes.string
 };
 
 function mapStateToProps (store) {
   return {
-    currentUsers: store.loadUsersReducer
+    currentUsers: store.loadUsersReducer.users,
+    loadUsersStatus: store.loadUsersReducer.loadUsersStatus
   };
 }
 function mapDispatchToProps (dispatch) {

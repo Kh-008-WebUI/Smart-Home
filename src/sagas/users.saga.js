@@ -9,7 +9,7 @@ function* getUsersList () {
 
     yield put(loadUsersSuccess(currentUsers));
   } catch (e) {
-    yield put(loadUsersFailed(e.message));
+    yield put(loadUsersFailed(e));
   }
 }
 
