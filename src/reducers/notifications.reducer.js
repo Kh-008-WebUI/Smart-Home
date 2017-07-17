@@ -1,16 +1,24 @@
-import { NOTIFICATIONS_FETCH_SUCCESS,
-  NOTIFICATIONS_CHANGE_STATUS } from '../constants/index';
+import {
+  NOTIFICATIONS_FETCH_SUCCESS,
+  NOTIFICATIONS_CHANGE_STATUS
+} from '../constants/index';
 
-const notifications = (state = [], action) => {
+const notifications = (state = {
+  notifications: [],
+  loadNotifacationsStatus: ''
+}, action) => {
   switch (action.type) {
     case NOTIFICATIONS_FETCH_SUCCESS: {
-      return [ ...action.notifications];
+      const res = { ...state, ...action };
+
+      return res;
     }
     case NOTIFICATIONS_CHANGE_STATUS: {
-      const item = state[action.payload];
+      const item = state.notifications[action.payload];
+      const newNotifications = state.notifications.slice();
 
-      item.viewed = true;
-      return [...state, ...item];
+      newNotifications[action.payload] = { ...item, viewed: true };
+      return { ...state, notifications: newNotifications };
     }
     default:
       return state;

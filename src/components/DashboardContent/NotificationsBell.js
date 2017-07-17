@@ -25,6 +25,7 @@ class NotificationsBell extends React.Component {
   }
   render () {
     const listNotify = this.props.notifications;
+
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
     return (
@@ -68,7 +69,7 @@ class NotificationsBell extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    notifications: store.notificationsReducer
+    notifications: store.notificationsReducer.notifications
   };
 }
 function mapDispatchToProps (dispatch) {
