@@ -1,4 +1,4 @@
-import { UPDATE_USERS_REQUEST } from '../actions/users.action';
+import { UPDATE_USERS_REQUEST } from '../constants/index';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { usersList } from '../api/usersApi';
 import { loadUsersSuccess, loadUsersFailed } from '../actions/users.action';
@@ -9,11 +9,11 @@ function* getUsersList () {
 
     yield put(loadUsersSuccess(currentUsers));
   } catch (e) {
-    yield put(loadUsersFailed(e.message));
+    yield put(loadUsersFailed(e));
   }
 }
 
 export default function* currentUsersSaga () {
-  yield takeEvery('UPDATE_USERS_REQUEST', getUsersList);
+  yield takeEvery(UPDATE_USERS_REQUEST, getUsersList);
 }
 

@@ -3,13 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './builder.scss';
 import DeviceForm from '../../components/DeviceForm/deviceForm';
-import { Prototype } from '../../components/Prototype/Prototype';
+import Prototype from '../../components/Prototype/Prototype';
 import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
   resetProto,
-  deleteItem,
-  addDescription } from '../../actions/builder.action';
+  deleteItem } from '../../actions/builder.action';
 
 class Builder extends Component {
   constructor (props) {
@@ -32,8 +31,7 @@ class Builder extends Component {
         <h3 className="builder__title">Prototype</h3>
         <Prototype
           device={this.props.device}
-          deleteItem={this.props.deleteItem}
-          addDescription={this.props.addDescription} />
+          deleteItem={this.props.deleteItem} />
       </section>
     );
   }
@@ -45,11 +43,11 @@ function mapStateToProps (store) {
     status: store.builder.uploadStatus
   };
 }
+
 function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(deleteItem, dispatch),
-    resetBuilder: bindActionCreators(resetProto, dispatch),
-    addDescription: bindActionCreators(addDescription, dispatch)
+    resetBuilder: bindActionCreators(resetProto, dispatch)
   };
 }
 
@@ -57,8 +55,6 @@ Builder.propTypes = {
   status: PropTypes.string,
   device: PropTypes.object,
   resetBuilder: PropTypes.func,
-  clearDeviceStatus: PropTypes.func,
-  addDescription: PropTypes.func,
   deleteItem: PropTypes.func,
   history: PropTypes.object
 };

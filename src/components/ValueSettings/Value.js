@@ -11,23 +11,23 @@ export default class ValueSettings extends React.Component {
     };
 
     this.onChangeValue = this.onChangeValue.bind(this);
-    this.clearInputValue = this.clearInputValue.bind(this);
+  }
+  componentDidMount () {
+    if (typeof this.props.data !== 'undefined') {
+      this.setState({
+        value: this.props.data
+      });
+      this.props.setItemValue(this.props.data, this.props.itemId);
+    }
   }
 
   onChangeValue (e) {
+    const newValue = e.target.value;
+
     this.setState({
-      value: e.target.value
+      value: newValue
     });
-
-    this.props.sendSearchValue(e.target.value);
-  }
-
-  clearInputValue () {
-    this.setState({
-      value: ''
-    });
-
-    this.props.sendSearchValue('');
+    this.props.setItemValue(newValue, this.props.itemId);
   }
 
   render () {
@@ -40,9 +40,6 @@ export default class ValueSettings extends React.Component {
           value={this.state.value}
           onChange={this.onChangeValue}
         />
-        <button type='button'
-        onClick={this.clearInputValue}
-        className='delete_value'/>
       </div>
     );
   }
@@ -51,5 +48,9 @@ export default class ValueSettings extends React.Component {
 ValueSettings.propTypes = {
   styleName: PropTypes.string,
   value: PropTypes.string,
-  sendSearchValue: PropTypes.string
+  onChangeValue: PropTypes.func,
+  setItemValue: PropTypes.func,
+  itemId: PropTypes.number,
+  newValue: PropTypes.string,
+  data: PropTypes.string
 };

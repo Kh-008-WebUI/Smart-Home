@@ -16,15 +16,26 @@ class ListUsers extends React.Component {
   }
 
   render () {
-    const list = this.props.currentUsers.users;
-    const listAtHome = list.filter((item) => (item.home));
+    if (this.props.loadUsersStatus === 'Error') {
+      return (<section className='list-users-spinner'>
+        Loading error...
+      </section>);
+    }
+
+    const list = this.props.currentUsers;
+
+    if (list.length === 0) {
+      return (<section className='list-users-spinner'>
+        <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
+      </section>);
+    }
 
     return (
-      <section className='list-persons'>
-        {listAtHome.map((item, key) => {
+      <section className='list-users'>
+        {list.map((item, key) => {
           return (
             <li key={item.id}>
-              <Avatar name={item.name} />
+              <Avatar item={item} />
             </li>
           );
         })}
@@ -34,13 +45,15 @@ class ListUsers extends React.Component {
 }
 
 ListUsers.propTypes = {
-  currentUsers: PropTypes.object,
-  loadUsersRequest: PropTypes.func.isRequired
+  currentUsers: PropTypes.array,
+  loadUsersRequest: PropTypes.func.isRequired,
+  loadUsersStatus: PropTypes.string
 };
 
 function mapStateToProps (store) {
   return {
-    currentUsers: store.loadUsersReducer
+    currentUsers: store.loadUsersReducer.users,
+    loadUsersStatus: store.loadUsersReducer.loadUsersStatus
   };
 }
 function mapDispatchToProps (dispatch) {

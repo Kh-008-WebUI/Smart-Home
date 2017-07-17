@@ -1,16 +1,12 @@
 import React from 'react';
 import { settingsComponents } from '../../data/componentsNames';
-import ToggleSettings from '../ToggleSettings/ToggleSettings';
+import DeviceStatusToggle from '../DeviceStatusToggle/DeviceStatusToggle';
 import PropTypes from 'prop-types';
 require('./Device.scss');
 
 export const Device = (props) => {
   const device = props.device;
-  const onStatusChange = () => {
-    props.onStatusChange(device);
-  };
 
-  console.log('devicepage', props);
   return (
     <seciton>
       <div className="device-view__header">
@@ -19,14 +15,13 @@ export const Device = (props) => {
           <small>Last updated 7 days ago</small>
         </div>
         <div className="device-item__info-status">
-          <ToggleSettings
+          <DeviceStatusToggle
             device={props.device}
-            checked={props.device.status}
-            onStatusChange={props.onStatusChange}/>
+            changeStatus={props.onStatusChange}/>
         </div>
         <div className="device-view__info">
-          <small>07.06.2017</small><br/>
-          <small>User</small>
+          <small>07.07.17</small><br/>
+          <small>username</small>
         </div>
       </div>
       <div className="device-view__location">
@@ -39,13 +34,24 @@ export const Device = (props) => {
           const SettingsComponent = settingsComponents[setting.name];
 
           return (
-            <SettingsComponent
+            <div
               key={'setting' + i}
-              parent={'device-view__settings'}
+              className={'device-settings__group device-settings__group--'
+                + setting.name.toLowerCase()}>
+              <div className="device-settings__description">
+                {setting.description}
+              </div>
+            <SettingsComponent
+              data={setting.data}
+              checked={setting.data}
+              setItemValue={props.setItemValue}
+              itemId={i}
               styleName={
-                'device-view__settings-item device-view__settings-item--'
+                'device-settings__item device-settings__item--'
                 + setting.name.toLowerCase()
-            }/>);
+            }/>
+            </div>
+          );
         })}
       </section>
     </seciton>
@@ -54,5 +60,6 @@ export const Device = (props) => {
 
 Device.propTypes = {
   device: PropTypes.any.isRequired,
-  onStatusChange: PropTypes.func
+  onStatusChange: PropTypes.func,
+  setItemValue: PropTypes.func
 };
