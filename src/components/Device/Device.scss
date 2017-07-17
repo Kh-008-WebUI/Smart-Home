@@ -21,7 +21,7 @@
 	}
 	&__settings-description{
 		width: 33%;
-		color:$text-color-title;
+		color:$light-gray;
 	}
 
 	.device-item__info-status {
@@ -103,6 +103,10 @@
 }
 
 .device-settings {
+	&__description{
+		color:$light-gray;
+		margin-bottom: 15px;
+	}
 	&__group {
 		margin-bottom: 20px;
 		width: 100%;
