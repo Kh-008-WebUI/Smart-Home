@@ -2,7 +2,10 @@ import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  CLEAR_LOGIN_STATUS
+  CLEAR_LOGIN_STATUS,
+  REGISTER_PENDING,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE
 } from '../constants/index';
 
 export const login = () => ({
@@ -16,3 +19,8 @@ export const clearLoginStatus = () => ({
 export const loginSuccess = (status) => ({ type:LOGIN_SUCCESS, status });
 
 export const loginFailure = (status) => ({ type:LOGIN_FAILURE, status });
+
+export const registrationSuccess = (userData) => ({
+  type: REGISTER_SUCCESS,
+  userData
+});

@@ -119,6 +119,8 @@ class DeviceList extends React.Component {
 
 const mapStateToProps = state =>({
   devices: filterItems(state),
+  filterOption: state.searchAndFilter.filterOption,
+  search: state.searchAndFilter.searchValue,
   pending: state.devicesList.pending
 });
 
