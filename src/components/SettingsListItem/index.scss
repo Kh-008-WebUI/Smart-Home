@@ -8,11 +8,19 @@
 }
 
 .settings{
-  width: 35%;
+  width: 100%;
   border-radius: 10px;
   background: $color-bg-grey;
   margin: 10px;
   border-bottom: 1px solid $border_color;
+
+  @media (min-width: $tablet-min) {
+    width: 45%;
+  }
+
+  @media (min-width: $desktop-min) {
+    width: 35%;
+  }
 
   .item-body{
     padding: 20px;
@@ -61,8 +69,15 @@
 }
 
 .settings-linechart{
-  width: 85%;
+  width: 97%;
   order:2;
+  @media (min-width: $tablet-min) {
+    width: 85%;
+  }
+
+  @media (min-width: $desktop-min) {
+    width: 85%;
+  }
 }
 .settings-timer{
   order:3;
