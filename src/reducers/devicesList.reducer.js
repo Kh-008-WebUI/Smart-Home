@@ -18,16 +18,19 @@ export const devicesList = (state = {
   devices:[], pending: false }, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
-      return { ...state, pending: false, devices:action.devices.map((item) => (
+      return { ...state, pending: false,
+        devices:action.devices.map((item) => (
         Object.assign({}, item)
       )) };
 
     case LOAD_DEVICE: {
-      const device = state.devices.filter((item) =>{
+      const device = state.devices.filter((item) => {
         return item.id === action.id;
       })[0];
 
-      return { ...state, device };
+      const devices = Object.assign([], state.devices, device);
+
+      return { ...state, device, devices };
     }
 
     case LOAD_DEVICE_SUCCESS: {
@@ -35,12 +38,18 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
-      const item = action.device;
+      let device = state.devices.filter((item, index) => {
+        return item.id === action.id;
+      })[0];
 
-      item.status = !item.status;
-      const arr = Object.assign([], state.devices, item);
+      if (typeof device === 'undefined') {
+        device = state.device;
+      }
 
-      return { ...state, device: item, devices:arr };
+      device.status = action.status;
+      const devices = Object.assign([], state.devices, device);
+
+      return { ...state, device, devices };
     }
 
     case LOAD_DEVICE_PENDING: {

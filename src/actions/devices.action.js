@@ -70,10 +70,11 @@ export const deleteDeviceFail = (error) => ({
   error
 });
 
-export const changeStatus = (device) => {
+export const changeStatus = (status, id) => {
   return {
     type: CHANGE_STATUS,
-    device
+    status,
+    id
   };
 };
 
