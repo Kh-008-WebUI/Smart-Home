@@ -16,7 +16,7 @@ export default class DeviceListApi {
         device.id = listDevices.length + 1;
         device.status = true;
         listDevices = [...listDevices, device];
-        reject(device);
+        resolve(device);
       }, 2000);
     });
   }
