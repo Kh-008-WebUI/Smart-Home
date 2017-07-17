@@ -6,6 +6,7 @@ import {
   LOAD_DEVICES_FAILURE,
   DELETE_DEVICE,
   DELETE_DEVICE_ASYNC,
+  DELETE_DEVICE_FAIL,
   LOAD_DEVICE_ASYNC,
   CHANGE_STATUS,
   SEARCH_ITEM,
@@ -27,9 +28,10 @@ export const loadDevicesSuccess = (devices) => {
   };
 };
 
-export const loadDevicesFail = () => {
+export const loadDevicesFail = (error) => {
   return {
-    type: LOAD_DEVICES_FAILURE
+    type: LOAD_DEVICES_FAILURE,
+    error
   };
 };
 
@@ -61,6 +63,11 @@ export const deleteDeviceSuccess = (id) => ({
 export const deleteDeviceAsync = (id) => ({
   type: DELETE_DEVICE_ASYNC,
   id
+});
+
+export const deleteDeviceFail = (error) => ({
+  type: DELETE_DEVICE_FAIL,
+  error
 });
 
 export const changeStatus = (device) => {

@@ -4,7 +4,8 @@ import {
   loadDevicesSuccess,
   loadDevicesFail,
   deleteDeviceSuccess,
-  loadDeviceSuccess
+  loadDeviceSuccess,
+  deleteDeviceFail
   } from '../actions/devices.action';
 import {
   LOAD_DEVICES,
@@ -40,9 +41,13 @@ export function* loadDeviceSaga (action) {
 }
 
 export function* deleteDevice (action) {
-  const id = yield call(DeviceListApi.deleteDevice, action.id);
+  try {
+    const id = yield call(DeviceListApi.deleteDevice, action.id);
 
-  yield put(deleteDeviceSuccess(id));
+    yield put(deleteDeviceSuccess(id));
+  } catch (e) {
+    yield put(deleteDeviceFail(e));
+  }
 }
 
 export function* watchLoadDevices () {

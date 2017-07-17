@@ -7,17 +7,24 @@ export default class ToggleSettings extends React.Component {
   constructor (props) {
     super(props);
     this.onChangeValue = this.onChangeValue.bind(this);
+    this.state = {
+      checked: false
+    };
   }
   onChangeValue (e) {
-    this.props.onStatusChange(this.props.device);
-    const newValue = e.target.value;
-
+    this.props.setItemValue(!this.state.checked, this.props.itemId);
     this.setState({
-      value: newValue
+      checked: !this.state.checked
     });
-    this.props.setItemValue(newValue, this.props.itemId);
   }
-
+  componentDidMount () {
+    if (typeof this.props.checked !== 'undefined') {
+      this.setState({
+        checked: this.props.checked
+      });
+      this.props.setItemValue(this.props.checked, this.props.itemId);
+    }
+  }
   render () {
     return (
       <div className={ `${ this.props.styleName }` }>
@@ -40,6 +47,5 @@ ToggleSettings.propTypes = {
   checked: PropTypes.bool,
   setItemValue: PropTypes.func,
   itemId: PropTypes.number,
-  newValue: PropTypes.string,
-  onStatusChange: PropTypes.func
+  newValue: PropTypes.string
 };

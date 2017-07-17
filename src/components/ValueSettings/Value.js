@@ -12,6 +12,14 @@ export default class ValueSettings extends React.Component {
 
     this.onChangeValue = this.onChangeValue.bind(this);
   }
+  componentDidMount () {
+    if (typeof this.props.data !== 'undefined') {
+      this.setState({
+        value: this.props.data
+      });
+      this.props.setItemValue(this.props.data, this.props.itemId);
+    }
+  }
 
   onChangeValue (e) {
     const newValue = e.target.value;
@@ -43,5 +51,6 @@ ValueSettings.propTypes = {
   onChangeValue: PropTypes.func,
   setItemValue: PropTypes.func,
   itemId: PropTypes.number,
-  newValue: PropTypes.string
+  newValue: PropTypes.string,
+  data: PropTypes.string
 };
