@@ -1,0 +1,109 @@
+@import '../../scss/_variables.scss';
+
+.signup {
+  &-container {
+    margin: 0 auto;
+    max-width: 500px;
+    
+    position: relative;
+    top: 10vh;
+    
+
+    @media (min-width: $tablet-min) {
+      width: 700px;
+      max-width: inherit;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -200px 0 0 -350px;
+    }
+  }
+
+  &-header {
+    padding-left: 20px;
+    margin-bottom: 15px;
+
+    &__icon {
+      margin-right: 15px;
+    }
+
+    &__title {
+      font-size: 24px;
+      font-weight: normal;
+      display: inline-block;
+      color: $text-color-active;
+    }
+
+    &__caption {
+      font-weight: normal;
+      display: block;
+    }
+  }
+
+  &-field-group {
+    display: block;
+    width: 100%;
+    max-width: 335px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+
+    @media (min-width: $tablet-min) {
+      display: inline-block;
+      width: 48%;
+      margin-bottom: 20px;
+    }
+  }
+
+  &-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: rgba(68, 70, 79, 0.5);
+    padding: 30px 20px;
+
+    &__label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      color: $text-color-active;
+      margin-bottom: 5px;
+    }
+
+    &__input-field {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+
+      &:focus {
+        border-color: $border-color-focus;
+      }
+    }
+  }
+  
+  &-btn-group.signup-field-group {
+    width: 100%;
+
+    @media (min-width: $tablet-min) {
+      margin: 0;
+    }
+  }
+}
+
+.caption {
+  font-size: 12px;
+  color: $text-color-input;
+  a {
+    color: blue;
+  }
+}
+
+.btn.btn--signup {
+  width: 50%;
+  max-width: 115px;
+  margin-right: 15px;
+
+  &-active:hover {
+    border-color: $btn-border-primary;
+    background: $btn-bg-hover;
+  }
+}
