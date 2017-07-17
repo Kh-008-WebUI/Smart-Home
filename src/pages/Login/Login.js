@@ -62,7 +62,8 @@ class Login extends Component {
               className="btn btn--signup btn--signup-active"
               value="Login"
               onClick={this.props.login} />
-            <span className="caption signup-form__caption">
+            <span className={'caption signup-form__caption ' +
+              'signup-form__caption--text'}>
               New here?
               <NavLink to="/auth/register"
                 className="signup-form__caption--link">

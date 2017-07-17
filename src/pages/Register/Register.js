@@ -81,7 +81,8 @@ class Register extends Component {
               name="subm"
               className="btn btn--signup btn--signup-active"
               value="Register"/>
-            <span className="caption signup-form__caption">
+            <span className={'caption signup-form__caption ' +
+              'signup-form__caption--text'}>
               Already has account?
               <NavLink to="/auth/login"
                 className="signup-form__caption--link">

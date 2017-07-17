@@ -91,6 +91,14 @@
     }
 
     &__caption {
+      &--text {
+        display: block;
+
+        @media (min-width: $tablet-min) {
+          display: inline-block;
+        }
+      }
+
       &--link {
         margin-left: 5px;
         color: $link-color;
@@ -122,6 +130,7 @@
   width: 50%;
   max-width: 115px;
   margin-right: 15px;
+  margin-bottom: 15px;
 
   &-active:hover {
     border-color: $btn-border-primary;
