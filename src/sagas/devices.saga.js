@@ -32,12 +32,11 @@ export function* loadDevicesSaga () {
 
 export function* loadDeviceSaga (action) {
   try {
-    yield put({ type:LOAD_DEVICE_PENDING });
     const device = yield call(DeviceListApi.getDevice, action.id);
 
     yield put(loadDeviceSuccess(device));
-  } catch (e) {
-    yield put(loadDevicesFail());
+  } catch (error) {
+    yield put(loadDevicesFail(error));
   }
 }
 

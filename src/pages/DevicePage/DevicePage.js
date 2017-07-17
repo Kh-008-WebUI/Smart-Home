@@ -14,7 +14,7 @@ class DevicePage extends React.Component {
     super(props);
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.loadDevice(parseInt(this.props.match.params.id));
     if (typeof this.props.device.id === 'undefined') {
       this.props.loadDeviceAsync(parseInt(this.props.match.params.id));
@@ -41,7 +41,8 @@ class DevicePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  device: state.devicesList.device
+  device: state.devicesList.device,
+  loadFailed: state.devicesList.loadFailed
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -63,7 +64,8 @@ DevicePage.propTypes = {
   loadDeviceAsync: PropTypes.func,
   loadDevice: PropTypes.func,
   setItemValue: PropTypes.func,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  loadFailed: PropTypes.bool
 };
 
 DevicePage.defaultProps = {

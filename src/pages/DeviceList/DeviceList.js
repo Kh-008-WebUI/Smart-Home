@@ -60,7 +60,9 @@ class DeviceList extends React.Component {
     const location = this.props.location;
     const searchValue = queryString.parse(location.search).search;
 
-    this.props.loadDevices();
+    if (this.props.devices.length === 0) {
+      this.props.loadDevices();
+    }
     if (searchValue) {
       this.handleSearchResult(searchValue);
     }

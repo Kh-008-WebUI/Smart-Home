@@ -15,7 +15,7 @@ const initialState = {
 
 export const devicesList = (state = {
   device:{ items:[] },
-  devices:[], pending: false }, action) => {
+  devices:[], pending: false, loadFailed: false }, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
       return { ...state, pending: false,
@@ -41,6 +41,12 @@ export const devicesList = (state = {
       let device = state.devices.filter((item, index) => {
         return item.id === action.id;
       })[0];
+
+      state.devices.map((item, index) => {
+        if (item.id === action.id) {
+          device = Object.assign({}, item);
+        }
+      });
 
       if (typeof device === 'undefined') {
         device = state.device;
@@ -73,6 +79,15 @@ export const devicesList = (state = {
         return item;
       });
       return { ...state, device };
+    }
+    case 'ADD_DEVICE_TO_LIST': {
+      const devices = Object.assign([], state.devices);
+
+      devices.push(action.device);
+      return { ...state, devices };
+    }
+    case 'LOAD_DEVICES_FAILURE': {
+      return { ...state, loadFailed: true };
     }
     default:
       return state;
