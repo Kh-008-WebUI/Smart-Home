@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
+import Formsy, { HOC } from 'formsy-react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Header } from '../../components/Auth/Header/Header';
-import { Field } from '../../components/Auth/Field/Field';
+import Field from '../../components/Auth/Field/Field';
+import { registrationSuccess } from '../../actions/auth.action';
 import { NavLink } from 'react-router-dom';
 require('./Register.scss');
 
-export default class Register extends Component {
+class Register extends Component {
+  constructor (props) {
+    super(props);
+    this.addRegisterDataToStore = (event) => {
+      event.preventDefault();
+      this.props.registration({
+        username: this.username.value,
+        password: this.password.value,
+        passwordRepeat: this.passwordRepeat.value,
+        email: this.email.value
+      });
+    };
+  }
   render () {
     return (
       <div className="signup-container">
@@ -12,33 +28,85 @@ export default class Register extends Component {
           pic={'fa-user'}
           title={'Register'}
           text={'Please enter your data to register.'} />
-        <form className="signup-form">
+        <Formsy.Form
+          onSubmit={this.addRegisterDataToStore}
+          onValid={this.enableButton}
+          onInvalid={this.disableButton}
+          className="signup-form">
           <Field
             name="Username"
-            text={'Your unique username to app'}/>
-          <Field
-            name="Password"
-            text={'Your hard to guess password'}/>
-          <Field
-            name="Repeat-Password"
-            text={'Please repeat your pasword'}/>
+            type="text"
+            text={'Your unique username to app'}
+            ref={(input) => {
+              this.username = input;
+            }}
+            required="isTrue"
+            validations="isAlpha"
+            validationError="Name must contain only letters"/>
           <Field
             name="Email"
-            text={'Your address email to contact'}/>
+            type="email"
+            text={'Your address email to contact'}
+            ref={(input) => {
+              this.email = input;
+            }}
+            required="isTrue"
+            validations="isEmail"
+            validationError="This is not a valid email"/>
+          <Field
+            name="Password"
+            type="password"
+            text={'Your hard to guess password'}
+            ref={(input) => {
+              this.password = input;
+            }}
+            required="isTrue"
+            validations= {{
+              minLength: 7,
+              isAlphanumeric: true
+            }}
+            validationError={'Password is not valid'}/>
+          <Field
+            name="Repeat-Password"
+            type="password"
+            text={'Please repeat your pasword'}
+            ref={(input) => {
+              this.passwordRepeat = input;
+            }}
+            required="isTrue"
+            validations="equalsField:Password"
+            validationError="Password does not match"/>
           <div className="signup-field-group signup-btn-group">
             <input
-              type="button"
+              type="submit"
+              name="subm"
               className="btn btn--signup btn--signup-active"
-              value="Register" />
+              value="Register"/>
             <span className="caption signup-form__caption">
               Already has account?
-              <NavLink to="/auth/login">
+              <NavLink to="/auth/login"
+                className="signup-form__caption--link">
                 Login
               </NavLink>
             </span>
           </div>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  userData: state.authentication.user
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  registration: (userData) => dispatch(registrationSuccess(userData))
+});
+
+Register.propTypes = {
+  resetValue: PropTypes.func,
+  registration: PropTypes.func
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
