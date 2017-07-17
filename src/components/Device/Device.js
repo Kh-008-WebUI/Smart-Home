@@ -34,7 +34,7 @@ export const Device = (props) => {
           const SettingsComponent = settingsComponents[setting.name];
 
           return (
-            <div key={i} style={{ width: '100%' }}>
+            <div key={i} className="device-view__settings-description">
               <div>
                 {setting.description}
               </div>

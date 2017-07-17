@@ -19,6 +19,10 @@
 	&__info {
 		float: right;
 	}
+	&__settings-description{
+		width: 33%;
+		color:$text-color-title;
+	}
 
 	.device-item__info-status {
 		float: left;
@@ -100,12 +104,11 @@
       margin-bottom: 20px;
       width: 100%;
 
-      @media (min-width: $tablet-min) {
+      /*@media (min-width: $tablet-min) {
         width: 40%;
-      }
+      }*/
 
       @media (min-width: $desktop-min) {
-        width: 33%;
         margin-bottom: 50px;
       }
 
