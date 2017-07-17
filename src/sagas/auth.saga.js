@@ -8,7 +8,7 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 
 export function* checkLogin (action) {
   try {
-    const status = yield call(login);
+    const status = yield call(login, action.user);
 
     yield put(loginSuccess(status));
     yield delay(2000);
