@@ -28,6 +28,10 @@ class NotificationsBell extends React.Component {
 
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
+    if (this.props.loadNotifacationsStatus === 'ERROR') {
+      console.log('ERROR IN VIEW');
+    }
+
     return (
     <div className='notification'>
       <div className='notification-bell'>
@@ -69,7 +73,8 @@ class NotificationsBell extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    notifications: store.notificationsReducer.notifications
+    notifications: store.notificationsReducer.notifications,
+    loadNotifacationsStatus: store.notificationsReducer.loadNotifacationsStatus
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -83,7 +88,8 @@ function mapDispatchToProps (dispatch) {
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
   getNotifications: PropTypes.any,
-  changeStatusNotification: PropTypes.func
+  changeStatusNotification: PropTypes.func,
+  loadNotifacationsStatus: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
