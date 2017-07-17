@@ -62,7 +62,8 @@ DevicePage.propTypes = {
   onStatusChange: PropTypes.func,
   loadDeviceAsync: PropTypes.func,
   loadDevice: PropTypes.func,
-  setItemValue: PropTypes.func
+  setItemValue: PropTypes.func,
+  pending: PropTypes.bool
 };
 
 DevicePage.defaultProps = {
