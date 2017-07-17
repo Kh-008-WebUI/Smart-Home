@@ -12,12 +12,11 @@ class Register extends Component {
   constructor (props) {
     super(props);
     this.addRegisterDataToStore = (event) => {
-      event.preventDefault();
       this.props.registration({
-        username: this.username.value,
-        password: this.password.value,
-        passwordRepeat: this.passwordRepeat.value,
-        email: this.email.value
+        username: this.username.getValue(),
+        password: this.password.getValue(),
+        passwordRepeat: this.passwordRepeat.getValue(),
+        email: this.email.getValue()
       });
     };
   }
