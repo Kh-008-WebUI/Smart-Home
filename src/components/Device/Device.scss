@@ -99,46 +99,45 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
-    &-item {
-      margin-bottom: 20px;
-      width: 100%;
-
-      /*@media (min-width: $tablet-min) {
-        width: 40%;
-      }*/
-
-      @media (min-width: $desktop-min) {
-        margin-bottom: 50px;
-      }
-
-	&.device-view__settings-item--linechart {
-		width: 85%;
 	}
+}
 
-      &--toggle {
-        width: inherit;
-        max-width: 130px;
-        order: 1;
-      }
+.device-settings {
+	&__group {
+		margin-bottom: 20px;
+		width: 100%;
 
-      &--timer {
-        order: 6;
-      }
+		@media (min-width: $tablet-min) {
+			margin-bottom: 50px;
+			width: 40%;
+		}
 
-      &--value {
-        order: 1;
-      }
+		&.device-settings__group--linechart {
+			width: 85%;
+		}
 
-      &--range {
-        order: 1;
-      }
+		&--toggle {
+			width: inherit;
+			max-width: 130px;
+			order: 1;
+		}
 
-      &--linechart {
-        order: 5;
-			}
-    }
-  }
+		&--timer {
+			order: 6;
+		}
+
+		&--value {
+			order: 1;
+		}
+
+		&--range {
+			order: 1;
+		}
+
+		&--linechart {
+			order: 5;
+		}
+	}
 }
 
 i{
