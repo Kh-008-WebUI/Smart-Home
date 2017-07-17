@@ -35,10 +35,9 @@ a, a:hover {
 }
 
 input[type="text"],
-input[type="select"],
-input[type="number"],
 input[type="email"],
-input[type="password"], select{
+input[type="number"],
+input[type="password"] select{
   display: inline-block;
   height: 34px;
   color: $text-color-active;  

@@ -20,6 +20,7 @@
     "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
     "d3": "^4.9.1",
+    "formsy-react": "^0.19.5",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
