@@ -3,7 +3,7 @@
 
 .device-form {
   margin: 0 auto;
-  width: 92%;
+  width: 100%;
   padding: 10px 25px;
   background-color: $color-bg-dark-grey;
   color:$text_color_active;
@@ -68,7 +68,6 @@
   .form-button {
     color: $text_color_input;
     border: 1px solid $border_color;
-    background-color: $color-bg-grey;
     padding: 5px;
     border-radius: 3px;
     width: 15%;
@@ -78,8 +77,13 @@
     background-color: rgba(132,140,148,0.3);
     color: $text_color_active;
   }
+  .main-button-wrap{
+    text-align: right;
+  }
   .main-button {
     border: 1px solid $color_orange;
+    background: $orange;
+    color: #fff;
     margin-top: 15px;
   }
   .main-button:hover {
@@ -88,7 +92,7 @@
 }
 
 //phone
-@media screen and (max-width:479px) {
+@media screen and (max-width:626px) {
   .device-form {
     .input-container {
       width: 100%;
