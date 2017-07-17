@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import Formsy from 'formsy-react';
+import Formsy, { HOC } from 'formsy-react';
 import { Header } from '../../components/Auth/Header/Header';
-import { Field } from '../../components/Auth/Field/Field';
+import Field from '../../components/Auth/Field/Field';
 import { NavLink } from 'react-router-dom';
 require('./Register.scss');
 
 export default class Register extends Component {
+  constructor (props) {
+    super(props);
+  }
   render () {
     return (
       <div className="signup-container">
@@ -13,19 +16,34 @@ export default class Register extends Component {
           pic={'fa-user'}
           title={'Register'}
           text={'Please enter your data to register.'} />
-        <form className="signup-form">
+        <Formsy.Form
+          onSubmit={this.submit}
+          onValid={this.enableButton}
+          onInvalid={this.disableButton}
+          className="signup-form">
           <Field
             name="Username"
-            text={'Your unique username to app'}/>
+            type="text"
+            text={'Your unique username to app'}
+            validations="isAlpha"/>
           <Field
             name="Email"
-            text={'Your address email to contact'}/>
+            type="email"
+            text={'Your address email to contact'}
+            validations="isEmail"/>
           <Field
             name="Password"
-            text={'Your hard to guess password'}/>
+            type="password"
+            text={'Your hard to guess password'}
+            validations= {{
+              minLength: 7,
+              isAlphanumeric: true
+            }}/>
           <Field
             name="Repeat-Password"
-            text={'Please repeat your pasword'}/>
+            type="password"
+            text={'Please repeat your pasword'}
+            validations="equalsField:password"/>
           <div className="signup-field-group signup-btn-group">
             <input
               type="button"
@@ -39,7 +57,7 @@ export default class Register extends Component {
               </NavLink>
             </span>
           </div>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }

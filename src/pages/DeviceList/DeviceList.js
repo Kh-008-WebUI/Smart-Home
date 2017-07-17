@@ -25,12 +25,10 @@ class DeviceList extends React.Component {
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
       this.updateUrl(this.props.search, filterOption);
-      console.log(this.props.search);
     };
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
       this.updateUrl(searchValue, this.props.filterOption);
-      console.log(this.props.filterOption);
     };
     this.changeStatus = (device) => {
       this.props.changeStatus(device);

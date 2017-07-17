@@ -34,7 +34,11 @@ a, a:hover {
   height: 0;
 }
 
-input[type="text"],input[type="select"],input[type="number"],input[type="email"], select{
+input[type="text"],
+input[type="select"],
+input[type="number"],
+input[type="email"],
+input[type="password"], select{
   display: inline-block;
   height: 34px;
   color: $text-color-active;  
