@@ -43,12 +43,16 @@ class DeviceList extends React.Component {
     this.updateUrl = (searchValue, filterOption) => {
       const match = this.props.match;
       const history = this.props.history;
+      let query = '';
 
+      if (searchValue === 'undefined' || searchValue === '') {
+        query = '&filter=' + filterOption;
+      } else {
+        query = '?search=' + searchValue + '&filter=' + filterOption;
+      }
       history.push({
         pathname: match.url,
-        search:
-          '?search=' + searchValue +
-          '&filter=' + filterOption
+        search: query
       });
     };
   }
