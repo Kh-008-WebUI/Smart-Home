@@ -12,9 +12,11 @@ $light-gray:#ccc;
 $color-orange: $orange;
 $color-bg-grey: $gray;
 $color-bg-dark-grey: $dark-gray;
+$warning-color: $red;
 
 $main-bg: $dark-gray;
 $light-bg: $gray;
+$extra-light-bg: $light-gray;
 
 // buttons
 
@@ -36,6 +38,7 @@ $default-bg-hover: #3d404c;
 $text-color-title: #555;
 $text-color-input: #848c94;
 $text-color-active: #f5f5f5;
+$text-color-error: $red;
 $link-color: $orange;
 $link-color-hover: darken($orange, 10%);
 

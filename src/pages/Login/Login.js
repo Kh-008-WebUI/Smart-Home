@@ -46,10 +46,11 @@ class Login extends Component {
           onInvalid={this.disableButton}
           className="signup-form">
           <Field
-            validations="isAlpha"
             name="Username"
             type="text"
-            text={'Your unique username to app'}/>
+            text={'Your unique username to app'}
+            validations="isAlpha"
+            validationError="This is not a valid name"/>
           <Field
             name="Password"
             type="password"

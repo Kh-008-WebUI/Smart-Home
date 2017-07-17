@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
+import { registrationSuccess } from '../../actions/auth.action';
 import { NavLink } from 'react-router-dom';
 require('./Register.scss');
 
-export default class Register extends Component {
+class Register extends Component {
   constructor (props) {
     super(props);
+    this.addRegisterDataToStore = (event) => {
+      event.preventDefault();
+      this.props.registration({
+        username: this.username.value,
+        password: this.password.value,
+        passwordRepeat: this.passwordRepeat.value,
+        email: this.email.value
+      });
+    };
   }
   render () {
     return (
@@ -17,7 +29,7 @@ export default class Register extends Component {
           title={'Register'}
           text={'Please enter your data to register.'} />
         <Formsy.Form
-          onSubmit={this.submit}
+          onSubmit={this.addRegisterDataToStore}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
           className="signup-form">
@@ -25,30 +37,51 @@ export default class Register extends Component {
             name="Username"
             type="text"
             text={'Your unique username to app'}
-            validations="isAlpha"/>
+            ref={(input) => {
+              this.username = input;
+            }}
+            required="isTrue"
+            validations="isAlpha"
+            validationError="Name must contain only letters"/>
           <Field
             name="Email"
             type="email"
             text={'Your address email to contact'}
-            validations="isEmail"/>
+            ref={(input) => {
+              this.email = input;
+            }}
+            required="isTrue"
+            validations="isEmail"
+            validationError="This is not a valid email"/>
           <Field
             name="Password"
             type="password"
             text={'Your hard to guess password'}
+            ref={(input) => {
+              this.password = input;
+            }}
+            required="isTrue"
             validations= {{
               minLength: 7,
               isAlphanumeric: true
-            }}/>
+            }}
+            validationError={'Password is not valid'}/>
           <Field
             name="Repeat-Password"
             type="password"
             text={'Please repeat your pasword'}
-            validations="equalsField:password"/>
+            ref={(input) => {
+              this.passwordRepeat = input;
+            }}
+            required="isTrue"
+            validations="equalsField:Password"
+            validationError="Password does not match"/>
           <div className="signup-field-group signup-btn-group">
             <input
-              type="button"
+              type="submit"
+              name="subm"
               className="btn btn--signup btn--signup-active"
-              value="Register" />
+              value="Register"/>
             <span className="caption signup-form__caption">
               Already has account?
               <NavLink to="/auth/login"
@@ -62,3 +95,18 @@ export default class Register extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  userData: state.authentication.user
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  registration: (userData) => dispatch(registrationSuccess(userData))
+});
+
+Register.propTypes = {
+  resetValue: PropTypes.func,
+  registration: PropTypes.func
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

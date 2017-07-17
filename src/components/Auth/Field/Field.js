@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import PropTypes from 'prop-types';
 
-// @Formsy.HOC
 class Field extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {};
     this.changeValue = (event) => {
       this.props.setValue(event.currentTarget[this.props.type === 'checkbox' ?
         'checked' : 'value']);
@@ -31,7 +29,7 @@ class Field extends React.Component {
         <p className="caption signup-form__caption">
           { this.props.text }
         </p>
-        <span>{errorMessage}</span>
+        <span className="signup-form__error-message">{errorMessage}</span>
       </div>
     );
   }
@@ -45,7 +43,8 @@ Field.propTypes = {
   setValue: PropTypes.any,
   getValue: PropTypes.func,
   validations: PropTypes.any,
-  getErrorMessage: PropTypes.func
+  getErrorMessage: PropTypes.func,
+  registration: PropTypes.func
 };
 
 export default HOC(Field);

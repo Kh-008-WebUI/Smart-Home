@@ -46,6 +46,7 @@
     max-width: 335px;
     margin: 0 auto;
     margin-bottom: 15px;
+    position: relative;
 
     @media (min-width: $tablet-min) {
       display: inline-block;
@@ -78,6 +79,15 @@
       &:focus {
         border-color: $border-color-focus;
       }
+    }
+
+    &__error-message {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      font-size: 13px;
+      color: $text-color-error;
     }
 
     &__caption {
