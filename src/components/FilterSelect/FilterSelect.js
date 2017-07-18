@@ -11,7 +11,9 @@ const FilterSelect = (props) => {
           {props.options.map(item =>
             <option
               value={item.value}
-              key={item.value}>{item.innerText}</option>
+              key={item.value}>
+                {item.innerText}
+              </option>
           )}
       </select>
     </div>

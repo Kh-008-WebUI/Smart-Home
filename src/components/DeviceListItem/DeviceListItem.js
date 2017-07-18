@@ -15,9 +15,9 @@ class DeviceListItem extends React.Component {
 
   render () {
     return (
-      <div className='device-item'>
-        <div className='device-item__info'>
-          <Link className='device-item__info-name' to={
+      <div className="device-item">
+        <div className="device-item__info">
+          <Link className="device-item__info-name" to={
             `/devices/device/${this.props.data.id}`
           }>
             {this.props.data.name}

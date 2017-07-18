@@ -3,7 +3,8 @@ import {
   LOAD_DEVICES_SUCCESS,
   LOAD_DEVICE_SUCCESS,
   LOAD_DEVICE,
-  LOAD_DEVICES_FAILURE,
+  LOAD_DEVICES_FAIL,
+  LOAD_DEVICE_FAIL,
   DELETE_DEVICE,
   DELETE_DEVICE_ASYNC,
   DELETE_DEVICE_FAIL,
@@ -11,7 +12,8 @@ import {
   CHANGE_STATUS,
   SEARCH_ITEM,
   CHANGE_FILTER_OPTION,
-  LIST_SET_ITEM_VALUE } from '../constants/index';
+  LIST_SET_ITEM_VALUE,
+  ADD_DEVICE_TO_LIST } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 
@@ -30,7 +32,7 @@ export const loadDevicesSuccess = (devices) => {
 
 export const loadDevicesFail = (error) => {
   return {
-    type: LOAD_DEVICES_FAILURE,
+    type: LOAD_DEVICES_FAIL,
     error
   };
 };
@@ -56,7 +58,7 @@ export const loadDeviceSuccess = (device) => {
 };
 export const loadDeviceFail = (device) => {
   return {
-    type: 'LOAD_DEVICE_FAILURE',
+    type: LOAD_DEVICE_FAIL,
     device
   };
 };
@@ -76,7 +78,7 @@ export const deleteDeviceFail = (error) => ({
 });
 
 export const addDeviceToList = (device) => ({
-  type: 'ADD_DEVICE_TO_LIST',
+  type: ADD_DEVICE_TO_LIST,
   device
 });
 

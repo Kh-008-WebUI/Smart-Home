@@ -87,14 +87,14 @@ class DeviceList extends React.Component {
     }
 
     return (
-      <section className='device-list'>
-        <h1 className='device-list__title'>Your devices</h1>
-        <header className='device-list__header'>
+      <section className="device-list">
+        <h1 className="device-list__title">Your devices</h1>
+        <header className="device-list__header">
           <Search
             handleSearch={this.handleSearchResult}
             quantity={this.props.devices.length}
           />
-          <div className='device-list__header--right'>
+          <div className="device-list__header--right">
             <FilterSelect
               handleSelect={this.handleFilterSelect}
               options={options}

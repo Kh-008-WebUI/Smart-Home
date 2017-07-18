@@ -85,12 +85,14 @@ export const devicesList = (state = initialState, action) => {
         uploadStatus:'PENDING'
       };
     }
+
     case LOAD_DEVICE_PENDING: {
       return {
         ...state,
         uploadStatus:'PENDING'
       };
     }
+
     case DELETE_DEVICE: {
       const newDevices = state.devices.filter((item) =>{
         return item.id !== action.id;
@@ -101,6 +103,7 @@ export const devicesList = (state = initialState, action) => {
         devices:newDevices
       };
     }
+
     case LIST_SET_ITEM_VALUE: {
       const device = { ...state.device };
 
@@ -115,6 +118,7 @@ export const devicesList = (state = initialState, action) => {
         device
       };
     }
+
     case ADD_DEVICE_TO_LIST: {
       const devices = Object.assign([], state.devices);
 
@@ -124,6 +128,7 @@ export const devicesList = (state = initialState, action) => {
         devices
       };
     }
+
     case LOAD_DEVICE_FAILURE: {
       return {
         ...state,
@@ -141,6 +146,7 @@ export const searchAndFilter = (state = initialState, action) => {
       return Object.assign({}, state, {
         filterOption: action.filterOption
       });
+
     case SEARCH_ITEM:
       return Object.assign({}, state, {
         searchValue: action.searchValue
