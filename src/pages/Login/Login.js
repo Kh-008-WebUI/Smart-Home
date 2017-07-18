@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 require('./Login.scss');
+import { registrationSuccess } from '../../actions/auth.action';
 
 class Login extends Component {
   constructor (props) {
@@ -17,10 +18,13 @@ class Login extends Component {
       canSubmit: false
     };
   }
-  getInitialState = () => {
-    return {
-      canSubmit: false
+  addLogin = () => {
+    const data = {
+      username: this.username.getValue(),
+      password: this.password.getValue()
     };
+
+    this.props.login(data);
   };
   enableButton = () => {
     this.setState({
@@ -41,7 +45,7 @@ class Login extends Component {
           text={'Please enter your credentials to login.'} />
         <Message status={this.props.loginStatus} />
         <Formsy.Form
-          onSubmit={this.submit}
+          onSubmit={this.addLogin}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
           className="signup-form">
@@ -49,13 +53,21 @@ class Login extends Component {
             name="Username"
             type="text"
             text={'Your unique username to app'}
-            validations="isAlpha"
+            ref={(input) => {
+              this.username = input;
+            }}
+            validations="isAlphanumeric"
             validationError="This is not a valid name"/>
           <Field
             name="Password"
             type="password"
             text={'Your hard to guess password'}
-            validations="isExisty"
+            ref={(input) => {
+              this.password = input;
+            }}
+            validations={{
+              matchRegexp: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+            }}
             validationError="This is not a valid pass"/>
           <div className="signup-field-group signup-btn-group">
             <input
@@ -63,7 +75,7 @@ class Login extends Component {
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active"
               value="Login"
-              onClick={this.props.login} />
+              onClick={this.addLogin} />
             <span className={'caption signup-form__caption ' +
               'signup-form__caption--text'}>
               New here?
@@ -81,12 +93,14 @@ class Login extends Component {
 
 function mapStateToProps (store) {
   return {
-    loginStatus: store.authentication.loginStatus
+    loginStatus: store.authentication.loginStatus,
+    userData: store.authentication.user
   };
 }
 function mapDispatchToProps (dispatch) {
   return {
-    login: bindActionCreators(login, dispatch)
+    login: bindActionCreators(login, dispatch),
+    registration: (userData) => dispatch(registrationSuccess(userData))
   };
 }
 
@@ -94,5 +108,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   loginStatus: PropTypes.string,
-  login: PropTypes.func
+  login: PropTypes.func,
+  userData: PropTypes.object,
+  registration: PropTypes.func
 };

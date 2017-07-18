@@ -8,8 +8,9 @@ import {
   REGISTER_FAILURE
 } from '../constants/index';
 
-export const login = () => ({
-  type: LOGIN_PENDING
+export const login = (user) => ({
+  type: LOGIN_PENDING,
+  user
 });
 
 export const clearLoginStatus = () => ({
