@@ -10,12 +10,26 @@
   position: relative;
 }
 
+
 .notification-round {
   height: 20px;
   width: 20px;
   border-radius: 50%;
   border: 1px solid #000;
   background-color: $orange;
+  position: absolute;
+  font-size: 11px;
+  text-align: center;
+  line-height: 20px;
+  top: 41%;
+  right: 13%;
+}
+
+.notification-round-error {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: red;
   position: absolute;
   font-size: 11px;
   text-align: center;
