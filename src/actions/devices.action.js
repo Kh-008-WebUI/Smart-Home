@@ -54,7 +54,12 @@ export const loadDeviceSuccess = (device) => {
     device
   };
 };
-
+export const loadDeviceFail = (device) => {
+  return {
+    type: 'LOAD_DEVICE_FAILURE',
+    device
+  };
+};
 export const deleteDeviceSuccess = (id) => ({
   type: DELETE_DEVICE,
   id
