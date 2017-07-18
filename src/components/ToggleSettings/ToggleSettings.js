@@ -36,3 +36,6 @@ ToggleSettings.propTypes = {
   itemId: PropTypes.number,
   newValue: PropTypes.string
 };
+ToggleSettings.defaultProps = {
+  checked: false
+};

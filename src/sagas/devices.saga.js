@@ -5,7 +5,8 @@ import {
   loadDevicesFail,
   deleteDeviceSuccess,
   loadDeviceSuccess,
-  deleteDeviceFail
+  deleteDeviceFail,
+  loadDeviceFail
   } from '../actions/devices.action';
 import {
   LOAD_DEVICES,
@@ -36,7 +37,7 @@ export function* loadDeviceSaga (action) {
 
     yield put(loadDeviceSuccess(device));
   } catch (error) {
-    yield put(loadDevicesFail(error));
+    yield put(loadDeviceFail(error));
   }
 }
 

@@ -21,9 +21,9 @@ export const SettingsListItem = (props) => (
     </div>
     { React.cloneElement(props.children, {
       styleName: 'item-body',
-      parent: 'Prototype',
       setItemValue: props.setItemValue,
-      itemId: props.id
+      itemId: props.id,
+      checked: props.checked
     })}
  </div>
 );
@@ -31,6 +31,7 @@ export const SettingsListItem = (props) => (
 SettingsListItem.propTypes = {
   styleName: PropTypes.string,
   setItemValue: PropTypes.func,
+  checked: PropTypes.any,
   id: PropTypes.number,
   name: PropTypes.string,
   addDescription: PropTypes.func,
