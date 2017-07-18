@@ -39,6 +39,9 @@ class NotificationsBell extends React.Component {
           onClick={this.displayNotify}>
             <i className='fa fa-bell-o'></i>
             <div className={
+            this.props.loadNotifacationsStatus === 'ERROR' ?
+            'notification-round-error' : 'notification-round' }></div>
+            <div className={
             unViewedMessages.length === 0 ?
             'remove-block' : 'notification-round' }>
             <div className='notification-messages'>
