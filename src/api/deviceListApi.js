@@ -30,6 +30,9 @@ export default class DeviceListApi {
             device = Object.assign({}, item);
           }
         });
+        if (typeof device === 'undefined') {
+          reject('Device not found');
+        }
         resolve(device);
       }, 2000);
     });

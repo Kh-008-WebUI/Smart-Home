@@ -41,14 +41,15 @@ class DevicePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  device: state.devicesList.device
+  device: state.devicesList.device,
+  loadFailed: state.devicesList.loadFailed
 });
 
 const mapDispatchToProps = dispatch => ({
   loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
   setItemValue: (value, id) => dispatch(listSetItemValue(value, id)),
-  onStatusChange: (device) => dispatch(changeStatus(device))
+  onStatusChange: (status, id) => dispatch(changeStatus(status, id))
 });
 
 DevicePage.propTypes = {
@@ -63,7 +64,8 @@ DevicePage.propTypes = {
   loadDeviceAsync: PropTypes.func,
   loadDevice: PropTypes.func,
   setItemValue: PropTypes.func,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  loadFailed: PropTypes.bool
 };
 
 DevicePage.defaultProps = {

@@ -30,8 +30,8 @@ class DeviceList extends React.Component {
       this.props.findItems(searchValue);
       this.updateUrl(searchValue, this.props.filterOption);
     };
-    this.changeStatus = (device) => {
-      this.props.changeStatus(device);
+    this.changeStatus = (status, id) => {
+      this.props.changeStatus(status, id);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
@@ -43,12 +43,16 @@ class DeviceList extends React.Component {
     this.updateUrl = (searchValue, filterOption) => {
       const match = this.props.match;
       const history = this.props.history;
+      let query = '';
 
+      if (searchValue === 'undefined' || searchValue === '') {
+        query = '&filter=' + filterOption;
+      } else {
+        query = '?search=' + searchValue + '&filter=' + filterOption;
+      }
       history.push({
         pathname: match.url,
-        search:
-          '?search=' + searchValue +
-          '&filter=' + filterOption
+        search: query
       });
     };
   }
@@ -56,7 +60,9 @@ class DeviceList extends React.Component {
     const location = this.props.location;
     const searchValue = queryString.parse(location.search).search;
 
-    this.props.loadDevices();
+    if (this.props.devices.length === 0) {
+      this.props.loadDevices();
+    }
     if (searchValue) {
       this.handleSearchResult(searchValue);
     }
@@ -126,7 +132,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = (dispatch) => ({
   filterAction: (filterOption) => dispatch(filterAction(filterOption)),
-  changeStatus: (device) => dispatch(changeStatus(device)),
+  changeStatus: (status, id) => dispatch(changeStatus(status, id)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDeviceAsync(id))

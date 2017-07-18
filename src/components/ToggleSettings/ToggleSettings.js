@@ -22,7 +22,6 @@ export default class ToggleSettings extends React.Component {
       this.setState({
         checked: this.props.checked
       });
-      this.props.setItemValue(this.props.checked, this.props.itemId);
     }
   }
   render () {
@@ -31,7 +30,7 @@ export default class ToggleSettings extends React.Component {
         <label className="switch">
           <input
             type="checkbox"
-            defaultChecked={this.props.checked}
+            checked={this.state.checked}
             onChange={this.onChangeValue}
           />
           <div className="slider round"></div>

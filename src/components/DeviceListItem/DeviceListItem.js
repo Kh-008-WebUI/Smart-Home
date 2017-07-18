@@ -1,16 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import DeviceStatusToggle from '../DeviceStatusToggle/DeviceStatusToggle';
+import ToggleSettings from '../ToggleSettings/ToggleSettings';
 require('./DeviceListItem.scss');
 
 class DeviceListItem extends React.Component {
   constructor (props) {
     super(props);
 
-    this.onStatusChange = (e) => {
-      this.props.changeStatus(this.props.data);
-    };
     this.deleteDevice = (e) =>{
       this.props.deleteDevice(this.props.data.id);
     };
@@ -26,9 +23,10 @@ class DeviceListItem extends React.Component {
             {this.props.data.name}
           </Link>
           <div className="device-item__info-status">
-            <DeviceStatusToggle
-              device={this.props.data}
-              changeStatus={this.props.changeStatus}/>
+            <ToggleSettings
+              checked={this.props.data.status}
+              itemId={this.props.data.id}
+              setItemValue={this.props.changeStatus}/>
           </div>
         </div>
         <div className="device-item__description">
