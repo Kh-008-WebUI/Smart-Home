@@ -34,3 +34,6 @@ export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 export const CLEAR_ADD_STATUS = 'builder/CLEAR_ADD_STATUS';
 export const CLEAR_LOGIN_STATUS = 'auth/CLEAR_ADD_STATUS';
+export const REGISTER_PENDING = 'auth/REGISTER_PENDING';
+export const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
+export const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
