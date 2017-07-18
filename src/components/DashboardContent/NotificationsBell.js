@@ -27,12 +27,7 @@ class NotificationsBell extends React.Component {
   }
   render () {
     const listNotify = this.props.notifications;
-
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
-
-    if (this.props.loadNotifacationsStatus === 'ERROR') {
-      console.log('ERROR IN VIEW');
-    }
 
     return (
     <div className='notification'>
@@ -42,7 +37,7 @@ class NotificationsBell extends React.Component {
             <i className='fa fa-bell-o'></i>
             <div className={
             this.props.loadNotifacationsStatus === 'ERROR' ?
-            'notification-round-error' : 'notification-round' }></div>
+            'notification-round-error' : '' }></div>
             <div className={
             unViewedMessages.length === 0 ?
             'remove-block' : 'notification-round' }>
