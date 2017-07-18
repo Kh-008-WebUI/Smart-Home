@@ -104,7 +104,7 @@ class DeviceForm extends React.Component {
           { this.createButtons() }
         </div>
         <div className="main-button-wrap">
-          <input className="main-button form-button"
+          <input className="btn btn--primary"
             type="submit"
             value="Add Device"
             disabled = { this.props.status === 'PENDING' }/>
