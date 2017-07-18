@@ -9,7 +9,7 @@ import {
 } from '../constants/index';
 
 const initialState = {
-  loginStatus: '',
+  status: '',
   isLogged: true,
   user: {
     username:'',
@@ -22,27 +22,27 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_PENDING:
-      return { ...state, loginStatus:'PENDING' };
+      return { ...state, status:'PENDING' };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loginStatus:'DONE',
+        status:'DONE',
         isLogged: action.status
       };
     case LOGIN_FAILURE:
       return {
         ...state,
-        loginStatus:'FAIL',
+        status:'FAIL',
         isLogged: action.status
       };
     case CLEAR_LOGIN_STATUS:
-      return { ...state, loginStatus:'' };
+      return { ...state, status:'' };
     case REGISTRATION_ATTEMPT:
-      return { ...state, loginStatus: 'PENDING' };
+      return { ...state, status: 'PENDING' };
     case REGISTER_SUCCESS:
-      return { ...state, user: action.userData, loginStatus: 'DONE' };
+      return { ...state, user: action.userData, status: 'DONE' };
     case REGISTER_FAILURE:
-      return { ...state, loginStatus: 'FAIL' };
+      return { ...state, status: 'FAIL' };
     default:
       return state;
   }

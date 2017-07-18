@@ -24,7 +24,7 @@ class Builder extends Component {
   }
   render () {
     return (
-      <section className='builder'>
+      <section className='builder device-list'>
         <h1 className='device-list__title'>Device Builder</h1>
         <DeviceForm />
         <Message status={this.props.status} />

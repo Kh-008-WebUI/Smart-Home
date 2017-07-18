@@ -30,14 +30,13 @@ class Register extends Component {
     };
   }
   render () {
-    console.log(this.props.loginStatus);
     return (
       <div className="signup-container">
         <Header
           pic={'fa-user'}
           title={'Register'}
           text={'Please enter your data to register.'} />
-        <Message status={this.props.loginStatus} />
+        <Message status={this.props.regStatus} />
         <Formsy.Form
           onSubmit={this.addRegisterDataToStore}
           onValid={this.enableButton}
@@ -50,7 +49,7 @@ class Register extends Component {
             ref={(input) => {
               this.username = input;
             }}
-            required="isTrue"
+            required
             validations="isAlpha"
             validationError="Name must contain only letters"/>
           <Field
@@ -60,7 +59,7 @@ class Register extends Component {
             ref={(input) => {
               this.email = input;
             }}
-            required="isTrue"
+            required
             validations="isEmail"
             validationError="This is not a valid email"/>
           <Field
@@ -70,7 +69,7 @@ class Register extends Component {
             ref={(input) => {
               this.password = input;
             }}
-            required="isTrue"
+            required
             validations= {{
               minLength: 7,
               isAlphanumeric: true
@@ -83,7 +82,7 @@ class Register extends Component {
             ref={(input) => {
               this.passwordRepeat = input;
             }}
-            required="isTrue"
+            required
             validations="equalsField:Password"
             validationError="Password does not match"/>
           <div className="signup-field-group signup-btn-group">
@@ -110,7 +109,7 @@ class Register extends Component {
 
 const mapStateToProps = state => ({
   userData: state.authentication.user,
-  loginStatus: state.authentication.loginStatus
+  regStatus: state.authentication.status
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -120,7 +119,7 @@ const mapDispatchToProps = (dispatch) => ({
 Register.propTypes = {
   resetValue: PropTypes.func,
   registration: PropTypes.func,
-  loginStatus: PropTypes.string
+  regStatus: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -57,7 +57,8 @@ class Login extends Component {
               this.username = input;
             }}
             validations="isAlphanumeric"
-            validationError="This is not a valid name"/>
+            validationError="This is not a valid name"
+            required/>
           <Field
             name="Password"
             type="password"
@@ -68,7 +69,8 @@ class Login extends Component {
             validations={{
               matchRegexp: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
             }}
-            validationError="This is not a valid pass"/>
+            validationError="This is not a valid pass"
+            required/>
           <div className="signup-field-group signup-btn-group">
             <input
               type="button"
@@ -93,7 +95,7 @@ class Login extends Component {
 
 function mapStateToProps (store) {
   return {
-    loginStatus: store.authentication.loginStatus,
+    loginStatus: store.authentication.status,
     userData: store.authentication.user
   };
 }

@@ -29,8 +29,12 @@ export function* register (action) {
     const registerData = yield call(getRegisterData);
 
     yield put(registrationSuccess(action.userData));
+    yield delay(2000);
+    yield put(clearLoginStatus());
   } catch (e) {
     yield put(registrationFailure(e));
+    yield delay(2000);
+    yield put(clearLoginStatus());
   }
 }
 
