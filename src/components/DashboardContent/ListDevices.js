@@ -19,20 +19,23 @@ class ListDevices extends React.Component {
 
     if (listDevices.length === 0) {
       return (
-      <section className='list-device-spinner'>
+      <section className="list-device-spinner">
         <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
       </section>);
     }
     return (
-      <section className='list-device'>
-        {listDevices.map((item, key) => {
-          return (
-            <li className="device-single" key={key}>
-              <DeviceContent device={item}/>
-            </li>
-          );
-        })
-        }
+      <section className="list-device">
+        <h2 className="list-title">Popular devices</h2>
+        <ul className="list-device-menu">
+          {listDevices.map((item, key) => {
+            return (
+              <li className="device-single" key={key}>
+                <DeviceContent device={item}/>
+              </li>
+            );
+          })
+          }
+        </ul>
       </section>
     );
   }
