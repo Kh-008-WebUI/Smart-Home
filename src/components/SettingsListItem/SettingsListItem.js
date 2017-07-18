@@ -11,11 +11,11 @@ export const SettingsListItem = (props) => (
         onClick={()=>props.deleteItem(props.id)}
       />
     </div>
-    <div>
+    <div className="input-description">
       <label>
-        <p>Description</p>
         <input
           type="text"
+          placeholder="Description"
           onChange={ (e)=> props.addDescription(props.id, e.target.value) }/>
       </label>
     </div>
