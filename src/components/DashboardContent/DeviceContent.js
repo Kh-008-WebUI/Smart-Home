@@ -4,9 +4,9 @@ import './DeviceContent.scss';
 
 const DeviceContent = (props) => {
   return (
-    <div className='device-item'>
-        <div className='device-item__info device-item-name_and_power'>
-          <div className='device-item__info-name'>
+    <div className="device-item">
+        <div className="device-item__info device-item-name_and_power">
+          <div className="device-item__info-name">
             {props.device.name}
           </div>
           <div className={

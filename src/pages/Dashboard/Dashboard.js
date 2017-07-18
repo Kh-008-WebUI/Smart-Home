@@ -6,8 +6,8 @@ import ListUsers from
 import './Dashboard.scss';
 
 const Dashboard = () => (
-  <div className='dashboard-block'>
-    <div className='dashboard-devices-and-persons'>
+  <div className="dashboard-block">
+    <div className="dashboard-devices-and-persons">
       <ListDevices />
       <ListUsers />
     </div>
