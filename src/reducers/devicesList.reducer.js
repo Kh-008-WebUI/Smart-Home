@@ -38,24 +38,22 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
-      let device = state.devices.filter((item, index) => {
-        return item.id === action.id;
-      })[0];
-
-      state.devices.map((item, index) => {
+      const devices = state.devices.map((item, index) => {
         if (item.id === action.id) {
-          device = Object.assign({}, item);
+          return Object.assign({}, item, { status:action.status });
         }
+        return item;
       });
 
-      if (typeof device === 'undefined') {
-        device = state.device;
+      if (state.device.id === action.id) {
+        return {
+          ...state,
+          devices:devices,
+          device:{ ...state.device, status:action.status }
+        };
       }
 
-      device.status = action.status;
-      const devices = Object.assign([], state.devices, device);
-
-      return { ...state, device, devices };
+      return { ...state, devices:devices };
     }
 
     case LOAD_DEVICE_PENDING: {
