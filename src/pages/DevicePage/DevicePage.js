@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Device } from '../../components/Device/Device';
+import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
   changeStatus,
@@ -33,7 +34,7 @@ class DevicePage extends React.Component {
     return (
       <div>
         {typeof this.props.device.id === 'undefined' ?
-          <p><i className="fa fa-3x fa-spinner fa-spin"></i></p> :
+          <Message status={this.props.status}/> :
         <div className="device-view">
         <Device
             device={this.props.device}
@@ -48,7 +49,8 @@ class DevicePage extends React.Component {
 
 const mapStateToProps = state => ({
   device: state.devicesList.device,
-  loadFailed: state.devicesList.loadFailed
+  loadFailed: state.devicesList.loadFailed,
+  status: state.devicesList.uploadStatus
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -72,7 +74,8 @@ DevicePage.propTypes = {
   setItemValue: PropTypes.func,
   pending: PropTypes.bool,
   loadFailed: PropTypes.bool,
-  history: PropTypes.object
+  history: PropTypes.object,
+  status: PropTypes.string
 };
 
 DevicePage.defaultProps = {

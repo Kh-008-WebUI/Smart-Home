@@ -15,11 +15,16 @@ const initialState = {
 
 export const devicesList = (state = {
   device:{ items:[] },
-  devices:[], pending: false, loadFailed: false }, action) => {
+  devices:[],
+  pending: false,
+  loadFailed: false,
+  uploadStatus:'' }, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
-      return { ...state, pending: false,
+      return { ...state,
+        pending: false,
         loadFailed: false,
+        uploadStatus:'DONE',
         devices:action.devices.map((item) => (
         Object.assign({}, item)
       )) };
@@ -35,7 +40,9 @@ export const devicesList = (state = {
     }
 
     case LOAD_DEVICE_SUCCESS: {
-      return { ...state, device: action.device, loadFailed: false };
+      return { ...state, device: action.device,
+        loadFailed: false,
+        uploadStatus:'DONE' };
     }
 
     case CHANGE_STATUS: {
@@ -58,7 +65,10 @@ export const devicesList = (state = {
     }
 
     case LOAD_DEVICE_PENDING: {
-      return { ...state, pending: true };
+      return { ...state,
+        pending: true,
+        uploadStatus:'PENDING'
+      };
     }
 
     case DELETE_DEVICE: {
@@ -86,7 +96,9 @@ export const devicesList = (state = {
       return { ...state, devices };
     }
     case 'LOAD_DEVICE_FAILURE': {
-      return { ...state, loadFailed: true };
+      return { ...state,
+        loadFailed: true,
+        uploadStatus:'FAIL' };
     }
     default:
       return state;
