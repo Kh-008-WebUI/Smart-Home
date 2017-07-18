@@ -30,28 +30,28 @@ class NotificationsBell extends React.Component {
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
     return (
-    <div className='notification'>
-      <div className='notification-bell'>
-        <div className='notification-bell-self'
+    <div className="notification">
+      <div className="notification-bell">
+        <div className="notification-bell-self"
           onClick={this.displayNotify}>
-            <i className='fa fa-bell-o'></i>
+            <i className="fa fa-bell-o"></i>
             <div className={
             this.props.loadNotifacationsStatus === 'ERROR' ?
             'notification-round-error' : '' }></div>
             <div className={
             unViewedMessages.length === 0 ?
             'remove-block' : 'notification-round' }>
-            <div className='notification-messages'>
+            <div className="notification-messages">
               {unViewedMessages.length}
             </div>
           </div>
         </div>
       </div>
-      <div className='notification-list'
+      <div className="notification-list"
         ref={ (el)=>{
           this.bell = el;
         } }>
-        <div className='notification-list__notice'>
+        <div className="notification-list__notice">
           <ul onClick={this.getNotify}>
             {listNotify.map((item, key) => {
               return (
