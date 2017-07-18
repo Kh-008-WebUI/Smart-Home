@@ -14,7 +14,6 @@ class DevicePage extends React.Component {
     super(props);
   }
   componentDidUpdate () {
-    console.log(this.props.loadFailed);
     if (this.props.loadFailed) {
       setTimeout(()=>{
         this.props.history.push('/devices');
