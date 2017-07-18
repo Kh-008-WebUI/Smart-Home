@@ -7,31 +7,18 @@ export default class ToggleSettings extends React.Component {
   constructor (props) {
     super(props);
     this.onChangeValue = this.onChangeValue.bind(this);
-    this.state = {
-      checked: false
-    };
   }
   onChangeValue (e) {
-    this.props.setItemValue(!this.state.checked, this.props.itemId);
-    this.setState({
-      checked: !this.state.checked
-    });
+    this.props.setItemValue(!this.props.checked, this.props.itemId);
   }
-  componentDidMount () {
-    if (typeof this.props.checked !== 'undefined') {
-      this.setState({
-        checked: this.props.checked
-      });
-      this.props.setItemValue(this.props.checked, this.props.itemId);
-    }
-  }
+
   render () {
     return (
       <div className={ `${ this.props.styleName }` }>
         <label className="switch">
           <input
             type="checkbox"
-            defaultChecked={this.props.checked}
+            checked={this.props.checked}
             onChange={this.onChangeValue}
           />
           <div className="slider round"></div>
@@ -44,7 +31,7 @@ export default class ToggleSettings extends React.Component {
 ToggleSettings.propTypes = {
   device: PropTypes.object,
   styleName: PropTypes.string,
-  checked: PropTypes.bool,
+  checked: PropTypes.bool.isRequired,
   setItemValue: PropTypes.func,
   itemId: PropTypes.number,
   newValue: PropTypes.string

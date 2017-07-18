@@ -16,22 +16,28 @@ class ListUsers extends React.Component {
   }
 
   render () {
-    if (this.props.loadUsersStatus === 'Error') {
-      return (<section className='list-users-spinner'>
+    if (this.props.loadUsersStatus === 'ERROR') {
+      return (<section className="list-users-spinner">
         Loading error...
+      </section>);
+    }
+
+    if (this.props.loadUsersStatus === 'PENDING') {
+      return (<section className="list-users-spinner">
+        <i className="fa fa-3x fa-spinner fa-spin spinner-dash"></i>
       </section>);
     }
 
     const list = this.props.currentUsers;
 
     if (list.length === 0) {
-      return (<section className='list-users-spinner'>
-        <i className='fa fa-3x fa-spinner fa-spin spinner-dash'></i>
+      return (<section className="list-users-spinner">
+        User List is empty...
       </section>);
     }
 
     return (
-      <section className='list-users'>
+      <section className="list-users">
         {list.map((item, key) => {
           return (
             <li key={item.id}>
