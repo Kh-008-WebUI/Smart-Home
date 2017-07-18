@@ -19,6 +19,7 @@ export const devicesList = (state = {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
       return { ...state, pending: false,
+        loadFailed: false,
         devices:action.devices.map((item) => (
         Object.assign({}, item)
       )) };
@@ -34,7 +35,7 @@ export const devicesList = (state = {
     }
 
     case LOAD_DEVICE_SUCCESS: {
-      return { ...state, device: action.device };
+      return { ...state, device: action.device, loadFailed: false };
     }
 
     case CHANGE_STATUS: {
@@ -68,7 +69,7 @@ export const devicesList = (state = {
       return { ...state, devices:newDevices };
     }
     case LIST_SET_ITEM_VALUE: {
-      const device = state.device;
+      const device = { ...state.device };
 
       device.items = device.items.map((item, i) => {
         if (i === action.id) {
@@ -84,7 +85,7 @@ export const devicesList = (state = {
       devices.push(action.device);
       return { ...state, devices };
     }
-    case 'LOAD_DEVICES_FAILURE': {
+    case 'LOAD_DEVICE_FAILURE': {
       return { ...state, loadFailed: true };
     }
     default:
