@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 export const SettingsListItem = (props) => (
   <div className={ `settings ${ props.styleName }` }>
-    <div className='item-header'>
-      <p className='item-header__name'>{props.name}</p>
+    <div className="item-header">
+      <p className="item-header__name">{props.name}</p>
       <button
-        className='item-header__delete-btn'
+        className="item-header__delete-btn"
         onClick={()=>props.deleteItem(props.id)}
       />
     </div>

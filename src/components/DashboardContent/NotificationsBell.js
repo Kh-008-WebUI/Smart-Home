@@ -18,7 +18,9 @@ class NotificationsBell extends React.Component {
   }
 
   displayNotify = () => {
-    this.bell.classList.toggle('notification-display');
+    if (this.props.loadNotifacationsStatus !== 'ERROR') {
+      this.bell.classList.toggle('notification-display');
+    }
   }
   getNotify = (el) => {
     this.props.changeStatusNotification(el.target.id);
@@ -33,6 +35,9 @@ class NotificationsBell extends React.Component {
         <div className='notification-bell-self'
           onClick={this.displayNotify}>
             <i className='fa fa-bell-o'></i>
+            <div className={
+            this.props.loadNotifacationsStatus === 'ERROR' ?
+            'notification-round-error' : '' }></div>
             <div className={
             unViewedMessages.length === 0 ?
             'remove-block' : 'notification-round' }>
@@ -68,7 +73,8 @@ class NotificationsBell extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    notifications: store.notificationsReducer
+    notifications: store.notificationsReducer.notifications,
+    loadNotifacationsStatus: store.notificationsReducer.loadNotifacationsStatus
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -82,7 +88,8 @@ function mapDispatchToProps (dispatch) {
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
   getNotifications: PropTypes.any,
-  changeStatusNotification: PropTypes.func
+  changeStatusNotification: PropTypes.func,
+  loadNotifacationsStatus: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
