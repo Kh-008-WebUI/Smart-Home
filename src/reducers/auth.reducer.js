@@ -3,14 +3,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   CLEAR_LOGIN_STATUS,
-  REGISTER_PENDING,
+  REGISTRATION_ATTEMPT,
   REGISTER_SUCCESS,
   REGISTER_FAILURE
 } from '../constants/index';
 
 const initialState = {
-  loginStatus: '',
-  isLogged: false,
+  status: '',
+  isLogged: true,
   user: {
     username:'',
     password:'',
@@ -22,26 +22,27 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_PENDING:
-      return { ...state, loginStatus:'PENDING' };
+      return { ...state, status:'PENDING' };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loginStatus:'DONE',
+        status:'DONE',
         isLogged: action.status
       };
     case LOGIN_FAILURE:
       return {
         ...state,
-        loginStatus:'FAIL',
+        status:'FAIL',
         isLogged: action.status
       };
     case CLEAR_LOGIN_STATUS:
-      return { ...state, loginStatus:'' };
+      return { ...state, status:'' };
+    case REGISTRATION_ATTEMPT:
+      return { ...state, status: 'PENDING' };
     case REGISTER_SUCCESS:
-      return {
-        ...state,
-        user: action.userData
-      };
+      return { ...state, user: action.userData, status: 'DONE' };
+    case REGISTER_FAILURE:
+      return { ...state, status: 'FAIL' };
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import { addDescription, setItemValue } from '../../actions/builder.action';
 import { bindActionCreators } from 'redux';
 
 const Prototype = (props) => (
-  <div className='Prototype'>
+  <div className="Prototype">
     <h3>{props.device.name || 'Device name'}</h3>
     <SettingsList
       addDescription={props.addDescription}

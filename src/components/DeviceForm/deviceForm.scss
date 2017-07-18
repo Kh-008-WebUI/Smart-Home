@@ -9,6 +9,10 @@
   color:$text_color_active;
   border-radius: 10px;
 
+  .Select-clear-zone {
+    display: none;
+  }
+  
   label {
     display: inline-block;
     margin-bottom: 15px;
