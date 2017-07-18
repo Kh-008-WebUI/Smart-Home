@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
+import { Message } from '../../components/Message/Message';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
@@ -103,18 +104,18 @@ class DeviceList extends React.Component {
             </Link>
           </div>
         </header>
-        <section className='device-list__content'>
-          { this.props.pending === false ?
+        <section className="device-list__content">
+          { this.props.status === 'DONE' ?
             <ReactCSSTransitionGroup transitionName="hide"
               transitionEnterTimeout={500}
               transitionLeaveTimeout={300}>
               {this.renderDevices()}
             </ReactCSSTransitionGroup> :
-            <p><i className="fa fa-3x fa-spinner fa-spin"></i></p>
+            <Message status={this.props.status}/>
             }
           {
             this.props.devices.length === 0
-            && this.props.pending === false
+            && this.props.status === 'DONE'
             ? <span>Nothing here...</span> : <span></span>
           }
         </section>
@@ -127,7 +128,7 @@ const mapStateToProps = state =>({
   devices: filterItems(state),
   filterOption: state.searchAndFilter.filterOption,
   search: state.searchAndFilter.searchValue,
-  pending: state.devicesList.pending
+  status: state.devicesList.uploadStatus
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -148,9 +149,9 @@ DeviceList.propTypes = {
   findItems: PropTypes.func,
   loadDevices: PropTypes.func,
   deleteDevice: PropTypes.func,
-  pending: PropTypes.bool,
   history: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
+  status: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);

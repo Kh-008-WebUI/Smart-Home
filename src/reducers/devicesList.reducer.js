@@ -2,7 +2,10 @@ import { LOAD_DEVICES_SUCCESS } from '../constants/index';
 import { CHANGE_STATUS } from '../constants/index';
 import { DELETE_DEVICE, LOAD_DEVICE,
         LOAD_DEVICE_SUCCESS,
-        LOAD_DEVICE_PENDING
+        LOAD_DEVICES_PENDING,
+        LOAD_DEVICE_PENDING,
+        LOAD_DEVICE_FAILURE,
+        ADD_DEVICE_TO_LIST
        } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
@@ -10,45 +13,54 @@ import { CHANGE_FILTER_OPTION } from '../constants/index';
 
 const initialState = {
   filterOption: 'all',
-  searchValue: ''
+  searchValue: '',
+  device:{ items:[] },
+  uploadStatus:'',
+  devices:[]
 };
 
-export const devicesList = (state = {
-  device:{ items:[] },
-  devices:[],
-  pending: false,
-  loadFailed: false,
-  uploadStatus:'' }, action) => {
+export const devicesList = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
-      return { ...state,
-        pending: false,
-        loadFailed: false,
+      return {
+        ...state,
         uploadStatus:'DONE',
         devices:action.devices.map((item) => (
-        Object.assign({}, item)
-      )) };
+          Object.assign({}, item)
+        ))
+      };
 
     case LOAD_DEVICE: {
       const device = state.devices.filter((item) => {
         return item.id === action.id;
       })[0];
 
-      const devices = Object.assign([], state.devices, device);
+      const devices = Object.assign([],
+        state.devices,
+        device
+      );
 
-      return { ...state, device, devices };
+      return {
+        ...state,
+        device,
+        devices
+      };
     }
 
     case LOAD_DEVICE_SUCCESS: {
-      return { ...state, device: action.device,
-        loadFailed: false,
-        uploadStatus:'DONE' };
+      return {
+        ...state,
+        device: action.device,
+        uploadStatus:'DONE'
+      };
     }
 
     case CHANGE_STATUS: {
       const devices = state.devices.map((item, index) => {
         if (item.id === action.id) {
-          return Object.assign({}, item, { status:action.status });
+          return Object.assign({}, item, {
+            status:action.status
+          });
         }
         return item;
       });
@@ -61,22 +73,33 @@ export const devicesList = (state = {
         };
       }
 
-      return { ...state, devices:devices };
-    }
-
-    case LOAD_DEVICE_PENDING: {
-      return { ...state,
-        pending: true,
-        uploadStatus:'PENDING'
+      return {
+        ...state,
+        devices:devices
       };
     }
 
+    case LOAD_DEVICES_PENDING: {
+      return {
+        ...state,
+        uploadStatus:'PENDING'
+      };
+    }
+    case LOAD_DEVICE_PENDING: {
+      return {
+        ...state,
+        uploadStatus:'PENDING'
+      };
+    }
     case DELETE_DEVICE: {
       const newDevices = state.devices.filter((item) =>{
         return item.id !== action.id;
       });
 
-      return { ...state, devices:newDevices };
+      return {
+        ...state,
+        devices:newDevices
+      };
     }
     case LIST_SET_ITEM_VALUE: {
       const device = { ...state.device };
@@ -87,18 +110,25 @@ export const devicesList = (state = {
         }
         return item;
       });
-      return { ...state, device };
+      return {
+        ...state,
+        device
+      };
     }
-    case 'ADD_DEVICE_TO_LIST': {
+    case ADD_DEVICE_TO_LIST: {
       const devices = Object.assign([], state.devices);
 
       devices.push(action.device);
-      return { ...state, devices };
+      return {
+        ...state,
+        devices
+      };
     }
-    case 'LOAD_DEVICE_FAILURE': {
-      return { ...state,
-        loadFailed: true,
-        uploadStatus:'FAIL' };
+    case LOAD_DEVICE_FAILURE: {
+      return {
+        ...state,
+        uploadStatus:'FAIL'
+      };
     }
     default:
       return state;
@@ -108,9 +138,13 @@ export const devicesList = (state = {
 export const searchAndFilter = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_FILTER_OPTION:
-      return Object.assign({}, state, { filterOption: action.filterOption });
+      return Object.assign({}, state, {
+        filterOption: action.filterOption
+      });
     case SEARCH_ITEM:
-      return Object.assign({}, state, { searchValue: action.searchValue });
+      return Object.assign({}, state, {
+        searchValue: action.searchValue
+      });
     default:
       return state;
   }
