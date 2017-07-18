@@ -4,12 +4,12 @@
 
   &__header {
 	height: 70px;
-	border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid $light-gray;
 	margin-bottom: 10px;
 }
 	
 	&__name {
-		color:#555;
+		color:$text-color-title;
 		font-size: 24px;
 		text-transform: capitalize;
 		float: left;
@@ -34,51 +34,11 @@
 		}
 	}
 
-	small{
+	small {
 		font-size: 10px;
 	}
 
-	.device-view-2{
-		height: 200px;
-
-		&__notice{
-			background-color: $light-bg;
-			float: left;
-      width: 24%;
-      height: 100%;
-			border-radius: 3px;
-			padding: 10px;
-
-			ul{
-				margin: 0;
-        padding: 0;
-        list-style: none;
-
-				li{
-					margin: 5px 2px;
-          padding: 10px;
-          border-left-width: 3px;
-          border-left-style: solid;
-					color: white;
-					border-color: #f6a821;
-					border-radius: 3px;
-					font-size: 14px;
-				}
-			}
-		}
-
-		div:first-child{
-			width: 800px;
-			height: 200px;
-			float: right;
-		}
-	}
-
-	.device-view-2 svg{
-		height: 200px;
-	}
-
-  &__settings{
+  &__settings {
     background: $main-bg;
     padding: 30px;
   }
@@ -88,11 +48,11 @@
 
 		i{
 			margin-right: 5px;
-			color: #f6a821;
+			color: $color-orange;
 		}
 	}
 
-  &__settings{
+  &__settings {
     background: $light-bg;
     padding: 30px;
     display: flex;
@@ -102,7 +62,7 @@
 }
 
 .device-settings {
-	&__description{
+	&__description {
 		color:$light-gray;
 		margin-bottom: 15px;
 	}
@@ -144,5 +104,5 @@
 }
 
 i{
-	color: #f6a821;
+	color: $color-orange;
 }
