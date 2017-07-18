@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
-import { registrationSuccess } from '../../actions/auth.action';
+import { Message } from '../../components/Message/Message';
+import { registration } from '../../actions/auth.action';
 import { NavLink } from 'react-router-dom';
 require('./Register.scss');
 
 class Register extends Component {
   constructor (props) {
     super(props);
+    this.state = {
+      canSubmit: false
+    };
+    this.enableButton = () => {
+      this.setState({
+        canSubmit: true
+      });
+    };
     this.addRegisterDataToStore = (event) => {
       this.props.registration({
         username: this.username.getValue(),
@@ -21,12 +30,14 @@ class Register extends Component {
     };
   }
   render () {
+    console.log(this.props.loginStatus);
     return (
       <div className="signup-container">
         <Header
           pic={'fa-user'}
           title={'Register'}
           text={'Please enter your data to register.'} />
+        <Message status={this.props.loginStatus} />
         <Formsy.Form
           onSubmit={this.addRegisterDataToStore}
           onValid={this.enableButton}
@@ -80,7 +91,8 @@ class Register extends Component {
               type="submit"
               name="subm"
               className="btn btn--signup btn--signup-active"
-              value="Register"/>
+              value="Register"
+              disabled={!this.state.canSubmit}/>
             <span className={'caption signup-form__caption ' +
               'signup-form__caption--text'}>
               Already has account?
@@ -97,16 +109,18 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  userData: state.authentication.user
+  userData: state.authentication.user,
+  loginStatus: state.authentication.loginStatus
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  registration: (userData) => dispatch(registrationSuccess(userData))
+  registration: (userData) => dispatch(registration(userData))
 });
 
 Register.propTypes = {
   resetValue: PropTypes.func,
-  registration: PropTypes.func
+  registration: PropTypes.func,
+  loginStatus: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

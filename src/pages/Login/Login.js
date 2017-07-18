@@ -54,7 +54,9 @@ class Login extends Component {
           <Field
             name="Password"
             type="password"
-            text={'Your hard to guess password'}/>
+            text={'Your hard to guess password'}
+            validations="isExisty"
+            validationError="This is not a valid pass"/>
           <div className="signup-field-group signup-btn-group">
             <input
               type="button"
