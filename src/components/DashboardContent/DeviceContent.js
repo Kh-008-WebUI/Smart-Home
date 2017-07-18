@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './DeviceContent.scss';
 
 const DeviceContent = (props) => {
@@ -7,7 +8,9 @@ const DeviceContent = (props) => {
     <div className='device-item'>
         <div className='device-item__info device-item-name_and_power'>
           <div className='device-item__info-name'>
-            {props.device.name}
+            <Link className='device-item__info-name' to={
+            `/devices/device/${props.device.id}`
+          }>{props.device.name}</Link>
           </div>
           <div className={
             props.device.status ?
