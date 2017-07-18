@@ -25,7 +25,6 @@ class NotificationsBell extends React.Component {
   }
 
   hideNotify = () => {
-    console.log('99');
     this.bell.classList.remove('notification-display');
     document.removeEventListener('click', this.hideNotify);
   }
