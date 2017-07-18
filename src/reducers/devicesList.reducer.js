@@ -15,19 +15,22 @@ const initialState = {
 
 export const devicesList = (state = {
   device:{ items:[] },
-  devices:[], pending: false }, action) => {
+  devices:[], pending: false, loadFailed: false }, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS:
-      return { ...state, pending: false, devices:action.devices.map((item) => (
+      return { ...state, pending: false,
+        devices:action.devices.map((item) => (
         Object.assign({}, item)
       )) };
 
     case LOAD_DEVICE: {
-      const device = state.devices.filter((item) =>{
+      const device = state.devices.filter((item) => {
         return item.id === action.id;
       })[0];
 
-      return { ...state, device };
+      const devices = Object.assign([], state.devices, device);
+
+      return { ...state, device, devices };
     }
 
     case LOAD_DEVICE_SUCCESS: {
@@ -35,12 +38,22 @@ export const devicesList = (state = {
     }
 
     case CHANGE_STATUS: {
-      const item = action.device;
+      const devices = state.devices.map((item, index) => {
+        if (item.id === action.id) {
+          return Object.assign({}, item, { status:action.status });
+        }
+        return item;
+      });
 
-      item.status = !item.status;
-      const arr = Object.assign([], state.devices, item);
+      if (state.device.id === action.id) {
+        return {
+          ...state,
+          devices:devices,
+          device:{ ...state.device, status:action.status }
+        };
+      }
 
-      return { ...state, device: item, devices:arr };
+      return { ...state, devices:devices };
     }
 
     case LOAD_DEVICE_PENDING: {
@@ -64,6 +77,15 @@ export const devicesList = (state = {
         return item;
       });
       return { ...state, device };
+    }
+    case 'ADD_DEVICE_TO_LIST': {
+      const devices = Object.assign([], state.devices);
+
+      devices.push(action.device);
+      return { ...state, devices };
+    }
+    case 'LOAD_DEVICES_FAILURE': {
+      return { ...state, loadFailed: true };
     }
     default:
       return state;

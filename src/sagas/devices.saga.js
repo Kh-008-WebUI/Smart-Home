@@ -35,8 +35,8 @@ export function* loadDeviceSaga (action) {
     const device = yield call(DeviceListApi.getDevice, action.id);
 
     yield put(loadDeviceSuccess(device));
-  } catch (e) {
-    yield put(loadDevicesFail());
+  } catch (error) {
+    yield put(loadDevicesFail(error));
   }
 }
 

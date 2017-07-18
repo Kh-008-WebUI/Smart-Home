@@ -1,6 +1,6 @@
 import React from 'react';
 import { settingsComponents } from '../../data/componentsNames';
-import DeviceStatusToggle from '../DeviceStatusToggle/DeviceStatusToggle';
+import ToggleSettings from '../ToggleSettings/ToggleSettings';
 import PropTypes from 'prop-types';
 require('./Device.scss');
 
@@ -15,9 +15,10 @@ export const Device = (props) => {
           <small>Last updated 7 days ago</small>
         </div>
         <div className="device-item__info-status">
-          <DeviceStatusToggle
-            device={props.device}
-            changeStatus={props.onStatusChange}/>
+          <ToggleSettings
+            checked={props.device.status}
+            itemId={props.device.id}
+            setItemValue={props.onStatusChange}/>
         </div>
         <div className="device-view__info">
           <small>07.07.17</small><br/>
