@@ -3,10 +3,10 @@
 .login {
   &-container {
     margin: 0 auto;
-    max-width: 500px;
-    
+    max-width: 390px;
+    margin-top: -235px;
     position: relative;
-    top: 10vh;
+    top: 50%;
 
     .signup-field-group {
       @media (min-width: $tablet-min) {
@@ -19,7 +19,6 @@
       width: 400px;
       max-width: inherit;
       position: absolute;
-      top: 50%;
       left: 50%;
       margin: -200px 0 0 -200px;
     }

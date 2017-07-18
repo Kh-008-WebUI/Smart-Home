@@ -1,11 +1,11 @@
 @import "/../../scss/variables";
 
 .Prototype{
-  margin: 3% 0;
-  border-radius: 10px;
+  border-radius: 7px;
   background: $color-bg-dark-grey;
   color:$text-color-active;
   text-align:center;
+  position: relative;
 
   h3{
     padding: 20px 0;

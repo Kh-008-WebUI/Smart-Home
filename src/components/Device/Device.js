@@ -11,7 +11,7 @@ export const Device = (props) => {
     <seciton>
       <div className="device-view__header">
         <div className="device-view__name">
-          <h3>{device.name}</h3>
+          <h1>{device.name}</h1>
           <small>Last updated 7 days ago</small>
         </div>
         <div className="device-item__info-status">

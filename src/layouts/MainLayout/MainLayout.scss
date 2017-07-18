@@ -1,11 +1,10 @@
 @import "../../scss/_variables.scss";
 
 .content {
-    margin: 51px auto;
+    margin: 51px auto 0;
     padding: 20px;
 
   @media (min-width: $tablet-min) {
-    margin: 51px 0 0 75px;
     height: calc(100vh - 51px);
   }
 

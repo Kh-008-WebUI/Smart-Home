@@ -3,7 +3,7 @@
 .mob-hide {
   display: none;
 
-  @media (min-width: $tablet-min) {
+  @media (min-width: $desktop-min) {
     display: block;
   }
 }
