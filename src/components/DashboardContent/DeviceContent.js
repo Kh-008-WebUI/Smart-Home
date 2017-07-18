@@ -5,7 +5,7 @@ import './DeviceContent.scss';
 
 const DeviceContent = (props) => {
   return (
-    <Link className="device-item__info-name" to={
+    <Link to={
       `/devices/device/${props.device.id}`
       }>
     <div className="device-item">
