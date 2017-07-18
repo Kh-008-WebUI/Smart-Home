@@ -4,7 +4,7 @@
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
   .dashboard-devices-and-persons {
     flex-direction: column;
   }
@@ -20,7 +20,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .list-device {
+  .list-device-menu {
     flex-direction: column;
   }
 

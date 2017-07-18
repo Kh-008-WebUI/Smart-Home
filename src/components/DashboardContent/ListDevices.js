@@ -25,14 +25,17 @@ class ListDevices extends React.Component {
     }
     return (
       <section className="list-device">
-        {listDevices.map((item, key) => {
-          return (
-            <li className="device-single" key={key}>
-              <DeviceContent device={item}/>
-            </li>
-          );
-        })
-        }
+        <h2 className="list-title">Popular devices</h2>
+        <ul className="list-device-menu">
+          {listDevices.map((item, key) => {
+            return (
+              <li className="device-single" key={key}>
+                <DeviceContent device={item}/>
+              </li>
+            );
+          })
+          }
+        </ul>
       </section>
     );
   }
