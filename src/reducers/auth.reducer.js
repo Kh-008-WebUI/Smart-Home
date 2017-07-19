@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   status: '',
-  isLogged: true,
+  isLogged: false,
   user: {
     username:'',
     password:'',
@@ -40,7 +40,12 @@ const reducer = (state = initialState, action) => {
     case REGISTRATION_ATTEMPT:
       return { ...state, status: 'PENDING' };
     case REGISTER_SUCCESS:
-      return { ...state, user: action.userData, status: 'DONE' };
+      return {
+        ...state,
+        user: action.userData,
+        isLogged: true,
+        status: 'DONE'
+      };
     case REGISTER_FAILURE:
       return { ...state, status: 'FAIL' };
     default:
