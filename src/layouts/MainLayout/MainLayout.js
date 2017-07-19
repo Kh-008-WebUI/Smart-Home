@@ -9,9 +9,6 @@ import { connect } from 'react-redux';
 class MainLayout extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      active: false
-    };
 
     this.toggleClass = () => {
       const menu = document.querySelector('.navigation');
