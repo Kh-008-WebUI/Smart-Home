@@ -46,6 +46,7 @@
 			"id": 5,
 			"name": "Range",
 			"type": "range",
+      "data": "",
 			"description":"Time"
 		},
 		{

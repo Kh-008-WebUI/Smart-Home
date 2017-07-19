@@ -111,11 +111,12 @@ export const devicesList = (state = initialState, action) => {
         if (i === action.id) {
           item.data = action.value;
         }
-        return item;
+        return device.items;
       });
       return {
         ...state,
-        device
+        device:{ ...state.device,
+          device:{ ...state.device, items:device.items } }
       };
     }
 
