@@ -22,20 +22,18 @@
     display: inline-block;
     width: 35%;
     margin-bottom: 15px;
+    margin-left: 20px;
     vertical-align: top;
-    .name-input {
-      box-sizing: border-box;
-      background-color: $color-bg-grey;
-      color: $text_color_input;
-      border-radius: 5px;
-      border: none;
-      height: 34px;
-      width: 90%;
-      margin: 0;
-    }
 
     //select styles
-
+    .Select {
+      height: 34px;
+      margin-top: -2px;
+    }
+    .Select-value {
+      border: 1px #798094 solid;
+      border-radius: 4px;
+    }
     .Select-control, .Select-option {
       background-color: $color-bg-grey;
       color: $text_color_input;
@@ -83,16 +81,11 @@
     color: $text_color_active;
   }
   .main-button-wrap{
-    text-align: right;
-  }
-  .main-button {
-    border: 1px solid $color_orange;
-    background: $orange;
-    color: #fff;
-    margin-top: 15px;
-  }
-  .main-button:hover {
-    background-color: rgba(246,168,33,0.3);
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    max-width: 115px;
+    z-index: 10;
   }
 }
 
@@ -101,9 +94,7 @@
   .device-form {
     .input-container {
       width: 100%;
-      .name-input {
-        width: 100%;
-      }
+      margin-left: 0;
     }
     .form-button {
       width: 100%;
