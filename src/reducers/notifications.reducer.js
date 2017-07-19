@@ -10,9 +10,7 @@ const notifications = (state = {
 }, action) => {
   switch (action.type) {
     case NOTIFICATIONS_FETCH_SUCCESS: {
-      const res = { ...state, ...action, loadNotifacationsStatus: 'DONE' };
-
-      return res;
+      return { ...state, ...action, loadNotifacationsStatus: 'DONE' };
     }
     case NOTIFICATIONS_FETCH_FAILURE: {
       return { ...state, loadNotifacationsStatus: 'ERROR' };
