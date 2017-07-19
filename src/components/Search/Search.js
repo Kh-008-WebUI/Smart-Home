@@ -4,8 +4,8 @@ require('./search.scss');
 
 const Search = (props) => {
   return (
-    <div className='searchBox'>
-      <div className='searchBox__results'>
+    <div className="searchBox">
+      <div className="searchBox__results">
         <span>{props.quantity}</span> devices
       </div>
       <div>
@@ -13,11 +13,11 @@ const Search = (props) => {
           type="text"
           name="search"
           placeholder="Find a device"
-          className='searchBox__field'
+          className="searchBox__field"
           onChange={e => {
             props.handleSearch(e.target.value);
           }}/>
-        <button className='btn searchBox__btn'>Search</button>
+        <button className="btn searchBox__btn">Search</button>
       </div>
     </div>
   );

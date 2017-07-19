@@ -18,11 +18,12 @@ import {
   CHANGE_STATUS,
   SEARCH_ITEM,
   CHANGE_FILTER_OPTION,
+  LOAD_DEVICES_PENDING,
   LOAD_DEVICE_PENDING } from '../constants/index';
 
 export function* loadDevicesSaga () {
   try {
-    yield put({ type:LOAD_DEVICE_PENDING });
+    yield put({ type:LOAD_DEVICES_PENDING });
     const devices = yield call(DeviceListApi.getDevices);
 
     yield put(loadDevicesSuccess(devices));
@@ -33,6 +34,7 @@ export function* loadDevicesSaga () {
 
 export function* loadDeviceSaga (action) {
   try {
+    yield put({ type:LOAD_DEVICE_PENDING });
     const device = yield call(DeviceListApi.getDevice, action.id);
 
     yield put(loadDeviceSuccess(device));
