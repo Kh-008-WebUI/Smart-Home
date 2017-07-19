@@ -13,8 +13,9 @@ export const SettingsListItem = (props) => (
     </div>
     <div>
       <label>
-        <p>Description</p>
         <input
+          className="description-input"
+          placeholder="Description"
           type="text"
           onChange={ (e)=> props.addDescription(props.id, e.target.value) }/>
       </label>
