@@ -18,7 +18,7 @@ class ListUsers extends React.Component {
   render () {
     if (this.props.loadUsersStatus === 'ERROR') {
       return (<section className="list-users-spinner">
-        Loading error...
+        <i className="fa fa-times fa-3x"></i>
       </section>);
     }
 
