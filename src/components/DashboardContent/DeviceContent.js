@@ -5,12 +5,13 @@ import './DeviceContent.scss';
 
 const DeviceContent = (props) => {
   return (
-    <div className='device-item'>
-        <div className='device-item__info device-item-name_and_power'>
-          <div className='device-item__info-name'>
-            <Link className='device-item__info-name' to={
-            `/devices/device/${props.device.id}`
-          }>{props.device.name}</Link>
+    <Link to={
+      `/devices/device/${props.device.id}`
+      }>
+    <div className="device-item">
+        <div className="device-item__info device-item-name_and_power">
+          <div className="device-item__info-name">
+            {props.device.name}
           </div>
           <div className={
             props.device.status ?
@@ -24,6 +25,7 @@ const DeviceContent = (props) => {
               {props.device.location}</div>
         </div>
       </div>
+    </Link>
   );
 };
 
@@ -31,6 +33,5 @@ DeviceContent.propTypes = {
   device: PropTypes.object,
   power: PropTypes.string
 };
+
 export default DeviceContent;
-
-
