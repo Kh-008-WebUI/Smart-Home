@@ -40,7 +40,7 @@ export const Device = (props) => {
               className={'device-settings__group device-settings__group--'
                 + setting.name.toLowerCase()}>
               <div className="device-settings__description">
-                {setting.description}
+                {setting.description || 'No Description yet'}
               </div>
             <SettingsComponent
               data={setting.data}

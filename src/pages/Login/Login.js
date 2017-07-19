@@ -73,8 +73,9 @@ class Login extends Component {
             ref={(input) => {
               this.password = input;
             }}
-            validations={{
-              matchRegexp: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+            validations= {{
+              minLength: 7,
+              isAlphanumeric: true
             }}
             validationError="This is not a valid pass"
             required/>
