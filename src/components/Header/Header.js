@@ -11,7 +11,7 @@ export default class Header extends React.Component {
         <div className="header-block-text">smart home</div>
         <button
           className="header-block__navicon"
-          onClick={this.props.toggleClass}>
+          onClick={this.props.setSidebarOpen}>
           <i
             className="fa fa-bars header-block__navicon-bars"
             aria-hidden="true"></i>
@@ -25,5 +25,5 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
-  toggleClass: PropTypes.func
+  setSidebarOpen: PropTypes.func
 };

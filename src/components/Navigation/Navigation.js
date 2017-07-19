@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
-const Navigation = () => (
-    <ul className="navigation">
+const Navigation = (props) => (
+    <ul className={props.open ?
+      'navigation navigation--shown' : 'navigation'}>
       <li className="navigation-item">
         <NavLink
           to="/"
@@ -36,5 +38,8 @@ const Navigation = () => (
     </ul>
 );
 
-export default Navigation;
+Navigation.propTypes = {
+  open: PropTypes.bool
+};
 
+export default Navigation;

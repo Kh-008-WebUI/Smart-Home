@@ -9,11 +9,14 @@ import { connect } from 'react-redux';
 class MainLayout extends Component {
   constructor (props) {
     super(props);
+    this.state = {
+      sidebarOpen: false
+    };
 
-    this.toggleClass = () => {
-      const menu = document.querySelector('.navigation');
+    this.setSidebarOpen = (open) => {
+      const currentState = this.state.sidebarOpen;
 
-      menu.classList.toggle('navigation--shown');
+      this.setState({ sidebarOpen: !currentState });
     };
   }
   componentWillMount () {
@@ -29,8 +32,8 @@ class MainLayout extends Component {
   render () {
     return (
       <div>
-        <Header toggleClass={this.toggleClass}/>
-        <Navigation />
+        <Header setSidebarOpen={this.setSidebarOpen}/>
+        <Navigation open={this.state.sidebarOpen}/>
         <main className="content">
         {this.props.children}
         </main>
