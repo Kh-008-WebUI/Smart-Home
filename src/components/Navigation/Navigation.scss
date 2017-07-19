@@ -1,31 +1,39 @@
 @import "../../scss/_variables.scss";
 
-.mob-hide {
-  display: none;
-
-  @media (min-width: $desktop-min) {
-    display: block;
-  }
-}
-
 .navigation {
   position: fixed;
   background-color: $color-bg-grey;
   top: 51px;
   bottom: 0;
+  left: -161px;
   padding-top: 20px;
+  min-width: 161px;
+  transition: width 1s;
+  -webkit-transition: left 1s;
+  z-index: 10;
+
+  @media (min-width: $desktop-min) {
+    left: 0;
+  }
+
+  &--shown {
+    left: 0;
+  }
   
   li {
     padding: 10px 15px;
-    max-width: 75px;
+
+    &:hover a{
+      color: $text-color-active;
+    }
 
     @media (min-width: $desktop-min) {
-      padding: 10px 30px;
-      max-width: 161px;
+      padding: 10px 21px;
+      font-size: 14px;
     }
 
     a {
-      color: $text-color-active;
+      color: $text-color-input;
     }
   }
 }

@@ -41,7 +41,7 @@ class NotificationsBell extends React.Component {
       <div className="notification-bell">
         <div className="notification-bell-self"
           onClick={this.displayNotify}>
-            <i className="fa fa-bell-o"></i>
+            <i className='fa fa-bell-o notification-bell__icon'></i>
             <div className={
             this.props.loadNotifacationsStatus === 'ERROR' ?
             'notification-round-error' : '' }></div>

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 const Navigation = () => (
-    <ul className="navigation mob-hide">
+    <ul className="navigation">
       <li className="navigation-item">
         <NavLink
           to="/"

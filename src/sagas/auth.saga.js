@@ -26,9 +26,9 @@ export function* checkLogin (action) {
 
 export function* register (action) {
   try {
-    const registerData = yield call(getRegisterData);
+    const registerData = yield call(getRegisterData, action.userData);
 
-    yield put(registrationSuccess(action.userData));
+    yield put(registrationSuccess(registerData));
     yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
