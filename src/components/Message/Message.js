@@ -8,7 +8,7 @@ export const Message = (props) => {
       case 'PENDING':
         return (<i className="fa fa-3x fa-spinner fa-spin"></i>);
       case 'DONE':
-        return (<i className="fa fa-check-circle fa-3x"></i>);
+        return (<i className="fa fa-check fa-3x"></i>);
       case 'FAIL':
         return (<i className="fa fa-times fa-3x"></i>);
       default:

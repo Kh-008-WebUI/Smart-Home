@@ -8,9 +8,26 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 49;
-  display: flex;
-  justify-content: space-between;
+  height: 51px;
+
+  &__navicon {
+    border: 0;
+    background: transparent;
+    outline: none;
+
+    @media (min-width: $desktop-min) {
+      display: none;
+    }
+
+    &-bars.fa {
+      color: $nav-bg;
+      font-size: 24px;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
 }
 
 .header-block-text {
@@ -20,6 +37,8 @@
   background-color: $color_orange;
   text-transform: uppercase;
   letter-spacing: 3px;
+  display: inline-block;
+  margin-right: 20px;
 }
 
 .img-logo {
@@ -31,5 +50,6 @@
   background-repeat: no-repeat;
 }
 .notification-block {
+  float: right;
   cursor: pointer;
 }

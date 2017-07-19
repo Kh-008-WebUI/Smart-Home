@@ -19,18 +19,11 @@ class NotificationsBell extends React.Component {
 
   displayNotify = () => {
     if (this.props.loadNotifacationsStatus !== 'ERROR') {
-      this.bell.classList.add('notification-display');
-      document.addEventListener('click', this.hideNotify);
+      this.bell.classList.toggle('notification-display');
     }
-  }
-
-  hideNotify = () => {
-    this.bell.classList.remove('notification-display');
-    document.removeEventListener('click', this.hideNotify);
   }
   getNotify = (el) => {
     this.props.changeStatusNotification(el.target.id);
-    this.displayNotify();
   }
   render () {
     const listNotify = this.props.notifications;
@@ -41,7 +34,7 @@ class NotificationsBell extends React.Component {
       <div className="notification-bell">
         <div className="notification-bell-self"
           onClick={this.displayNotify}>
-            <i className="fa fa-bell-o"></i>
+            <i className='fa fa-bell-o notification-bell__icon'></i>
             <div className={
             this.props.loadNotifacationsStatus === 'ERROR' ?
             'notification-round-error' : '' }></div>

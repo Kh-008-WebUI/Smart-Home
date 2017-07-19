@@ -9,7 +9,7 @@ export const login = (data) => {
 export const getRegisterData = (data) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve('success');
+      resolve(data);
     }, 1000);
   });
 };
