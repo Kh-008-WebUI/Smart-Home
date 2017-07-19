@@ -11,6 +11,9 @@
   @media (min-width: $desktop-min) {
     margin-left: 55px;
   }
+  @media (max-width: $tablet-min) {
+    position: fixed;
+  }
 }
 
 .auth{
