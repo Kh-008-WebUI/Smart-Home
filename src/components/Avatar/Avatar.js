@@ -4,12 +4,12 @@ import './Avatar.scss';
 
 const Avatar = (props) => {
   return (
-    <figure className='person-view'>
-      <div className='person-avatar-and-name'>
-        <div className='avatar-image'></div>
+    <figure className="person-view">
+      <div className="person-avatar-and-name">
+        <div className="avatar-image"></div>
         <figurecaption>{props.item.name}</figurecaption>
       </div>
-      <div className='person-at-home'>
+      <div className="person-at-home">
         <i className={
           'fa fa-home person-at-home' + (props.item.home ? '' : '__false')}
           aria-hidden='true'>

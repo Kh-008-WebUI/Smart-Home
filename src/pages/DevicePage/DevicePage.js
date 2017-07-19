@@ -13,7 +13,13 @@ class DevicePage extends React.Component {
   constructor (props) {
     super(props);
   }
-
+  componentDidUpdate () {
+    if (this.props.loadFailed) {
+      setTimeout(()=>{
+        this.props.history.push('/devices');
+      }, 1000);
+    }
+  }
   componentDidMount () {
     this.props.loadDevice(parseInt(this.props.match.params.id));
     if (typeof this.props.device.id === 'undefined') {
@@ -65,7 +71,8 @@ DevicePage.propTypes = {
   loadDevice: PropTypes.func,
   setItemValue: PropTypes.func,
   pending: PropTypes.bool,
-  loadFailed: PropTypes.bool
+  loadFailed: PropTypes.bool,
+  history: PropTypes.object
 };
 
 DevicePage.defaultProps = {

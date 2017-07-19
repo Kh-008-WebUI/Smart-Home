@@ -38,13 +38,16 @@ class ListUsers extends React.Component {
 
     return (
       <section className="list-users">
-        {list.map((item, key) => {
-          return (
-            <li key={item.id}>
-              <Avatar item={item} />
-            </li>
-          );
-        })}
+        <h2 className="list-title">Users</h2>
+        <ul className="list-menu-users">
+          {list.map((item, key) => {
+            return (
+              <li key={item.id}>
+                <Avatar item={item} />
+              </li>
+            );
+          })}
+        </ul>
       </section>
     );
   }

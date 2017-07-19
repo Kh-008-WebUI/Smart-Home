@@ -17,6 +17,7 @@ export const SettingsList = (props) => (
           name={setting.name}
           deleteItem={props.deleteItem}
           setItemValue={props.setItemValue}
+          checked={setting.data}
           id={i}>
           <Item />
         </SettingsListItem>
