@@ -113,7 +113,11 @@
   
   &-btn-group.signup-field-group {
     width: 100%;
-
+    .btn:disabled {
+      color: $light-gray;
+      border-color: $light-gray;
+      background: rgba(204,204,204, 0.3);
+    }
     @media (min-width: $tablet-min) {
       margin: 0;
     }

@@ -4,7 +4,7 @@ import { DELETE_DEVICE, LOAD_DEVICE,
         LOAD_DEVICE_SUCCESS,
         LOAD_DEVICES_PENDING,
         LOAD_DEVICE_PENDING,
-        LOAD_DEVICE_FAILURE,
+        LOAD_DEVICE_FAIL,
         ADD_DEVICE_TO_LIST
        } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
@@ -129,7 +129,7 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case LOAD_DEVICE_FAILURE: {
+    case LOAD_DEVICE_FAIL: {
       return {
         ...state,
         uploadStatus:'FAIL'
