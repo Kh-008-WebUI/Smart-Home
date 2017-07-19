@@ -3,12 +3,6 @@
 .device-list {
   width: 100%;
   margin: 0 auto;
-  padding-top: 20px;
-
-  @media (min-width: $desktop-min) {
-    width: 90%;
-    padding-top: 25px;
-  }
 
   &__header {
     background-color: $color-bg-dark-grey;

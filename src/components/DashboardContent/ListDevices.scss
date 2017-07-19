@@ -3,14 +3,25 @@
 .list-device {
   background-color: $text-color-active;
   width: 78%;
-  padding: 15px;
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.list-device-menu {
   display: flex;
   justify-content: space-between;
-  border-radius: 10px;
 }
+
 .device-single {
   width: 30%;
 }
+
+.list-title {
+  color: $text-color-title;
+  margin-bottom: 20px;
+}
+
 .device-item-name_and_power {
   display: flex;
   align-items: center;

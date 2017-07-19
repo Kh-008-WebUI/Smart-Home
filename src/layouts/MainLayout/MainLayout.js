@@ -7,6 +7,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class MainLayout extends Component {
+  constructor (props) {
+    super(props);
+
+    this.toggleClass = () => {
+      const menu = document.querySelector('.navigation');
+
+      menu.classList.toggle('navigation--shown');
+    };
+  }
   componentWillMount () {
     if (!this.props.isLogged) {
       this.props.history.push('/auth');
@@ -20,7 +29,7 @@ class MainLayout extends Component {
   render () {
     return (
       <div>
-        <Header />
+        <Header toggleClass={this.toggleClass}/>
         <Navigation />
         <main className="content">
         {this.props.children}
