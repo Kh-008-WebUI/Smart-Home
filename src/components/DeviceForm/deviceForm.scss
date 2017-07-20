@@ -12,7 +12,12 @@
   .Select-clear-zone {
     display: none;
   }
-  
+  .signup-field-group {
+    .signup-form__label {
+      font-weight: initial;
+      font-size: 16px;
+    }
+  }
   label {
     display: inline-block;
     margin-bottom: 15px;
@@ -96,9 +101,24 @@
       width: 100%;
       margin-left: 0;
     }
+    .signup-field-group {
+      max-width: none;
+    }
     .form-button {
       width: 100%;
       margin-bottom: 15px;
+    }
+    .main-button-wrap{
+      position: relative;
+      right: 0;
+      bottom: 0;
+      max-width: none;
+      text-align: center;
+      .btn.btn--signup {
+        width: 50%;
+        max-width: none;
+        margin: 0;
+      }
     }
   }
 }
