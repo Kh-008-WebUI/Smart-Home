@@ -1,7 +1,6 @@
 @import '../../scss/_variables.scss';
 
 .list-device {
-  background-color: $text-color-active;
   width: 78%;
   display: flex;
   border-radius: 10px;
@@ -15,10 +14,14 @@
 
 .device-single {
   width: 30%;
+
+  .device-item {
+    width: 100%;
+    margin-right: 0;
+  }
 }
 
 .list-title {
-  color: $text-color-title;
   margin-bottom: 20px;
 }
 
@@ -29,7 +32,6 @@
 }
 
 .list-device-spinner {
-  background-color: $text-color-active;
   width: 78%;
   padding: 15px;
   display: flex;

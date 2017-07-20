@@ -6,7 +6,6 @@ require('./Authentication.scss');
 
 export const Authentication = (props) => (
   <div className="auth">
-   <NavLink to="/" className="btn btn--active">Home</NavLink>
    {props.children}
   </div>
 );
