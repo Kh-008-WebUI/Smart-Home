@@ -5,10 +5,9 @@
   margin: 0 auto;
 
   &__header {
-    background-color: $color-bg-dark-grey;
-    border-radius: 5px;
     margin-bottom: 30px;
-    padding: 15px 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $default-border;
 
     @media (min-width: $tablet-min) {
       display: flex;
@@ -22,7 +21,6 @@
   }
 
   &__title {
-    color: $text-color-title;
     margin-bottom: 20px;
   }
 }
