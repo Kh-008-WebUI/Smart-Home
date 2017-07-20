@@ -14,6 +14,7 @@ import {
   changeStatus,
   deleteDeviceAsync } from '../../actions/devices.action';
 import { filterItems } from '../../selectors';
+import { queryFromObject } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
@@ -22,14 +23,18 @@ require('./DeviceList.scss');
 class DeviceList extends React.Component {
   constructor (props) {
     super(props);
+    this.initialParams = {
+      search: '',
+      filter: this.props.filterOption
+    };
 
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
-      this.updateUrl(this.props.search, filterOption);
+      this.updateUrl({ ...this.initialParams, filter:filterOption });
     };
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
-      this.updateUrl(searchValue, this.props.filterOption);
+      this.updateUrl({ ...this.initialParams, search:searchValue });
     };
     this.changeStatus = (status, id) => {
       this.props.changeStatus(status, id);
@@ -38,22 +43,13 @@ class DeviceList extends React.Component {
       this.props.deleteDevice(id);
     };
 
-    // A function that changes the url depending on the selected filter
-    // and the entered search query
-
-    this.updateUrl = (searchValue, filterOption) => {
+    this.updateUrl = (params) => {
       const match = this.props.match;
       const history = this.props.history;
-      let query = '';
 
-      if (!searchValue) {
-        query = '&filter=' + filterOption;
-      } else {
-        query = '?search=' + searchValue + '&filter=' + filterOption;
-      }
       history.push({
         pathname: match.url,
-        search: query
+        search: queryFromObject(params)
       });
     };
   }
