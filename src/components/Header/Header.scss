@@ -2,8 +2,7 @@
 
 .header-block {
   position: fixed;
-  border-bottom: 1px solid $border-color;
-  background-color: $text_color_active;
+  background-color: $header-bg;
   z-index: 1;
   top: 0;
   left: 0;

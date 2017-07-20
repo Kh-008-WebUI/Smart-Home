@@ -46,7 +46,7 @@ class DeviceList extends React.Component {
       const history = this.props.history;
       let query = '';
 
-      if (searchValue === 'undefined' || searchValue === '') {
+      if (!searchValue) {
         query = '&filter=' + filterOption;
       } else {
         query = '?search=' + searchValue + '&filter=' + filterOption;
