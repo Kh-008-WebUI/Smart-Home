@@ -25,11 +25,17 @@ class DeviceList extends React.Component {
 
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
-      this.updateUrl(this.props.search, filterOption);
+      this.updateUrl({
+        search: this.props.search,
+        filter: filterOption
+      });
     };
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
-      this.updateUrl(searchValue, this.props.filterOption);
+      this.updateUrl({
+        search: searchValue,
+        filter: this.props.filterOption
+      });
     };
     this.changeStatus = (status, id) => {
       this.props.changeStatus(status, id);
@@ -38,22 +44,24 @@ class DeviceList extends React.Component {
       this.props.deleteDevice(id);
     };
 
-    // A function that changes the url depending on the selected filter
-    // and the entered search query
+    this.getQueryString = (params) => {
+      let queries = '?';
 
-    this.updateUrl = (searchValue, filterOption) => {
+      for (const key of Object.keys(params)) {
+        if (params[key]) {
+          queries += `${key}=${params[key]}&`;
+        }
+      }
+      return queries.slice(0, -1);
+    };
+
+    this.updateUrl = (params) => {
       const match = this.props.match;
       const history = this.props.history;
-      let query = '';
 
-      if (!searchValue) {
-        query = '&filter=' + filterOption;
-      } else {
-        query = '?search=' + searchValue + '&filter=' + filterOption;
-      }
       history.push({
         pathname: match.url,
-        search: query
+        search: this.getQueryString(params)
       });
     };
   }
