@@ -59,7 +59,7 @@ class NotificationsBell extends React.Component {
                   id={item.id}
                   className={item.viewed ? '' : 'notification-item-marker'}
                   key={key}>
-                  {item.time}
+                  {item.time + ' '}
                   {item.notification}
                 </li>);
             })
