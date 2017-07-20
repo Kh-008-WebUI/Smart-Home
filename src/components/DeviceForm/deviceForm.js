@@ -10,6 +10,8 @@ import {
   resetProto
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
+import Formsy, { HOC } from 'formsy-react';
+import Field from '../Auth/Field/Field';
 
 const itemsToChoose = [
   'Toggle',
@@ -44,12 +46,11 @@ class DeviceForm extends React.Component {
 
   createButton = (label, index) => {
     return (<input
-        key={ index }
-        type="button"
-        className="form-button"
-        onClick={ this.addItem }
-        value={ label }
-      />
+      key={ index }
+      type="button"
+      className="form-button"
+      onClick={ this.addItem }
+      value={ label } />
     );
   };
 
@@ -57,11 +58,8 @@ class DeviceForm extends React.Component {
     return itemsToChoose.map(this.createButton);
   }
 
-  handleUserInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    this.props.setValue(name, value);
+  handleUserInput = () => {
+    this.props.setValue('name', this.name.getValue());
   };
 
   handleSelectLocation = (val) => {
@@ -70,24 +68,38 @@ class DeviceForm extends React.Component {
     this.props.setValue('location', selectedValue);
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = () => {
     this.props.addDevice(this.props.settings);
   };
 
-
+  enableButton = () => {
+    this.setState({
+      canSubmit: true
+    });
+  };
+  disableButton = () => {
+    this.setState({
+      canSubmit: false
+    });
+  };
   render () {
     return (
-      <form className="device-form" onSubmit={ this.handleSubmit }>
-        <div className="input-container">
-        <label>Name:</label> <br />
-        <input
-          className="name-input"
-          required
-          name="name" type="text"
-          value={ this.props.settings.name }
-          onChange={ this.handleUserInput } />
-        </div>
+      <Formsy.Form
+        onSubmit={this.handleSubmit}
+        onValid={this.enableButton}
+        onInvalid={this.disableButton}
+        onChange={ this.handleUserInput }
+        className="device-form">
+        <Field
+          name="Device name"
+          type="text"
+          ref={(input) => {
+            this.name = input;
+          }}
+          text={'Please enter device name'}
+          validations="isAlphanumeric"
+          validationError="This is not a valid name"
+          required />
         <div className="input-container">
          <label>Location:</label> <br />
           <Select
@@ -103,13 +115,16 @@ class DeviceForm extends React.Component {
           <label> Device config:</label> <br />
           { this.createButtons() }
         </div>
-        <div className="main-button-wrap">
-          <input className="btn btn--primary"
+        <div className="main-button-wrap signup-field-group signup-btn-group">
+          <input className="btn btn--signup btn--signup-active"
             type="submit"
             value="Add Device"
-            disabled = { this.props.status === 'PENDING' }/>
+            disabled = {
+              !this.state.canSubmit ||
+              this.props.status === 'PENDING'
+            } />
         </div>
-      </form>
+        </Formsy.Form>
     );
   }
 }
