@@ -7,6 +7,7 @@ import { Message } from '../../components/Message/Message';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
+import { locationOptions } from '../../data/locations';
 import {
   filterAction,
   searchAction,
@@ -66,11 +67,24 @@ class DeviceList extends React.Component {
   }
 
   renderDevices () {
-    return this.props.devices.map((item, i) => {
+    return locationOptions.map((item, i) => {
       return (
-        <DeviceListItem data={item} key={item.id}
-          changeStatus={this.changeStatus}
-          deleteDevice={this.deleteDevice}/>
+        <section
+          className={item.value}
+          key={item.value + i}>
+          <h3>{(item.value).toUpperCase()}</h3>
+          {this.props.devices.map(device => {
+            if (device.location === item.value) {
+              return (
+                <DeviceListItem
+                  data={device}
+                  key={device.id}
+                  changeStatus={this.changeStatus}
+                  deleteDevice={this.deleteDevice}/>
+              );
+            }
+          })}
+        </section>
       );
     });
   }
@@ -101,11 +115,11 @@ class DeviceList extends React.Component {
           </div>
         </header>
         <section className="device-list__content">
+          {this.renderDevices()}
           { this.props.status === 'DONE' ?
             <ReactCSSTransitionGroup transitionName="hide"
               transitionEnterTimeout={500}
               transitionLeaveTimeout={300}>
-              {this.renderDevices()}
             </ReactCSSTransitionGroup> :
             <Message status={this.props.status}/>
             }
