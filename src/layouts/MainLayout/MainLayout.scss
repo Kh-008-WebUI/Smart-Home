@@ -5,6 +5,7 @@
     padding: 20px;
 
   @media (min-width: $tablet-min) {
+    overflow-y: auto;
     height: calc(100vh - 51px);
   }
 

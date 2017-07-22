@@ -11,11 +11,12 @@
 }
 
 body {
-    background: #393b45;
+    // background: #393b45;
     background-image: -webkit-radial-gradient(top, circle cover, #393b45 0%, #2d3038 70%);
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     min-width: 320px;
+    height: 100%;
 }
 
 li {

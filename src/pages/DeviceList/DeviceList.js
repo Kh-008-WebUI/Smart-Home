@@ -7,7 +7,6 @@ import { Message } from '../../components/Message/Message';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
-import { locationOptions } from '../../data/locations';
 import {
   filterAction,
   searchAction,
@@ -15,7 +14,7 @@ import {
   changeStatus,
   deleteDeviceAsync } from '../../actions/devices.action';
 import { filterItems } from '../../selectors';
-import { queryFromObject } from '../../utils/utils';
+import { queryFromObject, sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
@@ -66,27 +65,42 @@ class DeviceList extends React.Component {
     }
   }
 
-  renderDevices () {
-    return locationOptions.map((item, i) => {
-      return (
-        <section
-          className={item.value}
-          key={item.value + i}>
-          <h3>{(item.value).toUpperCase()}</h3>
-          {this.props.devices.map(device => {
-            if (device.location === item.value) {
-              return (
-                <DeviceListItem
-                  data={device}
-                  key={device.id}
-                  changeStatus={this.changeStatus}
-                  deleteDevice={this.deleteDevice}/>
-              );
-            }
-          })}
-        </section>
-      );
-    });
+  // renderDevices () {
+  //   return (
+  //     <DeviceListItem
+  //       data={device}
+  //       key={device.id}
+  //       changeStatus={this.changeStatus}
+  //       deleteDevice={this.deleteDevice}/>
+  //   );
+  // }
+
+  renderDeviceGroup () {
+    const locations = sortDevicesByLocations(this.props.devices);
+
+    return (
+      Object.keys(locations).map((location, i) => {
+        return (
+          <div className="device-group" key={i}>
+            <h2
+              className="device-group__title">
+                {location.toUpperCase()}
+            </h2>
+            <div className="device-group__items">
+              {locations[location].map(device => {
+                return (
+                  <DeviceListItem
+                    data={device}
+                    key={device.id}
+                    changeStatus={this.changeStatus}
+                    deleteDevice={this.deleteDevice}/>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })
+    );
   }
 
   render () {
@@ -115,11 +129,11 @@ class DeviceList extends React.Component {
           </div>
         </header>
         <section className="device-list__content">
-          {this.renderDevices()}
           { this.props.status === 'DONE' ?
             <ReactCSSTransitionGroup transitionName="hide"
               transitionEnterTimeout={500}
               transitionLeaveTimeout={300}>
+              {this.renderDeviceGroup()}
             </ReactCSSTransitionGroup> :
             <Message status={this.props.status}/>
             }
