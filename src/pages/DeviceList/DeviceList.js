@@ -65,15 +65,19 @@ class DeviceList extends React.Component {
     }
   }
 
-  // renderDevices () {
-  //   return (
-  //     <DeviceListItem
-  //       data={device}
-  //       key={device.id}
-  //       changeStatus={this.changeStatus}
-  //       deleteDevice={this.deleteDevice}/>
-  //   );
-  // }
+  renderDevices (locations, location) {
+    return (
+      locations[location].map(device => {
+        return (
+          <DeviceListItem
+            data={device}
+            key={device.id}
+            changeStatus={this.changeStatus}
+            deleteDevice={this.deleteDevice}/>
+        );
+      })
+    );
+  }
 
   renderDeviceGroup () {
     const locations = sortDevicesByLocations(this.props.devices);
@@ -86,17 +90,13 @@ class DeviceList extends React.Component {
               className="device-group__title">
                 {location.toUpperCase()}
             </h2>
-            <div className="device-group__items">
-              {locations[location].map(device => {
-                return (
-                  <DeviceListItem
-                    data={device}
-                    key={device.id}
-                    changeStatus={this.changeStatus}
-                    deleteDevice={this.deleteDevice}/>
-                );
-              })}
-            </div>
+            <ReactCSSTransitionGroup
+              className="device-group__items"
+              transitionName="hide"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}>
+              {this.renderDevices(locations, location)}
+            </ReactCSSTransitionGroup>
           </div>
         );
       })
@@ -129,18 +129,8 @@ class DeviceList extends React.Component {
           </div>
         </header>
         <section className="device-list__content">
-          { this.props.status === 'DONE' ?
-            <ReactCSSTransitionGroup transitionName="hide"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
-              {this.renderDeviceGroup()}
-            </ReactCSSTransitionGroup> :
-            <Message status={this.props.status}/>
-            }
-          {
-            this.props.devices.length === 0
-            && this.props.status === 'DONE'
-            ? <span>Nothing here...</span> : <span></span>
+          { this.props.status === 'DONE' && this.props.devices.length === 0 ?
+            <span>Nothing here...</span> : this.renderDeviceGroup()
           }
         </section>
       </section>
