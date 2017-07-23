@@ -1,14 +1,43 @@
 const express = require('express');
-const deviceRouter = express.Router();
-const Device = require('../models/device.js');
+const app = express();
+const devicesRouter = express.Router();
 
-deviceRouter.get('/', (req, res) => {
-  Device.find({}, (err, users) => {
-    if (err) {
-      res.send(err);
+let Device = require('../models/device');
+
+devicesRouter.route('/').get((req, res) => {
+  Device.find((err, devices) => {
+    if(err) {
+      console.log(err);
     }
-    res.json(users);
+    else{
+      res.json(devices);
+    }
   });
 });
 
-module.exports = deviceRouter;
+devicesRouter.route('/device/:id').get((req, res) => {
+  const id = req.params.id;
+
+  Device.findOne({id:id}, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      res.json(device);
+    }
+  });
+})
+
+devicesRouter.route('/delete/:id').get((req, res) => {
+  const id = req.params.id;
+  Device.findOneAndRemove({id:id}, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      res.send(id);
+    }
+  })
+})
+
+module.exports = devicesRouter;
