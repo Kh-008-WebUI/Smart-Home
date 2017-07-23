@@ -84,7 +84,6 @@
       position: absolute;
       top: 0;
       right: 0;
-
       font-size: 13px;
       color: $text-color-error;
     }
@@ -113,7 +112,11 @@
   
   &-btn-group.signup-field-group {
     width: 100%;
-
+    .btn:disabled {
+      color: $light-gray;
+      border-color: $light-gray;
+      background: rgba(204,204,204, 0.3);
+    }
     @media (min-width: $tablet-min) {
       margin: 0;
     }
@@ -129,6 +132,7 @@
   width: 50%;
   max-width: 115px;
   margin-right: 15px;
+  line-height: 10px;
   margin-bottom: 15px;
 
   &-active:hover {

@@ -33,6 +33,5 @@ DeviceContent.propTypes = {
   device: PropTypes.object,
   power: PropTypes.string
 };
+
 export default DeviceContent;
-
-

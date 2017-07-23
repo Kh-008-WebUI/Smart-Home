@@ -12,7 +12,9 @@ class ListDevices extends React.Component {
     super(props);
   }
   componentDidMount () {
-    this.props.loadDevices();
+    if (this.props.devices.length === 0) {
+      this.props.loadDevices();
+    }
   }
   render () {
     const listDevices = this.props.devices.slice(0, 3);

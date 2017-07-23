@@ -1,10 +1,12 @@
+@import "../../scss/_variables";
+
 .dashboard-devices-and-persons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: $tablet-min) {
   .dashboard-devices-and-persons {
     flex-direction: column;
   }

@@ -29,6 +29,13 @@ class Register extends Component {
       });
     };
   }
+  componentDidUpdate () {
+    if (this.props.regStatus === 'DONE') {
+      setTimeout(()=>{
+        this.props.history.push('/');
+      }, 1000);
+    }
+  }
   render () {
     return (
       <div className="signup-container">
@@ -118,6 +125,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Register.propTypes = {
   resetValue: PropTypes.func,
+  history: PropTypes.object,
   registration: PropTypes.func,
   regStatus: PropTypes.string
 };

@@ -18,6 +18,13 @@ class Login extends Component {
       canSubmit: false
     };
   }
+  componentDidUpdate () {
+    if (this.props.loginStatus === 'DONE') {
+      setTimeout(()=>{
+        this.props.history.push('/');
+      }, 1000);
+    }
+  }
   addLogin = () => {
     const data = {
       username: this.username.getValue(),
@@ -66,18 +73,18 @@ class Login extends Component {
             ref={(input) => {
               this.password = input;
             }}
-            validations={{
-              matchRegexp: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+            validations= {{
+              minLength: 7,
+              isAlphanumeric: true
             }}
             validationError="This is not a valid pass"
             required/>
           <div className="signup-field-group signup-btn-group">
             <input
-              type="button"
+              type="submit"
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active"
-              value="Login"
-              onClick={this.addLogin} />
+              value="Login"/>
             <span className={'caption signup-form__caption ' +
               'signup-form__caption--text'}>
               New here?
@@ -110,6 +117,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   loginStatus: PropTypes.string,
+  history: PropTypes.object,
   login: PropTypes.func,
   userData: PropTypes.object,
   registration: PropTypes.func

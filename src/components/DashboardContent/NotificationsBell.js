@@ -19,18 +19,11 @@ class NotificationsBell extends React.Component {
 
   displayNotify = () => {
     if (this.props.loadNotifacationsStatus !== 'ERROR') {
-      this.bell.classList.add('notification-display');
-      document.addEventListener('click', this.hideNotify);
+      this.bell.classList.toggle('notification-display');
     }
-  }
-
-  hideNotify = () => {
-    this.bell.classList.remove('notification-display');
-    document.removeEventListener('click', this.hideNotify);
   }
   getNotify = (el) => {
     this.props.changeStatusNotification(el.target.id);
-    this.displayNotify();
   }
   render () {
     const listNotify = this.props.notifications;
@@ -66,7 +59,7 @@ class NotificationsBell extends React.Component {
                   id={item.id}
                   className={item.viewed ? '' : 'notification-item-marker'}
                   key={key}>
-                  {item.time + ' '}
+                  {item.time}
                   {item.notification}
                 </li>);
             })
