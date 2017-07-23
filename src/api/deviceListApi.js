@@ -4,10 +4,9 @@ let listDevices = [...devices];
 
 export default class DeviceListApi {
   static getDevices () {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([...listDevices]);
-      }, 2000);
+    return fetch('http://localhost:3001/devices')
+    .then(response => {
+      return response.json();
     });
   }
   static addDevice (device) {
@@ -21,27 +20,15 @@ export default class DeviceListApi {
     });
   }
   static getDevice (id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let device;
-
-        listDevices.map((item) => {
-          if (item.id === id) {
-            device = Object.assign({}, item);
-          }
-        });
-        if (typeof device === 'undefined') {
-          reject('Device not found');
-        }
-        resolve(device);
-      }, 2000);
+    return fetch('http://localhost:3001/devices/device/' + id)
+    .then(response => {
+      return response.json();
     });
   }
   static deleteDevice (id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(id);
-      }, 300);
-    });
+    return fetch('http://localhost:3001/devices/delete/' + id)
+      .then(response => {
+        return response.text();
+      });
   }
 }
