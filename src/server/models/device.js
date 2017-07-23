@@ -3,15 +3,7 @@ const Schema = mongoose.Schema;
 const devicesSchema = new Schema({
   id: Number,
   name: String,
-  items: [
-    {
-      id: Number,
-      name: String,
-      type: String,
-      data: String,
-      description: String
-    }
-  ],
+  items: { type : Array , 'default' : [] },
   status: Boolean,
   location: String
 });

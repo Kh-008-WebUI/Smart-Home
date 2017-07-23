@@ -1,8 +1,8 @@
 const express = require('express');
-const router = express.Router();
+const deviceRouter = express.Router();
 const Device = require('../models/device.js');
 
-router.get('/', (req, res) => {
+deviceRouter.get('/', (req, res) => {
   Device.find({}, (err, users) => {
     if (err) {
       res.send(err);
@@ -11,4 +11,4 @@ router.get('/', (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = deviceRouter;

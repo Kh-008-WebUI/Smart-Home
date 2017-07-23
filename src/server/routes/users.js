@@ -1,8 +1,8 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 const User = require('../models/user.js');
 
-router.get('/', (req, res) => {
+userRouter.get('/', (req, res) => {
   User.find({}, (err, users) => {
     if (err) {
       res.send(err);
@@ -11,4 +11,4 @@ router.get('/', (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = userRouter;

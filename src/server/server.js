@@ -19,26 +19,11 @@ app.use((req, res, next) => {
    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
-
-
+app.use('/api', router);
 app.use('/users', userRoutes);
 app.use('/notifications', notificationRoutes);
 app.use('/devices', devicesRoutes);
 
-
-
-router.get('/', (req, res) => {
-  res.json({ message: 'good' });
-});
-
-// app.use('/api', router);
-// MongoClient.connect(db.url, (err, database) => {
-//   if (err) return console.log(err);
-//   require('./app/routes')(router, app, database);
-
-//   app.listen(port, () => console.log('node server is working on port 3012...'));              
-// })
-app.use('/api', router);
 app.listen(port, () => {
   console.log(`node server is working on port ${port}...`);
 });
@@ -49,11 +34,5 @@ const database = mongoose.connection;
 
 database.on('error', console.error.bind(console, 'connection error:'));
 database.once('open', () => {
-  console.log('Connected!');
+  console.log('Connected to database!');
 });
-
-// mongodb.on('error', console.error.bind(console, 'connection error:'));
-// mongodb.once('open', () => {
-//   console.log('Connected!');
-// });
-
