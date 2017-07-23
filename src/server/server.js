@@ -20,9 +20,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/api', router);
-app.use('/users', userRoutes);
-app.use('/notifications', notificationRoutes);
-app.use('/devices', devicesRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/devices', devicesRoutes);
 
 app.listen(port, () => {
   console.log(`node server is working on port ${port}...`);
