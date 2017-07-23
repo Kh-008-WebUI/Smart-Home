@@ -31,4 +31,18 @@ export default class DeviceListApi {
         return response.text();
       });
   }
+  static updateDevice (id, data) {
+    return fetch('http://localhost:3001/devices/update/' + id,
+      {
+        method:'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }
+    )
+      .then(response => {
+        return response.json();
+      });
+  }
 }

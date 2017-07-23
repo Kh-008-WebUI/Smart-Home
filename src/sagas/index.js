@@ -7,13 +7,15 @@ import {
   watchLoadDevices,
   watchLoadDevice,
   watchLoadDeviceAsync,
-  watchDeleteDeviceAsync } from './devices.saga.js';
+  watchDeleteDeviceAsync,
+  watchUpdateDeviceAsync } from './devices.saga.js';
 
 export default function* rootSaga () {
   yield all([
     watchLoadDevice(),
     watchLoadDevices(),
     watchDeleteDeviceAsync(),
+    watchUpdateDeviceAsync(),
     currentUsersSaga(),
     notificationsSaga(),
     watchAddDevice(),

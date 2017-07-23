@@ -12,7 +12,8 @@ import {
   searchAction,
   loadDevices,
   changeStatus,
-  deleteDeviceAsync } from '../../actions/devices.action';
+  deleteDeviceAsync,
+  updateDevice } from '../../actions/devices.action';
 import { filterItems } from '../../selectors';
 import { queryFromObject, sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -37,7 +38,7 @@ class DeviceList extends React.Component {
       this.updateUrl({ ...this.initialParams, search:searchValue });
     };
     this.changeStatus = (status, id) => {
-      this.props.changeStatus(status, id);
+      this.props.changeStatus({ status }, id);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
@@ -147,7 +148,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = (dispatch) => ({
   filterAction: (filterOption) => dispatch(filterAction(filterOption)),
-  changeStatus: (status, id) => dispatch(changeStatus(status, id)),
+  changeStatus: (data, id) => dispatch(updateDevice(data, id)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDeviceAsync(id))
