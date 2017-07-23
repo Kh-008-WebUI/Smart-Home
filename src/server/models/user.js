@@ -5,4 +5,4 @@ const usersSchema = new Schema({
   home: Boolean
 });
 
-module.exports = mongoose.model('user', usersSchema);
+module.exports = mongoose.model('User', usersSchema);

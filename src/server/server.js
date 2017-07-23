@@ -4,8 +4,10 @@ const bodyParser = require('body-parser');
 const db = require('./config/db');
 const app = express();
 const router = express.Router();
+const userRoutes = require('./routes/users.js');
+const notificationRoutes = require('./routes/notifications.js');
+const devicesRoutes = require('./routes/devices.js');
 const port = 3001;
-const User = require('./models/users.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,22 +20,15 @@ app.use((req, res, next) => {
   next();
 });
 
+
+app.use('/users', userRoutes);
+app.use('/notifications', notificationRoutes);
+app.use('/devices', devicesRoutes);
+
+
+
 router.get('/', (req, res) => {
   res.json({ message: 'good' });
-});
-app.use('/api', router);
-
-
-router.get('./users', (req, res) => {
-    User.find
-});
-
-// mongoose.createConnection(db.url);
-const mongodb = mongoose.createConnection(db.url);
-
-mongodb.on('error', console.error.bind(console, 'connection error:'));
-mongodb.once('open', () => {
-  console.log('Connected!');
 });
 
 // app.use('/api', router);
@@ -43,7 +38,22 @@ mongodb.once('open', () => {
 
 //   app.listen(port, () => console.log('node server is working on port 3012...'));              
 // })
-
+app.use('/api', router);
 app.listen(port, () => {
   console.log(`node server is working on port ${port}...`);
 });
+
+// mongoose.createConnection(db.url);
+mongoose.connect(db.url);
+const database = mongoose.connection;
+
+database.on('error', console.error.bind(console, 'connection error:'));
+database.once('open', () => {
+  console.log('Connected!');
+});
+
+// mongodb.on('error', console.error.bind(console, 'connection error:'));
+// mongodb.once('open', () => {
+//   console.log('Connected!');
+// });
+

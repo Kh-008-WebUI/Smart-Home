@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user.js');
+const Notification = require('../models/notification.js');
 
 router.get('/', (req, res) => {
-  User.find({}, (err, users) => {
+  Notification.find({}, (err, users) => {
     if (err) {
       res.send(err);
     }
