@@ -4,3 +4,5 @@ const usersSchema = new Schema({
   name: String,
   home: Boolean
 });
+
+module.exports = mongoose.model('user', usersSchema);
