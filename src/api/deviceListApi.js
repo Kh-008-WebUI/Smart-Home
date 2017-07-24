@@ -1,47 +1,27 @@
 import devices from '../data/data.json';
-
-let listDevices = [...devices];
+import Transport from '../transport/transport';
 
 export default class DeviceListApi {
   static getDevices () {
-    return fetch('http://localhost:3001/devices')
-    .then(response => {
-      return response.json();
-    });
+    return Transport.get('http://localhost:3001/api/devices');
   }
   static addDevice (device) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        device.id = listDevices.length + 1;
-        device.status = true;
-        listDevices = [...listDevices, device];
-        resolve(device);
-      }, 2000);
-    });
+    device.status = true;
+
+    return Transport.post(
+      'http://localhost:3001/api/devices',
+      JSON.stringify(device));
   }
   static getDevice (id) {
-    return fetch('http://localhost:3001/devices/device/' + id)
-    .then(response => {
-      return response.json();
-    });
+    return Transport.get('http://localhost:3001/api/devices/device/' + id);
   }
   static deleteDevice (id) {
-    return fetch('http://localhost:3001/devices/' + id,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-type': 'application/json'
-        }
-      }
-    )
-      .then(response => {
-        return response.json();
-      });
+    return Transport.delete('http://localhost:3001/api/devices/' + id);
   }
   static updateDevice (id, data) {
-    return fetch('http://localhost:3001/devices/' + id,
+    return fetch('http://localhost:3001/devices/update/' + id,
       {
-        method:'PUT',
+        method:'POST',
         headers: {
           'Content-type': 'application/json'
         },
