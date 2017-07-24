@@ -6,7 +6,8 @@ import {
   deleteDeviceSuccess,
   loadDeviceSuccess,
   deleteDeviceFail,
-  loadDeviceFail
+  loadDeviceFail,
+  updateDeviceSuccess
   } from '../actions/devices.action';
 import {
   LOAD_DEVICES,
@@ -47,9 +48,20 @@ export function* deleteDevice (action) {
   try {
     const id = yield call(DeviceListApi.deleteDevice, action.id);
 
-    yield put(deleteDeviceSuccess(id));
+    yield put(deleteDeviceSuccess(parseInt(id)));
   } catch (e) {
     yield put(deleteDeviceFail(e));
+  }
+}
+
+export function* updateDevice (action) {
+  try {
+    const device = yield call(DeviceListApi.updateDevice,
+      action.id, action.data);
+
+    yield put(updateDeviceSuccess(device, action.id));
+  } catch (e) {
+    console.log(e);
   }
 }
 
@@ -63,4 +75,8 @@ export function* watchLoadDevice () {
 
 export function* watchDeleteDeviceAsync () {
   yield takeEvery(DELETE_DEVICE_ASYNC, deleteDevice);
+}
+
+export function* watchUpdateDeviceAsync () {
+  yield takeEvery('UPDATE_DEVICE', updateDevice);
 }

@@ -107,16 +107,15 @@ export const devicesList = (state = initialState, action) => {
     case LIST_SET_ITEM_VALUE: {
       const device = { ...state.device };
 
-      device.items = device.items.map((item, i) => {
+      device.items.forEach((item, i) => {
         if (i === action.id) {
           item.data = action.value;
         }
-        return device.items;
       });
+
       return {
         ...state,
-        device:{ ...state.device,
-          device:{ ...state.device, items:device.items } }
+        device:{ ...state.device, items:device.items }
       };
     }
 
@@ -134,6 +133,22 @@ export const devicesList = (state = initialState, action) => {
       return {
         ...state,
         uploadStatus:'FAIL'
+      };
+    }
+
+    case 'UPDATE_DEVICE_SUCCESS': {
+      const devices = state.devices.map((device, index) => {
+        if (device.id !== action.id) {
+          return Object.assign({}, device);
+        } else {
+          return action.device;
+        }
+      });
+
+      return {
+        ...state,
+        devices,
+        device: action.device
       };
     }
     default:

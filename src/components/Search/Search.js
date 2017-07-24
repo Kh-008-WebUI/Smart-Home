@@ -17,7 +17,6 @@ const Search = (props) => {
           onChange={e => {
             props.handleSearch(e.target.value);
           }}/>
-        <button className="btn searchBox__btn">Search</button>
       </div>
     </div>
   );

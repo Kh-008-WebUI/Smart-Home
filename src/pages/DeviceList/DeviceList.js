@@ -12,8 +12,10 @@ import {
   searchAction,
   loadDevices,
   changeStatus,
-  deleteDeviceAsync } from '../../actions/devices.action';
+  deleteDeviceAsync,
+  updateDevice } from '../../actions/devices.action';
 import { filterItems } from '../../selectors';
+import { queryFromObject, sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
@@ -22,38 +24,33 @@ require('./DeviceList.scss');
 class DeviceList extends React.Component {
   constructor (props) {
     super(props);
+    this.initialParams = {
+      search: '',
+      filter: this.props.filterOption
+    };
 
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
-      this.updateUrl(this.props.search, filterOption);
+      this.updateUrl({ ...this.initialParams, filter:filterOption });
     };
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
-      this.updateUrl(searchValue, this.props.filterOption);
+      this.updateUrl({ ...this.initialParams, search:searchValue });
     };
     this.changeStatus = (status, id) => {
-      this.props.changeStatus(status, id);
+      this.props.changeStatus({ status }, id);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
     };
 
-    // A function that changes the url depending on the selected filter
-    // and the entered search query
-
-    this.updateUrl = (searchValue, filterOption) => {
+    this.updateUrl = (params) => {
       const match = this.props.match;
       const history = this.props.history;
-      let query = '';
 
-      if (searchValue === 'undefined' || searchValue === '') {
-        query = '&filter=' + filterOption;
-      } else {
-        query = '?search=' + searchValue + '&filter=' + filterOption;
-      }
       history.push({
         pathname: match.url,
-        search: query
+        search: queryFromObject(params)
       });
     };
   }
@@ -69,14 +66,42 @@ class DeviceList extends React.Component {
     }
   }
 
-  renderDevices () {
-    return this.props.devices.map((item, i) => {
-      return (
-        <DeviceListItem data={item} key={item.id}
-          changeStatus={this.changeStatus}
-          deleteDevice={this.deleteDevice}/>
-      );
-    });
+  renderDevices (locations, location) {
+    return (
+      locations[location].map(device => {
+        return (
+          <DeviceListItem
+            data={device}
+            key={device.id}
+            changeStatus={this.changeStatus}
+            deleteDevice={this.deleteDevice}/>
+        );
+      })
+    );
+  }
+
+  renderDeviceGroup () {
+    const locations = sortDevicesByLocations(this.props.devices);
+
+    return (
+      Object.keys(locations).map((location, i) => {
+        return (
+          <div className="device-group" key={i}>
+            <h2
+              className="device-group__title">
+                {location.toUpperCase()}
+            </h2>
+            <ReactCSSTransitionGroup
+              className="device-group__items"
+              transitionName="hide"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}>
+              {this.renderDevices(locations, location)}
+            </ReactCSSTransitionGroup>
+          </div>
+        );
+      })
+    );
   }
 
   render () {
@@ -105,18 +130,8 @@ class DeviceList extends React.Component {
           </div>
         </header>
         <section className="device-list__content">
-          { this.props.status === 'DONE' ?
-            <ReactCSSTransitionGroup transitionName="hide"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
-              {this.renderDevices()}
-            </ReactCSSTransitionGroup> :
-            <Message status={this.props.status}/>
-            }
-          {
-            this.props.devices.length === 0
-            && this.props.status === 'DONE'
-            ? <span>Nothing here...</span> : <span></span>
+          { this.props.status === 'DONE' && this.props.devices.length === 0 ?
+            <span>Nothing here...</span> : this.renderDeviceGroup()
           }
         </section>
       </section>
@@ -133,7 +148,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = (dispatch) => ({
   filterAction: (filterOption) => dispatch(filterAction(filterOption)),
-  changeStatus: (status, id) => dispatch(changeStatus(status, id)),
+  changeStatus: (data, id) => dispatch(updateDevice(data, id)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDeviceAsync(id))
