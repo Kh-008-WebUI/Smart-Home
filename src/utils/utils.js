@@ -15,3 +15,15 @@ export const queryFromObject = (params) => {
   }
   return queries.slice(0, -1);
 };
+
+export const sortDevicesByLocations = (devices) => {
+  const locations = devices.reduce((location, device) => {
+    if (typeof location[device.location] !== 'object') {
+      location[device.location] = [];
+    }
+    location[device.location].push(device);
+    return location;
+  }, {});
+
+  return locations;
+};

@@ -10,7 +10,6 @@
   border-radius: $border-radius;
 
   @media (min-width: $tablet-min) {
-    display: inline-block;
     width: 48.5%;
     margin-right: 20px;
 
@@ -20,11 +19,11 @@
   }
 
   @media (min-width: $desktop-min) {
-    width: 24%;
-    margin-right: 15px;
+    width: 23.5%;
+    margin-right: 2%;
 
     &:nth-child(2n) {
-      margin-right: 15px;
+      margin-right: 2%;
     }
 
     &:nth-child(4n) {
