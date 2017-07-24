@@ -19,20 +19,25 @@ app.use((req, res, next) => {
    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
+
+router.use('/users', userRoutes);
+router.use('/notifications', notificationRoutes);
+router.use('/devices', devicesRoutes);
 app.use('/api', router);
-app.use('/api/users', userRoutes);
-app.use('/api/notifications', notificationRoutes);
-app.use('/api/devices', devicesRoutes);
 
 app.listen(port, () => {
   console.log(`node server is working on port ${port}...`);
 });
 
-// mongoose.createConnection(db.url);
-mongoose.connect(db.url);
+mongoose.Promise = global.Promise;
+
+// Connect to MongoDB
+mongoose.connect(db.url, { useMongoClient: true });
 const database = mongoose.connection;
 
-database.on('error', console.error.bind(console, 'connection error:'));
+database.on('error', (err) => {
+  console.log('Connection error:',err);
+});
 database.once('open', () => {
   console.log('Connected to database!');
 });
