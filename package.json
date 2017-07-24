@@ -24,7 +24,7 @@
     "d3": "^4.9.1",
     "express": "^4.15.3",
     "formsy-react": "^0.19.5",
-    "mongoose": "^4.11.3",
+    "mongoose": "^4.11.4",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
