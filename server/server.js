@@ -29,8 +29,10 @@ app.listen(port, () => {
   console.log(`node server is working on port ${port}...`);
 });
 
-// mongoose.createConnection(db.url);
-mongoose.connect(db.url);
+mongoose.Promise = global.Promise;
+
+// Connect to MongoDB
+mongoose.connect(db.url, { useMongoClient: true });
 const database = mongoose.connection;
 
 database.on('error', (err) => {
