@@ -29,8 +29,8 @@ userRouter.get('/:id', (req, res) => {
     if (err) {
       res.send(err);
     }
-    res.send.user;
-    // user ? res.send.user : res.send('No user find with that ID');
+    // res.send(user);
+    user ? res.send(user) : res.send('No user find with that ID');
   });
 });
 
