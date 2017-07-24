@@ -15,6 +15,20 @@ devicesRouter.route('/').get((req, res) => {
   });
 });
 
+devicesRouter.route('/').post((req, res) => {
+
+  console.log(req.body);
+
+  Device.create(req.body, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      res.json({status:'good'});
+    }
+  })
+})
+
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
@@ -28,14 +42,15 @@ devicesRouter.route('/device/:id').get((req, res) => {
   });
 })
 
-devicesRouter.route('/delete/:id').get((req, res) => {
+devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
+
   Device.findOneAndRemove({id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
     else{
-      res.send(id);
+      res.json(id);
     }
   })
 })

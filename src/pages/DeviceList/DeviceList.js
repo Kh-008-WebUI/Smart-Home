@@ -68,11 +68,11 @@ class DeviceList extends React.Component {
 
   renderDevices (locations, location) {
     return (
-      locations[location].map(device => {
+      locations[location].map((device, i) => {
         return (
           <DeviceListItem
             data={device}
-            key={device.id}
+            key={i}
             changeStatus={this.changeStatus}
             deleteDevice={this.deleteDevice}/>
         );
