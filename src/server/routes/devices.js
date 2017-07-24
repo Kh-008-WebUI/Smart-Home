@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const devicesRouter = express.Router();
 
 let Device = require('../models/device');
@@ -28,20 +29,22 @@ devicesRouter.route('/device/:id').get((req, res) => {
   });
 })
 
-devicesRouter.route('/delete/:id').get((req, res) => {
+devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
+
   Device.findOneAndRemove({id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
     else{
-      res.send(id);
+      res.json(id);
     }
   })
 })
 
-devicesRouter.route('/update/:id').post((req, res) => {
+devicesRouter.route('/:id').put((req, res) => {
   const id = req.params.id;
+
   Device.findOne({id:id}, (err, device) => {
     if(err) {
       console.log(err);

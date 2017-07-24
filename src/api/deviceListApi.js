@@ -26,15 +26,22 @@ export default class DeviceListApi {
     });
   }
   static deleteDevice (id) {
-    return fetch('http://localhost:3001/devices/delete/' + id)
+    return fetch('http://localhost:3001/devices/' + id,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      }
+    )
       .then(response => {
-        return response.text();
+        return response.json();
       });
   }
   static updateDevice (id, data) {
-    return fetch('http://localhost:3001/devices/update/' + id,
+    return fetch('http://localhost:3001/devices/' + id,
       {
-        method:'POST',
+        method:'PUT',
         headers: {
           'Content-type': 'application/json'
         },
