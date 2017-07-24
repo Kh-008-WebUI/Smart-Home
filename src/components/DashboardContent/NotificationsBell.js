@@ -56,11 +56,13 @@ class NotificationsBell extends React.Component {
             {listNotify.map((item, key) => {
               return (
                 <li
-                  id={item.id}
+                  id={item._id}
                   className={item.viewed ? '' : 'notification-item-marker'}
                   key={key}>
-                  {item.time}
-                  {item.notification}
+                  <div className="notification-message">
+                    <div className="notification-time">{item.time}</div>
+                    <div>{item.notificationText}</div>
+                  </div>
                 </li>);
             })
             }
