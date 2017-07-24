@@ -1,34 +1,21 @@
 import devices from '../data/data.json';
-
-let listDevices = [...devices];
+import Transport from '../transport/transport';
 
 export default class DeviceListApi {
   static getDevices () {
-    return fetch('http://localhost:3001/devices')
-    .then(response => {
-      return response.json();
-    });
+    return Transport.get('http://localhost:3001/api/devices');
   }
   static addDevice (device) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        device.id = listDevices.length + 1;
-        device.status = true;
-        listDevices = [...listDevices, device];
-        resolve(device);
-      }, 2000);
-    });
+    device.status = true;
+
+    return Transport.post(
+      'http://localhost:3001/api/devices',
+      JSON.stringify(device));
   }
   static getDevice (id) {
-    return fetch('http://localhost:3001/devices/device/' + id)
-    .then(response => {
-      return response.json();
-    });
+    return Transport.get('http://localhost:3001/api/devices/device/' + id);
   }
   static deleteDevice (id) {
-    return fetch('http://localhost:3001/devices/delete/' + id)
-      .then(response => {
-        return response.text();
-      });
+    return Transport.delete('http://localhost:3001/api/devices/' + id);
   }
 }
