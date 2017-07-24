@@ -63,3 +63,22 @@
 	transform:   translate(1000px,0);
 	transform: translate3d(1000px,0,0);
 }
+
+.device-group {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $default-border;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  &__items {
+    @media (min-width: $tablet-min) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}
