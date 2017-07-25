@@ -1,15 +1,8 @@
-import jsonNotifications from '../data/notifications.json';
+import Transport from '../transport/transport';
+import { SERVER_API } from '../constants/index';
 
 export const getNotifications = () => {
-  // return new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     resolve(jsonNotifications);
-  //   }, 1000);
-  // });
-  return fetch('http://localhost:3001/api/notifications').
-    then((response) => {
-      return response.json();
-    });
+  return Transport.get(`${SERVER_API}notifications`);
 };
 
 

@@ -8,7 +8,7 @@ export const loadUsersReducer = (state = { users: [],
       return Object.assign(
         {},
         state,
-        action.payload,
+        { users: action.payload },
         { loadUsersStatus: 'DONE' }
       );
     }
