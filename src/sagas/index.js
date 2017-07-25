@@ -1,6 +1,6 @@
 import { all, takeEvery } from 'redux-saga/effects';
-import currentUsersSaga from './users.saga';
-import notificationsSaga from './notifications.saga';
+import { currentUsersSaga } from './users.saga';
+import { notificationsSaga } from './notifications.saga';
 import { watchAddDevice } from './builder.saga';
 import { watchLogin, watchRegistration } from './auth.saga';
 import {
