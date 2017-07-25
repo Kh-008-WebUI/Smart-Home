@@ -35,20 +35,6 @@ notificationRouter.route('/:id')
   .put((req, res) => {
     Notification.findById(req.params.id, (err, notification) => {
       if (err) {
-<<<<<<< HEAD
-        console.log(err);
-      }
-      else {
-        for (let prop in req.body) {
-          notification[prop] = req.body[prop];
-        }
-        notification.save()
-        .then(notification => {
-          res.json(notification);
-        })
-        .catch(err => {
-              res.status(400).send('unable to update the database');
-=======
         res.send(err);
       }
       for (let prop in req.body) {
@@ -72,7 +58,6 @@ notificationRouter.route('/:id')
         res.send({
           message: 'note successfully deleted',
           id: req.params.id
->>>>>>> 8d01f604e9c6c849088f363b69f6a9accd4dfc75
         });
       }
     });
