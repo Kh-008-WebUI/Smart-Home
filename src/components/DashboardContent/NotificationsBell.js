@@ -17,12 +17,12 @@ class NotificationsBell extends React.Component {
     this.props.getNotifications();
   }
 
-  displayNotify = () => {
+  displayNotifyBell = () => {
     if (this.props.loadNotifacationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
     }
   }
-  getNotify = (el) => {
+  changeNotifyView = (el) => {
     this.props.changeStatusNotification(el.target.id);
   }
   render () {
@@ -33,7 +33,7 @@ class NotificationsBell extends React.Component {
     <div className="notification">
       <div className="notification-bell">
         <div className="notification-bell-self"
-          onClick={this.displayNotify}>
+          onClick={this.displayNotifyBell}>
             <i className='fa fa-bell-o notification-bell__icon'></i>
             <div className={
             this.props.loadNotifacationsStatus === 'ERROR' ?
@@ -52,7 +52,7 @@ class NotificationsBell extends React.Component {
           this.bell = el;
         } }>
         <div className="notification-list__notice">
-          <ul onClick={this.getNotify}>
+          <ul onClick={this.changeNotifyView}>
             {listNotify.map((item, key) => {
               return (
                 <li

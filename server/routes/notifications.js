@@ -25,4 +25,25 @@ notificationRouter.route('/')
     });
   });
 
+notificationRouter.route('/:id')
+  .put((req, res) => {
+    Notification.findById(req.params.id, (err, notification) => {
+      if(err) {
+        console.log(err);
+      }
+      else{
+       for(let prop in req.body) {
+          notification[prop] = req.body[prop];
+        }
+        notification.save()
+        .then(notification => {
+          res.json(notification);
+        })
+        .catch(err => {
+              res.status(400).send("unable to update the database");
+        });
+      }
+    });
+})
+
 module.exports = notificationRouter;
