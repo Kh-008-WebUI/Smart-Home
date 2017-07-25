@@ -18,7 +18,7 @@ class NotificationsBell extends React.Component {
   }
 
   displayNotifyBell = () => {
-    if (this.props.loadNotifacationsStatus !== 'ERROR') {
+    if (this.props.loadNotificationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
     }
   }

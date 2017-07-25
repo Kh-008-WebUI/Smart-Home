@@ -7,7 +7,7 @@ const router = express.Router();
 const userRoutes = require('./routes/users.js');
 const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
-const port = 8002;
+const port = 3001;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
