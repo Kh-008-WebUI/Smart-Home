@@ -1,11 +1,10 @@
 import Transport from '../transport/transport';
 
 export const login = (data) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(true);
-    }, 1000);
-  });
+  return Transport.post(
+    'http://localhost:3001/api/login',
+    JSON.stringify(data)
+  );
 };
 
 export const getRegisterData = (data) => {

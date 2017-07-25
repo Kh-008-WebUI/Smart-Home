@@ -5,15 +5,17 @@ const loginRouter = express.Router();
 let User = require('../models/user');
 
 loginRouter.route('/').post((req, res) => {
-  console.log(req.body);
-
-  User.create(req.body, (err, user) => {
+  User.findOne({ 'email': req.body.email }, (err, user) => {
     if(err) {
       console.log(err);
     }
-    else{
-      res.json(user);
-    };
+    else if(user && req.body.password === user.password) {
+      req.session.user = user._id;
+      res.json({name:user.name, email: user.email});
+    }
+    else {
+      res.send(403);
+    }
   });
 });
 

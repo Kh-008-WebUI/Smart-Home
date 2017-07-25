@@ -63,7 +63,7 @@ class Login extends Component {
             ref={(input) => {
               this.email = input;
             }}
-            validations="isAlphanumeric"
+            validations="isEmail"
             validationError="This is not a valid name"
             required/>
           <Field
