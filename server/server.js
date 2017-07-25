@@ -30,13 +30,12 @@ app.listen(port, () => {
 });
 
 mongoose.Promise = global.Promise;
-
 // Connect to MongoDB
 mongoose.connect(db.url, { useMongoClient: true });
 const database = mongoose.connection;
 
 database.on('error', (err) => {
-  console.log('Connection error:',err);
+  console.log('Connection error:', err);
 });
 database.once('open', () => {
   console.log('Connected to database!');
