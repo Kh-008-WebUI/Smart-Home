@@ -12,11 +12,8 @@ notificationRouter.route('/')
     });
   })
   .post((req, res) => {
-    const notification = new Notification();
+    const notification = new Notification(req.body);
 
-    notification.text = req.body.text;
-    notification.time = req.body.time;
-    notification.viewed = req.body.viewed;
     notification.save((err, users) => {
       if (err) {
         res.send(err);
@@ -26,24 +23,44 @@ notificationRouter.route('/')
   });
 
 notificationRouter.route('/:id')
+  .get((req, res) => {
+    Notification.findById(req.params.id, (err, notification) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(notification);
+      }
+    });
+  })
   .put((req, res) => {
     Notification.findById(req.params.id, (err, notification) => {
-      if(err) {
-        console.log(err);
+      if (err) {
+        res.send(err);
       }
-      else{
-       for(let prop in req.body) {
+      for (let prop in req.body) {
+        if (req.body.hasOwnProperty(prop)) {
           notification[prop] = req.body[prop];
         }
-        notification.save()
-        .then(notification => {
-          res.json(notification);
-        })
-        .catch(err => {
-              res.status(400).send("unable to update the database");
+      }
+      notification.save((error) => {
+        if (error) {
+          return res.send(error);
+        }
+        res.json(notification);
+      });
+    });
+  })
+  .delete((req, res) => {
+    Notification.findByIdAndRemove(req.params.id, (err, notification) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send({
+          message: 'note successfully deleted',
+          id: req.params.id
         });
       }
     });
-})
+  });
 
 module.exports = notificationRouter;
