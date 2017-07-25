@@ -17,13 +17,12 @@ export const queryFromObject = (params) => {
 };
 
 export const sortDevicesByLocations = (devices) => {
-  const locations = devices.reduce((location, device) => {
-    if (typeof location[device.location] !== 'object') {
+  return devices.reduce((location, device) => {
+    if (!location[device.location]) {
       location[device.location] = [];
     }
     location[device.location].push(device);
+
     return location;
   }, {});
-
-  return locations;
 };
