@@ -7,6 +7,8 @@ const router = express.Router();
 const userRoutes = require('./routes/users.js');
 const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
+const registerRouter = require('./routes/register.js');
+const loginRouter = require('./routes/login.js');
 const port = 3001;
 
 app.use(bodyParser.json());
@@ -23,6 +25,8 @@ app.use((req, res, next) => {
 router.use('/users', userRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/devices', devicesRoutes);
+router.use('/register', registerRouter);
+router.use('/login', loginRouter);
 app.use('/api', router);
 
 app.listen(port, () => {

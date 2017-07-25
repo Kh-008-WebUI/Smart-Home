@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 const devicesRouter = express.Router();
 
 let Device = require('../models/device');
@@ -25,7 +24,7 @@ devicesRouter.route('/').post((req, res) => {
       console.log(err);
     }
     else{
-      res.json({status:'good'});
+      res.json(device);
     }
   })
 })
@@ -65,7 +64,7 @@ devicesRouter.route('/:id').put((req, res) => {
     }
     else{
       for(var prop in req.body) {
-        device[prop] = req.body[prop];
+        device[prop] = req.body[prop];req
       }
       device.save()
       .then(device => {
