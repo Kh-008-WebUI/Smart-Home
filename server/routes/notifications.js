@@ -4,11 +4,11 @@ const Notification = require('../models/notification.js');
 
 notificationRouter.route('/')
   .get((req, res) => {
-    Notification.find((err, users) => {
+    Notification.find((err, notifications) => {
       if (err) {
         res.send(err);
       }
-      res.json(users);
+      res.json(notifications);
     });
   })
   .post((req, res) => {
@@ -28,11 +28,11 @@ notificationRouter.route('/')
 notificationRouter.route('/:id')
   .put((req, res) => {
     Notification.findById(req.params.id, (err, notification) => {
-      if(err) {
+      if (err) {
         console.log(err);
       }
-      else{
-       for(let prop in req.body) {
+      else {
+        for (let prop in req.body) {
           notification[prop] = req.body[prop];
         }
         notification.save()
@@ -40,10 +40,10 @@ notificationRouter.route('/:id')
           res.json(notification);
         })
         .catch(err => {
-              res.status(400).send("unable to update the database");
+              res.status(400).send('unable to update the database');
         });
       }
     });
-})
+  });
 
 module.exports = notificationRouter;
