@@ -52,7 +52,7 @@
 
 .notification-list {
   display: none;
-  height: 400px;
+  max-height: 400px;
   overflow-y: scroll;
   background-color: $color-bg-grey;
   position: absolute;
@@ -86,6 +86,13 @@
 			}
 		}
 	}
+}
+
+.notification-message{
+  display: flex;
+}
+.notification-time {
+  margin-right: 5px;
 }
 .notification-item-marker {
   font-weight: bold;
