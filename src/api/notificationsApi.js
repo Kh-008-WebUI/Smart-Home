@@ -1,10 +1,7 @@
-import jsonNotifications from '../data/notifications.json';
+import Transport from '../transport/transport';
 
 export const getNotifications = () => {
-  return fetch('http://localhost:3001/api/notifications').
-    then((response) => {
-      return response.json();
-    });
+  return Transport.get('http://localhost:3001/api/notifications');
 };
 
 
