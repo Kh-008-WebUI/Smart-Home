@@ -13,7 +13,7 @@ function* getUsersList () {
   }
 }
 
-export default function* currentUsersSaga () {
+export function* currentUsersSaga () {
   yield takeEvery(UPDATE_USERS_REQUEST, getUsersList);
 }
 

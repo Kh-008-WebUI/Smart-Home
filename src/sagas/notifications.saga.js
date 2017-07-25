@@ -14,6 +14,6 @@ function* fetchNotifications () {
   }
 }
 
-export default function* notificationsSaga () {
+export function* notificationsSaga () {
   yield takeEvery(NOTIFICATIONS_FETCH_REQUESTED, fetchNotifications);
 }

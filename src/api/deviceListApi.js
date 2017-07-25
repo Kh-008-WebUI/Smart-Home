@@ -1,47 +1,21 @@
 import devices from '../data/data.json';
-
-let listDevices = [...devices];
+import Transport from '../transport/transport';
 
 export default class DeviceListApi {
   static getDevices () {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([...listDevices]);
-      }, 2000);
-    });
+    return Transport.get('http://localhost:3001/api/devices');
   }
   static addDevice (device) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        device.id = listDevices.length + 1;
-        device.status = true;
-        listDevices = [...listDevices, device];
-        resolve(device);
-      }, 2000);
-    });
+    device.status = true;
+
+    return Transport.post(
+      'http://localhost:3001/api/devices',
+      JSON.stringify(device));
   }
   static getDevice (id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let device;
-
-        listDevices.map((item) => {
-          if (item.id === id) {
-            device = Object.assign({}, item);
-          }
-        });
-        if (typeof device === 'undefined') {
-          reject('Device not found');
-        }
-        resolve(device);
-      }, 2000);
-    });
+    return Transport.get('http://localhost:3001/api/devices/device/' + id);
   }
   static deleteDevice (id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(id);
-      }, 300);
-    });
+    return Transport.delete('http://localhost:3001/api/devices/' + id);
   }
 }
