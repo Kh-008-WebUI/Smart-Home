@@ -19,17 +19,7 @@ export default class DeviceListApi {
     return Transport.delete('http://localhost:3001/api/devices/' + id);
   }
   static updateDevice (id, data) {
-    return fetch('http://localhost:3001/devices/update/' + id,
-      {
-        method:'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }
-    )
-      .then(response => {
-        return response.json();
-      });
+    return Transport.put('http://localhost:3001/api/devices/' + id,
+    JSON.stringify(data));
   }
 }

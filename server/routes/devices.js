@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 const devicesRouter = express.Router();
 
 let Device = require('../models/device');
@@ -77,5 +76,6 @@ devicesRouter.route('/:id').put((req, res) => {
     }
   });
 });
+
 
 module.exports = devicesRouter;

@@ -1,8 +1,6 @@
-import users from '../data/users.json';
+import Transport from '../transport/transport';
+import { SERVER_API } from '../constants/index';
 
-export const usersList = () => new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve({ users });
-  }, 2000);
-});
-
+export const usersList = () => {
+  return Transport.get(`${SERVER_API}users`);
+};
