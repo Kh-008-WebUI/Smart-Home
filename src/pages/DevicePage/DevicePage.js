@@ -27,18 +27,18 @@ class DevicePage extends React.Component {
     }
   }
   componentDidMount () {
-    this.props.loadDevice(parseInt(this.props.match.params.id));
-    if (typeof this.props.device.id === 'undefined') {
-      this.props.loadDeviceAsync(parseInt(this.props.match.params.id));
+    this.props.loadDevice(this.props.match.params.id);
+    if (typeof this.props.device._id === 'undefined') {
+      this.props.loadDeviceAsync(this.props.match.params.id);
     }
   }
 
   render () {
-    const id = parseInt(this.props.match.params.id);
+    const id = this.props.match.params.id;
 
     return (
       <div>
-        {typeof this.props.device.id === 'undefined' ?
+        {typeof this.props.device._id === 'undefined' ?
           <Message status={this.props.status}/> :
         <div className="device-view">
         <Device
@@ -69,6 +69,7 @@ DevicePage.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
+  _id: PropTypes.string,
   device: PropTypes.any,
   filter: PropTypes.array,
   filterAction: PropTypes.func,
