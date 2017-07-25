@@ -1,14 +1,5 @@
-// import users from '../data/users.json';
-import axios from 'axios';
+import Transport from '../transport/transport';
 
-/*
-export const usersList0 = () => new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve({ users });
-  }, 2000);
-});
-*/
-
-export const usersList = () => (
-  axios.get('http://localhost:8081/api/users')
-    .then(res => ({ users: res.data })));
+export const usersList = () => {
+  return Transport.get('http://localhost:3001/api/users');
+};
