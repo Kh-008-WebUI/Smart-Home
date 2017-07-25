@@ -55,4 +55,27 @@ devicesRouter.route('/:id').delete((req, res) => {
   })
 })
 
+devicesRouter.route('/:id').put((req, res) => {
+  const id = req.params.id;
+
+  Device.findOne({id:id}, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      for(var prop in req.body) {
+        device[prop] = req.body[prop];
+      }
+      device.save()
+      .then(device => {
+        res.json(device);
+      })
+      .catch(err => {
+            res.status(400).send("unable to update the database");
+      });
+    }
+  });
+});
+
+
 module.exports = devicesRouter;
