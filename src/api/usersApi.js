@@ -1,5 +1,6 @@
 import Transport from '../transport/transport';
+import { SERVER_API } from '../constants/index';
 
 export const usersList = () => {
-  return Transport.get('http://localhost:3001/api/users');
+  return Transport.get(`${SERVER_API}users`);
 };

@@ -1,7 +1,8 @@
 import Transport from '../transport/transport';
+import { SERVER_API } from '../constants/index';
 
 export const getNotifications = () => {
-  return Transport.get('http://localhost:3001/api/notifications');
+  return Transport.get(`${SERVER_API}notifications`);
 };
 
 
