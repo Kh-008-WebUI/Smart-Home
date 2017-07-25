@@ -2,11 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ToggleSettings from '../ToggleSettings/ToggleSettings';
+import { Popup } from '../../components/Popup/Popup';
 require('./DeviceListItem.scss');
 
 class DeviceListItem extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {
+      popupShown: false
+    };
+
+    this.setPopupShown = (open) => {
+      const currentState = this.state.popupShown;
+
+      this.setState({ popupShown: !currentState });
+    };
 
     this.deleteDevice = (e) =>{
       this.props.deleteDevice(this.props.data.id);

@@ -10,7 +10,7 @@ registerRouter.route('/').post((req, res) => {
     (err, user) => {
       if (err) console.log(err);
       if (user.length > 0) {
-        console.log('there is user with this email');
+        console.log("There is such email");
       } else {
         User.create(req.body, (err, user) => {
           if (err) console.log(err);
