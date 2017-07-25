@@ -7,7 +7,7 @@ const router = express.Router();
 const userRoutes = require('./routes/users.js');
 const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
-const port = 3001;
+const port = 8002;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,13 +30,12 @@ app.listen(port, () => {
 });
 
 mongoose.Promise = global.Promise;
-
 // Connect to MongoDB
 mongoose.connect(db.url, { useMongoClient: true });
 const database = mongoose.connection;
 
 database.on('error', (err) => {
-  console.log('Connection error:',err);
+  console.log('Connection error:', err);
 });
 database.once('open', () => {
   console.log('Connected to database!');
