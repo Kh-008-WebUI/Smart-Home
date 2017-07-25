@@ -27,7 +27,7 @@ class Login extends Component {
   }
   addLogin = () => {
     const data = {
-      username: this.username.getValue(),
+      email: this.email.getValue(),
       password: this.password.getValue()
     };
 
@@ -57,11 +57,11 @@ class Login extends Component {
           onInvalid={this.disableButton}
           className="signup-form">
           <Field
-            name="Username"
+            name="E-mail"
             type="text"
             text={'Your unique username to app'}
             ref={(input) => {
-              this.username = input;
+              this.email = input;
             }}
             validations="isAlphanumeric"
             validationError="This is not a valid name"
