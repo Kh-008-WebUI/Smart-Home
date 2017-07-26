@@ -19,8 +19,7 @@ export default class DeviceListApi {
     return Transport.delete('http://localhost:3001/api/devices/' + id);
   }
   static updateDevice (id, data) {
-    return Transport.delete(
-      'http://localhost:3001/api/devices',
-      JSON.stringify(data));
+    return Transport.put('http://localhost:3001/api/devices/' + id,
+    JSON.stringify(data));
   }
 }

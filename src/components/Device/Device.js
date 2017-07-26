@@ -17,7 +17,7 @@ export const Device = (props) => {
         <div className="device-item__info-status">
           <ToggleSettings
             checked={props.device.status}
-            itemId={props.device.id}
+            itemId={props.device._id}
             setItemValue={props.onStatusChange}/>
         </div>
         <div className="device-view__info">
