@@ -12,44 +12,23 @@
   .Select-clear-zone {
     display: none;
   }
-
   .signup-field-group {
     .signup-form__label {
       font-weight: initial;
       font-size: 16px;
     }
   }
-
   label {
     display: inline-block;
     margin-bottom: 15px;
   }
 
-  .device-name-location {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .config-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .device-config-label {
-     display: flex;
-     justify-content: center;
-     margin-bottom: -5px;
-  }
-
   .input-container {
     display: inline-block;
     width: 35%;
-    margin-bottom: 39px;
+    margin-bottom: 15px;
     margin-left: 20px;
+    vertical-align: top;
 
     //select styles
     .Select {
@@ -120,7 +99,7 @@
   .device-form {
     .input-container {
       width: 100%;
-      margin-left: 15px;
+      margin-left: 0;
     }
     .signup-field-group {
       max-width: none;
