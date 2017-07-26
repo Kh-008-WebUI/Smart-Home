@@ -1,12 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const db = require('./config/db');
 const app = express();
 const router = express.Router();
 const userRoutes = require('./routes/users.js');
 const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
+const registerRouter = require('./routes/register.js');
+const loginRouter = require('./routes/login.js');
 const port = 3001;
 
 app.use(bodyParser.json());
@@ -19,20 +22,39 @@ app.use((req, res, next) => {
    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
+
+var MongoStore = require('connect-mongo')(session);
+
+app.use(session({
+  secret: 'MoneyIsPower',
+  key: 'sid',
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: null
+  },
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+router.use('/users', userRoutes);
+router.use('/notifications', notificationRoutes);
+router.use('/devices', devicesRoutes);
+router.use('/register', registerRouter);
+router.use('/login', loginRouter);
 app.use('/api', router);
-app.use('/users', userRoutes);
-app.use('/notifications', notificationRoutes);
-app.use('/devices', devicesRoutes);
 
 app.listen(port, () => {
   console.log(`node server is working on port ${port}...`);
 });
 
-// mongoose.createConnection(db.url);
-mongoose.connect(db.url);
+mongoose.Promise = global.Promise;
+// Connect to MongoDB
+mongoose.connect(db.url, { useMongoClient: true });
 const database = mongoose.connection;
 
-database.on('error', console.error.bind(console, 'connection error:'));
+database.on('error', (err) => {
+  console.log('Connection error:', err);
+});
 database.once('open', () => {
   console.log('Connected to database!');
 });

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import { Message } from '../../components/Message/Message';
+import { Popup } from '../../components/Popup/Popup';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
@@ -12,7 +13,8 @@ import {
   searchAction,
   loadDevices,
   changeStatus,
-  deleteDeviceAsync } from '../../actions/devices.action';
+  deleteDeviceAsync,
+  updateDevice } from '../../actions/devices.action';
 import { filterItems } from '../../selectors';
 import { queryFromObject, sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -27,6 +29,19 @@ class DeviceList extends React.Component {
       search: '',
       filter: this.props.filterOption
     };
+    this.state = {
+      popupShown: false,
+      currentId: ''
+    };
+
+    this.setPopupShown = (id) => {
+      const currentState = this.state.popupShown;
+
+      this.setState({
+        popupShown: !currentState,
+        currentId: id
+      });
+    };
 
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
@@ -37,7 +52,7 @@ class DeviceList extends React.Component {
       this.updateUrl({ ...this.initialParams, search:searchValue });
     };
     this.changeStatus = (status, id) => {
-      this.props.changeStatus(status, id);
+      this.props.changeStatus({ status }, id);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
@@ -67,13 +82,13 @@ class DeviceList extends React.Component {
 
   renderDevices (locations, location) {
     return (
-      locations[location].map(device => {
+      locations[location].map((device, i) => {
         return (
           <DeviceListItem
             data={device}
-            key={device.id}
+            key={i}
             changeStatus={this.changeStatus}
-            deleteDevice={this.deleteDevice}/>
+            setPopupShown={this.setPopupShown}/>
         );
       })
     );
@@ -133,6 +148,13 @@ class DeviceList extends React.Component {
             <span>Nothing here...</span> : this.renderDeviceGroup()
           }
         </section>
+        <Popup
+            okHandler={() => this.deleteDevice(this.state.currentId)}
+            setPopupShown={this.setPopupShown}
+            popupShown={this.state.popupShown}
+            header="Confirm the action"
+            text="Are you sure you want to remove the device?"
+        />
       </section>
     );
   }
@@ -147,7 +169,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = (dispatch) => ({
   filterAction: (filterOption) => dispatch(filterAction(filterOption)),
-  changeStatus: (status, id) => dispatch(changeStatus(status, id)),
+  changeStatus: (data, id) => dispatch(updateDevice(data, id)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDeviceAsync(id))

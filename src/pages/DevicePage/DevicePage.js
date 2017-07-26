@@ -7,12 +7,17 @@ import {
   changeStatus,
   loadDeviceAsync,
   loadDevice,
-  listSetItemValue } from '../../actions/devices.action';
+  listSetItemValue,
+  updateDevice } from '../../actions/devices.action';
 require('./DevicePage.scss');
 
 class DevicePage extends React.Component {
   constructor (props) {
     super(props);
+
+    this.changeStatus = (status, id) => {
+      this.props.onStatusChange({ status }, id);
+    };
   }
   componentDidUpdate () {
     if (this.props.status === 'FAIL') {
@@ -22,24 +27,24 @@ class DevicePage extends React.Component {
     }
   }
   componentDidMount () {
-    this.props.loadDevice(parseInt(this.props.match.params.id));
-    if (typeof this.props.device.id === 'undefined') {
-      this.props.loadDeviceAsync(parseInt(this.props.match.params.id));
+    this.props.loadDevice(this.props.match.params.id);
+    if (typeof this.props.device._id === 'undefined') {
+      this.props.loadDeviceAsync(this.props.match.params.id);
     }
   }
 
   render () {
-    const id = parseInt(this.props.match.params.id);
+    const id = this.props.match.params.id;
 
     return (
       <div>
-        {typeof this.props.device.id === 'undefined' ?
+        {typeof this.props.device._id === 'undefined' ?
           <Message status={this.props.status}/> :
         <div className="device-view">
         <Device
             device={this.props.device}
             setItemValue={this.props.setItemValue}
-            onStatusChange={this.props.onStatusChange}/>
+            onStatusChange={this.changeStatus}/>
         </div>
         }
       </div>
@@ -57,13 +62,14 @@ const mapDispatchToProps = dispatch => ({
   loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
   setItemValue: (value, id) => dispatch(listSetItemValue(value, id)),
-  onStatusChange: (status, id) => dispatch(changeStatus(status, id))
+  onStatusChange: (data, id) => dispatch(updateDevice(data, id))
 });
 
 DevicePage.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
+  _id: PropTypes.string,
   device: PropTypes.any,
   filter: PropTypes.array,
   filterAction: PropTypes.func,

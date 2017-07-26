@@ -42,7 +42,7 @@ class ListUsers extends React.Component {
         <ul className="list-menu-users">
           {list.map((item, key) => {
             return (
-              <li key={item.id}>
+              <li key={item._id}>
                 <Avatar item={item} />
               </li>
             );

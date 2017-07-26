@@ -8,8 +8,8 @@ class DeviceListItem extends React.Component {
   constructor (props) {
     super(props);
 
-    this.deleteDevice = (e) =>{
-      this.props.deleteDevice(this.props.data.id);
+    this.setDeviceId = (e) =>{
+      this.props.setPopupShown(this.props.data._id);
     };
   }
 
@@ -18,14 +18,14 @@ class DeviceListItem extends React.Component {
       <div className="device-item">
         <div className="device-item__info">
           <Link className="device-item__info-name" to={
-            `/devices/device/${this.props.data.id}`
+            `/devices/device/${this.props.data._id}`
           }>
             {this.props.data.name}
           </Link>
           <div className="device-item__info-status">
             <ToggleSettings
               checked={this.props.data.status}
-              itemId={this.props.data.id}
+              itemId={this.props.data._id}
               setItemValue={this.props.changeStatus}/>
           </div>
         </div>
@@ -35,7 +35,9 @@ class DeviceListItem extends React.Component {
             <div className="device-item__description-icon">
               <div className="device-item__description-icon-delete">
                 <a className="fa fa-trash"
-                    onClick={this.deleteDevice}></a></div>
+                    onClick={this.setDeviceId}>
+                </a>
+              </div>
             </div>
         </div>
       </div>
@@ -46,9 +48,10 @@ class DeviceListItem extends React.Component {
 DeviceListItem.propTypes = {
   changeStatus: PropTypes.func,
   deleteDevice: PropTypes.func,
+  setPopupShown: PropTypes.func,
   data: PropTypes.shape({
     status: PropTypes.boolean,
-    id: PropTypes.number,
+    _id: PropTypes.string,
     name: PropTypes.string,
     location: PropTypes.string
   })
