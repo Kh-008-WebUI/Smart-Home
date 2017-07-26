@@ -32,7 +32,7 @@ export const devicesList = (state = initialState, action) => {
 
     case LOAD_DEVICE: {
       const device = state.devices.filter((item) => {
-        return item.id === action.id;
+        return item._id === action.id;
       })[0];
 
       const devices = Object.assign([],
@@ -55,30 +55,6 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case CHANGE_STATUS: {
-      const devices = state.devices.map((item, index) => {
-        if (item.id === action.id) {
-          return Object.assign({}, item, {
-            status:action.status
-          });
-        }
-        return item;
-      });
-
-      if (state.device.id === action.id) {
-        return {
-          ...state,
-          devices:devices,
-          device:{ ...state.device, status:action.status }
-        };
-      }
-
-      return {
-        ...state,
-        devices:devices
-      };
-    }
-
     case LOAD_DEVICES_PENDING: {
       return {
         ...state,
@@ -95,7 +71,7 @@ export const devicesList = (state = initialState, action) => {
 
     case DELETE_DEVICE: {
       const newDevices = state.devices.filter((item) =>{
-        return item.id !== action.id;
+        return item._id !== action.id;
       });
 
       return {
@@ -133,6 +109,22 @@ export const devicesList = (state = initialState, action) => {
       return {
         ...state,
         uploadStatus:'FAIL'
+      };
+    }
+
+    case 'UPDATE_DEVICE_SUCCESS': {
+      const devices = state.devices.map((device, index) => {
+        if (device._id !== action.id) {
+          return Object.assign({}, device);
+        } else {
+          return action.device;
+        }
+      });
+
+      return {
+        ...state,
+        devices,
+        device: action.device
       };
     }
     default:

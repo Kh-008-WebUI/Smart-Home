@@ -24,7 +24,7 @@ devicesRouter.route('/').post((req, res) => {
       console.log(err);
     }
     else{
-      res.json({status:'good'});
+      res.json(device);
     }
   })
 })
@@ -32,7 +32,7 @@ devicesRouter.route('/').post((req, res) => {
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({id:id}, (err, device) => {
+  Device.findOne({_id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
@@ -45,7 +45,7 @@ devicesRouter.route('/device/:id').get((req, res) => {
 devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndRemove({id:id}, (err, device) => {
+  Device.findOneAndRemove({_id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
@@ -54,5 +54,28 @@ devicesRouter.route('/:id').delete((req, res) => {
     }
   })
 })
+
+devicesRouter.route('/:id').put((req, res) => {
+  const id = req.params.id;
+
+  Device.findOne({_id:id}, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      for(var prop in req.body) {
+        device[prop] = req.body[prop];req
+      }
+      device.save()
+      .then(device => {
+        res.json(device);
+      })
+      .catch(err => {
+            res.status(400).send("unable to update the database");
+      });
+    }
+  });
+});
+
 
 module.exports = devicesRouter;

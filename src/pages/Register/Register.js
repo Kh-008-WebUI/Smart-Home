@@ -20,9 +20,14 @@ class Register extends Component {
         canSubmit: true
       });
     };
+    this.disableButton = () => {
+      this.setState({
+        canSubmit: false
+      });
+    };
     this.addRegisterDataToStore = (event) => {
       this.props.registration({
-        username: this.username.getValue(),
+        name: this.username.getValue(),
         password: this.password.getValue(),
         passwordRepeat: this.passwordRepeat.getValue(),
         email: this.email.getValue()

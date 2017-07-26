@@ -90,6 +90,22 @@ export const changeStatus = (status, id) => {
   };
 };
 
+export const updateDevice = (data, id) => {
+  return {
+    type:'UPDATE_DEVICE',
+    data,
+    id
+  };
+};
+
+export const updateDeviceSuccess = (device, id) => {
+  return {
+    type:'UPDATE_DEVICE_SUCCESS',
+    device,
+    id
+  };
+};
+
 export const listSetItemValue = (value, id) => {
   return {
     type: LIST_SET_ITEM_VALUE,
