@@ -116,7 +116,7 @@ class DeviceForm extends React.Component {
           { this.createButtons() }
         </div>
         <div className="main-button-wrap signup-field-group signup-btn-group">
-          <input className="btn btn--signup btn--signup-active"
+          <input className="btn btn--primary btn--signup btn--signup-active"
             type="submit"
             value="Add Device"
             disabled = {
