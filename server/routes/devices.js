@@ -64,7 +64,7 @@ devicesRouter.route('/:id').put((req, res) => {
     }
     else{
       for(var prop in req.body) {
-        device[prop] = req.body[prop];req
+        device[prop] = req.body[prop];
       }
       device.save()
       .then(device => {
