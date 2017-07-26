@@ -4,11 +4,13 @@ import './Popup.scss';
 
 export const Popup = (props) => {
   return (
-    <div className="popup">
+    <div className={props.popupShown ?
+      'popup popup--shown' : 'popup'}>
       <p className="popup-header">{props.header}</p>
       <p className="popup-text">{props.text}</p>
       <div className="popup-confirm">
         <button
+          onClick={props.setPopupShown}
           type="button"
           className="btn">
             Ok
@@ -25,5 +27,7 @@ export const Popup = (props) => {
 
 Popup.propTypes = {
   header: PropTypes.string,
-  text: PropTypes.string
+  text: PropTypes.string,
+  setPopupShown: PropTypes.func,
+  popupShown: PropTypes.bool
 };

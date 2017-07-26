@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import { Message } from '../../components/Message/Message';
+import { Popup } from '../../components/Popup/Popup';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
@@ -27,6 +28,19 @@ class DeviceList extends React.Component {
     this.initialParams = {
       search: '',
       filter: this.props.filterOption
+    };
+    this.state = {
+      popupShown: false,
+      currentId: ''
+    };
+
+    this.setPopupShown = (id) => {
+      const currentState = this.state.popupShown;
+
+      this.setState({
+        popupShown: !currentState,
+        currentId: id
+      });
     };
 
     this.handleFilterSelect = (filterOption) => {
@@ -74,7 +88,7 @@ class DeviceList extends React.Component {
             data={device}
             key={i}
             changeStatus={this.changeStatus}
-            deleteDevice={this.deleteDevice}/>
+            setPopupShown={this.setPopupShown}/>
         );
       })
     );
@@ -134,6 +148,11 @@ class DeviceList extends React.Component {
             <span>Nothing here...</span> : this.renderDeviceGroup()
           }
         </section>
+        <Popup
+            deleteDevice={() => this.deleteDevice()}
+            setPopupShown={this.setPopupShown}
+            popupShown={this.state.popupShown}
+        />
       </section>
     );
   }
