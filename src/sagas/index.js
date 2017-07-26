@@ -16,12 +16,11 @@ export default function* rootSaga () {
     watchLoadDevices(),
     watchDeleteDeviceAsync(),
     watchUpdateDeviceAsync(),
-    // currentUsersSaga(),
-    // notificationsSaga(),
+    watchLoadUsers(),
+    watchLoadNotifications(),
     watchAddDevice(),
     watchLogin(),
     watchRegistration()
   ]);
 }
-//  watchLoadUsers(),
-//     watchLoadNotifications(),
+
