@@ -9,7 +9,7 @@ export default class ValueSettings extends React.Component {
     this.state = {
       value: ''
     };
-
+    this.props.setItemValue(this.state.value, this.props.itemId);
     this.onChangeValue = this.onChangeValue.bind(this);
   }
   componentDidMount () {

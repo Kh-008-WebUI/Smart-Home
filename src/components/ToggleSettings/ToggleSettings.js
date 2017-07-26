@@ -6,6 +6,10 @@ export default class ToggleSettings extends React.Component {
 
   constructor (props) {
     super(props);
+    this.state = {
+      initialValue: false
+    };
+    this.props.setItemValue(this.state.initialValue, this.props.itemId);
     this.onChangeValue = this.onChangeValue.bind(this);
   }
   onChangeValue (e) {

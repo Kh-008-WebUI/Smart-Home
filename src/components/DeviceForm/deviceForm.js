@@ -90,6 +90,7 @@ class DeviceForm extends React.Component {
         onInvalid={this.disableButton}
         onChange={ this.handleUserInput }
         className="device-form">
+        <div className="device-name-location">
         <Field
           name="Device name"
           type="text"
@@ -111,9 +112,12 @@ class DeviceForm extends React.Component {
             value={ this.props.settings.location }
           />
         </div>
+        </div>
         <div>
-          <label> Device config:</label> <br />
+          <label className="device-config-label"> Device config:</label> <br />
+          <div className="config-buttons">
           { this.createButtons() }
+          </div>
         </div>
         <div className="main-button-wrap signup-field-group signup-btn-group">
           <input className="btn btn--signup btn--signup-active"

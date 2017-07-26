@@ -11,6 +11,7 @@ export default class RangeSettings extends React.Component {
     this.state = {
       value: 0
     };
+    this.props.setItemValue(this.state.value, this.props.itemId);
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount () {
@@ -37,8 +38,6 @@ export default class RangeSettings extends React.Component {
 
   render () {
     const { max, min } = this.props;
-    const defaultValue = typeof this.props.data !== 'undefined' ?
-      this.props.data : 0;
 
     return (
       <div className={ `${ this.props.styleName }` }>
@@ -50,7 +49,7 @@ export default class RangeSettings extends React.Component {
           min={min || 0}
           max={max || 100}
           step={1}
-          defaultValue={defaultValue}
+          value={this.state.value}
         />
       </div>
     );
