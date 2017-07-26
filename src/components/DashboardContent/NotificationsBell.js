@@ -14,7 +14,17 @@ class NotificationsBell extends React.Component {
   }
 
   componentDidMount () {
+    this.ws = new WebSocket('ws://localhost:3001/');
+
+    this.ws.onmessage = msg => {
+      console.log(msg.data);
+    };
+
     this.props.getNotifications();
+  }
+
+  componentWillUnmount () {
+    this.ws.close();
   }
 
   displayNotifyBell = () => {

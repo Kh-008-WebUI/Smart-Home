@@ -69,6 +69,12 @@ class DeviceForm extends React.Component {
   };
 
   handleSubmit = () => {
+    const ws = new WebSocket('ws://localhost:3001/');
+
+    ws.onopen = () => {
+      ws.send(this.props.settings.name);
+    };
+
     this.props.addDevice(this.props.settings);
   };
 

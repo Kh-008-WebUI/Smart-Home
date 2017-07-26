@@ -10,6 +10,8 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
+const http = require('http');
+const WebSocket = require('ws');
 const port = 3001;
 
 app.use(bodyParser.json());
@@ -43,10 +45,6 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
 
-app.listen(port, () => {
-  console.log(`node server is working on port ${port}...`);
-});
-
 mongoose.Promise = global.Promise;
 // Connect to MongoDB
 mongoose.connect(db.url, { useMongoClient: true });
@@ -57,4 +55,21 @@ database.on('error', (err) => {
 });
 database.once('open', () => {
   console.log('Connected to database!');
+});
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({server});
+
+wss.on('connection', function connection(ws, req){
+    ws.on('message', message => {
+      wss.clients.forEach(client => {
+        client.send(message);
+      });
+    });
+
+    ws.send('something');
+});
+
+server.listen(port, () => {
+  console.log(`node server is working on port ${port}...`);
 });
