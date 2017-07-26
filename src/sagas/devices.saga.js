@@ -48,7 +48,7 @@ export function* deleteDevice (action) {
   try {
     const id = yield call(DeviceListApi.deleteDevice, action.id);
 
-    yield put(deleteDeviceSuccess(parseInt(id)));
+    yield put(deleteDeviceSuccess(id));
   } catch (e) {
     yield put(deleteDeviceFail(e));
   }

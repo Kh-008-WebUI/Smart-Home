@@ -32,7 +32,7 @@ devicesRouter.route('/').post((req, res) => {
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({id:id}, (err, device) => {
+  Device.findOne({_id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
@@ -45,7 +45,7 @@ devicesRouter.route('/device/:id').get((req, res) => {
 devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndRemove({id:id}, (err, device) => {
+  Device.findOneAndRemove({_id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
@@ -58,7 +58,7 @@ devicesRouter.route('/:id').delete((req, res) => {
 devicesRouter.route('/:id').put((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({id:id}, (err, device) => {
+  Device.findOne({_id:id}, (err, device) => {
     if(err) {
       console.log(err);
     }
@@ -76,5 +76,6 @@ devicesRouter.route('/:id').put((req, res) => {
     }
   });
 });
+
 
 module.exports = devicesRouter;
