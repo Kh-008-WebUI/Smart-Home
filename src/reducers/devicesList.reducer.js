@@ -135,6 +135,22 @@ export const devicesList = (state = initialState, action) => {
         uploadStatus:'FAIL'
       };
     }
+
+    case 'UPDATE_DEVICE_SUCCESS': {
+      const devices = state.devices.map((device, index) => {
+        if (device.id !== action.id) {
+          return Object.assign({}, device);
+        } else {
+          return action.device;
+        }
+      });
+
+      return {
+        ...state,
+        devices,
+        device: action.device
+      };
+    }
     default:
       return state;
   }
