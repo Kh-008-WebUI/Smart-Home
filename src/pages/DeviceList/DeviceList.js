@@ -149,9 +149,11 @@ class DeviceList extends React.Component {
           }
         </section>
         <Popup
-            deleteDevice={() => this.deleteDevice()}
+            okHandler={() => this.deleteDevice(this.state.currentId)}
             setPopupShown={this.setPopupShown}
             popupShown={this.state.popupShown}
+            header="Confirm the action"
+            text="Are you sure you want to remove the device?"
         />
       </section>
     );

@@ -9,8 +9,7 @@ class DeviceListItem extends React.Component {
     super(props);
 
     this.setDeviceId = (e) =>{
-      console.log(this.props.data.id);
-      this.props.setPopupShown(this.props.data.id);
+      this.props.setPopupShown(this.props.data._id);
     };
   }
 
