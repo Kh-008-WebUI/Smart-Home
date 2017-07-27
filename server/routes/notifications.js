@@ -18,7 +18,7 @@ notificationRouter.route('/')
       if (err) {
         res.send(err);
       }
-      res.json({ message: 'notification created' });
+      res.json({ notification });
     });
   });
 

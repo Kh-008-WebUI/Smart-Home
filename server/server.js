@@ -73,8 +73,6 @@ wss.on('connection', function connection(ws, req){
         client.send(message);
       });
     });
-
-    ws.send('something');
 });
 
 server.listen(port, () => {

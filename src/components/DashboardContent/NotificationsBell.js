@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest,
-  changeStatusNotification
+  changeStatusNotification,
+  fetchAddNotifications
 } from '../../actions/notifications.action';
 
 class NotificationsBell extends React.Component {
@@ -17,7 +18,7 @@ class NotificationsBell extends React.Component {
     this.ws = new WebSocket('ws://localhost:3001/');
 
     this.ws.onmessage = msg => {
-      console.log(msg.data);
+      this.props.fetchAddNotifications(msg.data);
     };
 
     this.props.getNotifications();
@@ -71,7 +72,7 @@ class NotificationsBell extends React.Component {
                   key={key}>
                   <div className="notification-message">
                     <div className="notification-time">{item.time}</div>
-                    <div>{item.notificationText}</div>
+                    <div>{item.text}</div>
                   </div>
                 </li>);
             })
@@ -91,6 +92,8 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
+    fetchAddNotifications: (message) =>
+      dispatch(fetchAddNotifications(message)),
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
     changeStatusNotification:
       bindActionCreators(changeStatusNotification, dispatch)
@@ -99,6 +102,7 @@ function mapDispatchToProps (dispatch) {
 
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
+  fetchAddNotifications: PropTypes.func,
   getNotifications: PropTypes.any,
   changeStatusNotification: PropTypes.func,
   loadNotificationsStatus: PropTypes.string

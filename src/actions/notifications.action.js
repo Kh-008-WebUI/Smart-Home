@@ -30,3 +30,17 @@ export const changeStatusNotification = (payload) => {
     payload
   };
 };
+
+export const addNotificationsSuccess = (notification) => {
+  return {
+    type: 'ADD_NOTIFICATION_SUCCESS',
+    notification
+  };
+};
+
+export const fetchAddNotifications = (message) => {
+  return {
+    type: 'ADD_NOTIFICATIONS',
+    message
+  };
+};
