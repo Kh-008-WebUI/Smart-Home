@@ -43,9 +43,9 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-router.use('/users', checkAuth, userRoutes);
-router.use('/notifications', checkAuth, notificationRoutes);
-router.use('/devices', checkAuth, devicesRoutes);
+router.use('/users', userRoutes);
+router.use('/notifications', notificationRoutes);
+router.use('/devices', devicesRoutes);
 router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);

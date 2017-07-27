@@ -8,6 +8,7 @@ export default class Transport {
   static post (uri, body) {
     return fetch(uri, {
       method: 'post',
+      mode: 'cors',
       credentials: 'include',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -18,6 +19,7 @@ export default class Transport {
   static put (uri, body) {
     return fetch(uri, {
       method: 'put',
+      mode: 'cors',
       credentials: 'include',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -28,6 +30,7 @@ export default class Transport {
   static delete (uri) {
     return fetch(uri, {
       method: 'delete',
+      mode: 'cors',
       credentials: 'include',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
