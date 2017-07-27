@@ -14,6 +14,7 @@ notificationRouter.route('/')
   .post((req, res) => {
     const notification = new Notification(req.body);
 
+    notification.time = new Date().getDate();
     notification.save((err, users) => {
       if (err) {
         res.send(err);

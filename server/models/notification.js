@@ -5,7 +5,6 @@ const notificationSchema = new Schema({
   text: String,
   viewed: Boolean,
   emergency: Boolean
-
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);

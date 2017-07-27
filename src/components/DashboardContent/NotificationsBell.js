@@ -87,7 +87,7 @@ class NotificationsBell extends React.Component {
                   key={key}>
                   <div className="notification-message">
                     <div className="notification-time">{item.time}</div>
-                    <div>{item.notificationText}</div>
+                    <div>{item.text}</div>
                   </div>
                 </li>);
             })
@@ -96,7 +96,7 @@ class NotificationsBell extends React.Component {
           </div>
           <div className="notification-button">
             <button
-              className=""
+              className="btn btn--primary"
               onClick={this.showAllNotify}>
               {this.buttonText}
             </button>
