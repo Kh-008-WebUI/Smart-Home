@@ -13,7 +13,7 @@ class NotificationsBell extends React.Component {
     super(props);
     this.buttonText = '';
     this.state = {
-      buttonTextStatus: false
+      showAllNotify: false
     };
   }
 
@@ -32,11 +32,11 @@ class NotificationsBell extends React.Component {
   }
   showAllNotify = () => {
     this.setState((prevState) => {
-      return { buttonTextStatus: !prevState.buttonTextStatus };
+      return { showAllNotify: !prevState.showAllNotify };
     });
   }
   changeButtonText = () => {
-    if (this.state.buttonTextStatus) {
+    if (this.state.showAllNotify) {
       this.buttonText = 'hide viewed';
     } else {
       this.buttonText = 'show all';
@@ -51,8 +51,12 @@ class NotificationsBell extends React.Component {
     this.props.changeStatusNotification(el.target.id);
   }
   render () {
-    const listNotify = this.props.notifications;
+    let listNotify = this.props.notifications;
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
+
+    if (!this.state.showAllNotify) {
+      listNotify = unViewedMessages;
+    }
 
     this.changeButtonText();
     return (
