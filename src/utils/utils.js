@@ -6,24 +6,23 @@ export function searchItem (item, searchValue) {
 }
 
 export const queryFromObject = (params) => {
-  let queries = '?';
+  const queries = [];
 
   for (const key of Object.keys(params)) {
     if (params[key]) {
-      queries += `${key}=${params[key]}&`;
+      queries.push(`${key}=${params[key]}`);
     }
   }
-  return queries.slice(0, -1);
+  return `?${queries.join('&')}`;
 };
 
 export const sortDevicesByLocations = (devices) => {
-  const locations = devices.reduce((location, device) => {
-    if (typeof location[device.location] !== 'object') {
+  return devices.reduce((location, device) => {
+    if (!location[device.location]) {
       location[device.location] = [];
     }
     location[device.location].push(device);
+
     return location;
   }, {});
-
-  return locations;
 };

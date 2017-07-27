@@ -40,3 +40,4 @@ export const REGISTRATION_ATTEMPT = 'auth/REGISTRATION_ATTEMPT';
 export const REGISTER_PENDING = 'auth/REGISTER_PENDING';
 export const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
+export const SERVER_API = 'http://localhost:3001/api';
