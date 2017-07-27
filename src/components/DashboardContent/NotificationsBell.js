@@ -12,6 +12,10 @@ import {
 class NotificationsBell extends React.Component {
   constructor (props) {
     super(props);
+    this.buttonText = '';
+    this.state = {
+      showAllNotify: false
+    };
   }
 
   componentDidMount () {
@@ -27,7 +31,18 @@ class NotificationsBell extends React.Component {
   componentWillUnmount () {
     this.ws.close();
   }
-
+  showAllNotify = () => {
+    this.setState((prevState) => {
+      return { showAllNotify: !prevState.showAllNotify };
+    });
+  }
+  changeButtonText = () => {
+    if (this.state.showAllNotify) {
+      this.buttonText = 'hide viewed';
+    } else {
+      this.buttonText = 'show all';
+    }
+  }
   displayNotifyBell = () => {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
@@ -37,9 +52,14 @@ class NotificationsBell extends React.Component {
     this.props.changeStatusNotification(el.target.id);
   }
   render () {
-    const listNotify = this.props.notifications;
+    let listNotify = this.props.notifications;
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
+    if (!this.state.showAllNotify) {
+      listNotify = unViewedMessages;
+    }
+
+    this.changeButtonText();
     return (
     <div className="notification">
       <div className="notification-bell">
@@ -77,9 +97,17 @@ class NotificationsBell extends React.Component {
                 </li>);
             })
             }
-            </ul>
+          </ul>
+          </div>
+          <div className="notification-button">
+            <button
+              className="btn btn--primary"
+              onClick={this.showAllNotify}>
+              {this.buttonText}
+            </button>
           </div>
         </div>
+
     </div>
     );
   }

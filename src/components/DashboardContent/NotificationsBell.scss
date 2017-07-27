@@ -53,15 +53,16 @@
 .notification-list {
   display: none;
   max-height: 400px;
-  overflow-y: scroll;
   background-color: $color-bg-grey;
   position: absolute;
   right: 10px;
   top: 52px;
-		
+
     &__notice {
-	  	border-radius: 3px;	
+	  	border-radius: 3px;
+      overflow-y: scroll;
 	  	padding: 10px;
+      max-height: 300px;
 
 		span {
 		  color: $text-color-active;
@@ -102,4 +103,9 @@
 }
 .remove-block {
   display: none;
+}
+.notification-button {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 10px 0 10px;
 }
