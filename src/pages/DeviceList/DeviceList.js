@@ -52,6 +52,11 @@ class DeviceList extends React.Component {
       this.updateUrl({ ...this.initialParams, search:searchValue });
     };
     this.changeStatus = (status, id) => {
+      const ws = new WebSocket('ws://localhost:3001/');
+
+      ws.onopen = () => {
+        ws.send(status);
+      };
       this.props.changeStatus({ status }, id);
     };
     this.deleteDevice = (id) => {

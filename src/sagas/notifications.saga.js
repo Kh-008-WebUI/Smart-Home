@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getNotifications,
-   changeStatusNotifications } from '../api/notificationsApi';
+   changeStatusNotifications,
+ addNotifications } from '../api/notificationsApi';
 import { fetchNotificationsSuccess, fetchNotificationsFailed }
   from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
@@ -23,4 +24,9 @@ export function* watchLoadNotifications () {
 export function* watchStatusNotifications (action) {
   yield takeEvery(NOTIFICATIONS_CHANGE_STATUS,
     changeStatusNotifications, action.id);
+}
+
+export function* watchAddNotifications (action) {
+  yield takeEvery('NOTIFICATION_ADD',
+    addNotifications, action.message);
 }
