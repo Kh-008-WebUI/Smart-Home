@@ -27,8 +27,14 @@
 .person-at-home {
   font-size: 20px;
   color: green;
+  margin-left: 10px;
 }
 
 .person-at-home__false {
   color: red;
+}
+
+.person-at-home__all {
+  color: $orange;
+  margin-left: 10px;
 }

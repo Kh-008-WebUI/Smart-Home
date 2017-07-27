@@ -5,9 +5,8 @@
   margin: 0 auto;
   width: 100%;
   padding: 20px;
-  background-color: $color-bg-dark-grey;
+  border-bottom: 1px solid #3d404c;
   color:$text_color_active;
-  border-radius: 7px;
 
   .Select-clear-zone {
     display: none;
@@ -71,7 +70,7 @@
   }
 
   //buttons styles
-  
+
   .form-button {
     color: $text_color_input;
     border: 1px solid $border_color;
@@ -122,4 +121,3 @@
     }
   }
 }
-
