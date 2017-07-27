@@ -17,12 +17,12 @@ class NotificationsBell extends React.Component {
     this.props.getNotifications();
   }
 
-  displayNotify = () => {
-    if (this.props.loadNotifacationsStatus !== 'ERROR') {
+  displayNotifyBell = () => {
+    if (this.props.loadNotificationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
     }
   }
-  getNotify = (el) => {
+  changeNotifyView = (el) => {
     this.props.changeStatusNotification(el.target.id);
   }
   render () {
@@ -33,10 +33,10 @@ class NotificationsBell extends React.Component {
     <div className="notification">
       <div className="notification-bell">
         <div className="notification-bell-self"
-          onClick={this.displayNotify}>
+          onClick={this.displayNotifyBell}>
             <i className='fa fa-bell-o notification-bell__icon'></i>
             <div className={
-            this.props.loadNotifacationsStatus === 'ERROR' ?
+            this.props.loadNotificationsStatus === 'ERROR' ?
             'notification-round-error' : '' }></div>
             <div className={
             unViewedMessages.length === 0 ?
@@ -52,7 +52,7 @@ class NotificationsBell extends React.Component {
           this.bell = el;
         } }>
         <div className="notification-list__notice">
-          <ul onClick={this.getNotify}>
+          <ul onClick={this.changeNotifyView}>
             {listNotify.map((item, key) => {
               return (
                 <li
@@ -76,7 +76,7 @@ class NotificationsBell extends React.Component {
 function mapStateToProps (store) {
   return {
     notifications: store.notificationsReducer.notifications,
-    loadNotifacationsStatus: store.notificationsReducer.loadNotifacationsStatus
+    loadNotificationsStatus: store.notificationsReducer.loadNotificationsStatus
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -91,7 +91,7 @@ NotificationsBell.propTypes = {
   notifications: PropTypes.array,
   getNotifications: PropTypes.any,
   changeStatusNotification: PropTypes.func,
-  loadNotifacationsStatus: PropTypes.string
+  loadNotificationsStatus: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);
