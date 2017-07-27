@@ -32,6 +32,7 @@ export function* register (action) {
     yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
+    console.log(e);
     yield put(registrationFailure(e));
     yield delay(2000);
     yield put(clearLoginStatus());

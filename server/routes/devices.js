@@ -24,7 +24,7 @@ devicesRouter.route('/').post((req, res) => {
       console.log(err);
     }
     else{
-      res.json({status:'good'});
+      res.json(device);
     }
   })
 })

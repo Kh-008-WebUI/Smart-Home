@@ -1,0 +1,43 @@
+@import '../../scss/_variables.scss';
+
+.popup {
+  display: none;
+
+  &--shown {
+    display: block;
+    margin: 0 auto;
+    padding: 30px 20px;
+    width: 90%;
+    max-width: 410px;
+    margin-left: -45%;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    background: $modals-bg;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    color: $text-color-active;
+    text-align: center;
+
+    @media(min-width: $tablet-min) {
+      width: inherit;
+      margin-left: -205px;
+    }
+  }
+
+  &__header {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    margin-bottom: 30px;
+  }
+
+  &__btn {
+    margin-right: 20px;
+
+    &:nth-last-child() {
+      margin-right: 0;
+    }
+  }
+}

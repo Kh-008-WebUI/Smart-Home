@@ -9,10 +9,16 @@ import Avatar from '../Avatar/Avatar';
 class ListUsers extends React.Component {
   constructor (props) {
     super(props);
+
+    this.state = { usersAtHome: false };
   }
 
   componentDidMount () {
     this.props.loadUsersRequest();
+  }
+
+  displayUsers = () => {
+    this.setState((prevState) => ({ usersAtHome: !prevState.usersAtHome }));
   }
 
   render () {
@@ -28,7 +34,10 @@ class ListUsers extends React.Component {
       </section>);
     }
 
-    const list = this.props.currentUsers;
+    const list = !this.state.usersAtHome ? this.props.currentUsers :
+    this.props.currentUsers.filter((item) => (item.home));
+
+    list.sort((a, b) => (a.name > b.name));
 
     if (list.length === 0) {
       return (<section className="list-users-spinner">
@@ -38,7 +47,14 @@ class ListUsers extends React.Component {
 
     return (
       <section className="list-users">
-        <h2 className="list-title">Users</h2>
+        <h2 className="list-title">Users
+        <span className="person-at-home">
+        <i className={
+          'fa fa-home person-at-home' +
+          (!this.state.usersAtHome ? '' : '__all')}
+        onClick={this.displayUsers}></i>
+        </span>
+        </h2>
         <ul className="list-menu-users">
           {list.map((item, key) => {
             return (
