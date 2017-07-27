@@ -12,7 +12,7 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
-var path = require('path')
+var path = require('path');
 const port = 3001;
 
 app.use(bodyParser.json());
