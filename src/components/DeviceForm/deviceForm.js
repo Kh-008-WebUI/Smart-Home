@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
+import { setItemDefaultData } from '../../utils/utils';
 
 const itemsToChoose = [
   'Toggle',
@@ -41,6 +42,7 @@ class DeviceForm extends React.Component {
       name: e.target.value
     };
 
+    setItemDefaultData(newItem);
     this.props.addItem(newItem);
   };
 
