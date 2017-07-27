@@ -26,7 +26,9 @@ class NotificationsBell extends React.Component {
   componentWillUnmount () {
     this.ws.close();
   }
-
+  showAllNotify = () => {
+    console.log('show');
+  }
   displayNotifyBell = () => {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
@@ -78,7 +80,15 @@ class NotificationsBell extends React.Component {
             }
             </ul>
           </div>
+          <div className="notification-button">
+            <button
+              className=""
+              onClick={this.showAllNotify}>
+              show all
+            </button>
+          </div>
         </div>
+
     </div>
     );
   }
