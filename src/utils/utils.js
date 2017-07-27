@@ -6,14 +6,14 @@ export function searchItem (item, searchValue) {
 }
 
 export const queryFromObject = (params) => {
-  let queries = '?';
+  const queries = [];
 
   for (const key of Object.keys(params)) {
     if (params[key]) {
-      queries += `${key}=${params[key]}&`;
+      queries.push(`${key}=${params[key]}`);
     }
   }
-  return queries.slice(0, -1);
+  return `?${queries.join('&')}`;
 };
 
 export const sortDevicesByLocations = (devices) => {
