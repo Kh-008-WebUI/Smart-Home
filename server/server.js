@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const favicon = require('serve-favicon');
-const db = require('./config/db');
+const config = require('./config/config.js');
 const app = express();
 const router = express.Router();
 const checkAuth = require('./middleware/checkAuth.js');
@@ -12,8 +12,8 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
-var path = require('path')
-const port = 3001;
+const path = require('path')
+const MongoStore = require('connect-mongo')(session);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,10 +27,9 @@ app.use((req, res, next) => {
   next();
 });
 
-var MongoStore = require('connect-mongo')(session);
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(session({
-  secret: 'MoneyIsPower',
+  secret: config.secret,
   name: 'login',
   resave: false,
   saveUninitialized: false,
@@ -50,13 +49,13 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
 
-app.listen(port, () => {
-  console.log(`node server is working on port ${port}...`);
+app.listen(config.port, () => {
+  console.log(`node server is working on port ${config.port}...`);
 });
 
 mongoose.Promise = global.Promise;
 // Connect to MongoDB
-mongoose.connect(db.url, { useMongoClient: true });
+mongoose.connect(config.url, { useMongoClient: true });
 const database = mongoose.connection;
 
 database.on('error', (err) => {
