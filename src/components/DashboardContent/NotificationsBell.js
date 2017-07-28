@@ -50,6 +50,18 @@ class NotificationsBell extends React.Component {
   }
   changeNotifyView = (el) => {
     this.props.changeStatusNotification(el.target.id);
+    console.log(el.target.closest('li').id);
+  }
+  addClassName = (item) => {
+    let classForNotifyItem = '';
+
+    if (!item.viewed) {
+      classForNotifyItem += 'notification-item-marker';
+    }
+    if (item.emergency) {
+      classForNotifyItem += ' notification-item-emergency';
+    }
+    return classForNotifyItem;
   }
   render () {
     let listNotify = this.props.notifications;
@@ -88,7 +100,7 @@ class NotificationsBell extends React.Component {
               return (
                 <li
                   id={item._id}
-                  className={item.viewed ? '' : 'notification-item-marker'}
+                  className={ this.addClassName(item) }
                   key={key}>
                   <div className="notification-message">
                     <div className="notification-time">{item.time}</div>
