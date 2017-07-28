@@ -26,3 +26,22 @@ export const sortDevicesByLocations = (devices) => {
     return location;
   }, {});
 };
+
+export const setItemDefaultData = (item) => {
+  switch (item.name) {
+    case 'Toggle':
+      item.data = false;
+      break;
+    case 'Value':
+      item.data = '';
+      break;
+    case 'Range':
+      item.data = 0;
+      break;
+    case 'Timer':
+      item.data = '00:00';
+      break;
+    default:
+      break;
+  }
+};
