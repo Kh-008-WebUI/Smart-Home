@@ -50,7 +50,7 @@ class NotificationsBell extends React.Component {
   }
   changeNotifyView = (el) => {
     this.props.changeStatusNotification(el.target.id);
-    console.log(el.target.closest('li').id);
+    console.log(el.target.id);
   }
   addClassName = (item) => {
     let classForNotifyItem = '';
