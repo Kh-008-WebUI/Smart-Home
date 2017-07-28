@@ -4,8 +4,8 @@ const getCurrentTime = require('../utils/getCurrentTime');
 const notificationSchema = new Schema({
   time: String,
   text: String,
-  viewed: Boolean,
-  emergency: Boolean
+  viewed: { type: Boolean, default: false },
+  emergency: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);

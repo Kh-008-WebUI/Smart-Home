@@ -14,15 +14,14 @@ const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
 const http = require('http');
 const WebSocket = require('ws');
-const port = 3001;
-const path = require('path')
+const path = require('path');
 const MongoStore = require('connect-mongo')(session);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8081');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers',
@@ -75,6 +74,6 @@ wss.on('connection', function connection(ws, req){
     });
 });
 
-server.listen(port, () => {
-  console.log(`node server is working on port ${port}...`);
+server.listen(config.port, () => {
+  console.log(`node server is working on port ${config.port}...`);
 });
