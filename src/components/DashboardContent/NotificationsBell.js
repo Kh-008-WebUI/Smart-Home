@@ -20,6 +20,7 @@ class NotificationsBell extends React.Component {
 
   componentDidMount () {
     this.ws = new WebSocket('ws://localhost:3001/');
+    // this.ws.onopen = () => console.log('wdwd2232323');
 
     this.ws.onmessage = msg => {
       this.props.fetchAddNotifications(msg.data);
@@ -47,10 +48,15 @@ class NotificationsBell extends React.Component {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
     }
+    if (this.state.showAllNotify) {
+      this.setState((prevState) => {
+        return { showAllNotify: !prevState.showAllNotify };
+      });
+    }
   }
   changeNotifyView = (el) => {
     this.props.changeStatusNotification(el.target.id);
-    console.log(el.target.id);
+    console.log(el.target.closest('li').id);
   }
   addClassName = (item) => {
     let classForNotifyItem = '';
