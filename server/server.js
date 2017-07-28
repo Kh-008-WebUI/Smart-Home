@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers',
@@ -42,12 +42,20 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-router.use('/users', userRoutes);
-router.use('/notifications', notificationRoutes);
-router.use('/devices', devicesRoutes);
+router.use('/users', checkAuth, userRoutes);
+router.use('/notifications', checkAuth, notificationRoutes);
+router.use('/devices', checkAuth, devicesRoutes);
 router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../dist/index.html'));
+});
+
+app.get('/index_bundle.js', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
+});
 
 app.listen(config.port, () => {
   console.log(`node server is working on port ${config.port}...`);
