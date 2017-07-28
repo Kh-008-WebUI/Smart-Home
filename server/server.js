@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const favicon = require('serve-favicon');
-const db = require('./config/db');
+const config = require('./config/config.js');
 const app = express();
 const router = express.Router();
 const checkAuth = require('./middleware/checkAuth.js');
@@ -16,6 +16,8 @@ const http = require('http');
 const WebSocket = require('ws');
 var path = require('path')
 const port = 3001;
+const path = require('path')
+const MongoStore = require('connect-mongo')(session);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,10 +31,9 @@ app.use((req, res, next) => {
   next();
 });
 
-var MongoStore = require('connect-mongo')(session);
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(session({
-  secret: 'MoneyIsPower',
+  secret: config.secret,
   name: 'login',
   resave: false,
   saveUninitialized: false,
@@ -54,7 +55,7 @@ app.use('/api', router);
 
 mongoose.Promise = global.Promise;
 // Connect to MongoDB
-mongoose.connect(db.url, { useMongoClient: true });
+mongoose.connect(config.url, { useMongoClient: true });
 const database = mongoose.connection;
 
 database.on('error', (err) => {
