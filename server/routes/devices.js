@@ -32,11 +32,12 @@ devicesRouter.route('/').post((req, res) => {
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({_id:id}, (err, device) => {
+  Device.findOneAndUpdate({_id:id}, {$set:{views: 20}}, {new: true}, (err, device) => {
     if(err) {
       console.log(err);
     }
     else{
+      console.log(device);
       res.json(device);
     }
   });
