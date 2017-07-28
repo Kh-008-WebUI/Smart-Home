@@ -17,10 +17,8 @@ export default class TimerSettings extends React.Component {
     this.hoursKeyDown = this.hoursKeyDown.bind(this);
     this.minutesKeyDown = this.minutesKeyDown.bind(this);
   }
-  componentDidMount () {
-    this.props.setItemValue(this.state.hours, this.state.minutes,
-    this.props.itemId);
 
+  componentDidMount () {
     if (typeof this.props.data !== 'undefined') {
       const time = this.props.data.split(':');
 

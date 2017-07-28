@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
+import { setItemDefaultData } from '../../utils/utils';
 
 const itemsToChoose = [
   'Toggle',
@@ -41,6 +42,7 @@ class DeviceForm extends React.Component {
       name: e.target.value
     };
 
+    setItemDefaultData(newItem);
     this.props.addItem(newItem);
   };
 
@@ -122,7 +124,7 @@ class DeviceForm extends React.Component {
           { this.createButtons() }
         </div>
         <div className="main-button-wrap signup-field-group signup-btn-group">
-          <input className="btn btn--signup btn--signup-active"
+          <input className="btn btn--primary btn--signup btn--signup-active"
             type="submit"
             value="Add Device"
             disabled = {
