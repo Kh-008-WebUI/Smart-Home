@@ -9,9 +9,13 @@ loginRouter.route('/').post((req, res) => {
     if(err) {
       console.log(err);
     }
-    else if(user && req.body.password === user.password) {
+    else if(user && user.checkPassword(req.body.password)) {
       req.session.user = user._id;
-      res.json({name:user.name, email: user.email});
+      res.json({
+        name:user.name,
+        email: user.email,
+        created: user.created
+      });
     }
     else {
       res.send(403);
