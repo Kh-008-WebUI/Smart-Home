@@ -15,6 +15,7 @@ import {
   changeStatus,
   deleteDeviceAsync,
   updateDevice } from '../../actions/devices.action';
+import { fetchAddNotifications } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
 import { queryFromObject, sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -57,6 +58,10 @@ class DeviceList extends React.Component {
       ws.onopen = () => {
         ws.send(status);
       };
+      ws.onmessage = (message) => {
+        this.props.fetchAddNotifications(message.data);
+      }
+
       this.props.changeStatus({ status }, id);
     };
     this.deleteDevice = (id) => {
@@ -177,7 +182,8 @@ const mapDispatchToProps = (dispatch) => ({
   changeStatus: (data, id) => dispatch(updateDevice(data, id)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
-  deleteDevice: (id) => dispatch(deleteDeviceAsync(id))
+  deleteDevice: (id) => dispatch(deleteDeviceAsync(id)),
+  fetchAddNotifications: (message) => dispatch(fetchAddNotifications(message))
 });
 
 DeviceList.propTypes = {
@@ -192,7 +198,8 @@ DeviceList.propTypes = {
   deleteDevice: PropTypes.func,
   history: PropTypes.object,
   location: PropTypes.object,
-  status: PropTypes.string
+  status: PropTypes.string,
+  fetchAddNotifications: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);

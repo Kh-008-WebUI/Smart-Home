@@ -14,7 +14,6 @@ const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
 const http = require('http');
 const WebSocket = require('ws');
-var path = require('path')
 const port = 3001;
 const path = require('path')
 const MongoStore = require('connect-mongo')(session);
