@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Header.scss';
 import NotificationsBell from '../DashboardContent/NotificationsBell.js';
+import SignedInUser from './SignedInUser';
 
 export default class Header extends React.Component {
 
@@ -17,7 +18,10 @@ export default class Header extends React.Component {
             aria-hidden="true"></i>
         </button>
         <div className="notification-block">
-         <NotificationsBell />
+          <NotificationsBell />
+        </div>
+        <div className="signed-in-user-block">
+          <SignedInUser />
         </div>
       </header>
     );
