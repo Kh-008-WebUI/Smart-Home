@@ -8,6 +8,7 @@ import {
   changeStatusNotification,
   fetchAddNotifications
 } from '../../actions/notifications.action';
+import { ws } from '../../index';
 
 class NotificationsBell extends React.Component {
   constructor (props) {
@@ -19,19 +20,12 @@ class NotificationsBell extends React.Component {
   }
 
   componentDidMount () {
-    this.ws = new WebSocket('ws://localhost:3001/');
-    // this.ws.onopen = () => console.log('wdwd2232323');
-
-    this.ws.onmessage = msg => {
+    ws.onmessage = msg => {
       this.props.fetchAddNotifications(msg.data);
     };
-
     this.props.getNotifications();
   }
 
-  componentWillUnmount () {
-    this.ws.close();
-  }
   showAllNotify = () => {
     this.setState((prevState) => {
       return { showAllNotify: !prevState.showAllNotify };

@@ -13,11 +13,13 @@ import {
   searchAction,
   loadDevices,
   changeStatus,
-  deleteDeviceAsync,
+  deleteDevice,
   updateDevice } from '../../actions/devices.action';
-import { fetchAddNotifications } from '../../actions/notifications.action';
+import { sendNotificationWS } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
-import { queryFromObject, sortDevicesByLocations } from '../../utils/utils';
+import { queryFromObject,
+         sortDevicesByLocations,
+         findByProperty } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
@@ -53,19 +55,17 @@ class DeviceList extends React.Component {
       this.updateUrl({ ...this.initialParams, search:searchValue });
     };
     this.changeStatus = (status, id) => {
-      const ws = new WebSocket('ws://localhost:3001/');
-
-      ws.onopen = () => {
-        ws.send(status);
-      };
-      ws.onmessage = (message) => {
-        this.props.fetchAddNotifications(message.data);
-      }
-
       this.props.changeStatus({ status }, id);
+      const device = findByProperty(this.props.devices, '_id', id);
+
+      this.props.sendNotificationWS(`${device.name} is
+                                     ${status ? 'on' : 'off'}`);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
+      const device = findByProperty(this.props.devices, '_id', id);
+
+      this.props.sendNotificationWS(`${device.name} was deleted`);
     };
 
     this.updateUrl = (params) => {
@@ -182,8 +182,8 @@ const mapDispatchToProps = (dispatch) => ({
   changeStatus: (data, id) => dispatch(updateDevice(data, id)),
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
-  deleteDevice: (id) => dispatch(deleteDeviceAsync(id)),
-  fetchAddNotifications: (message) => dispatch(fetchAddNotifications(message))
+  deleteDevice: (id) => dispatch(deleteDevice(id)),
+  sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
 });
 
 DeviceList.propTypes = {
@@ -199,7 +199,7 @@ DeviceList.propTypes = {
   history: PropTypes.object,
   location: PropTypes.object,
   status: PropTypes.string,
-  fetchAddNotifications: PropTypes.func
+  sendNotificationWS: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);

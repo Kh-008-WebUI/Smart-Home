@@ -5,15 +5,18 @@ import {
   LOAD_DEVICE,
   LOAD_DEVICES_FAIL,
   LOAD_DEVICE_FAIL,
+  DELETE_DEVICE_SUCCESS,
   DELETE_DEVICE,
-  DELETE_DEVICE_ASYNC,
   DELETE_DEVICE_FAIL,
   LOAD_DEVICE_ASYNC,
   CHANGE_STATUS,
   SEARCH_ITEM,
   CHANGE_FILTER_OPTION,
   LIST_SET_ITEM_VALUE,
-  ADD_DEVICE_TO_LIST } from '../constants/index';
+  ADD_DEVICE_TO_LIST,
+  UPDATE_DEVICE,
+  UPDATE_DEVICE_SUCCESS
+ } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 
@@ -63,12 +66,12 @@ export const loadDeviceFail = (device) => {
   };
 };
 export const deleteDeviceSuccess = (id) => ({
-  type: DELETE_DEVICE,
+  type: DELETE_DEVICE_SUCCESS,
   id
 });
 
-export const deleteDeviceAsync = (id) => ({
-  type: DELETE_DEVICE_ASYNC,
+export const deleteDevice = (id) => ({
+  type: DELETE_DEVICE,
   id
 });
 
@@ -77,22 +80,9 @@ export const deleteDeviceFail = (error) => ({
   error
 });
 
-export const addDeviceToList = (device) => ({
-  type: ADD_DEVICE_TO_LIST,
-  device
-});
-
-export const changeStatus = (status, id) => {
-  return {
-    type: CHANGE_STATUS,
-    status,
-    id
-  };
-};
-
 export const updateDevice = (data, id) => {
   return {
-    type:'UPDATE_DEVICE',
+    type: UPDATE_DEVICE,
     data,
     id
   };
@@ -100,7 +90,7 @@ export const updateDevice = (data, id) => {
 
 export const updateDeviceSuccess = (device, id) => {
   return {
-    type:'UPDATE_DEVICE_SUCCESS',
+    type: UPDATE_DEVICE_SUCCESS,
     device,
     id
   };

@@ -1,6 +1,6 @@
 import { LOAD_DEVICES_SUCCESS } from '../constants/index';
 import { CHANGE_STATUS } from '../constants/index';
-import { DELETE_DEVICE, LOAD_DEVICE,
+import { DELETE_DEVICE_SUCCESS, LOAD_DEVICE,
         LOAD_DEVICE_SUCCESS,
         LOAD_DEVICES_PENDING,
         LOAD_DEVICE_PENDING,
@@ -69,7 +69,7 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case DELETE_DEVICE: {
+    case DELETE_DEVICE_SUCCESS: {
       const newDevices = state.devices.filter((item) =>{
         return item._id !== action.id;
       });

@@ -5,7 +5,7 @@ import {
   addDeviceFailure,
   clearAddStatus
 } from '../actions/builder.action';
-import { addDeviceToList, loadDevices } from '../actions/devices.action';
+import { loadDevices } from '../actions/devices.action';
 import { delay } from 'redux-saga';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
@@ -15,7 +15,6 @@ export function* addDevice (action) {
 
     yield put(addDeviceSuccess());
     yield put(loadDevices());
-    yield put(addDeviceToList(device));
   } catch (e) {
     yield put(addDeviceFailure(e));
     yield delay(2000);

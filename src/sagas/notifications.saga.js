@@ -1,12 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getNotifications,
-   changeStatusNotifications,
-   addNotifications } from '../api/notificationsApi';
-import { fetchNotificationsSuccess, fetchNotificationsFailed,
-  addNotificationsSuccess }
-  from '../actions/notifications.action';
+         changeStatusNotifications,
+         addNotifications } from '../api/notificationsApi';
+import { fetchNotificationsSuccess,
+         fetchNotificationsFailed,
+        addNotificationsSuccess } from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
-  NOTIFICATIONS_CHANGE_STATUS } from '../constants/index';
+         NOTIFICATIONS_CHANGE_STATUS,
+         SEND_NOTIFICATION_WS,
+         ADD_NOTIFICATIONS } from '../constants/index';
+import { ws } from '../index';
 
 function* fetchNotifications () {
   try {
@@ -28,6 +31,10 @@ export function* fetchAddNotifications (action) {
   }
 }
 
+export function* sendNotificationWS (action) {
+  yield ws.send(action.message);
+}
+
 export function* watchLoadNotifications () {
   yield takeEvery(NOTIFICATIONS_FETCH_REQUESTED, fetchNotifications);
 }
@@ -38,6 +45,10 @@ export function* watchStatusNotifications (action) {
 }
 
 export function* watchAddNotification () {
-  yield takeEvery('ADD_NOTIFICATIONS',
+  yield takeEvery(ADD_NOTIFICATIONS,
     fetchAddNotifications);
+}
+
+export function* watchSendNotificationWS () {
+  yield takeEvery(SEND_NOTIFICATION_WS, sendNotificationWS);
 }
