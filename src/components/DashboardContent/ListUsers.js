@@ -3,14 +3,13 @@ import './ListUsers.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { loadUsersRequest } from '../../actions/users.action';
+import { loadUsersRequest,
+  displayUsers } from '../../actions/users.action';
 import Avatar from '../Avatar/Avatar';
 
 class ListUsers extends React.Component {
   constructor (props) {
     super(props);
-
-    this.state = { usersAtHome: false };
   }
 
   componentDidMount () {
@@ -18,7 +17,7 @@ class ListUsers extends React.Component {
   }
 
   displayUsers = () => {
-    this.setState((prevState) => ({ usersAtHome: !prevState.usersAtHome }));
+    this.props.displayUsers(!this.props.displayUsersStatus);
   }
 
   render () {
@@ -34,7 +33,7 @@ class ListUsers extends React.Component {
       </section>);
     }
 
-    const list = !this.state.usersAtHome ? this.props.currentUsers :
+    const list = this.props.displayUsersStatus ? this.props.currentUsers :
     this.props.currentUsers.filter((item) => (item.home));
 
     list.sort((a, b) => (a.name > b.name));
@@ -51,7 +50,7 @@ class ListUsers extends React.Component {
         <span className="person-at-home">
         <i className={
           'fa fa-home person-at-home' +
-          (!this.state.usersAtHome ? '' : '__all')}
+          (this.props.displayUsersStatus ? '' : '__all')}
         onClick={this.displayUsers}></i>
         </span>
         </h2>
@@ -72,18 +71,22 @@ class ListUsers extends React.Component {
 ListUsers.propTypes = {
   currentUsers: PropTypes.array,
   loadUsersRequest: PropTypes.func.isRequired,
+  displayUsers: PropTypes.func.isRequired,
+  displayUsersStatus: PropTypes.bool,
   loadUsersStatus: PropTypes.string
 };
 
 function mapStateToProps (store) {
   return {
     currentUsers: store.loadUsersReducer.users,
-    loadUsersStatus: store.loadUsersReducer.loadUsersStatus
+    loadUsersStatus: store.loadUsersReducer.loadUsersStatus,
+    displayUsersStatus: store.loadUsersReducer.displayUsersStatus
   };
 }
 function mapDispatchToProps (dispatch) {
   return {
-    loadUsersRequest: bindActionCreators(loadUsersRequest, dispatch)
+    loadUsersRequest: bindActionCreators(loadUsersRequest, dispatch),
+    displayUsers: bindActionCreators(displayUsers, dispatch)
   };
 }
 

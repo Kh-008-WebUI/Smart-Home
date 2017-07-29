@@ -12,7 +12,7 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
-const path = require('path')
+const path = require('path');
 const MongoStore = require('connect-mongo')(session);
 
 app.use(bodyParser.json());
