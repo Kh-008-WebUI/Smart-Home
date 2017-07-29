@@ -8,7 +8,7 @@ class SignedInUser extends React.Component {
 
   render () {
     return (
-      <NavLink to="/auth/user-profile">
+      <NavLink to="/user">
         <div className="user-block">
           <div className="user-name">{this.props.userData}</div>
           <div className="user-photo"></div>

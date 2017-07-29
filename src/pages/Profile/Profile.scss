@@ -1,0 +1,29 @@
+@import '../../scss/_variables.scss';
+
+.profile {
+  &-container {
+    margin: 0 auto;
+    max-width: 390px;
+    margin-top: -235px;
+    position: relative;
+    top: 50%;
+
+    .fa-unlock {
+      background-image: url("../../img/avatar2.png");
+    }
+    .signup-field-group {
+      @media (min-width: $tablet-min) {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+    @media (min-width: $tablet-min) {
+      width: 400px;
+      max-width: inherit;
+      position: absolute;
+      left: 50%;
+      margin: -200px 0 0 -200px;
+    }
+  }
+}
