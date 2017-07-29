@@ -12,7 +12,7 @@ devicesRouter.route('/').get((req, res) => {
     else{
       res.json(devices);
     }
-  });
+  }).sort({views: -1});
 });
 
 devicesRouter.route('/').post((req, res) => {

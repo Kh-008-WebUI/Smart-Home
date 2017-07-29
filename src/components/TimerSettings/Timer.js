@@ -90,7 +90,7 @@ export default class TimerSettings extends React.Component {
           <RangeSettings
             className="u-slider-time"
             min={0}
-            max={23}
+            max={99}
             setItemValue={this.props.setItemValue}
             onTimerChange={this.changeHours}
             hideLabel={true}
