@@ -9,6 +9,7 @@ import {
   loadDevice,
   listSetItemValue,
   updateDevice } from '../../actions/devices.action';
+import { sendNotificationWS } from '../../actions/notifications.action';
 require('./DevicePage.scss');
 
 class DevicePage extends React.Component {
@@ -17,6 +18,8 @@ class DevicePage extends React.Component {
 
     this.changeStatus = (status, id) => {
       this.props.onStatusChange({ status }, id);
+      this.props.sendNotificationWS(`${this.props.device.name} is
+                                     ${status ? 'on' : 'off'}`);
     };
   }
   componentDidUpdate () {
@@ -62,7 +65,8 @@ const mapDispatchToProps = dispatch => ({
   loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
   setItemValue: (value, id) => dispatch(listSetItemValue(value, id)),
-  onStatusChange: (data, id) => dispatch(updateDevice(data, id))
+  onStatusChange: (data, id) => dispatch(updateDevice(data, id)),
+  sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
 });
 
 DevicePage.propTypes = {
@@ -81,7 +85,8 @@ DevicePage.propTypes = {
   pending: PropTypes.bool,
   loadFailed: PropTypes.bool,
   history: PropTypes.object,
-  status: PropTypes.string
+  status: PropTypes.string,
+  sendNotificationWS: PropTypes.func
 };
 
 DevicePage.defaultProps = {
