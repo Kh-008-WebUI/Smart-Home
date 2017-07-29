@@ -14,8 +14,8 @@ export default class RangeSettings extends React.Component {
 
     this.onChange = this.onChange.bind(this);
   }
+
   componentDidMount () {
-    this.props.setItemValue(this.state.value, this.props.itemId);
     if (typeof this.props.data !== 'undefined') {
       this.setState({
         value: this.props.data

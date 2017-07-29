@@ -16,8 +16,21 @@ export const queryFromObject = (params) => {
   return `?${queries.join('&')}`;
 };
 
+const sortDevicesByName = (devices) => {
+  return devices.sort((a, b) => {
+    if (a.location < b.location) {
+      return -1;
+    }
+    if (a.location > b.location) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
 export const sortDevicesByLocations = (devices) => {
-  return devices.reduce((location, device) => {
+  return sortDevicesByName(devices).reduce((location, device) => {
     if (!location[device.location]) {
       location[device.location] = [];
     }
@@ -25,4 +38,23 @@ export const sortDevicesByLocations = (devices) => {
 
     return location;
   }, {});
+};
+
+export const setItemDefaultData = (item) => {
+  switch (item.name) {
+    case 'Toggle':
+      item.data = false;
+      break;
+    case 'Value':
+      item.data = '';
+      break;
+    case 'Range':
+      item.data = 0;
+      break;
+    case 'Timer':
+      item.data = '00:00';
+      break;
+    default:
+      break;
+  }
 };
