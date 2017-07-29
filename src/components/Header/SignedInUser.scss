@@ -1,0 +1,22 @@
+@import "../../scss/_variables.scss";
+
+.user-block {
+  display: flex;
+  height: 41px;
+  margin: 5px 10px;
+}
+.user-name {
+  margin: 10px;
+  color: #333;
+  font-size: 20px;
+}
+
+.user-photo {
+  background-image: url("../../img/avatar2.png");
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: $color-orange;
+  background-size: contain;
+  margin: 3px;
+}
