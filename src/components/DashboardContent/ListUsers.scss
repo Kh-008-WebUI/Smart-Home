@@ -3,7 +3,7 @@
 .list-users {
   width: 20%;
   height: 185px;
-    
+
   li {
     padding: 5px;
   }
@@ -22,4 +22,5 @@
 
 .list-menu-users {
     overflow-y: scroll;
+    max-height: 240px;
 }

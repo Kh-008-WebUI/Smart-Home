@@ -12,6 +12,8 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
+const http = require('http');
+const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
 
@@ -49,10 +51,6 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
 
-app.listen(config.port, () => {
-  console.log(`node server is working on port ${config.port}...`);
-});
-
 mongoose.Promise = global.Promise;
 // Connect to MongoDB
 mongoose.connect(config.url, { useMongoClient: true });
@@ -63,4 +61,19 @@ database.on('error', (err) => {
 });
 database.once('open', () => {
   console.log('Connected to database!');
+});
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({server});
+
+wss.on('connection', function connection(ws, req){
+    ws.on('message', message => {
+      wss.clients.forEach(client => {
+        client.send(message);
+      });
+    });
+});
+
+server.listen(config.port, () => {
+  console.log(`node server is working on port ${config.port}...`);
 });

@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
 import { setItemDefaultData } from '../../utils/utils';
+import { sendNotificationWS } from '../../actions/notifications.action';
 
 const itemsToChoose = [
   'Toggle',
@@ -71,6 +72,8 @@ class DeviceForm extends React.Component {
   };
 
   handleSubmit = () => {
+    this.props.sendNotificationWS(`${this.props.settings.name} was created`);
+
     this.props.addDevice(this.props.settings);
   };
 
@@ -141,7 +144,8 @@ function mapDispatchToProps (dispatch) {
     setValue: bindActionCreators(setValue, dispatch),
     addItem:  bindActionCreators(addItem, dispatch),
     resetProto: bindActionCreators(resetProto, dispatch),
-    addDevice: bindActionCreators(addDevice, dispatch)
+    addDevice: bindActionCreators(addDevice, dispatch),
+    sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -152,5 +156,6 @@ DeviceForm.propTypes = {
   resetProto: PropTypes.func,
   addDevice:  PropTypes.func,
   settings: PropTypes.object,
-  status: PropTypes.string
+  status: PropTypes.string,
+  sendNotificationWS: PropTypes.func
 };
