@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const getCurrentTime = require('../utils/getCurrentTime');
 
 const notificationSchema = new Schema({
   time: {
-    type: Date,
+    type: String,
     required: true,
-    default: Date.now
   },
   text: {
     type: String,
