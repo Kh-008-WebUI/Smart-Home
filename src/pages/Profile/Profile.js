@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
-import { Message } from '../../components/Message/Message';
-import { NavLink } from 'react-router-dom';
 import { updateProfileRequest } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 require('./Profile.scss');
-import { registrationSuccess } from '../../actions/auth.action';
 
 class Profile extends Component {
   constructor (props) {
