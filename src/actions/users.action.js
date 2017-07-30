@@ -3,7 +3,8 @@ import { LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
   DISPLAY_USERS_STATUS,
   UPDATE_USER_PROFILE_REQUEST,
-  UPDATE_USER_PROFILE_SUCCESS }
+  UPDATE_USER_PROFILE_SUCCESS,
+  UPDATE_USER_PROFILE_FAILURE }
 from '../constants/index';
 
 export const loadUsersSuccess = (payload) => {
@@ -43,6 +44,13 @@ export const updateProfileRequest = (payload) => {
 export const updateProfileSuccess = (payload) => {
   return {
     type: UPDATE_USER_PROFILE_SUCCESS,
+    payload
+  };
+};
+
+export const updateProfileFailed = (payload) => {
+  return {
+    type: UPDATE_USER_PROFILE_FAILURE,
     payload
   };
 };

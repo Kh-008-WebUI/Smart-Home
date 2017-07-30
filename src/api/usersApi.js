@@ -6,6 +6,6 @@ export const usersList = () => {
 };
 
 export const updateProfileRequest = (data) => {
-  return Transport.put(`${SERVER_API}/users/${data.id}`,
+  return Transport.put(`${SERVER_API}/users/${data._id}`,
     JSON.stringify(data));
 };

@@ -3,7 +3,7 @@ import { UPDATE_USERS_REQUEST,
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { usersList, updateProfileRequest } from '../api/usersApi';
 import { loadUsersSuccess, loadUsersFailed,
-  updateProfileSuccess } from '../actions/users.action';
+  updateProfileSuccess, updateProfileFailed } from '../actions/users.action';
 
 function* getUsersList () {
   try {
@@ -21,7 +21,7 @@ function* updateUserProfile (action) {
 
     yield put(updateProfileSuccess(updatedProfile));
   } catch (e) {
-    yield put(loadUsersFailed(e));
+    yield put(updateProfileFailed(e));
   }
 }
 

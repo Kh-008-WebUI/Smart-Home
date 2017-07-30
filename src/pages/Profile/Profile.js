@@ -19,19 +19,11 @@ class Profile extends Component {
     };
   }
 
-  // componentDidUpdate () {
-  //  if (this.props.updateProfileStatus) {
-  //    setTimeout(()=>{
-  //      this.props.history.push('/');
-  //    }, 1000);
-  //  }
-  // }
-
-  addProfile = () => {
+  updateProfile = () => {
     const data = {
       name: this.name.getValue(),
       email: this.email.getValue(),
-      id: this.props.user.id
+      _id: this.props.user._id
     };
 
     this.props.updateProfileRequest(data);
@@ -52,7 +44,7 @@ class Profile extends Component {
         <Header
           title={this.props.user.name} />
         <Formsy.Form
-          onSubmit={this.addProfile}
+          onSubmit={this.updateProfile}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
           className="signup-form">
@@ -105,7 +97,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 Profile.propTypes = {
   updateProfileStatus: PropTypes.string,
-  history: PropTypes.object,
   updateProfileRequest: PropTypes.func,
   user: PropTypes.object
 };
