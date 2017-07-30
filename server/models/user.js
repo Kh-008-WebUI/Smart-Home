@@ -2,20 +2,29 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const config = require('../config/config.js');
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
   name: {
     type: String,
-    require:true
+    required: true,
+    min: [3, 'Name is too short.'],
+    max: 18
   },
   home: Boolean,
   email: {
     type: String,
     unique: true,
-    require:true
+    validate: {
+      validator: function(v) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+      },
+      message: '{Value} is not a valid email.'
+    },
+    required:  true
   },
   hashedPassword: {
     type: String,
-    require:true
+    required:  true
   },
   created: {
     type: Date,

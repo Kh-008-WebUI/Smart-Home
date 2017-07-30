@@ -155,7 +155,7 @@ class DeviceList extends React.Component {
         </header>
         <section className="device-list__content">
           { this.props.status === 'DONE' && this.props.devices.length === 0 ?
-            <span>Nothing here...</span> : this.renderDeviceGroup()
+            <span>You need to add device</span> : this.renderDeviceGroup()
           }
         </section>
         <Popup
