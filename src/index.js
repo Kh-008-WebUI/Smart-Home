@@ -45,6 +45,7 @@ ReactDOM.render(
               <Route path='/devices/device/:id' component={DevicePage} />
               <Route path='/devices' component={DeviceList} />
               <Route path='/builder' component={Builder} />
+              <Route path='/device/edit/:id' component={Builder} />
             </Switch>
           </MainLayout>
           ) } />

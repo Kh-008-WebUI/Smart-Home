@@ -8,11 +8,19 @@ import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
   resetProto,
-  deleteItem } from '../../actions/builder.action';
+  deleteItem,
+  editDevice } from '../../actions/builder.action';
 
 class Builder extends Component {
   constructor (props) {
     super(props);
+  }
+  componentWillMount () {
+    if (typeof this.props.match.params.id !== 'undefined') {
+      this.props.editDevice(this.props.match.params.id);
+    } else {
+      this.props.resetBuilder();
+    }
   }
   componentDidUpdate () {
     if (this.props.status === 'DONE') {
@@ -47,7 +55,8 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(deleteItem, dispatch),
-    resetBuilder: bindActionCreators(resetProto, dispatch)
+    resetBuilder: bindActionCreators(resetProto, dispatch),
+    editDevice: bindActionCreators(editDevice, dispatch)
   };
 }
 
@@ -56,7 +65,11 @@ Builder.propTypes = {
   device: PropTypes.object,
   resetBuilder: PropTypes.func,
   deleteItem: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  match: PropTypes.object,
+  params: PropTypes.object,
+  id: PropTypes.string,
+  editDevice: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Builder);

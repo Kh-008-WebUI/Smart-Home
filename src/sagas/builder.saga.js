@@ -1,9 +1,10 @@
-import { ADD_DEVICE } from '../constants/index';
+import { ADD_DEVICE, EDIT_DEVICE } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import {
   addDeviceSuccess,
   addDeviceFailure,
-  clearAddStatus
+  clearAddStatus,
+  editDeviceSuccess
 } from '../actions/builder.action';
 import { loadDevices } from '../actions/devices.action';
 import { delay } from 'redux-saga';
@@ -22,6 +23,21 @@ export function* addDevice (action) {
   }
 }
 
+export function* editDevice (action) {
+  try {
+    const device = yield call(DeviceListApi.getDevice, action.id);
+
+    yield put(editDeviceSuccess(device));
+  } catch (error) {
+    yield put(addDeviceFailure(error));
+  }
+}
+
 export function* watchAddDevice () {
   yield takeEvery(ADD_DEVICE, addDevice);
 }
+
+export function* watchEditDevice () {
+  yield takeEvery(EDIT_DEVICE, editDevice);
+}
+
