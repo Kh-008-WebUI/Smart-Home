@@ -5,20 +5,27 @@ const loginRouter = express.Router();
 let User = require('../models/user');
 
 loginRouter.route('/').post((req, res) => {
-  User.findOne({ 'email': req.body.email }, (err, user) => {
-    if(err) {
-      console.log(err);
-    }
-    else if(user && user.checkPassword(req.body.password)) {
+  User.findOne({ 'email': req.body.email },
+  (err, user) => {
+    if (err) {
+      res.status(500).send({
+        status: "error",
+        text: "Something went wrong, try again later."
+      });
+    };    
+    if (user && user.checkPassword(req.body.password)) {
       req.session.user = user._id;
       res.json({
-        name:user.name,
+        name: user.name,
         email: user.email,
         created: user.created
       });
     }
     else {
-      res.send(403);
+      res.status(500).send({
+        status: "error",
+        text: "Wrong login or password."
+      });
     }
   });
 });

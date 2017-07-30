@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
+import { Popup } from '../Popup/Popup';
+import { Button } from '../Button/Button';
 
 export const Message = (props) => {
   const chooseMessage = () => {
@@ -10,7 +12,22 @@ export const Message = (props) => {
       case 'DONE':
         return (<i className="fa fa-check fa-3x"></i>);
       case 'FAIL':
-        return (<i className="fa fa-times fa-3x"></i>);
+        return (
+          <Popup
+            popupShown={props.popupShown}
+            header={props.header}
+            text={props.text}
+          >
+            <Button
+              okHandler={() => {
+                props.setPopupShown();
+                props.clearLoginStatus();
+              }}
+              className={'btn popup__btn'}
+              innerText={'Ok'}
+            />
+          </Popup>
+        );
       default:
         return '';
     }
@@ -24,5 +41,10 @@ export const Message = (props) => {
 };
 
 Message.propTypes = {
-  status: PropTypes.string
+  status: PropTypes.string,
+  header: PropTypes.string,
+  text: PropTypes.string,
+  popupShown: PropTypes.bool,
+  setPopupShown: PropTypes.func,
+  clearLoginStatus: PropTypes.func
 };

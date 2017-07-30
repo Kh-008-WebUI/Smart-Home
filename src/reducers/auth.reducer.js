@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   status: '',
+  errorText: '',
   isLogged: true,
   user: {
     username:'',
@@ -33,7 +34,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status:'FAIL',
-        isLogged: action.status
+        isLogged: false,
+        errorText: action.errorText
       };
     case CLEAR_LOGIN_STATUS:
       return { ...state, status:'' };
@@ -47,7 +49,11 @@ const reducer = (state = initialState, action) => {
         status: 'DONE'
       };
     case REGISTER_FAILURE:
-      return { ...state, status: 'FAIL' };
+      return {
+        ...state,
+        status: 'FAIL',
+        errorText: action.errorText
+      };
     default:
       return state;
   }

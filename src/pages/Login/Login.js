@@ -4,7 +4,7 @@ import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
 import { Message } from '../../components/Message/Message';
 import { NavLink } from 'react-router-dom';
-import { login } from '../../actions/auth.action';
+import { login, clearLoginStatus } from '../../actions/auth.action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,7 +15,16 @@ class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      canSubmit: false
+      canSubmit: false,
+      popupShown: true
+    };
+
+    this.setPopupShown = (id) => {
+      const currentState = this.state.popupShown;
+
+      this.setState({
+        popupShown: !currentState
+      });
     };
   }
   componentDidUpdate () {
@@ -50,7 +59,14 @@ class Login extends Component {
           pic={'fa-unlock'}
           title={'Login'}
           text={'Please enter your credentials to login.'} />
-        <Message status={this.props.loginStatus} />
+        <Message
+          setPopupShown={this.setPopupShown}
+          popupShown={this.state.popupShown}
+          clearLoginStatus={this.props.clearLoginStatus}
+          status={this.props.loginStatus}
+          header={'Authorization failed'}
+          text={this.props.errorText}
+        />
         <Formsy.Form
           onSubmit={this.addLogin}
           onValid={this.enableButton}
@@ -103,13 +119,15 @@ class Login extends Component {
 function mapStateToProps (store) {
   return {
     loginStatus: store.authentication.status,
-    userData: store.authentication.user
+    userData: store.authentication.user,
+    errorText: store.authentication.errorText
   };
 }
 function mapDispatchToProps (dispatch) {
   return {
     login: bindActionCreators(login, dispatch),
-    registration: (userData) => dispatch(registrationSuccess(userData))
+    registration: (userData) => dispatch(registrationSuccess(userData)),
+    clearLoginStatus: () => dispatch(clearLoginStatus())
   };
 }
 
@@ -120,5 +138,7 @@ Login.propTypes = {
   history: PropTypes.object,
   login: PropTypes.func,
   userData: PropTypes.object,
-  registration: PropTypes.func
+  registration: PropTypes.func,
+  errorText: PropTypes.string,
+  clearLoginStatus: PropTypes.func
 };
