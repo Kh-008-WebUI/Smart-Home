@@ -1,11 +1,12 @@
 import { LOAD_DEVICES_SUCCESS } from '../constants/index';
 import { CHANGE_STATUS } from '../constants/index';
-import { DELETE_DEVICE, LOAD_DEVICE,
+import { DELETE_DEVICE_SUCCESS, LOAD_DEVICE,
         LOAD_DEVICE_SUCCESS,
         LOAD_DEVICES_PENDING,
         LOAD_DEVICE_PENDING,
         LOAD_DEVICE_FAIL,
-        ADD_DEVICE_TO_LIST
+        ADD_DEVICE_TO_LIST,
+        UPDATE_DEVICE_SUCCESS
        } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
@@ -69,7 +70,7 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case DELETE_DEVICE: {
+    case DELETE_DEVICE_SUCCESS: {
       const newDevices = state.devices.filter((item) =>{
         return item._id !== action.id;
       });
@@ -112,7 +113,7 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case 'UPDATE_DEVICE_SUCCESS': {
+    case UPDATE_DEVICE_SUCCESS: {
       const devices = state.devices.map((device, index) => {
         if (device._id !== action.id) {
           return Object.assign({}, device);

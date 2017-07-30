@@ -1,3 +1,5 @@
+import { ws } from '../index';
+
 export function searchItem (item, searchValue) {
   const result = item.name.toLowerCase()
     .includes(searchValue.toLowerCase().trim());
@@ -57,4 +59,12 @@ export const setItemDefaultData = (item) => {
     default:
       break;
   }
+};
+
+export const findByProperty = (collection, property, propertyValue) => {
+  const obj = collection.filter((item) => {
+    return item[property] === propertyValue;
+  })[0];
+
+  return obj;
 };

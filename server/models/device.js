@@ -11,8 +11,7 @@ const deviceSchema = new Schema({
     },
     location: {
         type: String,
-        required: [true, 'Location is required.'],
-        enum: ['Living Room','Bedroom','Kitchen', 'Hallway'] /* Не знаю, нужно ли? */
+        required: [true, 'Location is required.']
     },
     status: {
         type: Boolean,

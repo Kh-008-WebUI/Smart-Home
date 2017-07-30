@@ -8,3 +8,8 @@ export const getNotifications = () => {
 export const changeStatusNotifications = (id) => {
   return Transport.put(`${SERVER_API}/notifications/${id}`);
 };
+
+export const addNotifications = (message) => {
+  return Transport.post(`${SERVER_API}/notifications`,
+    JSON.stringify({ text: message }));
+};
