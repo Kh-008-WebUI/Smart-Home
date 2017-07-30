@@ -17,9 +17,13 @@ export const clearLoginStatus = () => ({
   type: CLEAR_LOGIN_STATUS
 });
 
-export const loginSuccess = (status) => ({ type:LOGIN_SUCCESS, status });
+export const loginSuccess = (payload) => ({
+  type: LOGIN_SUCCESS,
+  status: payload.status,
+  user: payload.userData
+});
 
-export const loginFailure = (status) => ({ type:LOGIN_FAILURE, status });
+export const loginFailure = (status) => ({ type: LOGIN_FAILURE, status });
 
 export const registration = (userData) => ({
   type: REGISTRATION_ATTEMPT,

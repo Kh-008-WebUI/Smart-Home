@@ -1,0 +1,26 @@
+@import '../../scss/_variables.scss';
+
+.profile {
+  &-container {
+    margin: 0 auto;
+    max-width: 390px;
+    position: relative;
+    margin-top: -235px;
+    top: 40%;
+
+    .signup-field-group {
+      @media (min-width: $tablet-min) {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+    @media (min-width: $tablet-min) {
+      width: 400px;
+      max-width: inherit;
+      position: absolute;
+      left: 50%;
+      margin: -200px 0 0 -200px;
+    }
+  }
+}
