@@ -8,9 +8,9 @@ class SignedInUser extends React.Component {
 
   render () {
     return (
-      <NavLink to="/auth/user-profile">
+      <NavLink to="/user">
         <div className="user-block">
-          <div className="user-name">{this.props.userData}</div>
+          <div className="user-name">{this.props.user.email}</div>
           <div className="user-photo"></div>
         </div>
       </NavLink>
@@ -18,12 +18,12 @@ class SignedInUser extends React.Component {
   }
 }
 SignedInUser.propTypes = {
-  userData: PropTypes.string
+  user: PropTypes.object
 };
 
 function mapStateToProps (store) {
   return {
-    userData: store.authentication.isLogged.email
+    user: store.authentication.user
   };
 }
 
