@@ -20,7 +20,8 @@ import {
   SEARCH_ITEM,
   CHANGE_FILTER_OPTION,
   LOAD_DEVICES_PENDING,
-  LOAD_DEVICE_PENDING } from '../constants/index';
+  LOAD_DEVICE_PENDING,
+  UPDATE_DEVICE } from '../constants/index';
 
 export function* loadDevicesSaga () {
   try {
@@ -74,9 +75,9 @@ export function* watchLoadDevice () {
 }
 
 export function* watchDeleteDeviceAsync () {
-  yield takeEvery(DELETE_DEVICE_ASYNC, deleteDevice);
+  yield takeEvery(DELETE_DEVICE, deleteDevice);
 }
 
 export function* watchUpdateDeviceAsync () {
-  yield takeEvery('UPDATE_DEVICE', updateDevice);
+  yield takeEvery(UPDATE_DEVICE, updateDevice);
 }
