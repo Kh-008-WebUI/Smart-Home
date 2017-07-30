@@ -5,6 +5,8 @@
     margin: 0 auto;
     max-width: 390px;
     position: relative;
+    margin-top: -235px;
+    top: 40%;
 
     .signup-field-group {
       @media (min-width: $tablet-min) {
