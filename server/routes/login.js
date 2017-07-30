@@ -6,16 +6,21 @@ let User = require('../models/user');
 
 loginRouter.route('/').post((req, res) => {
   User.findOne({ 'email': req.body.email }, (err, user) => {
-    if(err) {
+    if (err) {
       console.log(err);
     }
-    else if(user && user.checkPassword(req.body.password)) {
+    else if (user && user.checkPassword(req.body.password)) {
       req.session.user = user._id;
-      res.json({
-        name:user.name,
-        email: user.email,
-        created: user.created
-      });
+      res.json(
+        {
+          status: true,
+          userData: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            created: user.created
+          }
+        });
     }
     else {
       res.send(403);
@@ -23,4 +28,4 @@ loginRouter.route('/').post((req, res) => {
   });
 });
 
-module.exports =  loginRouter;
+module.exports = loginRouter;

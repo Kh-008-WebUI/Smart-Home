@@ -5,12 +5,14 @@ import {
   CLEAR_LOGIN_STATUS,
   REGISTRATION_ATTEMPT,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE
+  REGISTER_FAILURE,
+  UPDATE_USER_PROFILE_SUCCESS
 } from '../constants/index';
 
 const initialState = {
   status: '',
   isLogged: true,
+  updateProfileStatus: false,
   user: {
     username:'',
     password:'',
@@ -27,7 +29,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status:'DONE',
-        isLogged: action.status
+        isLogged: action.status,
+        user: action.user
       };
     case LOGIN_FAILURE:
       return {
@@ -48,6 +51,8 @@ const reducer = (state = initialState, action) => {
       };
     case REGISTER_FAILURE:
       return { ...state, status: 'FAIL' };
+    case UPDATE_USER_PROFILE_SUCCESS:
+      return { ...state, user: action.payload, updateProfileStatus: true };
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
 import { Message } from '../../components/Message/Message';
 import { NavLink } from 'react-router-dom';
-import { login } from '../../actions/auth.action';
+import { updateProfileRequest } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -18,20 +18,23 @@ class Profile extends Component {
       canSubmit: false
     };
   }
-  componentDidUpdate () {
-    if (this.props.loginStatus === 'DONE') {
-      setTimeout(()=>{
-        this.props.history.push('/');
-      }, 1000);
-    }
-  }
-  addLogin = () => {
+
+  // componentDidUpdate () {
+  //  if (this.props.updateProfileStatus) {
+  //    setTimeout(()=>{
+  //      this.props.history.push('/');
+  //    }, 1000);
+  //  }
+  // }
+
+  addProfile = () => {
     const data = {
+      name: this.name.getValue(),
       email: this.email.getValue(),
-      password: this.password.getValue()
+      id: this.props.user.id
     };
 
-    this.props.login(data);
+    this.props.updateProfileRequest(data);
   };
   enableButton = () => {
     this.setState({
@@ -47,34 +50,31 @@ class Profile extends Component {
     return (
       <div className="profile-container">
         <Header
-          title={this.props.userData.name} />
+          title={this.props.user.name} />
         <Formsy.Form
-          onSubmit={this.addLogin}
+          onSubmit={this.addProfile}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
           className="signup-form">
           <Field
+            name="Name"
+            type="text"
+            text={'Enter your new name'}
+            ref={(input) => {
+              this.name = input;
+            }}
+            validations="isAlpha"
+            validationError="This is not a valid name"
+            required/>
+          <Field
             name="E-mail"
             type="text"
-            text={'Your unique username to app'}
+            text={'Enter your new e-mail'}
             ref={(input) => {
               this.email = input;
             }}
             validations="isEmail"
             validationError="This is not a valid name"
-            required/>
-          <Field
-            name="Password"
-            type="password"
-            text={'Your hard to guess password'}
-            ref={(input) => {
-              this.password = input;
-            }}
-            validations= {{
-              minLength: 7,
-              isAlphanumeric: true
-            }}
-            validationError="This is not a valid pass"
             required/>
           <div className="signup-field-group signup-btn-group">
             <input
@@ -91,23 +91,21 @@ class Profile extends Component {
 
 function mapStateToProps (store) {
   return {
-    loginStatus: store.authentication.status,
-    userData: store.authentication.isLogged
+    updateProfileStatus: store.authentication.updateProfileStatus,
+    user: store.authentication.user
   };
 }
 function mapDispatchToProps (dispatch) {
   return {
-    login: bindActionCreators(login, dispatch),
-    registration: (userData) => dispatch(registrationSuccess(userData))
+    updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch)
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 Profile.propTypes = {
-  loginStatus: PropTypes.string,
+  updateProfileStatus: PropTypes.string,
   history: PropTypes.object,
-  login: PropTypes.func,
-  userData: PropTypes.object,
-  registration: PropTypes.func
+  updateProfileRequest: PropTypes.func,
+  user: PropTypes.object
 };
