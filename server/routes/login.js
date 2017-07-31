@@ -16,9 +16,13 @@ loginRouter.route('/').post((req, res) => {
     if (user && user.checkPassword(req.body.password)) {
       req.session.user = user._id;
       res.json({
-        name: user.name,
-        email: user.email,
-        created: user.created
+        status: true,
+        userData: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          created: user.created
+        }
       });
     }
     else {
