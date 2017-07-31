@@ -9,21 +9,7 @@ export const Popup = (props) => {
       <p className="popup__header">{props.header}</p>
       <p className="popup__text">{props.text}</p>
       <div className="popup__confirm">
-        <button
-          onClick={() => {
-            props.setPopupShown();
-            props.okHandler();
-          }}
-          type="button"
-          className="btn  popup__btn">
-            Ok
-        </button>
-        <button
-          onClick={props.setPopupShown}
-          type="button"
-          className="btn btn--default popup__btn">
-            Cancel
-        </button>
+        {props.children}
       </div>
     </div>
   );
@@ -34,5 +20,6 @@ Popup.propTypes = {
   text: PropTypes.string,
   setPopupShown: PropTypes.func,
   popupShown: PropTypes.bool,
-  okHandler: PropTypes.func
+  okHandler: PropTypes.func,
+  children: PropTypes.any
 };
