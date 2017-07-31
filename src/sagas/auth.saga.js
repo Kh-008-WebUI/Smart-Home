@@ -14,11 +14,7 @@ export function* checkLogin (action) {
   try {
     const status = yield call(login, action.user);
 
-<<<<<<< HEAD
-    if (status.status !== 200) {
-=======
     if (status.status === 'error') {
->>>>>>> 280a7e2fed160558be228209f1be5d5652d0b96f
       throw new Error(status.text);
     }
 

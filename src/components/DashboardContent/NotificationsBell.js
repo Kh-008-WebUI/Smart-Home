@@ -102,13 +102,9 @@ class NotificationsBell extends React.Component {
                   className={ this.addClassName(item) }
                   key={key}>
                   <div className="notification-message">
-<<<<<<< HEAD
-                    <div className="notification-time">{item.time}</div>
-=======
                     <div className="notification-time">
                       {moment(item.time).format('lll')}
                     </div>
->>>>>>> 280a7e2fed160558be228209f1be5d5652d0b96f
                     <div className="notification-text">{item.text}</div>
                   </div>
                 </li>);
