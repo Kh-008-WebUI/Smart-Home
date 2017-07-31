@@ -16,22 +16,12 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
-switch(process.env.NODE_ENV){
-        case 'development':
-            console.log(true);
-            break;
-        case 'production':
-            console.log(true);
-            break;
-        default:
-            console.log('development ' === process.env.NODE_ENV);
-            break;
-    }
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.header('Access-Control-Allow-Origin', config.origin);
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers',
