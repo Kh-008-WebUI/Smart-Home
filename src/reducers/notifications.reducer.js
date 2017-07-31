@@ -30,6 +30,11 @@ const notifications = (state = {
 
       return { ...state, notifications:newNotifications };
     }
+     case 'NOTIFICATIONS_CHANGE_STATUS_SUCCESS': {
+      newStatus: [...state. notification, viewed]
+      return { ...state, notifications:newNotifications };
+    }
+
 
     default:
       return state;

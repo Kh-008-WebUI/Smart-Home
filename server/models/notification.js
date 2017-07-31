@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const notificationSchema = new Schema({
   time: {
-    type: String,
-    required: true,
+    type: Date,
+    default: Date.now
   },
   text: {
     type: String,
