@@ -1,11 +1,12 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getNotifications,
-         changeStatusNotifications,
-         addNotifications } from '../api/notificationsApi';
+         addNotifications,
+        changeStatus } from '../api/notificationsApi';
 import { fetchNotificationsSuccess,
          fetchNotificationsFailed,
         addNotificationsSuccess,
-        statusNotifications } from '../actions/notifications.action';
+        changeStatusNotificationSuccess }
+from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
          NOTIFICATIONS_CHANGE_STATUS,
          SEND_NOTIFICATION_WS,
@@ -32,27 +33,22 @@ export function* fetchAddNotifications (action) {
   }
 }
 
-export function* changeStatusNotifications (action) {
-  try {
-    const message = yield call(changeStatus, action.id, action.status);
+export function* sendNotificationWS (action) {
+  yield ws.send(action.message);
+}
 
-    yield put(statusNotifications(message));
+export function* changeNotificationStatus (action) {
+  try {
+    const notification = yield call(changeStatus, action.id, action.viewed);
+
+    yield put(changeStatusNotificationSuccess(notification));
   } catch (e) {
     console.log(e);
   }
 }
 
-export function* sendNotificationWS (action) {
-  yield ws.send(action.message);
-}
-
 export function* watchLoadNotifications () {
   yield takeEvery(NOTIFICATIONS_FETCH_REQUESTED, fetchNotifications);
-}
-
-export function* watchStatusNotifications (action) {
-  yield takeEvery(NOTIFICATIONS_CHANGE_STATUS,
-    changeStatusNotifications, action.id, action.status);
 }
 
 export function* watchAddNotification () {
@@ -62,4 +58,8 @@ export function* watchAddNotification () {
 
 export function* watchSendNotificationWS () {
   yield takeEvery(SEND_NOTIFICATION_WS, sendNotificationWS);
+}
+
+export function* watchNotificationChangeStatus () {
+  yield takeEvery(NOTIFICATIONS_CHANGE_STATUS, changeNotificationStatus);
 }

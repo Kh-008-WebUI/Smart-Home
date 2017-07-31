@@ -5,7 +5,8 @@ import {
   NOTIFICATIONS_FETCH_FAILURE,
   ADD_NOTIFICATION_SUCCESS,
   ADD_NOTIFICATIONS,
-  SEND_NOTIFICATION_WS
+  SEND_NOTIFICATION_WS,
+  NOTIFICATIONS_CHANGE_STATUS_SUCCESS
  }
 from '../constants/index';
 
@@ -29,19 +30,25 @@ export const fetchNotificationsRequest = () => {
   };
 };
 
-export const changeStatusNotification = (id, status) => {
+export const changeStatusNotification = (id, viewed) => {
   return {
     type: NOTIFICATIONS_CHANGE_STATUS,
     id,
-    status
+    viewed
+  };
+};
+
+export const changeStatusNotificationSuccess = (notification) => {
+  return {
+    type: NOTIFICATIONS_CHANGE_STATUS_SUCCESS,
+    notification
   };
 };
 
 export const addNotificationsSuccess = (notification) => {
   return {
     type: ADD_NOTIFICATION_SUCCESS,
-    id,
-    status
+    notification
   };
 };
 
@@ -56,12 +63,5 @@ export const sendNotificationWS = (message) => {
   return {
     type: SEND_NOTIFICATION_WS,
     message
-  };
-};
-
-export const statusNotifications = (notification) => {
-  return {
-    type: 'NOTIFICATIONS_CHANGE_STATUS_SUCCESS',
-    notification
   };
 };

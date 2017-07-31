@@ -2,7 +2,8 @@ import {
   NOTIFICATIONS_FETCH_SUCCESS,
   NOTIFICATIONS_CHANGE_STATUS,
   NOTIFICATIONS_FETCH_FAILURE,
-  ADD_NOTIFICATION_SUCCESS
+  ADD_NOTIFICATION_SUCCESS,
+  NOTIFICATIONS_CHANGE_STATUS_SUCCESS
 } from '../constants/index';
 
 const notifications = (state = {
@@ -16,12 +17,15 @@ const notifications = (state = {
     case NOTIFICATIONS_FETCH_FAILURE: {
       return { ...state, loadNotifacationsStatus: 'ERROR' };
     }
-    case NOTIFICATIONS_CHANGE_STATUS: {
-      const item = state.notifications[action.payload];
-      const newNotifications = state.notifications.slice();
+    case NOTIFICATIONS_CHANGE_STATUS_SUCCESS: {
+      const newNotifications = [...state.notifications];
 
-      newNotifications[action.payload] = { ...item, viewed: true };
-      return { ...state, notifications: newNotifications };
+      newNotifications.forEach((item) => {
+        if (item._id === action.notification._id) {
+          item.viewed = action.notification.viewed;
+        }
+      });
+      return { ...state, notifications:newNotifications };
     }
     case ADD_NOTIFICATION_SUCCESS: {
       const newNotifications = [...state.notifications];
@@ -30,12 +34,6 @@ const notifications = (state = {
 
       return { ...state, notifications:newNotifications };
     }
-     case 'NOTIFICATIONS_CHANGE_STATUS_SUCCESS': {
-      newStatus: [...state. notification, viewed]
-      return { ...state, notifications:newNotifications };
-    }
-
-
     default:
       return state;
   }
