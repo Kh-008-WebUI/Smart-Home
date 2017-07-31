@@ -36,8 +36,13 @@ userRouter.route('/:id')
     User.findById(req.params.id, (err, user) => {
       if (err) {
         res.send(err);
+        return;
       }
-      for (let prop in req.body) {
+      if (!user) {
+        res.send(`user ${req.params.id} not found in the database`);
+        return;
+      }
+      for (const prop in req.body) {
         if (req.body.hasOwnProperty(prop)) {
           user[prop] = req.body[prop];
         }
@@ -46,7 +51,7 @@ userRouter.route('/:id')
         if (error) {
           return res.send(error);
         }
-        res.json(user);
+        return res.json(user);
       });
     });
   })
@@ -62,6 +67,5 @@ userRouter.route('/:id')
       }
     });
   });
-
 
 module.exports = userRouter;

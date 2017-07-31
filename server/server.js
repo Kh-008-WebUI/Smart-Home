@@ -12,9 +12,21 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
-const path = require('path')
+const http = require('http');
+const WebSocket = require('ws');
+const path = require('path');
 const MongoStore = require('connect-mongo')(session);
-
+switch(process.env.NODE_ENV){
+        case 'development':
+            console.log(true);
+            break;
+        case 'production':
+            console.log(true);
+            break;
+        default:
+            console.log('development ' === process.env.NODE_ENV);
+            break;
+    }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -57,8 +69,8 @@ app.get('/index_bundle.js', function(req, res) {
     res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
 });
 
-app.listen(config.port, () => {
-  console.log(`node server is working on port ${config.port}...`);
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../dist/index.html'));
 });
 
 mongoose.Promise = global.Promise;
@@ -71,4 +83,19 @@ database.on('error', (err) => {
 });
 database.once('open', () => {
   console.log('Connected to database!');
+});
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({server});
+
+wss.on('connection', function connection(ws, req){
+    ws.on('message', message => {
+      wss.clients.forEach(client => {
+        client.send(message);
+      });
+    });
+});
+
+server.listen(config.port, () => {
+  console.log(`node server is working on port ${config.port}...`);
 });

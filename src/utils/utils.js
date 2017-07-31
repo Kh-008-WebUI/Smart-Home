@@ -1,3 +1,5 @@
+import { ws } from '../index';
+
 export function searchItem (item, searchValue) {
   const result = item.name.toLowerCase()
     .includes(searchValue.toLowerCase().trim());
@@ -16,8 +18,21 @@ export const queryFromObject = (params) => {
   return `?${queries.join('&')}`;
 };
 
+const sortDevicesByAlphabet = (devices) => {
+  return devices.sort((a, b) => {
+    if (a.location < b.location) {
+      return -1;
+    }
+    if (a.location > b.location) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
 export const sortDevicesByLocations = (devices) => {
-  return devices.reduce((location, device) => {
+  return sortDevicesByAlphabet(devices).reduce((location, device) => {
     if (!location[device.location]) {
       location[device.location] = [];
     }
@@ -44,4 +59,12 @@ export const setItemDefaultData = (item) => {
     default:
       break;
   }
+};
+
+export const findByProperty = (collection, property, propertyValue) => {
+  const obj = collection.filter((item) => {
+    return item[property] === propertyValue;
+  })[0];
+
+  return obj;
 };

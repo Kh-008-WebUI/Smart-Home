@@ -1,6 +1,7 @@
 const express = require('express');
 const notificationRouter = express.Router();
 const Notification = require('../models/notification.js');
+const getCurrentTime = require('../utils/getCurrentTime');
 
 notificationRouter.route('/')
   .get((req, res) => {
@@ -9,16 +10,17 @@ notificationRouter.route('/')
         res.send(err);
       }
       res.json(notifications);
-    });
+    }).sort({ time: -1 });
   })
   .post((req, res) => {
     const notification = new Notification(req.body);
 
+    notification.time = getCurrentTime();
     notification.save((err, users) => {
       if (err) {
         res.send(err);
       }
-      res.json({ message: 'notification created' });
+      res.json({ notification });
     });
   });
 

@@ -64,7 +64,7 @@ class Login extends Component {
               this.email = input;
             }}
             validations="isEmail"
-            validationError="This is not a valid name"
+            validationError="This is not a valid email"
             required/>
           <Field
             name="Password"

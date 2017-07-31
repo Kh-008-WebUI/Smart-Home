@@ -1,7 +1,8 @@
 import {
   NOTIFICATIONS_FETCH_SUCCESS,
   NOTIFICATIONS_CHANGE_STATUS,
-  NOTIFICATIONS_FETCH_FAILURE
+  NOTIFICATIONS_FETCH_FAILURE,
+  ADD_NOTIFICATION_SUCCESS
 } from '../constants/index';
 
 const notifications = (state = {
@@ -22,6 +23,14 @@ const notifications = (state = {
       newNotifications[action.payload] = { ...item, viewed: true };
       return { ...state, notifications: newNotifications };
     }
+    case ADD_NOTIFICATION_SUCCESS: {
+      const newNotifications = [...state.notifications];
+
+      newNotifications.push(action.notification.notification);
+
+      return { ...state, notifications:newNotifications };
+    }
+
     default:
       return state;
   }

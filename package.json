@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nf start -p 3000",
+    "dev": "set NODE_ENV=development && nf start -p 3000",
     "prod": "npm run clean && set NODE_ENV=production && webpack -p && npm run node-prod",
     "clean": "rimraf ./dist/*",
-    "node-prod": "node ./server/server.js",
+    "node-prod": "set NODE_ENV=production && node ./server/server.js",
     "start": "nodemon ./server/server.js"
   },
   "babel": {
@@ -41,7 +41,8 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "serve-favicon": "^2.4.3",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "ws": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
