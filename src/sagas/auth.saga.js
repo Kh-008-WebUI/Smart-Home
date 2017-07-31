@@ -35,6 +35,7 @@ export function* register (action) {
     }
 
     yield put(registrationSuccess(registerData));
+    yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
     yield put(registrationFailure(e.message));
