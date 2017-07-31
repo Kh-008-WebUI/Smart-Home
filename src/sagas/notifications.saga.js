@@ -32,7 +32,7 @@ export function* fetchAddNotifications (action) {
   }
 }
 
-/* export function* changeStatusNotifications (action) {
+export function* changeStatusNotifications (action) {
   try {
     const message = yield call(changeStatus, action.id, action.status);
 
@@ -40,7 +40,7 @@ export function* fetchAddNotifications (action) {
   } catch (e) {
     console.log(e);
   }
-}*/
+}
 
 export function* sendNotificationWS (action) {
   yield ws.send(action.message);

@@ -40,7 +40,7 @@ export const changeStatusNotification = (id, status) => {
 export const addNotificationsSuccess = (notification) => {
   return {
     type: ADD_NOTIFICATION_SUCCESS,
-//    id,
+    id,
     status
   };
 };

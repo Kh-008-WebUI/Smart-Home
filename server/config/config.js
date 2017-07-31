@@ -10,4 +10,4 @@ const configLocal = {
   url: 'mongodb://localhost:27017/smart_home'
 };
 
-module.exports = configLocal;
+module.exports = configRemote;

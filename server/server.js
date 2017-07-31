@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8081');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers',
@@ -64,14 +64,14 @@ database.once('open', () => {
 });
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({server});
 
-wss.on('connection', function connection (ws, req) {
-  ws.on('message', message => {
-    wss.clients.forEach(client => {
-      client.send(message);
+wss.on('connection', function connection(ws, req){
+    ws.on('message', message => {
+      wss.clients.forEach(client => {
+        client.send(message);
+      });
     });
-  });
 });
 
 server.listen(config.port, () => {
