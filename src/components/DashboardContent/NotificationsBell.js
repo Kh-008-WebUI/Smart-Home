@@ -9,7 +9,7 @@ import {
   fetchAddNotifications
 } from '../../actions/notifications.action';
 import { ws } from '../../index';
-
+import moment from 'moment';
 class NotificationsBell extends React.Component {
   constructor (props) {
     super(props);
@@ -103,7 +103,9 @@ class NotificationsBell extends React.Component {
                   className={ this.addClassName(item) }
                   key={key}>
                   <div className="notification-message">
-                    <div className="notification-time">{item.time}</div>
+                    <div className="notification-time">
+                      {moment(item.time).format('lll')}
+                    </div>
                     <div className="notification-text">{item.text}</div>
                   </div>
                 </li>);
