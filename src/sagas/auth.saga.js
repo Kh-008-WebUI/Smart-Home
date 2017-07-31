@@ -30,11 +30,7 @@ export function* register (action) {
   try {
     const registerData = yield call(getRegisterData, action.userData);
 
-<<<<<<< HEAD
-    if (registerData.status !== 200) {
-=======
     if (registerData.status === 'error') {
->>>>>>> 280a7e2fed160558be228209f1be5d5652d0b96f
       throw new Error(registerData.text);
     }
 
