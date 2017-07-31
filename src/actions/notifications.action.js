@@ -29,17 +29,19 @@ export const fetchNotificationsRequest = () => {
   };
 };
 
-export const changeStatusNotification = (payload) => {
+export const changeStatusNotification = (id, status) => {
   return {
     type: NOTIFICATIONS_CHANGE_STATUS,
-    payload
+    id,
+    status
   };
 };
 
 export const addNotificationsSuccess = (notification) => {
   return {
     type: ADD_NOTIFICATION_SUCCESS,
-    notification
+    id,
+    status
   };
 };
 
@@ -54,5 +56,12 @@ export const sendNotificationWS = (message) => {
   return {
     type: SEND_NOTIFICATION_WS,
     message
+  };
+};
+
+export const statusNotifications = (notification) => {
+  return {
+    type: 'NOTIFICATIONS_CHANGE_STATUS_SUCCESS',
+    notification
   };
 };

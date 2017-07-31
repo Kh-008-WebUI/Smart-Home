@@ -26,7 +26,7 @@ class NotificationsBell extends React.Component {
     this.props.getNotifications();
   }
   changeNotifyView = (el) => {
-    this.props.changeStatusNotification(el.target.id);
+    this.props.changeStatusNotification(el.target.id, true);
     console.log(el.target.closest('li').id);
   }
   displayNotifyBell = () => {
@@ -136,8 +136,8 @@ function mapDispatchToProps (dispatch) {
     fetchAddNotifications: (message) =>
       dispatch(fetchAddNotifications(message)),
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
-    changeStatusNotification:
-      bindActionCreators(changeStatusNotification, dispatch)
+    changeStatusNotification: (id, status) =>
+      bindActionCreators(changeStatusNotification(id, status), dispatch)
   };
 }
 
