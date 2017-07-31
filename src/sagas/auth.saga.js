@@ -14,7 +14,7 @@ export function* checkLogin (action) {
   try {
     const status = yield call(login, action.user);
 
-    if (status.status !== 200) {
+    if (status.status === 'error') {
       throw new Error(status.text);
     }
 
@@ -30,11 +30,12 @@ export function* register (action) {
   try {
     const registerData = yield call(getRegisterData, action.userData);
 
-    if (registerData.status !== 200) {
+    if (registerData.status === 'error') {
       throw new Error(registerData.text);
     }
 
     yield put(registrationSuccess(registerData));
+    yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
     yield put(registrationFailure(e.message));
