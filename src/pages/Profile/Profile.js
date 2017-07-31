@@ -80,8 +80,8 @@ class Profile extends Component {
 
 function mapStateToProps (store) {
   return {
-    updateProfileStatus: store.authentication.updateProfileStatus,
-    user: store.authentication.user
+    updateProfileStatus: store.users.updateProfileStatus,
+    user: store.users.user
   };
 }
 function mapDispatchToProps (dispatch) {
