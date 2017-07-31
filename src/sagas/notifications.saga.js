@@ -4,7 +4,8 @@ import { getNotifications,
          addNotifications } from '../api/notificationsApi';
 import { fetchNotificationsSuccess,
          fetchNotificationsFailed,
-        addNotificationsSuccess } from '../actions/notifications.action';
+        addNotificationsSuccess,
+        statusNotifications } from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
          NOTIFICATIONS_CHANGE_STATUS,
          SEND_NOTIFICATION_WS,
@@ -31,6 +32,16 @@ export function* fetchAddNotifications (action) {
   }
 }
 
+export function* changeStatusNotifications (action) {
+  try {
+    const message = yield call(changeStatus, action.id, action.status);
+
+    yield put(statusNotifications(message));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* sendNotificationWS (action) {
   yield ws.send(action.message);
 }
@@ -41,7 +52,7 @@ export function* watchLoadNotifications () {
 
 export function* watchStatusNotifications (action) {
   yield takeEvery(NOTIFICATIONS_CHANGE_STATUS,
-    changeStatusNotifications, action.id);
+    changeStatusNotifications, action.id, action.status);
 }
 
 export function* watchAddNotification () {
