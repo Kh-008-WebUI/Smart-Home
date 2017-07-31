@@ -64,7 +64,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadDeviceAsync: (id) => dispatch(loadDeviceAsync(id)),
   loadDevice: (id) => dispatch(loadDevice(id)),
-  setItemValue: (value, id) => dispatch(listSetItemValue(value, id)),
+  setItemValue: (value, settingId, deviceId) =>
+    dispatch(listSetItemValue(value, settingId, deviceId)),
   onStatusChange: (data, id) => dispatch(updateDevice(data, id)),
   sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
 });

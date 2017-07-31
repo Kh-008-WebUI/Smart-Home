@@ -22,4 +22,9 @@ export default class DeviceListApi {
     return Transport.put('http://localhost:3001/api/devices/' + id,
     JSON.stringify(data));
   }
+  static updateDeviceSettings (deviceId, settingId, value) {
+    return Transport.put(
+      `http://localhost:3001/api/devices/items/${deviceId}/${settingId}`,
+    JSON.stringify({ value }));
+  }
 }

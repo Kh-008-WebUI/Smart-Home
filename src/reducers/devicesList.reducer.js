@@ -81,18 +81,9 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case LIST_SET_ITEM_VALUE: {
-      const device = { ...state.device };
-
-      device.items.forEach((item, i) => {
-        if (i === action.id) {
-          item.data = action.value;
-        }
-      });
-
+    case 'UPDATE_DEVICE_SETTINGS_SUCCESS': {
       return {
-        ...state,
-        device:{ ...state.device, items:device.items }
+        ...state, device: action.device
       };
     }
 
