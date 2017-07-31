@@ -15,11 +15,7 @@ loginRouter.route('/').post((req, res) => {
     };    
     if (user && user.checkPassword(req.body.password)) {
       req.session.user = user._id;
-<<<<<<< HEAD
-      res.json({
-=======
       res.status(200).send({
->>>>>>> 280a7e2fed160558be228209f1be5d5652d0b96f
         status: true,
         userData: {
           _id: user._id,
