@@ -9,6 +9,8 @@ import {
   fetchAddNotifications
 } from '../../actions/notifications.action';
 import { ws } from '../../index';
+import moment from 'moment';
+import { findByProperty } from '../../utils/utils';
 
 class NotificationsBell extends React.Component {
   constructor (props) {
@@ -25,18 +27,11 @@ class NotificationsBell extends React.Component {
     };
     this.props.getNotifications();
   }
+  changeNotifyView = (el) => {
+    const id = el.target.closest('li').id;
+    const notification = findByProperty(this.props.notifications, '_id', id);
 
-  showAllNotify = () => {
-    this.setState((prevState) => {
-      return { showAllNotify: !prevState.showAllNotify };
-    });
-  }
-  changeButtonText = () => {
-    if (this.state.showAllNotify) {
-      this.buttonText = 'hide viewed';
-    } else {
-      this.buttonText = 'show all';
-    }
+    this.props.changeStatusNotification(id, !notification.viewed);
   }
   displayNotifyBell = () => {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
@@ -48,9 +43,17 @@ class NotificationsBell extends React.Component {
       });
     }
   }
-  changeNotifyView = (el) => {
-    this.props.changeStatusNotification(el.target.id);
-    console.log(el.target.closest('li').id);
+  showAllNotify = () => {
+    this.setState((prevState) => {
+      return { showAllNotify: !prevState.showAllNotify };
+    });
+  }
+  changeButtonText = () => {
+    if (this.state.showAllNotify) {
+      this.buttonText = 'hide viewed';
+    } else {
+      this.buttonText = 'show all';
+    }
   }
   addClassName = (item) => {
     let classForNotifyItem = '';
@@ -95,7 +98,8 @@ class NotificationsBell extends React.Component {
           this.bell = el;
         } }>
         <div className="notification-list__notice">
-          <ul onClick={this.changeNotifyView}>
+          <ul
+            onClick={this.changeNotifyView}>
             {listNotify.map((item, key) => {
               return (
                 <li
@@ -103,8 +107,10 @@ class NotificationsBell extends React.Component {
                   className={ this.addClassName(item) }
                   key={key}>
                   <div className="notification-message">
-                    <div className="notification-time">{item.time}</div>
-                    <div>{item.text}</div>
+                    <div className="notification-time">
+                      {moment(item.time).format('lll')}
+                    </div>
+                    <div className="notification-text">{item.text}</div>
                   </div>
                 </li>);
             })
@@ -135,8 +141,8 @@ function mapDispatchToProps (dispatch) {
     fetchAddNotifications: (message) =>
       dispatch(fetchAddNotifications(message)),
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
-    changeStatusNotification:
-      bindActionCreators(changeStatusNotification, dispatch)
+    changeStatusNotification: (id, viewed) =>
+      dispatch(changeStatusNotification(id, viewed))
   };
 }
 

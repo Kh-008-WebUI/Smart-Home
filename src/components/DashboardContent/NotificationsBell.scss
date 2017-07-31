@@ -53,10 +53,12 @@
 .notification-list {
   display: none;
   max-height: 400px;
-  background-color: $color-bg-grey;
+  background: $modals-bg;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
   position: absolute;
   right: 10px;
   top: 52px;
+  max-width: 300px;
 
     &__notice {
 	  	border-radius: 3px;
@@ -91,9 +93,18 @@
 
 .notification-message{
   display: flex;
+  cursor: pointer;
 }
-.notification-time {
-  margin-right: 5px;
+.notification {
+  &-time {
+    margin-right: 5px;
+    width: 30%;
+  }
+
+  &-text {
+    width: 66%;
+    overflow-wrap: break-word;
+  }
 }
 .notification-item-marker {
   font-weight: bold;
