@@ -25,18 +25,9 @@ class NotificationsBell extends React.Component {
     };
     this.props.getNotifications();
   }
-
-  showAllNotify = () => {
-    this.setState((prevState) => {
-      return { showAllNotify: !prevState.showAllNotify };
-    });
-  }
-  changeButtonText = () => {
-    if (this.state.showAllNotify) {
-      this.buttonText = 'hide viewed';
-    } else {
-      this.buttonText = 'show all';
-    }
+  changeNotifyView = (el) => {
+    this.props.changeStatusNotification(el.target.id);
+    console.log(el.target.closest('li').id);
   }
   displayNotifyBell = () => {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
@@ -48,9 +39,17 @@ class NotificationsBell extends React.Component {
       });
     }
   }
-  changeNotifyView = (el) => {
-    this.props.changeStatusNotification(el.target.id);
-    console.log(el.target.closest('li').id);
+  showAllNotify = () => {
+    this.setState((prevState) => {
+      return { showAllNotify: !prevState.showAllNotify };
+    });
+  }
+  changeButtonText = () => {
+    if (this.state.showAllNotify) {
+      this.buttonText = 'hide viewed';
+    } else {
+      this.buttonText = 'show all';
+    }
   }
   addClassName = (item) => {
     let classForNotifyItem = '';
