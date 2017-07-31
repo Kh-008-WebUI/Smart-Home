@@ -8,6 +8,8 @@
   left: 0;
   right: 0;
   height: 51px;
+  display: flex;
+  justify-content: space-between;
 
   &__navicon {
     border: 0;
@@ -40,11 +42,6 @@
   margin-right: 20px;
 }
 
-.notification-block {
-  float: right;
-}
-
-.signed-in-user-block {
-  float: right;
-  height: 51px;
+.header-blok-right {
+  display: flex;
 }

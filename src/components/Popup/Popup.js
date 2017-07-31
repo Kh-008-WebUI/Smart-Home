@@ -4,14 +4,14 @@ import './Popup.scss';
 
 export const Popup = (props) => {
   return (
-      <div className={props.popupShown ?
-        'popup popup--shown' : 'popup'}>
-        <p className="popup__header">{props.header}</p>
-        <p className="popup__text">{props.text}</p>
-        <div className="popup__confirm">
+    <div className={props.popupShown ?
+      'popup popup--shown' : 'popup'}>
+      <p className="popup__header">{props.header}</p>
+      <p className="popup__text">{props.text}</p>
+      <div className="popup__confirm">
         {props.children}
-        </div>
       </div>
+    </div>
   );
 };
 
