@@ -2,8 +2,8 @@ import React from 'react';
 import { settingsComponents } from '../../data/componentsNames';
 import ToggleSettings from '../ToggleSettings/ToggleSettings';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 require('./Device.scss');
-
 export const Device = (props) => {
   const device = props.device;
 
@@ -20,6 +20,9 @@ export const Device = (props) => {
             itemId={props.device._id}
             setItemValue={props.onStatusChange}/>
         </div>
+        <Link to={`/device/edit/${props.device._id}`}
+          className="fa fa-pencil device-item_info-edit">
+        </Link>
         <div className="device-view__info">
           <small>07.07.17</small><br/>
           <small>username</small>

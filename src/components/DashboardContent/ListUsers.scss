@@ -21,6 +21,6 @@
 }
 
 .list-menu-users {
-    overflow-y: scroll;
-    max-height: 240px;
+  overflow-y: auto; 
+  max-height: 500px;
 }

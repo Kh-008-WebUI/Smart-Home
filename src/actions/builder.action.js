@@ -8,7 +8,9 @@ import {
   SET_ITEM_VALUE,
   ADD_DEVICE_FAILURE,
   ADD_ITEM_DESCRIPTION,
-  CLEAR_ADD_STATUS
+  CLEAR_ADD_STATUS,
+  EDIT_DEVICE_SUCCESS,
+  EDIT_DEVICE
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -58,3 +60,17 @@ export const setItemValue = (value, id) => {
 export const clearAddStatus = () => ({
   type: CLEAR_ADD_STATUS
 });
+
+export const editDevice = (id) => {
+  return {
+    type: EDIT_DEVICE,
+    id
+  };
+};
+
+export const editDeviceSuccess = (device) => {
+  return {
+    type: EDIT_DEVICE_SUCCESS,
+    device
+  };
+};

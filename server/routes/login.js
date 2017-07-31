@@ -30,4 +30,4 @@ loginRouter.route('/').post((req, res) => {
   });
 });
 
-module.exports =  loginRouter;
+module.exports = loginRouter;

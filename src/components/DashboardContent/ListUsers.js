@@ -36,7 +36,7 @@ class ListUsers extends React.Component {
     const list = this.props.displayUsersStatus ? this.props.currentUsers :
     this.props.currentUsers.filter((item) => (item.home));
 
-    list.sort((a, b) => (a.name > b.name));
+    list.sort((a, b) => a.name > b.name ? 1 : -1);
 
     if (list.length === 0) {
       return (<section className="list-users-spinner">
@@ -50,7 +50,7 @@ class ListUsers extends React.Component {
         <span className="person-at-home">
         <i className={
           'fa fa-home person-at-home' +
-          (this.props.displayUsersStatus ? '' : '__all')}
+          (this.props.displayUsersStatus ? '__home' : '__all')}
         onClick={this.displayUsers}></i>
         </span>
         </h2>
