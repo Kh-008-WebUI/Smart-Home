@@ -8,7 +8,9 @@ import {
   ADD_DEVICE_FAILURE,
   ADD_ITEM_DESCRIPTION,
   SET_ITEM_VALUE,
-  CLEAR_ADD_STATUS
+  CLEAR_ADD_STATUS,
+  UPDATE_DEVICE_SUCCESS,
+  EDIT_DEVICE_SUCCESS
 } from '../constants/index';
 
 const initialState = {
@@ -80,6 +82,12 @@ const reducer = (state = initialState, action) => {
           })
         }
       });
+    case EDIT_DEVICE_SUCCESS:
+      return {
+        ...state, device: action.device
+      };
+    case UPDATE_DEVICE_SUCCESS:
+      return ({ ...state, uploadStatus:'DONE' });
     default:
       return state;
   }

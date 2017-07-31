@@ -14,13 +14,15 @@ export function* checkLogin (action) {
   try {
     const status = yield call(login, action.user);
 
+    if (status.status !== 200) {
+      throw new Error(status.text);
+    }
+
     yield put(loginSuccess(status));
     yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
-    yield put(loginFailure(false));
-    yield delay(2000);
-    yield put(clearLoginStatus());
+    yield put(loginFailure(e.message));
   }
 }
 
@@ -28,14 +30,14 @@ export function* register (action) {
   try {
     const registerData = yield call(getRegisterData, action.userData);
 
+    if (registerData.status !== 200) {
+      throw new Error(registerData.text);
+    }
+
     yield put(registrationSuccess(registerData));
-    yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
-    console.log(e);
-    yield put(registrationFailure(e));
-    yield delay(2000);
-    yield put(clearLoginStatus());
+    yield put(registrationFailure(e.message));
   }
 }
 

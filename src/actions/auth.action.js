@@ -23,7 +23,7 @@ export const loginSuccess = (payload) => ({
   user: payload.userData
 });
 
-export const loginFailure = (status) => ({ type: LOGIN_FAILURE, status });
+export const loginFailure = (errorText) => ({ type:LOGIN_FAILURE, errorText });
 
 export const registration = (userData) => ({
   type: REGISTRATION_ATTEMPT,
@@ -35,7 +35,7 @@ export const registrationSuccess = (userData) => ({
   userData
 });
 
-export const registrationFailure = (status) => ({
+export const registrationFailure = (errorText) => ({
   type: REGISTER_FAILURE,
-  status
+  errorText
 });
