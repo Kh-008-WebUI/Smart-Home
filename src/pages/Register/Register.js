@@ -62,7 +62,7 @@ class Register extends Component {
         <Message
           setPopupShown={this.setPopupShown}
           popupShown={this.state.popupShown}
-          clearLoginStatus={this.props.clearLoginStatus}
+          clearStatus={this.props.clearLoginStatus}
           status={this.props.regStatus}
           header={'Error'}
           text={this.props.errorText}/>

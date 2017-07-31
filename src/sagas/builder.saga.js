@@ -17,7 +17,7 @@ export function* addDevice (action) {
     yield put(addDeviceSuccess());
     yield put(loadDevices());
   } catch (e) {
-    yield put(addDeviceFailure(e));
+    yield put(addDeviceFailure(e.message));
     yield delay(2000);
     yield put(clearAddStatus());
   }
@@ -28,8 +28,8 @@ export function* editDevice (action) {
     const device = yield call(DeviceListApi.getDevice, action.id);
 
     yield put(editDeviceSuccess(device));
-  } catch (error) {
-    yield put(addDeviceFailure(error));
+  } catch (e) {
+    yield put(addDeviceFailure(e.message));
   }
 }
 

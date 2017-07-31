@@ -7,7 +7,10 @@ let Device = require('../models/device');
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
     if(err) {
-      console.log(err);
+      res.status(500).send({
+        status: "error",
+        text: "Something went wrong, try again later."
+      });
     }
     else{
       res.json(devices);
@@ -16,12 +19,12 @@ devicesRouter.route('/').get((req, res) => {
 });
 
 devicesRouter.route('/').post((req, res) => {
-
-  console.log(req.body);
-
   Device.create(req.body, (err, device) => {
     if(err) {
-      console.log(err);
+      res.status(500).send({
+        status: "error",
+        text: "Could not add the device."
+      });
     }
     else{
       res.json(device);
@@ -34,10 +37,12 @@ devicesRouter.route('/device/:id').get((req, res) => {
 
   Device.findOneAndUpdate({_id:id}, {$inc:{views: 1}}, {new: true}, (err, device) => {
     if(err) {
-      console.log(err);
+      res.status(404).send({
+        status: "error",
+        text: "Not found."
+      });
     }
     else{
-      console.log(device);
       res.json(device);
     }
   });
@@ -48,7 +53,10 @@ devicesRouter.route('/:id').delete((req, res) => {
 
   Device.findOneAndRemove({_id:id}, (err, device) => {
     if(err) {
-      console.log(err);
+      res.status(500).send({
+        status: "error",
+        text: "Something went wrong, could not delete the device."
+      });
     }
     else{
       res.json(id);
@@ -61,7 +69,10 @@ devicesRouter.route('/:id').put((req, res) => {
 
   Device.findOne({_id:id}, (err, device) => {
     if(err) {
-      console.log(err);
+      res.status(500).send({
+        status: "error",
+        text: "Something went wrong, try again later."
+      });
     }
     else{
       for(var prop in req.body) {
@@ -72,11 +83,13 @@ devicesRouter.route('/:id').put((req, res) => {
         res.json(device);
       })
       .catch(err => {
-            res.status(400).send("unable to update the database");
+        res.status(400).send({
+          status: "error",
+          text: "unable to update the database"
+        });
       });
     }
   });
 });
-
 
 module.exports = devicesRouter;

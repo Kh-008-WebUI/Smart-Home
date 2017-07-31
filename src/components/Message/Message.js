@@ -21,7 +21,7 @@ export const Message = (props) => {
             <Button
               okHandler={() => {
                 props.setPopupShown();
-                props.clearLoginStatus();
+                props.clearStatus();
               }}
               className={'btn popup__btn'}
               innerText={'Ok'}
@@ -46,5 +46,5 @@ Message.propTypes = {
   text: PropTypes.string,
   popupShown: PropTypes.bool,
   setPopupShown: PropTypes.func,
-  clearLoginStatus: PropTypes.func
+  clearStatus: PropTypes.func
 };

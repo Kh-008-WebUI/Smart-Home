@@ -15,7 +15,9 @@ import {
   LIST_SET_ITEM_VALUE,
   ADD_DEVICE_TO_LIST,
   UPDATE_DEVICE,
-  UPDATE_DEVICE_SUCCESS
+  UPDATE_DEVICE_SUCCESS,
+  UPDATE_DEVICE_FAILURE,
+  CLEAR_STATUS
  } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
@@ -33,10 +35,10 @@ export const loadDevicesSuccess = (devices) => {
   };
 };
 
-export const loadDevicesFail = (error) => {
+export const loadDevicesFail = (errorText) => {
   return {
     type: LOAD_DEVICES_FAIL,
-    error
+    errorText
   };
 };
 
@@ -59,10 +61,10 @@ export const loadDeviceSuccess = (device) => {
     device
   };
 };
-export const loadDeviceFail = (device) => {
+export const loadDeviceFail = (errorText) => {
   return {
     type: LOAD_DEVICE_FAIL,
-    device
+    errorText
   };
 };
 export const deleteDeviceSuccess = (id) => ({
@@ -75,9 +77,9 @@ export const deleteDevice = (id) => ({
   id
 });
 
-export const deleteDeviceFail = (error) => ({
+export const deleteDeviceFail = (errorText) => ({
   type: DELETE_DEVICE_FAIL,
-  error
+  errorText
 });
 
 export const updateDevice = (data, id) => {
@@ -96,11 +98,24 @@ export const updateDeviceSuccess = (device, id) => {
   };
 };
 
+export const updateDeviceFail = (errorText) => {
+  return {
+    type: UPDATE_DEVICE_FAILURE,
+    errorText
+  };
+};
+
 export const listSetItemValue = (value, id) => {
   return {
     type: LIST_SET_ITEM_VALUE,
     value,
     id
+  };
+};
+
+export const clearStatus = () => {
+  return {
+    type: CLEAR_STATUS
   };
 };
 
