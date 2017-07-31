@@ -2,7 +2,8 @@ import { all, takeEvery } from 'redux-saga/effects';
 import { watchLoadUsers, watchUpdateUserProfile } from './users.saga';
 import { watchLoadNotifications,
         watchAddNotification,
-        watchSendNotificationWS } from './notifications.saga';
+        watchSendNotificationWS,
+        watchNotificationChangeStatus } from './notifications.saga';
 import { watchAddDevice, watchEditDevice } from './builder.saga';
 import { watchLogin, watchRegistration } from './auth.saga';
 import {
@@ -26,7 +27,8 @@ export default function* rootSaga () {
     watchRegistration(),
     watchAddNotification(),
     watchSendNotificationWS(),
-    watchEditDevice()
+    watchEditDevice(),
+    watchNotificationChangeStatus()
   ]);
 }
 
