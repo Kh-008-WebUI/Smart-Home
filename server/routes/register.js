@@ -16,7 +16,7 @@ registerRouter.route('/').post((req, res) => {
       };
       if (user.length > 0) {
         res.status(500).send({
-          status: "500",
+          status: "error",
           text: "A user with this email already exists."
         });
       } else {
@@ -27,7 +27,7 @@ registerRouter.route('/').post((req, res) => {
               text: "Could not create user."
             });
           } else {
-            res.json(user);
+            res.status(200).send(user);
           };
         })
       };
