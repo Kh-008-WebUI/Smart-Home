@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const devicesRouter = express.Router();
 
-let Device = require('../models/device');
+const Device = require('../models/device');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {

@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nf start -p 3000",
-    "prod": "npm run clean && NODE_ENV=production webpack -p",
+    "dev": "cross-env NODE_ENV=development nf start -p 3000",
+    "prod": "npm run clean && cross-env NODE_ENV=production webpack -p && npm run node-prod",
     "clean": "rimraf ./dist/*",
+    "node-prod": "set NODE_ENV=production&& node ./server/server.js",
     "start": "nodemon ./server/server.js"
   },
   "babel": {
@@ -27,6 +28,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.4",
     "formsy-react": "^0.19.5",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.4",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
@@ -58,6 +60,7 @@
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.0",
+    "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
     "css-mqpacker": "^5.0.1",
     "eslint": "^3.19.0",

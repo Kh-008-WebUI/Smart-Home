@@ -27,7 +27,20 @@ registerRouter.route('/').post((req, res) => {
               text: "Could not create user."
             });
           } else {
-            res.status(200).send(user);
+            req.session.user = user._id;
+            user.home = true;
+            user.save().catch(err => {
+              res.status(400).send("unable to update the database");
+            });
+            res.status(200).send({
+              status: true,
+              userData: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                created: user.created
+              }
+            });
           };
         })
       };

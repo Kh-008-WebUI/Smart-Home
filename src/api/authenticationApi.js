@@ -13,3 +13,9 @@ export const getRegisterData = (data) => {
     JSON.stringify(data)
   );
 };
+
+export const getUserData = () => {
+  return Transport.get(
+    'http://localhost:3001/api/login'
+  );
+};

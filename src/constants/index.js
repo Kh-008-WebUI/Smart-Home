@@ -40,6 +40,8 @@ export const NOTIFICATIONS_FETCH_FAILURE = 'notifications/FETCH_FAILURE';
 export const ADD_NOTIFICATIONS = 'notifications/ADD_NOTIFICATIONS';
 export const ADD_NOTIFICATION_SUCCESS =
   'notifications/ADD_NOTIFICATION_SUCCESS';
+export const NOTIFICATIONS_CHANGE_STATUS_SUCCESS =
+  'notifications/NOTIFICATIONS_CHANGE_STATUS_SUCCESS';
 export const SEND_NOTIFICATION_WS = 'notifications/SEND_NOTIFICATION_WS';
 export const ADD_ITEM_DESCRIPTION = 'builder/ADD_ITEM_DESCRIPTION';
 export const SET_ITEM_VALUE = 'builder/SET_ITEM_VALUE';
@@ -54,4 +56,5 @@ export const REGISTRATION_ATTEMPT = 'auth/REGISTRATION_ATTEMPT';
 export const REGISTER_PENDING = 'auth/REGISTER_PENDING';
 export const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
+export const LOAD_LOGGED_USER = 'auth/LOAD_LOGGED_USER';
 export const SERVER_API = 'http://localhost:3001/api';

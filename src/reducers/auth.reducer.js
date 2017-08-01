@@ -5,16 +5,13 @@ import {
   CLEAR_LOGIN_STATUS,
   REGISTRATION_ATTEMPT,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-  UPDATE_USER_PROFILE_REQUEST,
-  UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_FAILURE
+  REGISTER_FAILURE
 } from '../constants/index';
 
 const initialState = {
   status: '',
   errorText: '',
-  isLogged: true,
+  isLogged: {},
   user: {
     username: '',
     password: '',
@@ -31,14 +28,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status: 'DONE',
-        isLogged: action.status,
-        user: action.user
+        isLogged: action.status
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         status:'FAIL',
-        isLogged: false,
+        isLogged: {},
         errorText: action.errorText
       };
     case CLEAR_LOGIN_STATUS:
@@ -48,8 +44,7 @@ const reducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        user: action.userData,
-        isLogged: true,
+        isLogged: action.user,
         status: 'DONE'
       };
     case REGISTER_FAILURE:
@@ -58,14 +53,6 @@ const reducer = (state = initialState, action) => {
         status: 'FAIL',
         errorText: action.errorText
       };
-    case UPDATE_USER_PROFILE_REQUEST: {
-      return { ...state, updateProfileStatus: 'PENDING' };
-    }
-    case UPDATE_USER_PROFILE_SUCCESS:
-      return { ...state, user: action.payload, updateProfileStatus: 'DONE' };
-    case UPDATE_USER_PROFILE_FAILURE: {
-      return { ...state, updateProfileStatus: 'FAIL' };
-    }
     default:
       return state;
   }
