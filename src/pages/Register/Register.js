@@ -15,16 +15,7 @@ class Register extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      canSubmit: false,
-      popupShown: true
-    };
-
-    this.setPopupShown = (id) => {
-      const currentState = this.state.popupShown;
-
-      this.setState({
-        popupShown: !currentState
-      });
+      canSubmit: false
     };
     this.enableButton = () => {
       this.setState({
@@ -60,8 +51,6 @@ class Register extends Component {
           title={'Register'}
           text={'Please enter your data to register.'} />
         <Message
-          setPopupShown={this.setPopupShown}
-          popupShown={this.state.popupShown}
           clearStatus={this.props.clearLoginStatus}
           status={this.props.regStatus}
           header={'Error'}

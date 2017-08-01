@@ -185,7 +185,7 @@ class DeviceList extends React.Component {
         </Popup>
         <Message
           setPopupShown={this.setPopupShown}
-          popupShown={!this.state.popupShown}
+          popupShown={this.state.popupShown}
           clearStatus={this.props.clearStatus}
           status={this.props.status}
           header={'Error'}

@@ -5,7 +5,6 @@ import { Popup } from '../Popup/Popup';
 import { Button } from '../Button/Button';
 
 export const Message = (props) => {
-  console.log('inside Message -- when error', props.popupShown);
   const chooseMessage = () => {
     switch (props.status) {
       case 'PENDING':
@@ -15,13 +14,12 @@ export const Message = (props) => {
       case 'FAIL':
         return (
           <Popup
-            popupShown={props.popupShown}
+            popupShown={true}
             header={props.header}
             text={props.text}
           >
             <Button
               okHandler={() => {
-                props.setPopupShown();
                 props.clearStatus();
               }}
               className={'btn popup__btn'}
@@ -45,7 +43,5 @@ Message.propTypes = {
   status: PropTypes.string,
   header: PropTypes.string,
   text: PropTypes.string,
-  popupShown: PropTypes.bool,
-  setPopupShown: PropTypes.func,
   clearStatus: PropTypes.func
 };
