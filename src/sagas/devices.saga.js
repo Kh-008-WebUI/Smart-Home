@@ -7,7 +7,9 @@ import {
   loadDeviceSuccess,
   deleteDeviceFail,
   loadDeviceFail,
-  updateDeviceSuccess
+  updateDeviceSuccess,
+  updateDeviceFail,
+  clearStatus
   } from '../actions/devices.action';
 import {
   LOAD_DEVICES,
@@ -25,23 +27,31 @@ import {
 
 export function* loadDevicesSaga () {
   try {
-    yield put({ type:LOAD_DEVICES_PENDING });
     const devices = yield call(DeviceListApi.getDevices);
 
+    if (devices.status === 'error') {
+      throw new Error(devices.text);
+    }
+
     yield put(loadDevicesSuccess(devices));
+    yield put(clearStatus());
   } catch (e) {
-    yield put(loadDevicesFail());
+    yield put(loadDeviceFail(e.message));
   }
 }
 
 export function* loadDeviceSaga (action) {
   try {
-    yield put({ type:LOAD_DEVICE_PENDING });
     const device = yield call(DeviceListApi.getDevice, action.id);
 
+    if (device.status === 'error') {
+      throw new Error(device.text);
+    }
+
     yield put(loadDeviceSuccess(device));
-  } catch (error) {
-    yield put(loadDeviceFail(error));
+    yield put(clearStatus());
+  } catch (e) {
+    yield put(loadDeviceFail(e.message));
   }
 }
 
@@ -49,9 +59,14 @@ export function* deleteDevice (action) {
   try {
     const id = yield call(DeviceListApi.deleteDevice, action.id);
 
+    if (id.status === 'error') {
+      throw new Error(id.text);
+    }
+
     yield put(deleteDeviceSuccess(id));
+    yield put(clearStatus());
   } catch (e) {
-    yield put(deleteDeviceFail(e));
+    yield put(deleteDeviceFail(e.message));
   }
 }
 
@@ -60,9 +75,14 @@ export function* updateDevice (action) {
     const device = yield call(DeviceListApi.updateDevice,
       action.id, action.data);
 
+    if (device.status === 'error') {
+      throw new Error(device.text);
+    }
+
     yield put(updateDeviceSuccess(device, action.id));
+    yield put(clearStatus());
   } catch (e) {
-    console.log(e);
+    yield put(updateDeviceFail(e.message));
   }
 }
 
