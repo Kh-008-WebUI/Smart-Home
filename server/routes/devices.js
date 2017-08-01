@@ -87,10 +87,13 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
       console.log(err);
     }
     else{
-      let newDevice = device;
+      let items = device.items;
+      items[setting].data = req.body.value;
 
-      newDevice.items[setting].data = req.body.value;
-      device = newDevice;
+      device.items = items;
+
+      device.markModified('items');
+
       device.save()
         .then(device => {
           res.json(device);
