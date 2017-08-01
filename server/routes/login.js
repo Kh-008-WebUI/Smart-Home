@@ -56,11 +56,10 @@ loginRouter.route('/')
             created: user.created
           }
         });
-      }
-      else {
+      } else {
         res.status(500).send({
           status: "error",
-          text: "Wrong login or password."
+          text: "This email is not registered."
         });
       }
     });

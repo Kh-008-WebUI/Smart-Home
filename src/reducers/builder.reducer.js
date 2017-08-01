@@ -10,10 +10,12 @@ import {
   SET_ITEM_VALUE,
   CLEAR_ADD_STATUS,
   UPDATE_DEVICE_SUCCESS,
-  EDIT_DEVICE_SUCCESS
+  EDIT_DEVICE_SUCCESS,
+  UPDATE_DEVICE_FAILURE
 } from '../constants/index';
 
 const initialState = {
+  errorText: '',
   uploadStatus:'',
   device:{
     name: '',
@@ -53,7 +55,7 @@ const reducer = (state = initialState, action) => {
     case ADD_DEVICE_SUCCESS:
       return ({ ...state, uploadStatus:'DONE' });
     case ADD_DEVICE_FAILURE:
-      return ({ ...state, uploadStatus:'FAIL' });
+      return ({ ...state, uploadStatus:'FAIL', errorText: action.error });
     case CLEAR_ADD_STATUS:
       return ({ ...state, uploadStatus:'' });
     case ADD_ITEM_DESCRIPTION:
@@ -88,6 +90,13 @@ const reducer = (state = initialState, action) => {
       };
     case UPDATE_DEVICE_SUCCESS:
       return ({ ...state, uploadStatus:'DONE' });
+    case UPDATE_DEVICE_FAILURE: {
+      return {
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText
+      };
+    }
     default:
       return state;
   }
