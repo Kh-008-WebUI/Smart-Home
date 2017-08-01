@@ -5,6 +5,8 @@ import Header from '../../components/Header/Header';
 import './MainLayout.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getLoggedUser } from '../../actions/auth.action';
 
 class MainLayout extends Component {
   constructor (props) {
@@ -20,12 +22,8 @@ class MainLayout extends Component {
     };
   }
   componentWillMount () {
-    if (!this.props.isLogged) {
-      this.props.history.push('/auth');
-    }
-  }
-  componentDidUpdate () {
-    if (!this.props.isLogged) {
+    this.props.getLoggedUser();
+    if (!this.props.isLogged._id) {
       this.props.history.push('/auth');
     }
   }
@@ -47,9 +45,16 @@ function mapStateToProps (store) {
   };
 }
 
+function mapDispatchToProps (dispatch) {
+  return {
+    getLoggedUser: bindActionCreators(getLoggedUser, dispatch)
+  };
+}
+
 MainLayout.propTypes = {
-  isLogged: PropTypes.bool,
+  isLogged: PropTypes.object,
   history: PropTypes.object,
-  children: PropTypes.any
+  children: PropTypes.any,
+  getLoggedUser: PropTypes.func
 };
-export default connect(mapStateToProps)(MainLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
