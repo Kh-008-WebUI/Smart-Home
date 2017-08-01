@@ -1,6 +1,6 @@
 const development = 'development' === process.env.NODE_ENV;
 
-let origin = development ? 'http://localhost:8081' : 'http://localhost:3001';
+const origin = development ? 'http://localhost:8081' : 'http://localhost:3001';
 
 const configRemote = {
   secret: 'MoneyIsPower',

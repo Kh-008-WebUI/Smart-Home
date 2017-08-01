@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 const loginRouter = express.Router();
-
-let User = require('../models/user');
+const User = require('../models/user');
 
 loginRouter.route('/').post((req, res) => {
   User.findOne({ 'email': req.body.email }, (err, user) => {
