@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const devicesRouter = express.Router();
 
-let Device = require('../models/device');
+const Device = require('../models/device');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
@@ -16,9 +16,6 @@ devicesRouter.route('/').get((req, res) => {
 });
 
 devicesRouter.route('/').post((req, res) => {
-
-  console.log(req.body);
-
   Device.create(req.body, (err, device) => {
     if(err) {
       console.log(err);
@@ -37,7 +34,6 @@ devicesRouter.route('/device/:id').get((req, res) => {
       console.log(err);
     }
     else{
-      console.log(device);
       res.json(device);
     }
   });
