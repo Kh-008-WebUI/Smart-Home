@@ -5,21 +5,33 @@ const registerRouter = express.Router();
 let User = require('../models/user');
 
 registerRouter.route('/').post((req, res) => {
-  User.findOne(
+  User.find(
     {email: req.body.email},
     (err, user) => {
-      if (err) console.log(err);
-      if (user) {
-        console.log("There is such email");
-        res.send(500);
+      if (err) {
+        res.status(500).send({
+          status: "error",
+          text: "Internal server error. Try later."
+        });
+      };
+      if (user.length > 0) {
+        res.status(500).send({
+          status: "error",
+          text: "A user with this email already exists."
+        });
       } else {
         User.create(req.body, (err, user) => {
-          if (err) console.log(err);
-          res.json(user);
-        });
-      }
-    });
-    
+          if (err) {
+            res.status(500).send({
+              status: "error",
+              text: "Could not create user."
+            });
+          } else {
+            res.status(200).send(user);
+          };
+        })
+      };
+  });
 });
 
 module.exports =  registerRouter;

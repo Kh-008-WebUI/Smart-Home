@@ -26,7 +26,9 @@ export default class TimerSettings extends React.Component {
         hours:time[0],
         minutes:time[1]
       });
-      this.props.setItemValue(this.props.data, this.props.itemId);
+      this.props.setItemValue(this.props.data,
+                              this.props.itemId,
+                              this.props.deviceId);
     }
   }
 
@@ -35,7 +37,8 @@ export default class TimerSettings extends React.Component {
       hours: event.target.value
     });
     this.props.setItemValue(`${this.state.hours}:${this.state.minutes}`,
-      this.props.itemId);
+                            this.props.itemId,
+                            this.props.deviceId);
   }
 
   changeMinutes (event) {
@@ -118,5 +121,6 @@ TimerSettings.propTypes = {
   setItemValue: PropTypes.func,
   itemId: PropTypes.number,
   newValue: PropTypes.string,
-  data: PropTypes.string
+  data: PropTypes.string,
+  deviceId: PropTypes.string
 };

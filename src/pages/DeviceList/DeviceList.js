@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import { Message } from '../../components/Message/Message';
 import { Popup } from '../../components/Popup/Popup';
+import { Button } from '../../components/Button/Button';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
 import { options } from '../../data/filterOptions';
@@ -159,12 +160,28 @@ class DeviceList extends React.Component {
           }
         </section>
         <Popup
-            okHandler={() => this.deleteDevice(this.state.currentId)}
             setPopupShown={this.setPopupShown}
             popupShown={this.state.popupShown}
             header="Confirm the action"
             text="Are you sure you want to remove the device?"
-        />
+        >
+          <Button
+              setPopupShown={this.setPopupShown}
+              okHandler={() => {
+                this.deleteDevice(this.state.currentId);
+                this.setPopupShown();
+              }}
+              className={'btn popup__btn'}
+              innerText={'Ok'}
+            />
+            <Button
+              okHandler={() => {
+                this.setPopupShown();
+              }}
+              className={'btn btn--default popup__btn'}
+              innerText={'Cancel'}
+            />
+        </Popup>
       </section>
     );
   }

@@ -5,8 +5,9 @@ export const getNotifications = () => {
   return Transport.get(`${SERVER_API}/notifications`);
 };
 
-export const changeStatusNotifications = (id) => {
-  return Transport.put(`${SERVER_API}/notifications/${id}`);
+export const changeStatus = (id, status) => {
+  return Transport.put(`${SERVER_API}/notifications/${id}`,
+   JSON.stringify({ viewed: status }));
 };
 
 export const addNotifications = (message) => {

@@ -78,5 +78,27 @@ devicesRouter.route('/:id').put((req, res) => {
   });
 });
 
+devicesRouter.route('/items/:id/:setting').put((req, res) => {
+  const id = req.params.id;
+  const setting = req.params.setting;
+
+  Device.findOne({_id:id}, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      device.items[setting].data = req.body.value;
+
+      device.save()
+        .then(device => {
+          res.json(device);
+        })
+        .catch(err => {
+              res.status(400).send("unable to update the database");
+        });
+    }
+  });
+});
+
 
 module.exports = devicesRouter;

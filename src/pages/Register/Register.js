@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
 import { Message } from '../../components/Message/Message';
-import { registration } from '../../actions/auth.action';
+import {
+  registration,
+  clearLoginStatus } from '../../actions/auth.action';
 import { NavLink } from 'react-router-dom';
 require('./Register.scss');
 
@@ -13,7 +15,16 @@ class Register extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      canSubmit: false
+      canSubmit: false,
+      popupShown: true
+    };
+
+    this.setPopupShown = (id) => {
+      const currentState = this.state.popupShown;
+
+      this.setState({
+        popupShown: !currentState
+      });
     };
     this.enableButton = () => {
       this.setState({
@@ -48,7 +59,13 @@ class Register extends Component {
           pic={'fa-user'}
           title={'Register'}
           text={'Please enter your data to register.'} />
-        <Message status={this.props.regStatus} />
+        <Message
+          setPopupShown={this.setPopupShown}
+          popupShown={this.state.popupShown}
+          clearLoginStatus={this.props.clearLoginStatus}
+          status={this.props.regStatus}
+          header={'Error'}
+          text={this.props.errorText}/>
         <Formsy.Form
           onSubmit={this.addRegisterDataToStore}
           onValid={this.enableButton}
@@ -121,18 +138,22 @@ class Register extends Component {
 
 const mapStateToProps = state => ({
   userData: state.authentication.user,
-  regStatus: state.authentication.status
+  regStatus: state.authentication.status,
+  errorText: state.authentication.errorText
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  registration: (userData) => dispatch(registration(userData))
+  registration: (userData) => dispatch(registration(userData)),
+  clearLoginStatus: () => dispatch(clearLoginStatus())
 });
 
 Register.propTypes = {
   resetValue: PropTypes.func,
   history: PropTypes.object,
   registration: PropTypes.func,
-  regStatus: PropTypes.string
+  regStatus: PropTypes.string,
+  errorText: PropTypes.string,
+  clearLoginStatus: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

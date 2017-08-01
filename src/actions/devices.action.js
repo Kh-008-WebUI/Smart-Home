@@ -96,11 +96,19 @@ export const updateDeviceSuccess = (device, id) => {
   };
 };
 
-export const listSetItemValue = (value, id) => {
+export const updateDeviceSettingsSuccess = (device) => {
+  return {
+    type: 'UPDATE_DEVICE_SETTINGS_SUCCESS',
+    device
+  };
+};
+
+export const listSetItemValue = (value, settingId, deviceId) => {
   return {
     type: LIST_SET_ITEM_VALUE,
     value,
-    id
+    settingId,
+    deviceId
   };
 };
 
