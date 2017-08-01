@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nf start -p 3000",
-    "prod": "npm run clean && NODE_ENV=production webpack -p",
+    "dev": "set NODE_ENV=development&& nf start -p 3000",
+    "prod": "npm run clean && set NODE_ENV=production && webpack -p && npm run node-prod",
     "clean": "rimraf ./dist/*",
+    "node-prod": "set NODE_ENV=production&& node ./server/server.js",
     "start": "nodemon ./server/server.js"
   },
   "babel": {

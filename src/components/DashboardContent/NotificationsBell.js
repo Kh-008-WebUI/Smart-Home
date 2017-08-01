@@ -10,6 +10,8 @@ import {
 } from '../../actions/notifications.action';
 import { ws } from '../../index';
 import moment from 'moment';
+import { findByProperty } from '../../utils/utils';
+
 class NotificationsBell extends React.Component {
   constructor (props) {
     super(props);
@@ -26,8 +28,10 @@ class NotificationsBell extends React.Component {
     this.props.getNotifications();
   }
   changeNotifyView = (el) => {
-    this.props.changeStatusNotification(el.target.id, true);
-    console.log(el.target.closest('li').id);
+    const id = el.target.closest('li').id;
+    const notification = findByProperty(this.props.notifications, '_id', id);
+
+    this.props.changeStatusNotification(id, !notification.viewed);
   }
   displayNotifyBell = () => {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
@@ -94,7 +98,8 @@ class NotificationsBell extends React.Component {
           this.bell = el;
         } }>
         <div className="notification-list__notice">
-          <ul onClick={this.changeNotifyView}>
+          <ul
+            onClick={this.changeNotifyView}>
             {listNotify.map((item, key) => {
               return (
                 <li
@@ -136,8 +141,8 @@ function mapDispatchToProps (dispatch) {
     fetchAddNotifications: (message) =>
       dispatch(fetchAddNotifications(message)),
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
-    changeStatusNotification: (id, status) =>
-      bindActionCreators(changeStatusNotification(id, status), dispatch)
+    changeStatusNotification: (id, viewed) =>
+      dispatch(changeStatusNotification(id, viewed))
   };
 }
 
