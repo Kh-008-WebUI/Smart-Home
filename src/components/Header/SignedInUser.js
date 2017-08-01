@@ -23,7 +23,7 @@ SignedInUser.propTypes = {
 
 function mapStateToProps (store) {
   return {
-    user: store.authentication.user
+    user: store.authentication.isLogged
   };
 }
 

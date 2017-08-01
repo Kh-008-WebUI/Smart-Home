@@ -27,7 +27,16 @@ registerRouter.route('/').post((req, res) => {
               text: "Could not create user."
             });
           } else {
-            res.status(200).send(user);
+            req.session.user = user._id;
+            res.status(200).send({
+              status: true,
+              userData: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                created: user.created
+              }
+            });
           };
         })
       };

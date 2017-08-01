@@ -8,7 +8,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  home: Boolean,
+  home: {
+    type: Boolean,
+    default: false
+  },
   email: {
     type: String,
     unique: true,
@@ -21,8 +24,7 @@ const userSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
-  },
-  isLogged: Boolean
+  }
 });
 
 userSchema.methods.encryptPassword = function(password) {
@@ -35,7 +37,6 @@ userSchema.virtual('password')
   .set(function (password) {
     this._plainPassword = password;
     this.salt = config.secret;
-    console.log(this);
     this.hashedPassword = this.encryptPassword(password);
   })
   .get(function () {

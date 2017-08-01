@@ -1,12 +1,15 @@
-import { LOGIN_PENDING, REGISTRATION_ATTEMPT } from '../constants/index';
-import { login, getRegisterData } from '../api/authenticationApi';
+import { LOGIN_PENDING,
+  REGISTRATION_ATTEMPT,
+  LOAD_LOGGED_USER } from '../constants/index';
+import { login, getRegisterData, getUserData } from '../api/authenticationApi';
 import { loginSuccess,
   loginFailure,
   clearLoginStatus,
   registration,
   registrationPending,
   registrationSuccess,
-  registrationFailure } from '../actions/auth.action';
+  registrationFailure,
+  getLoggedUser } from '../actions/auth.action';
 import { delay } from 'redux-saga';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
@@ -42,10 +45,30 @@ export function* register (action) {
   }
 }
 
+export function* loadUser (action) {
+  try {
+    const user = yield call(getUserData);
+
+    if (user.status === 'error') {
+      throw new Error(user.text);
+    }
+
+    yield put(loginSuccess(user));
+    yield delay(2000);
+    yield put(clearLoginStatus());
+  } catch (e) {
+    yield put(clearLoginStatus());
+  }
+}
+
 export function* watchLogin () {
   yield takeEvery(LOGIN_PENDING, checkLogin);
 }
 
 export function* watchRegistration () {
   yield takeEvery(REGISTRATION_ATTEMPT, register);
+}
+
+export function* watchLoadUser () {
+  yield takeEvery(LOAD_LOGGED_USER, loadUser);
 }
