@@ -82,13 +82,15 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
   const id = req.params.id;
   const setting = req.params.setting;
 
-  Device.findOne({_id:id}, (err, device) => {
+  Device.findOne({ _id:id }, (err, device) => {
     if(err) {
       console.log(err);
     }
     else{
-      device.items[setting].data = req.body.value;
+      let newDevice = device;
 
+      newDevice.items[setting].data = req.body.value;
+      device = newDevice;
       device.save()
         .then(device => {
           res.json(device);

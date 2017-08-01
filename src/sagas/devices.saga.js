@@ -23,7 +23,7 @@ import {
   LOAD_DEVICES_PENDING,
   LOAD_DEVICE_PENDING,
   UPDATE_DEVICE,
-  LIST_SET_ITEM_VALUE } from '../constants/index';
+  UPDATE_DEVICE_SETTINGS } from '../constants/index';
 
 export function* loadDevicesSaga () {
   try {
@@ -71,9 +71,10 @@ export function* updateDevice (action) {
 export function* updateDeviceSettings (action) {
   try {
     const device = yield call(DeviceListApi.updateDeviceSettings,
-      action.deviceId, action.settingId, action.value);
+     action.value, action.settingId, action.deviceId);
 
     yield put(updateDeviceSettingsSuccess(device));
+    console.log(device);
   } catch (e) {
     console.log(e);
   }
@@ -96,5 +97,5 @@ export function* watchUpdateDeviceAsync () {
 }
 
 export function* watchUpdateDeviceSettings () {
-  yield takeEvery(LIST_SET_ITEM_VALUE, updateDeviceSettings);
+  yield takeEvery(UPDATE_DEVICE_SETTINGS, updateDeviceSettings);
 }

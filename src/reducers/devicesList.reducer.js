@@ -6,7 +6,8 @@ import { DELETE_DEVICE_SUCCESS, LOAD_DEVICE,
         LOAD_DEVICE_PENDING,
         LOAD_DEVICE_FAIL,
         ADD_DEVICE_TO_LIST,
-        UPDATE_DEVICE_SUCCESS
+        UPDATE_DEVICE_SUCCESS,
+        UPDATE_DEVICE_SETTINGS_SUCCESS
        } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
@@ -81,7 +82,7 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case 'UPDATE_DEVICE_SETTINGS_SUCCESS': {
+    case UPDATE_DEVICE_SETTINGS_SUCCESS: {
       return {
         ...state, device: action.device
       };

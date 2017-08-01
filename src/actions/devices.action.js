@@ -15,7 +15,9 @@ import {
   LIST_SET_ITEM_VALUE,
   ADD_DEVICE_TO_LIST,
   UPDATE_DEVICE,
-  UPDATE_DEVICE_SUCCESS
+  UPDATE_DEVICE_SUCCESS,
+  UPDATE_DEVICE_SETTINGS,
+  UPDATE_DEVICE_SETTINGS_SUCCESS
  } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
@@ -98,14 +100,14 @@ export const updateDeviceSuccess = (device, id) => {
 
 export const updateDeviceSettingsSuccess = (device) => {
   return {
-    type: 'UPDATE_DEVICE_SETTINGS_SUCCESS',
+    type: UPDATE_DEVICE_SETTINGS_SUCCESS,
     device
   };
 };
 
-export const listSetItemValue = (value, settingId, deviceId) => {
+export const updateDeviceSettings = (value, settingId, deviceId) => {
   return {
-    type: LIST_SET_ITEM_VALUE,
+    type: UPDATE_DEVICE_SETTINGS,
     value,
     settingId,
     deviceId
