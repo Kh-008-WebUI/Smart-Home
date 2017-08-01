@@ -36,13 +36,17 @@ devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
   Device.findOneAndUpdate({_id:id}, {$inc:{views: 1}}, {new: true}, (err, device) => {
-    if(err) {
+    if (err) {
+      res.status(500).send({
+        status: "error",
+        text: "Something went wrong, try again later."
+      });
+    } else if (!device) {
       res.status(404).send({
         status: "error",
         text: "Not found."
       });
-    }
-    else{
+    } else {
       res.json(device);
     }
   });

@@ -22,9 +22,10 @@ import {
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 
-export const loadDevices = () => {
+export const loadDevices = (devices) => {
   return {
-    type: LOAD_DEVICES
+    type: LOAD_DEVICES,
+    devices
   };
 };
 

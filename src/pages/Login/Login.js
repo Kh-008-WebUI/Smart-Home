@@ -62,7 +62,7 @@ class Login extends Component {
         <Message
           setPopupShown={this.setPopupShown}
           popupShown={this.state.popupShown}
-          clearLoginStatus={this.props.clearLoginStatus}
+          clearStatus={this.props.clearLoginStatus}
           status={this.props.loginStatus}
           header={'Authorization failed'}
           text={this.props.errorText}

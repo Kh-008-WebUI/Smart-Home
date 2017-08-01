@@ -9,11 +9,23 @@ import PropTypes from 'prop-types';
 import {
   resetProto,
   deleteItem,
-  editDevice } from '../../actions/builder.action';
+  editDevice,
+  clearAddStatus } from '../../actions/builder.action';
 
 class Builder extends Component {
   constructor (props) {
     super(props);
+    this.state = {
+      popupShown: false
+    };
+
+    this.setPopupShown = (id) => {
+      const currentState = this.state.popupShown;
+
+      this.setState({
+        popupShown: !currentState
+      });
+    };
   }
   componentWillMount () {
     if (typeof this.props.match.params.id !== 'undefined') {
@@ -35,7 +47,13 @@ class Builder extends Component {
       <section className="builder device-list">
         <h1 className="device-list__title">Device Builder</h1>
         <DeviceForm />
-        <Message status={this.props.status} />
+        <Message
+          setPopupShown={this.setPopupShown}
+          popupShown={!this.state.popupShown}
+          clearStatus={this.props.clearAddStatus}
+          status={this.props.status}
+          header={'Error'}
+          text={this.props.errorText}/>
         <h3 className="builder__title">Prototype</h3>
         <Prototype
           device={this.props.device}
@@ -48,7 +66,8 @@ class Builder extends Component {
 function mapStateToProps (store) {
   return {
     device: store.builder.device,
-    status: store.builder.uploadStatus
+    status: store.builder.uploadStatus,
+    errorText: store.builder.errorText
   };
 }
 
@@ -56,7 +75,8 @@ function mapDispatchToProps (dispatch) {
   return {
     deleteItem: bindActionCreators(deleteItem, dispatch),
     resetBuilder: bindActionCreators(resetProto, dispatch),
-    editDevice: bindActionCreators(editDevice, dispatch)
+    editDevice: bindActionCreators(editDevice, dispatch),
+    clearAddStatus: bindActionCreators(clearAddStatus, dispatch)
   };
 }
 
@@ -69,7 +89,9 @@ Builder.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
-  editDevice: PropTypes.func
+  editDevice: PropTypes.func,
+  clearAddStatus: PropTypes.func,
+  errorText: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Builder);

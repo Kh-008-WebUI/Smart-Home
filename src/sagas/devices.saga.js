@@ -27,7 +27,6 @@ import {
 
 export function* loadDevicesSaga () {
   try {
-    yield put({ type:LOAD_DEVICES_PENDING });
     const devices = yield call(DeviceListApi.getDevices);
 
     if (devices.status === 'error') {
@@ -37,13 +36,12 @@ export function* loadDevicesSaga () {
     yield put(loadDevicesSuccess(devices));
     yield put(clearStatus());
   } catch (e) {
-    yield put(loadDevicesFail(e.message));
+    yield put(loadDeviceFail(e.message));
   }
 }
 
 export function* loadDeviceSaga (action) {
   try {
-    yield put({ type:LOAD_DEVICE_PENDING });
     const device = yield call(DeviceListApi.getDevice, action.id);
 
     if (device.status === 'error') {

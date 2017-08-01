@@ -24,6 +24,11 @@ loginRouter.route('/').post((req, res) => {
           created: user.created
         }
       });
+    } else if (!user) {
+      res.status(500).send({
+        status: "error",
+        text: "This email is not registered."
+      });
     }
     else {
       res.status(500).send({

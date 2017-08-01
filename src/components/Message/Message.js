@@ -5,6 +5,7 @@ import { Popup } from '../Popup/Popup';
 import { Button } from '../Button/Button';
 
 export const Message = (props) => {
+  console.log('inside Message -- when error', props.popupShown);
   const chooseMessage = () => {
     switch (props.status) {
       case 'PENDING':
