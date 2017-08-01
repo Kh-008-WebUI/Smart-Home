@@ -28,7 +28,12 @@ userRouter.route('/:id')
       if (err) {
         res.send(err);
       } else {
-        res.send(user);
+        res.send({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          created: user.created
+        });
       }
     });
   })
