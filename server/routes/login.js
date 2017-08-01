@@ -40,9 +40,13 @@ loginRouter.route('/')
           status: "error",
           text: "Something went wrong, try again later."
         });
-      };    
+      };
       if (user && user.checkPassword(req.body.password)) {
         req.session.user = user._id;
+        user.home = true;
+        user.save().catch(err => {
+              res.status(400).send("unable to update the database");
+        });
         res.status(200).send({
           status: true,
           userData: {
