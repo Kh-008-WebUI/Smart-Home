@@ -36,11 +36,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status: 'DONE',
-<<<<<<< HEAD
         isLogged: action.status
-=======
-        isLogged: action.user
->>>>>>> 2514ae1c6227030aa84ec011e06f6238fcabada0
       };
     case LOGIN_FAILURE:
       return {
