@@ -99,7 +99,8 @@ module.exports = {
         hot: true,
         stats: "errors-only",
         historyApiFallback: true,
-        open: true
+        open: true,
+        port: 8081
     },
     plugins: [
         new HtmlWebpackPlugin({
