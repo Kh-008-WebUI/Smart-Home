@@ -28,6 +28,8 @@ export const DELETE_DEVICE = 'device/DELETE_DEVICE';
 export const DELETE_DEVICE_FAIL = 'device/DELETE_DEVICE_FAIL';
 export const ADD_DEVICE_SUCCESS = 'builder/ADD_DEVICE_SUCCESS';
 export const ADD_DEVICE_FAILURE = 'builder/ADD_DEVICE_FAILURE';
+export const EDIT_DEVICE = 'builder/EDIT_DEVICE';
+export const EDIT_DEVICE_SUCCESS = 'builder/EDIT_DEVICE_SUCCESS';
 export const UPDATE_DEVICE = 'device/UPDATE_DEVICE';
 export const UPDATE_DEVICE_SUCCESS = 'device/UPDATE_DEVICE_SUCCESS';
 export const NOTIFICATIONS_FETCH_SUCCESS = 'notifications/FETCH_SUCCESS';
@@ -37,6 +39,8 @@ export const NOTIFICATIONS_FETCH_FAILURE = 'notifications/FETCH_FAILURE';
 export const ADD_NOTIFICATIONS = 'notifications/ADD_NOTIFICATIONS';
 export const ADD_NOTIFICATION_SUCCESS =
   'notifications/ADD_NOTIFICATION_SUCCESS';
+export const NOTIFICATIONS_CHANGE_STATUS_SUCCESS =
+  'notifications/NOTIFICATIONS_CHANGE_STATUS_SUCCESS';
 export const SEND_NOTIFICATION_WS = 'notifications/SEND_NOTIFICATION_WS';
 export const ADD_ITEM_DESCRIPTION = 'builder/ADD_ITEM_DESCRIPTION';
 export const SET_ITEM_VALUE = 'builder/SET_ITEM_VALUE';

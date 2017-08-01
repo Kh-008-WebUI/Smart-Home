@@ -5,7 +5,8 @@ import {
   NOTIFICATIONS_FETCH_FAILURE,
   ADD_NOTIFICATION_SUCCESS,
   ADD_NOTIFICATIONS,
-  SEND_NOTIFICATION_WS
+  SEND_NOTIFICATION_WS,
+  NOTIFICATIONS_CHANGE_STATUS_SUCCESS
  }
 from '../constants/index';
 
@@ -29,10 +30,18 @@ export const fetchNotificationsRequest = () => {
   };
 };
 
-export const changeStatusNotification = (payload) => {
+export const changeStatusNotification = (id, viewed) => {
   return {
     type: NOTIFICATIONS_CHANGE_STATUS,
-    payload
+    id,
+    viewed
+  };
+};
+
+export const changeStatusNotificationSuccess = (notification) => {
+  return {
+    type: NOTIFICATIONS_CHANGE_STATUS_SUCCESS,
+    notification
   };
 };
 

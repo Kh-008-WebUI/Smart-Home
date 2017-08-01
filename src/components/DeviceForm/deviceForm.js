@@ -14,6 +14,7 @@ import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
 import { setItemDefaultData } from '../../utils/utils';
 import { sendNotificationWS } from '../../actions/notifications.action';
+import { updateDevice } from '../../actions/devices.action';
 
 const itemsToChoose = [
   'Toggle',
@@ -72,9 +73,12 @@ class DeviceForm extends React.Component {
   };
 
   handleSubmit = () => {
-    this.props.sendNotificationWS(`${this.props.settings.name} was created`);
-
-    this.props.addDevice(this.props.settings);
+    if (typeof this.props.settings._id !== 'undefined') {
+      this.props.updateDevice(this.props.settings, this.props.settings._id);
+    } else {
+      this.props.addDevice(this.props.settings);
+      this.props.sendNotificationWS(`${this.props.settings.name} was created`);
+    }
   };
 
   enableButton = () => {
@@ -104,7 +108,8 @@ class DeviceForm extends React.Component {
           text={'Please enter device name'}
           validations="isAlphanumeric"
           validationError="This is not a valid name"
-          required />
+          required
+          value={this.props.settings.name} />
         <div className="input-container">
          <label>Location:</label> <br />
           <Select
@@ -123,7 +128,7 @@ class DeviceForm extends React.Component {
         <div className="main-button-wrap signup-field-group signup-btn-group">
           <input className="btn btn--primary btn--signup btn--signup-active"
             type="submit"
-            value="Add Device"
+            value="Save"
             disabled = {
               !this.state.canSubmit ||
               this.props.status === 'PENDING'
@@ -145,7 +150,8 @@ function mapDispatchToProps (dispatch) {
     addItem:  bindActionCreators(addItem, dispatch),
     resetProto: bindActionCreators(resetProto, dispatch),
     addDevice: bindActionCreators(addDevice, dispatch),
-    sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
+    sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
+    updateDevice: (data, id) => dispatch(updateDevice(data, id))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -157,5 +163,6 @@ DeviceForm.propTypes = {
   addDevice:  PropTypes.func,
   settings: PropTypes.object,
   status: PropTypes.string,
-  sendNotificationWS: PropTypes.func
+  sendNotificationWS: PropTypes.func,
+  updateDevice: PropTypes.func
 };

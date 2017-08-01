@@ -7,7 +7,7 @@
 	border-bottom: 1px solid $light-gray;
 	margin-bottom: 10px;
 }
-	
+
 	&__name {
 		color:$text-color-title;
 		font-size: 24px;
@@ -21,7 +21,20 @@
 	&__settings-description{
 		width: 33%;
 		color:$light-gray;
-	}
+  }
+  .device-item_info-edit{
+    cursor: pointer;
+    color: $light-gray;
+    padding: 5px;
+    font-size: 20px;
+    display: block;
+    float: left;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: $color-orange;
+    }
+  }
 
 	.device-item__info-status {
 		float: left;
