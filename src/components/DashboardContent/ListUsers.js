@@ -78,9 +78,9 @@ ListUsers.propTypes = {
 
 function mapStateToProps (store) {
   return {
-    currentUsers: store.loadUsersReducer.users,
-    loadUsersStatus: store.loadUsersReducer.loadUsersStatus,
-    displayUsersStatus: store.loadUsersReducer.displayUsersStatus
+    currentUsers: store.users.users,
+    loadUsersStatus: store.users.loadUsersStatus,
+    displayUsersStatus: store.users.displayUsersStatus
   };
 }
 function mapDispatchToProps (dispatch) {
