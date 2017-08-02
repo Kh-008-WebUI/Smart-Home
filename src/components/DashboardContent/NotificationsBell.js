@@ -68,19 +68,27 @@ class NotificationsBell extends React.Component {
   }
   render () {
     let listNotify = this.props.notifications;
+    const emergencyList = listNotify.filter((item) =>
+     item.emergency && (item.viewed === false));
+    const classForBellEmergency =
+    'fa fa-bell-o notification-bell__icon bell-emergency';
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
     if (!this.state.showAllNotify) {
       listNotify = unViewedMessages;
     }
-
     this.changeButtonText();
     return (
     <div className="notification">
       <div className="notification-bell">
         <div className="notification-bell-self"
           onClick={this.displayNotifyBell}>
-            <i className='fa fa-bell-o notification-bell__icon'></i>
+            <i className={
+              emergencyList.length === 0 ?
+              'fa fa-bell-o notification-bell__icon' :
+              classForBellEmergency
+              }>
+            </i>
             <div className={
             this.props.loadNotificationsStatus === 'ERROR' ?
             'notification-round-error' : '' }></div>
