@@ -50,7 +50,7 @@ class ListUsers extends React.Component {
         <span className="person-at-home">
         <i className={
           'fa fa-home person-at-home' +
-          (this.props.displayUsersStatus ? '__home' : '__all')}
+          (this.props.displayUsersStatus ? '__all' : '__home')}
         onClick={this.displayUsers}></i>
         </span>
         </h2>
