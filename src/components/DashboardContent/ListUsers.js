@@ -36,7 +36,7 @@ class ListUsers extends React.Component {
     const list = this.props.displayUsersStatus ? this.props.currentUsers :
     this.props.currentUsers.filter((item) => (item.home));
 
-    list.sort((a, b) => a.name > b.name ? 1 : -1);
+    list.sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1);
 
     if (list.length === 0) {
       return (<section className="list-users-spinner">
