@@ -6,7 +6,11 @@ import './MainLayout.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLoggedUser } from '../../actions/auth.action';
+import {
+  getLoggedUser,
+  logout,
+  clearLoginStatus } from '../../actions/auth.action';
+import { Message } from '../../components/Message/Message';
 
 class MainLayout extends Component {
   constructor (props) {
@@ -31,9 +35,17 @@ class MainLayout extends Component {
     return (
       <div>
         <Header setSidebarOpen={this.setSidebarOpen}/>
-        <Navigation open={this.state.sidebarOpen}/>
+        <Navigation
+          open={this.state.sidebarOpen}
+          logout={this.props.logout}/>
         <main className="content">
         {this.props.children}
+        <Message
+          clearStatus={this.props.clearLoginStatus}
+          status={this.props.status}
+          header={'Error'}
+          text={this.props.errorText}
+        />
         </main>
       </div>
     );
@@ -41,13 +53,17 @@ class MainLayout extends Component {
 }
 function mapStateToProps (store) {
   return {
-    isLogged: store.authentication.isLogged
+    isLogged: store.authentication.isLogged,
+    errorText: store.authentication.errorText,
+    status: store.authentication.status,
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getLoggedUser: bindActionCreators(getLoggedUser, dispatch)
+    getLoggedUser: bindActionCreators(getLoggedUser, dispatch),
+    logout: bindActionCreators(logout, dispatch),
+    clearLoginStatus: bindActionCreators(clearLoginStatus, dispatch)
   };
 }
 
@@ -55,6 +71,10 @@ MainLayout.propTypes = {
   isLogged: PropTypes.object,
   history: PropTypes.object,
   children: PropTypes.any,
-  getLoggedUser: PropTypes.func
+  getLoggedUser: PropTypes.func,
+  logout: PropTypes.func,
+  errorText: PropTypes.String,
+  status: PropTypes.String,
+  clearLoginStatus: PropTypes.func
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

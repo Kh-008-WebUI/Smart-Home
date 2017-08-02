@@ -1,8 +1,6 @@
 const express = require('express');
-const app = express();
 const registerRouter = express.Router();
-
-let User = require('../models/user');
+const User = require('../models/user');
 
 registerRouter.route('/').post((req, res) => {
   User.find(
