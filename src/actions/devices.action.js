@@ -16,7 +16,9 @@ import {
   ADD_DEVICE_TO_LIST,
   UPDATE_DEVICE,
   UPDATE_DEVICE_SUCCESS,
+  UPDATE_DEVICE_SETTINGS,
   UPDATE_DEVICE_FAILURE,
+  UPDATE_DEVICE_SETTINGS_SUCCESS,
   CLEAR_STATUS
  } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
@@ -106,13 +108,22 @@ export const updateDeviceFail = (errorText) => {
   };
 };
 
-export const listSetItemValue = (value, id) => {
+export const updateDeviceSettingsSuccess = (device) => {
   return {
-    type: LIST_SET_ITEM_VALUE,
-    value,
-    id
+    type: UPDATE_DEVICE_SETTINGS_SUCCESS,
+    device
   };
 };
+
+export const updateDeviceSettings = (value, settingId, deviceId) => {
+  return {
+    type: UPDATE_DEVICE_SETTINGS,
+    value,
+    settingId,
+    deviceId
+  };
+};
+
 
 export const clearStatus = () => {
   return {

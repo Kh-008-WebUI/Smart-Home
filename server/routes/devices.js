@@ -8,12 +8,15 @@ devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
     if(err) {
       res.status(500).send({
-        status: "error",
-        text: "Something went wrong, try again later."
+        status: 'error',
+        text: 'Something went wrong, try again later.'
       });
     }
     else{
-      res.json(devices);
+      res.status(500).send({
+        status: 'error',
+        text: 'Something went wrong, try again later.'
+      });
     }
   }).sort({views: -1});
 });
@@ -92,6 +95,33 @@ devicesRouter.route('/:id').put((req, res) => {
           text: "unable to update the database"
         });
       });
+    }
+  });
+});
+
+devicesRouter.route('/items/:id/:setting').put((req, res) => {
+  const id = req.params.id;
+  const setting = req.params.setting;
+
+  Device.findOne({ _id:id }, (err, device) => {
+    if(err) {
+      console.log(err);
+    }
+    else{
+      let items = device.items;
+      items[setting].data = req.body.value;
+
+      device.items = items;
+
+      device.markModified('items');
+
+      device.save()
+        .then(device => {
+          res.json(device);
+        })
+        .catch(err => {
+              res.status(400).send("unable to update the database");
+        });
     }
   });
 });
