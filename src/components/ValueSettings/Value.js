@@ -18,7 +18,9 @@ export default class ValueSettings extends React.Component {
         value: this.props.data
       });
 
-      this.props.setItemValue(this.props.data, this.props.itemId);
+      this.props.setItemValue(this.props.data,
+                              this.props.itemId,
+                              this.props.deviceId);
     }
   }
 
@@ -29,7 +31,9 @@ export default class ValueSettings extends React.Component {
       value: newValue
     });
 
-    this.props.setItemValue(newValue, this.props.itemId);
+    this.props.setItemValue(newValue,
+                            this.props.itemId,
+                            this.props.deviceId);
   }
 
   render () {
@@ -54,5 +58,6 @@ ValueSettings.propTypes = {
   setItemValue: PropTypes.func,
   itemId: PropTypes.number,
   newValue: PropTypes.string,
-  data: PropTypes.string
+  data: PropTypes.string,
+  deviceId: PropTypes.string
 };

@@ -5,13 +5,14 @@ import { watchLoadNotifications,
         watchSendNotificationWS,
         watchNotificationChangeStatus } from './notifications.saga';
 import { watchAddDevice, watchEditDevice } from './builder.saga';
-import { watchLogin, watchRegistration } from './auth.saga';
+import { watchLogin, watchRegistration, watchLoadUser } from './auth.saga';
 import {
   watchLoadDevices,
   watchLoadDevice,
   watchLoadDeviceAsync,
   watchDeleteDeviceAsync,
-  watchUpdateDeviceAsync } from './devices.saga.js';
+  watchUpdateDeviceAsync,
+  watchUpdateDeviceSettings } from './devices.saga.js';
 
 export default function* rootSaga () {
   yield all([
@@ -28,7 +29,9 @@ export default function* rootSaga () {
     watchAddNotification(),
     watchSendNotificationWS(),
     watchEditDevice(),
-    watchNotificationChangeStatus()
+    watchNotificationChangeStatus(),
+    watchUpdateDeviceSettings(),
+    watchLoadUser()
   ]);
 }
 
