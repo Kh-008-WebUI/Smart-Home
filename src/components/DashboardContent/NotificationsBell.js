@@ -83,6 +83,7 @@ class NotificationsBell extends React.Component {
       <div className="notification-bell">
         <div className="notification-bell-self"
           onClick={this.displayNotifyBell}>
+            <div className="emergency-alert">emergency!</div>
             <i className={
               emergencyList.length === 0 ?
               'fa fa-bell-o notification-bell__icon' :

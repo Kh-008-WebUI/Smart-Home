@@ -129,3 +129,15 @@
   color: red !important;
   font-size: 1.05em !important;
 }
+
+.emergency-alert {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  font-size: 15px;
+  font-weight: bold;
+  left: -21px;
+  z-index: 2;
+  color: red;
+}
