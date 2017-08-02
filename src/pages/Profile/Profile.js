@@ -72,6 +72,7 @@ class Profile extends Component {
               className="btn btn--signup btn--signup-active"
               value="Submit"/>
           </div>
+          <img src={this.props.user.avatar} />
         </Formsy.Form>
       </div>
     );

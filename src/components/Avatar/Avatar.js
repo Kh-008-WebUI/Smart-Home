@@ -6,7 +6,8 @@ const Avatar = (props) => {
   return (
     <figure className="person-view">
       <div className="person-avatar-and-name">
-        <div className="avatar-image"></div>
+        <div className="avatar-image">
+          <img className="user-list-avatar" src={props.item.avatar} /></div>
         <figurecaption>{props.item.name}</figurecaption>
       </div>
       <div className="person-at-home">

@@ -24,7 +24,8 @@ const userSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  avatar: String
 });
 
 userSchema.methods.encryptPassword = function(password) {
