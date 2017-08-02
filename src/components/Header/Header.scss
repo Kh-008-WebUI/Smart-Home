@@ -45,3 +45,7 @@
 .header-blok-right {
   display: flex;
 }
+
+.signed-in-user-block:hover .user-block-dropdown-content{
+  display: block;
+}
