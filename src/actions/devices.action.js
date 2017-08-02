@@ -15,14 +15,19 @@ import {
   LIST_SET_ITEM_VALUE,
   ADD_DEVICE_TO_LIST,
   UPDATE_DEVICE,
-  UPDATE_DEVICE_SUCCESS
+  UPDATE_DEVICE_SUCCESS,
+  UPDATE_DEVICE_SETTINGS,
+  UPDATE_DEVICE_FAILURE,
+  UPDATE_DEVICE_SETTINGS_SUCCESS,
+  CLEAR_STATUS
  } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
 
-export const loadDevices = () => {
+export const loadDevices = (devices) => {
   return {
-    type: LOAD_DEVICES
+    type: LOAD_DEVICES,
+    devices
   };
 };
 
@@ -33,10 +38,10 @@ export const loadDevicesSuccess = (devices) => {
   };
 };
 
-export const loadDevicesFail = (error) => {
+export const loadDevicesFail = (errorText) => {
   return {
     type: LOAD_DEVICES_FAIL,
-    error
+    errorText
   };
 };
 
@@ -59,10 +64,10 @@ export const loadDeviceSuccess = (device) => {
     device
   };
 };
-export const loadDeviceFail = (device) => {
+export const loadDeviceFail = (errorText) => {
   return {
     type: LOAD_DEVICE_FAIL,
-    device
+    errorText
   };
 };
 export const deleteDeviceSuccess = (id) => ({
@@ -75,9 +80,9 @@ export const deleteDevice = (id) => ({
   id
 });
 
-export const deleteDeviceFail = (error) => ({
+export const deleteDeviceFail = (errorText) => ({
   type: DELETE_DEVICE_FAIL,
-  error
+  errorText
 });
 
 export const updateDevice = (data, id) => {
@@ -96,11 +101,32 @@ export const updateDeviceSuccess = (device, id) => {
   };
 };
 
-export const listSetItemValue = (value, id) => {
+export const updateDeviceFail = (errorText) => {
   return {
-    type: LIST_SET_ITEM_VALUE,
+    type: UPDATE_DEVICE_FAILURE,
+    errorText
+  };
+};
+
+export const updateDeviceSettingsSuccess = (device) => {
+  return {
+    type: UPDATE_DEVICE_SETTINGS_SUCCESS,
+    device
+  };
+};
+
+export const updateDeviceSettings = (value, settingId, deviceId) => {
+  return {
+    type: UPDATE_DEVICE_SETTINGS,
     value,
-    id
+    settingId,
+    deviceId
+  };
+};
+
+export const clearStatus = () => {
+  return {
+    type: CLEAR_STATUS
   };
 };
 

@@ -50,6 +50,7 @@ export const Device = (props) => {
               checked={setting.data}
               setItemValue={props.setItemValue}
               itemId={i}
+              deviceId={props.device._id}
               styleName={
                 'device-settings__item device-settings__item--'
                 + setting.name.toLowerCase()
