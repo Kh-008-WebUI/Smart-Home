@@ -59,13 +59,8 @@ loginRouter.route('/')
         });
       } else {
         res.status(500).send({
-<<<<<<< HEAD
-          status: 'error',
-          text: 'Wrong login or password.'
-=======
           status: "error",
           text: "This email is not registered."
->>>>>>> 5e284be02af7b189540201266bd554db153b4579
         });
       }
     });
