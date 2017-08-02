@@ -11,11 +11,6 @@ export default class TimerSettings extends React.Component {
       hours: 0,
       minutes: 0
     };
-
-    this.changeHours = this.changeHours.bind(this);
-    this.changeMinutes = this.changeMinutes.bind(this);
-    this.hoursKeyDown = this.hoursKeyDown.bind(this);
-    this.minutesKeyDown = this.minutesKeyDown.bind(this);
   }
 
   componentDidMount () {
@@ -32,7 +27,7 @@ export default class TimerSettings extends React.Component {
     }
   }
 
-  changeHours (event) {
+  changeHours = (event) => {
     this.setState({
       hours: event.target.value
     });
@@ -41,7 +36,7 @@ export default class TimerSettings extends React.Component {
                             this.props.deviceId);
   }
 
-  changeMinutes (event) {
+  changeMinutes = (event) => {
     this.setState({
       minutes: event.target.value
     });
@@ -49,7 +44,7 @@ export default class TimerSettings extends React.Component {
       this.props.itemId);
   }
 
-  hoursKeyDown (event) {
+  hoursKeyDown = (event) => {
     if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 8) {
       event.preventDefault();
     }
@@ -58,7 +53,7 @@ export default class TimerSettings extends React.Component {
     }
   }
 
-  minutesKeyDown (event) {
+  minutesKeyDown = (event) => {
     if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 8) {
       event.preventDefault();
     }
