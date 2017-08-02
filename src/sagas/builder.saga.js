@@ -14,12 +14,14 @@ export function* addDevice (action) {
   try {
     const device = yield call(DeviceListApi.addDevice, action.device);
 
+    if (device.status === 'error') {
+      throw new Error(device.text);
+    }
+
     yield put(addDeviceSuccess());
     yield put(loadDevices());
   } catch (e) {
-    yield put(addDeviceFailure(e));
-    yield delay(2000);
-    yield put(clearAddStatus());
+    yield put(addDeviceFailure(e.message));
   }
 }
 
@@ -27,9 +29,13 @@ export function* editDevice (action) {
   try {
     const device = yield call(DeviceListApi.getDevice, action.id);
 
+    if (device.status === 'error') {
+      throw new Error(device.text);
+    }
+
     yield put(editDeviceSuccess(device));
-  } catch (error) {
-    yield put(addDeviceFailure(error));
+  } catch (e) {
+    yield put(addDeviceFailure(e.message));
   }
 }
 

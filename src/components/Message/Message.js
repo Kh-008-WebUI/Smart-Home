@@ -14,14 +14,13 @@ export const Message = (props) => {
       case 'FAIL':
         return (
           <Popup
-            popupShown={props.popupShown}
+            popupShown={true}
             header={props.header}
             text={props.text}
           >
             <Button
               okHandler={() => {
-                props.setPopupShown();
-                props.clearLoginStatus();
+                props.clearStatus();
               }}
               className={'btn popup__btn'}
               innerText={'Ok'}
@@ -44,7 +43,5 @@ Message.propTypes = {
   status: PropTypes.string,
   header: PropTypes.string,
   text: PropTypes.string,
-  popupShown: PropTypes.bool,
-  setPopupShown: PropTypes.func,
-  clearLoginStatus: PropTypes.func
+  clearStatus: PropTypes.func
 };

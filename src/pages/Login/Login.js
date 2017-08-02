@@ -15,16 +15,7 @@ class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      canSubmit: false,
-      popupShown: true
-    };
-
-    this.setPopupShown = (id) => {
-      const currentState = this.state.popupShown;
-
-      this.setState({
-        popupShown: !currentState
-      });
+      canSubmit: false
     };
   }
   componentDidUpdate () {
@@ -60,9 +51,7 @@ class Login extends Component {
           title={'Login'}
           text={'Please enter your credentials to login.'} />
         <Message
-          setPopupShown={this.setPopupShown}
-          popupShown={this.state.popupShown}
-          clearLoginStatus={this.props.clearLoginStatus}
+          clearStatus={this.props.clearLoginStatus}
           status={this.props.loginStatus}
           header={'Authorization failed'}
           text={this.props.errorText}
