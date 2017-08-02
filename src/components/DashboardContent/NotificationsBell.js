@@ -68,23 +68,10 @@ class NotificationsBell extends React.Component {
   }
   render () {
     let listNotify = this.props.notifications;
-    let emergencyList = listNotify.filter((item) =>
+    const emergencyList = listNotify.filter((item) =>
      item.emergency && (item.viewed === false));
     const classForBellEmergency =
     'fa fa-bell-o notification-bell__icon bell-emergency';
-
-    // listNotify.forEach((item, index) => {
-    //   if (item.emergency) {
-    //     listNotify.splice(index, 1);
-    //   }
-    // });
-    // emergencyList.forEach((item) => {
-    //   listNotify.unshift(item);
-    // });
-    // emergencyList = null;
-    // listNotify = listNotify.concat(emergencyList);
-
-    // console.log(emergencyList);
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
     if (!this.state.showAllNotify) {
