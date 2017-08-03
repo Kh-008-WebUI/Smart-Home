@@ -20,44 +20,52 @@ import { delay } from 'redux-saga';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
 export function* checkLogin (action) {
-  try {
-    const status = yield call(login, action.user);
+  const status = yield call(login, action.user);
 
-    if (status.status === 'error') {
-      throw new Error(status.text);
-    }
-
+  if (status.status === true) {
     yield put(loginSuccess(status));
     yield delay(2000);
     yield put(clearLoginStatus());
-  } catch (e) {
-    yield put(loginFailure(e.message));
+  } else {
+    yield put(loginFailure(status.message));
   }
 }
 
 export function* register (action) {
-  try {
-    const registerData = yield call(getRegisterData, action.userData);
+  const registerData = yield call(getRegisterData, action.userData);
 
-    if (registerData.status === 'error') {
-      throw new Error(registerData.text);
-    }
-
+  if (registerData.status === true) {
     yield put(registrationSuccess(registerData));
     yield delay(2000);
     yield put(clearLoginStatus());
-  } catch (e) {
-    yield put(registrationFailure(e.message));
+  } else {
+    yield put(registrationFailure(registerData.text || 'Something went wrong'));
   }
 }
+
+// export function* register (action) {
+//   const { response, error } = yield call(getRegisterData, action.userData);
+
+//   console.log('response', response);
+//   console.log('error', error);
+//   console.log('response.text', response.text);
+
+//   if (response && response.status === true) {
+//     yield put(registrationSuccess(response));
+//     yield delay(2000);
+//     yield put(clearLoginStatus());
+//   } else {
+//     const errorText = error || response.text;
+
+//     console.log('errorText', errorText);
+//     yield put(registrationFailure(errorText));
+//   }
+// }
 
 export function* loadUser (action) {
   try {
     const user = yield call(getUserData);
 
-    if (user.status === 'error') {
-      throw new Error(user.text);
-    }
 
     yield put(loginSuccess(user));
     yield delay(2000);

@@ -28,7 +28,10 @@ registerRouter.route('/').post((req, res) => {
             req.session.user = user._id;
             user.home = true;
             user.save().catch(err => {
-              res.status(400).send("unable to update the database");
+              res.status(400).send({
+                status: "error",
+                text: "unable to update the database"
+              });
             });
             res.status(200).send({
               status: true,
