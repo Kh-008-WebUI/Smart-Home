@@ -55,7 +55,7 @@ function mapStateToProps (store) {
   return {
     isLogged: store.authentication.isLogged,
     errorText: store.authentication.errorText,
-    status: store.authentication.status,
+    status: store.authentication.status
   };
 }
 
