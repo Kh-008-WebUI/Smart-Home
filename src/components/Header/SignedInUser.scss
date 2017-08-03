@@ -5,13 +5,13 @@
   height: 41px;
   margin: 5px 10px;
 }
-.user-name {
+.user-block-name {
   margin: 10px;
   color: #333;
   font-size: 20px;
 }
 
-.user-photo {
+.user-block-photo {
   background-image: url("../../img/avatar2.png");
   width: 35px;
   height: 35px;
@@ -19,4 +19,33 @@
   background-color: $color-orange;
   background-size: contain;
   margin: 3px;
+}
+
+.user-block-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.user-block-dropdown-content {
+    display: none;
+    position: fixed;
+    top: 11px;
+    right: 0;
+    background-color: $color-bg-grey;
+    margin-top: 40px;
+    z-index: 1;
+    border-radius: 10px;
+  }
+
+.user-block-dropdown-content-item {
+  display: block;
+  padding: 10px 15px; 
+  color: $text-color-active;
+  font-size: 20px;
+}
+.user-block-dropdown-content-item:hover {
+  color: $text-color-input;;
+}
+.user-block:hover .user-block-dropdown-content {
+  display: block;
 }

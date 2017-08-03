@@ -1,36 +1,34 @@
 const express = require('express');
-const app = express();
 const registerRouter = express.Router();
-
-let User = require('../models/user');
+const User = require('../models/user');
 
 registerRouter.route('/').post((req, res) => {
   User.find(
-    {email: req.body.email},
+    { email: req.body.email },
     (err, user) => {
       if (err) {
         res.status(500).send({
-          status: "error",
-          text: "Internal server error. Try later."
+          status: 'error',
+          text: 'Internal server error. Try later.'
         });
-      };
+      }
       if (user.length > 0) {
         res.status(500).send({
-          status: "error",
-          text: "A user with this email already exists."
+          status: 'error',
+          text: 'A user with this email already exists.'
         });
       } else {
         User.create(req.body, (err, user) => {
           if (err) {
             res.status(500).send({
-              status: "error",
-              text: "Could not create user."
+              status: 'error',
+              text: 'Could not create user.'
             });
           } else {
             req.session.user = user._id;
             user.home = true;
             user.save().catch(err => {
-              res.status(400).send("unable to update the database");
+              res.status(400).send('unable to update the database');
             });
             res.status(200).send({
               status: true,
@@ -41,10 +39,10 @@ registerRouter.route('/').post((req, res) => {
                 created: user.created
               }
             });
-          };
-        })
-      };
-  });
+          }
+        });
+      }
+    });
 });
 
-module.exports =  registerRouter;
+module.exports = registerRouter;

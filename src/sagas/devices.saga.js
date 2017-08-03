@@ -8,6 +8,7 @@ import {
   deleteDeviceFail,
   loadDeviceFail,
   updateDeviceSuccess,
+  updateDeviceSettingsSuccess,
   updateDeviceFail,
   clearStatus
   } from '../actions/devices.action';
@@ -23,7 +24,8 @@ import {
   CHANGE_FILTER_OPTION,
   LOAD_DEVICES_PENDING,
   LOAD_DEVICE_PENDING,
-  UPDATE_DEVICE } from '../constants/index';
+  UPDATE_DEVICE,
+  UPDATE_DEVICE_SETTINGS } from '../constants/index';
 
 export function* loadDevicesSaga () {
   try {
@@ -86,6 +88,18 @@ export function* updateDevice (action) {
   }
 }
 
+export function* updateDeviceSettings (action) {
+  try {
+    const device = yield call(DeviceListApi.updateDeviceSettings,
+     action.value, action.settingId, action.deviceId);
+
+    yield put(updateDeviceSettingsSuccess(device));
+    console.log(device);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* watchLoadDevices () {
   yield takeEvery(LOAD_DEVICES, loadDevicesSaga);
 }
@@ -100,4 +114,8 @@ export function* watchDeleteDeviceAsync () {
 
 export function* watchUpdateDeviceAsync () {
   yield takeEvery(UPDATE_DEVICE, updateDevice);
+}
+
+export function* watchUpdateDeviceSettings () {
+  yield takeEvery(UPDATE_DEVICE_SETTINGS, updateDeviceSettings);
 }

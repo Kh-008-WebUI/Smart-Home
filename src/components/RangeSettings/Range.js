@@ -11,8 +11,6 @@ export default class RangeSettings extends React.Component {
     this.state = {
       value: 0
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount () {
@@ -20,17 +18,22 @@ export default class RangeSettings extends React.Component {
       this.setState({
         value: this.props.data
       });
-      this.props.setItemValue(this.props.data, this.props.itemId);
+
+      this.props.setItemValue(this.props.data,
+                              this.props.itemId,
+                              this.props.deviceId);
     }
   }
 
-  onChange (e) {
+  onChange = (e) => {
     const newValue = e.target.value;
 
     this.setState({
       value: newValue
     });
-    this.props.setItemValue(newValue, this.props.itemId);
+    this.props.setItemValue(newValue,
+                            this.props.itemId,
+                            this.props.deviceId);
     if (typeof this.props.onTimerChange !== 'undefined') {
       this.props.onTimerChange(e);
     }
@@ -66,5 +69,6 @@ RangeSettings.propTypes = {
   hideLabel: PropTypes.bool,
   setItemValue: PropTypes.func,
   data: PropTypes.any,
-  onTimerChange:PropTypes.func
+  onTimerChange:PropTypes.func,
+  deviceId: PropTypes.string
 };
