@@ -128,7 +128,7 @@ class NotificationsBell extends React.Component {
                     key={key}>
                     <div className="notification-message">
                       <div className="notification-time">
-                        {moment(item.time).format('lll')}
+                        {moment(item.time).format('MMM Do, h:mm a')}
                       </div>
                       <div className="notification-text">{item.text}</div>
                     </div>

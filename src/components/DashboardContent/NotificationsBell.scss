@@ -63,7 +63,7 @@
   position: absolute;
   right: 10px;
   top: 52px;
-  max-width: 300px;
+  max-width: 317px;
 
     &__notice {
 	  	border-radius: 3px;
@@ -103,12 +103,13 @@
 .notification {
   &-time {
     margin-right: 5px;
-    width: 30%;
+    width: 43%;
   }
 
   &-text {
     width: 66%;
     overflow-wrap: break-word;
+    font-style: italic;
   }
 }
 .notification-item-marker {
