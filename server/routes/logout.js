@@ -44,4 +44,3 @@ logoutRouter.route('/')
   });
 
 module.exports = logoutRouter;
->>>>>>> 334a05bc2735161ae56bb4fdab99d6930514d2a4
