@@ -53,17 +53,12 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/../dist/index.html'));
-});
-
-app.get('/index_bundle.js', function (req, res) {
-  res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
-});
-
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname + '/../dist/index.html'));
-});
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname + '/../dist/index.html')));
+app.get('/index_bundle.js', (req, res) =>
+  res.sendFile(path.join(__dirname + '/../dist/index_bundle.js')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname + '/../dist/index.html')));
 
 mongoose.Promise = global.Promise;
 

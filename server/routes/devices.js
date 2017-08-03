@@ -73,9 +73,12 @@ devicesRouter.route('/:id').put((req, res) => {
         status: 'error',
         text: 'Something went wrong, try again later.'
       });
-    } else {
-      for (const prop in req.body) {
-        device[prop] = req.body[prop];
+    }
+    else {
+      for (let prop in req.body) {
+        if (req.body.hasOwnProperty(prop)) {
+          device[prop] = req.body[prop];
+        }
       }
       device.save()
         .then(device => {
