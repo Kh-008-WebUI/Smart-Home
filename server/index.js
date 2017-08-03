@@ -76,9 +76,9 @@ database.once('open', () => {
 });
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({server});
+const wss = new WebSocket.Server({ server });
 
-wss.on('connection', function connection(ws, req){
+wss.on('connection', function connection (ws, req) {
     ws.on('message', message => {
       wss.clients.forEach(client => {
         client.send(message);
