@@ -26,7 +26,8 @@ class MainLayout extends Component {
     };
   }
   componentWillMount () {
-    this.props.getLoggedUser();
+
+    //  this.props.getLoggedUser();
   }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
@@ -56,7 +57,7 @@ function mapStateToProps (store) {
   return {
     isLogged: store.authentication.isLogged,
     errorText: store.authentication.errorText,
-    status: store.authentication.status,
+    status: store.authentication.status
   };
 }
 
