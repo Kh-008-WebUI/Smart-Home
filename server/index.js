@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers',
-   'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
 
@@ -38,7 +38,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     path: '/',
-    domain:'localhost',
+    domain: 'localhost',
     httpOnly: true,
     maxAge: null
   },
@@ -53,20 +53,20 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../dist/index.html'));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/../dist/index.html'));
 });
 
-app.get('/index_bundle.js', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
+app.get('/index_bundle.js', function (req, res) {
+  res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
 });
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../dist/index.html'));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname + '/../dist/index.html'));
 });
 
 mongoose.Promise = global.Promise;
-// Connect to MongoDB
+
 mongoose.connect(config.url, { useMongoClient: true });
 const database = mongoose.connection;
 
@@ -78,14 +78,14 @@ database.once('open', () => {
 });
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({server});
+const wss = new WebSocket.Server({ server });
 
-wss.on('connection', function connection(ws, req){
-    ws.on('message', message => {
-      wss.clients.forEach(client => {
-        client.send(message);
-      });
+wss.on('connection', function connection (ws, req) {
+  ws.on('message', message => {
+    wss.clients.forEach(client => {
+      client.send(message);
     });
+  });
 });
 
 server.listen(config.port, () => {

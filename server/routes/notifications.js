@@ -41,7 +41,9 @@ notificationRouter.route('/:id')
         res.send(err);
       } else {
         for (let prop in req.body) {
-          notification[prop] = req.body[prop];
+          if (notification.body.hasOwnProperty(prop)) {
+            [prop] = req.body[prop];
+          }
         }
         notification.save((error) => {
           if (error) {

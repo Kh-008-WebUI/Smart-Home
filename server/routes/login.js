@@ -39,7 +39,7 @@ loginRouter.route('/')
           status: 'error',
           text: 'Something went wrong, try again later.'
         });
-      };
+      }
       if (user && user.checkPassword(req.body.password)) {
         req.session.user = user._id;
         user.home = true;
@@ -58,8 +58,8 @@ loginRouter.route('/')
         });
       } else {
         res.status(500).send({
-          status: "error",
-          text: "This email is not registered."
+          status: 'error',
+          text: 'This email is not registered.'
         });
       }
     });
