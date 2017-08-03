@@ -10,8 +10,8 @@ export default class ToggleSettings extends React.Component {
 
   onChangeValue = (e) => {
     this.props.setItemValue(!this.props.checked,
-                            this.props.itemId,
-                            this.props.deviceId);
+      this.props.itemId,
+      this.props.deviceId);
   }
 
   render () {

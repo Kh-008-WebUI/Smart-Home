@@ -41,15 +41,21 @@ class Profile extends Component {
     this.setState({
       allowEditName: !this.state.allowEditName
     });
+    this.fieldName.classList.toggle('field-name-display');
   };
   editEmail = () => {
     this.setState({
       allowEditEmail: !this.state.allowEditEmail
     });
+    this.fieldEmail.classList.toggle('field-email-display');
   };
   render () {
     return (
       <div className="profile-container">
+      <img
+          src={this.props.user.avatar}
+          className="user-image-profile"
+      />
         <Header
           title={this.props.user.name} />
         <Formsy.Form
@@ -63,8 +69,14 @@ class Profile extends Component {
             </div>
             <div className="name-field-edit">
               <i className="fa fa-pencil edit-user-info"
-              onClick={this.editName} />
-              { this.state.allowEditName ?
+               onClick={this.editName} />
+            </div>
+             <div
+                className="hidden-field"
+                ref = { (el) => {
+                  this.fieldName = el;
+                }
+              }>
           <Field
             name="Name"
             type="text"
@@ -75,7 +87,7 @@ class Profile extends Component {
             value={this.props.user.name}
             validations="isAlpha"
             validationError="This is not a valid name"
-            required/> : null }
+            required/>
             </div>
                <div className="email-name-box">
                   <p className="email-title">Email</p>
@@ -86,9 +98,16 @@ class Profile extends Component {
                <div className="email-field-edit">
                   <i className="fa fa-pencil edit-user-info"
                   onClick={this.editEmail} />
-                  {this.state.allowEditEmail ?
+               </div>
+                <div
+                className="hidden-field"
+                ref = { (el) => {
+                  this.fieldEmail = el;
+                }
+            }>
           <Field
             name="E-mail"
+            className="hidden-field"
             type="text"
             text={'Enter your new e-mail'}
             ref={(input) => {
@@ -97,16 +116,15 @@ class Profile extends Component {
             value={this.props.user.email}
             validations="isEmail"
             validationError="This is not a valid name"
-            required/> : null }
+            required/>
             </div>
-          <div className="signup-field-group signup-btn-group">
+            <div className="signup-field-group signup-btn-group">
             <input
               type="submit"
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active edit"
               value="Submit"/>
           </div>
-          <img src={this.props.user.avatar} />
         </Formsy.Form>
       </div>
     );

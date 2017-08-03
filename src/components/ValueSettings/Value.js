@@ -18,8 +18,8 @@ export default class ValueSettings extends React.Component {
       });
 
       this.props.setItemValue(this.props.data,
-                              this.props.itemId,
-                              this.props.deviceId);
+      this.props.itemId,
+      this.props.deviceId);
     }
   }
 
@@ -31,8 +31,8 @@ export default class ValueSettings extends React.Component {
     });
 
     this.props.setItemValue(newValue,
-                            this.props.itemId,
-                            this.props.deviceId);
+      this.props.itemId,
+      this.props.deviceId);
   }
 
   render () {

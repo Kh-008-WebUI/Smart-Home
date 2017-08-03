@@ -49,14 +49,6 @@
   margin-top: 15px;
 }
 
-input[type=checkbox] ~ span {
-  display: none;
-}
-
-input[type=checkbox]:checked ~ span {
-  display: inline-block;
-}
-
 .name-title,
 .email-title {
   color: $text-color-active;
@@ -70,7 +62,18 @@ input[type=checkbox]:checked ~ span {
   font-size: 14px;
 }
 
-.logged-name:hover,
-.logged-email:hover {
-  color: $red;
+.hidden-field {
+  display: none;
+}
+
+.field-name-display {
+  display: block;
+}
+
+.field-email-display {
+  display: block;
+}
+
+.user-image-profile {
+  border-radius: 50%;
 }
