@@ -88,6 +88,6 @@ wss.on('connection', function connection(ws, req){
     });
 });
 
-// server.listen(config.port, () => {
-//   console.log(`node server is working on port ${config.port}...`);
-// });
+server.listen(config.port, () => {
+  console.log(`node server is working on port ${config.port}...`);
+});

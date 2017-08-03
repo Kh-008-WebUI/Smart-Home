@@ -32,14 +32,17 @@ export function* checkLogin (action) {
 }
 
 export function* register (action) {
-  const registerData = yield call(getRegisterData, action.userData);
+  const { response, error } = yield call(getRegisterData, action.userData);
 
-  if (registerData.status === true) {
-    yield put(registrationSuccess(registerData));
+  console.log(response);
+  console.log('error', error);
+
+  if (response) {
+    yield put(registrationSuccess(response));
     yield delay(2000);
     yield put(clearLoginStatus());
   } else {
-    yield put(registrationFailure(registerData.text || 'Something went wrong'));
+    yield put(registrationFailure(error || 'Something went wrong'));
   }
 }
 

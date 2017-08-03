@@ -15,8 +15,17 @@ export default class Transport {
         'Content-type': 'application/json; charset=UTF-8'
       },
       body
-    }).then((response) => (response.json()))
-    .catch((error) => ({ error }));
+    }).then((response) => {
+      if (!response.ok) {
+        return response
+        .json()
+        .then(data=>{
+          throw Error(data.text);
+        });
+      }
+    })
+    .then((response) => ({ response }))
+    .catch((error) => (error));
   }
   static put (uri, body) {
     return fetch(uri, {
@@ -27,7 +36,9 @@ export default class Transport {
         'Content-type': 'application/json; charset=UTF-8'
       },
       body
-    }).then((response) => (response.json())).catch((error) => ({ error }));
+    }).then((response) => (response.json()))
+    .then((data) => ({ response: data }))
+    .catch((error) => ({ error }));
   }
   static delete (uri) {
     return fetch(uri, {
