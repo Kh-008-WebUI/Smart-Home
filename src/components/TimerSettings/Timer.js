@@ -21,9 +21,6 @@ export default class TimerSettings extends React.Component {
         hours:time[0],
         minutes:time[1]
       });
-      this.props.setItemValue(this.props.data,
-      this.props.itemId,
-      this.props.deviceId);
     }
   }
 
