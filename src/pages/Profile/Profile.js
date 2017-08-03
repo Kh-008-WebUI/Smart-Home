@@ -87,7 +87,7 @@ class Profile extends Component {
             value={this.props.user.name}
             validations="isAlpha"
             validationError="This is not a valid name"
-            required/>
+            />
             </div>
                <div className="email-name-box">
                   <p className="email-title">Email</p>
@@ -116,7 +116,7 @@ class Profile extends Component {
             value={this.props.user.email}
             validations="isEmail"
             validationError="This is not a valid name"
-            required/>
+            />
             </div>
             <div className="signup-field-group signup-btn-group">
             <input
