@@ -75,8 +75,8 @@ MainLayout.propTypes = {
   children: PropTypes.any,
   getLoggedUser: PropTypes.func,
   logout: PropTypes.func,
-  errorText: PropTypes.String,
-  status: PropTypes.String,
+  errorText: PropTypes.string,
+  status: PropTypes.string,
   clearLoginStatus: PropTypes.func
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
