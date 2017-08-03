@@ -11,6 +11,7 @@ import {
 import { ws } from '../../index';
 import moment from 'moment';
 import { findByProperty } from '../../utils/utils';
+import { sortEmergencyNotifications } from '../../utils/utils';
 
 class NotificationsBell extends React.Component {
   constructor (props) {
@@ -67,66 +68,85 @@ class NotificationsBell extends React.Component {
     return classForNotifyItem;
   }
   render () {
-    let listNotify = this.props.notifications;
+    let listNotify = [...this.props.notifications];
+    const emergencyList = listNotify.filter((item) =>
+     item.emergency && (item.viewed === false));
+
+    if (emergencyList.length) {
+      sortEmergencyNotifications(emergencyList, listNotify);
+    }
+    const classForBellEmergency =
+    'fa fa-bell-o notification-bell__icon bell-emergency';
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
     if (!this.state.showAllNotify) {
       listNotify = unViewedMessages;
     }
-
     this.changeButtonText();
     return (
-    <div className="notification">
-      <div className="notification-bell">
-        <div className="notification-bell-self"
-          onClick={this.displayNotifyBell}>
-            <i className='fa fa-bell-o notification-bell__icon'></i>
-            <div className={
-            this.props.loadNotificationsStatus === 'ERROR' ?
-            'notification-round-error' : '' }></div>
-            <div className={
-            unViewedMessages.length === 0 ?
-            'remove-block' : 'notification-round' }>
-            <div className="notification-messages">
-              {unViewedMessages.length}
+      <div className="notification">
+        <div className="notification-bell">
+          <div className="notification-bell-self"
+            onClick={this.displayNotifyBell}>
+              <div className={
+                emergencyList.length === 0 ?
+                'emergency-alert' :
+                'emergency-alert emergency-display'
+                }>
+                Attention! Emergency!
+              </div>
+              <i className={
+                emergencyList.length === 0 ?
+                'fa fa-bell-o notification-bell__icon' :
+                classForBellEmergency
+                }>
+              </i>
+              <div className={
+              this.props.loadNotificationsStatus === 'ERROR' ?
+              'notification-round-error' : '' }></div>
+              <div className={
+              unViewedMessages.length === 0 ?
+              'remove-block' : 'notification-round' }>
+              <div className="notification-messages">
+                {unViewedMessages.length}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="notification-list"
-        ref={ (el)=>{
-          this.bell = el;
-        } }>
-        <div className="notification-list__notice">
-          <ul
-            onClick={this.changeNotifyView}>
-            {listNotify.map((item, key) => {
-              return (
-                <li
-                  id={item._id}
-                  className={ this.addClassName(item) }
-                  key={key}>
-                  <div className="notification-message">
-                    <div className="notification-time">
-                      {moment(item.time).format('lll')}
+        <div className="notification-list"
+          ref={ (el)=>{
+            this.bell = el;
+          } }>
+          <div className="notification-list__notice">
+            <ul
+              onClick={this.changeNotifyView}>
+              {listNotify.map((item, key) => {
+                return (
+                  <li
+                    id={item._id}
+                    className={ this.addClassName(item) }
+                    key={key}>
+                    <div className="notification-message">
+                      <div className="notification-time">
+                        {moment(item.time).format('MMM Do, h:mm a')}
+                      </div>
+                      <div className="notification-text">{item.text}</div>
                     </div>
-                    <div className="notification-text">{item.text}</div>
-                  </div>
-                </li>);
-            })
-            }
-          </ul>
+                  </li>);
+              })
+              }
+            </ul>
+            </div>
+            <div className="notification-button">
+              <button
+                className="btn btn--primary"
+                onClick={this.showAllNotify}>
+                {this.buttonText}
+              </button>
+            </div>
           </div>
-          <div className="notification-button">
-            <button
-              className="btn btn--primary"
-              onClick={this.showAllNotify}>
-              {this.buttonText}
-            </button>
-          </div>
-        </div>
 
-    </div>
+      </div>
     );
   }
 }

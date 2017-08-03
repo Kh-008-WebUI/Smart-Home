@@ -31,15 +31,20 @@ const Navigation = (props) => (
       <li className="navigation-item">
         <NavLink
           to="/auth"
+          onClick={(e)=>{
+            e.preventDefault();
+            props.logout();
+          }}
           activeClassName="active">
-          Register
+          Logout
         </NavLink>
       </li>
     </ul>
 );
 
 Navigation.propTypes = {
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  logout: PropTypes.func
 };
 
 export default Navigation;

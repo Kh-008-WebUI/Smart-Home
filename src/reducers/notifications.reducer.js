@@ -30,7 +30,7 @@ const notifications = (state = {
     case ADD_NOTIFICATION_SUCCESS: {
       const newNotifications = [...state.notifications];
 
-      newNotifications.push(action.notification.notification);
+      newNotifications.unshift(action.notification.notification);
 
       return { ...state, notifications:newNotifications };
     }
