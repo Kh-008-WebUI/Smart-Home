@@ -34,36 +34,14 @@ export function* checkLogin (action) {
 export function* register (action) {
   const { response, error } = yield call(getRegisterData, action.userData);
 
-  console.log(response);
-  console.log('error', error);
-
   if (response) {
     yield put(registrationSuccess(response));
     yield delay(2000);
     yield put(clearLoginStatus());
   } else {
-    yield put(registrationFailure(error || 'Something went wrong'));
+    yield put(registrationFailure(error.message));
   }
 }
-
-// export function* register (action) {
-//   const { response, error } = yield call(getRegisterData, action.userData);
-
-//   console.log('response', response);
-//   console.log('error', error);
-//   console.log('response.text', response.text);
-
-//   if (response && response.status === true) {
-//     yield put(registrationSuccess(response));
-//     yield delay(2000);
-//     yield put(clearLoginStatus());
-//   } else {
-//     const errorText = error || response.text;
-
-//     console.log('errorText', errorText);
-//     yield put(registrationFailure(errorText));
-//   }
-// }
 
 export function* loadUser (action) {
   try {
@@ -82,13 +60,13 @@ export function* logoutUser (action) {
   try {
     const user = yield call(logout);
 
-    if (user.status === 'error') {
-      throw new Error(user.text);
-    }
+      if (user.status === 'error') {
+        throw new Error(user.text);
+      }
 
-    yield put(logoutSuccess(user));
-    yield delay(2000);
-    yield put(clearLoginStatus());
+      yield put(logoutSuccess(user));
+      yield delay(2000);
+      yield put(clearLoginStatus());
   } catch (e) {
     yield put(logoutFailure(e.message));
   }
