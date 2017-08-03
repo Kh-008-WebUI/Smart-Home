@@ -27,6 +27,8 @@ class MainLayout extends Component {
   }
   componentWillMount () {
     this.props.getLoggedUser();
+  }
+  componentDidUpdate () {
     if (!this.props.isLogged._id) {
       this.props.history.push('/auth');
     }
@@ -44,8 +46,7 @@ class MainLayout extends Component {
           clearStatus={this.props.clearLoginStatus}
           status={this.props.status}
           header={'Error'}
-          text={this.props.errorText}
-        />
+          text={this.props.errorText}/>
         </main>
       </div>
     );

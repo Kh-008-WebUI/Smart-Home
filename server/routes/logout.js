@@ -16,16 +16,16 @@ logoutRouter.route('/')
         if (user) {
           user.home = false;
           user.save().catch(err => {
-            res.status(400).send({
-            status: "error",
-            text: "Cannot find user."
-          });
+              res.status(400).send({
+              status: "error",
+              text: "Cannot find user."
+            });
           });
           req.session.destroy(function(err) {
             if(err) res.status(400).send("unable to destroy session");
           })
           res.status(200).send({
-            status: true
+            status:true
           });
         }
         else {

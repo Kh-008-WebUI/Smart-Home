@@ -56,13 +56,14 @@ export function* loadUser (action) {
     const user = yield call(getUserData);
 
     if (user.status === 'error') {
-      throw new Error(user.text);
+      throw new Error(user.userData);
     }
 
     yield put(loginSuccess(user));
     yield delay(2000);
     yield put(clearLoginStatus());
   } catch (e) {
+    yield put(loginFailure(e.message));
     yield put(clearLoginStatus());
   }
 }
@@ -70,10 +71,6 @@ export function* loadUser (action) {
 export function* logoutUser (action) {
   try {
     const user = yield call(logout);
-
-    if (user.status === 'error') {
-      throw new Error(user.text);
-    }
 
     yield put(logoutSuccess(user));
     yield delay(2000);
