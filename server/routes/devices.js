@@ -6,11 +6,10 @@ devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
     if (err) {
       res.status(500).send({
-        status: "error",
-        text: "Something went wrong, try again later."
+        status: 'error',
+        text: 'Something went wrong, try again later.'
       });
-    }
-    else {
+    } else {
       res.json(devices);
     }
   }).sort({ views: -1 });
@@ -20,11 +19,10 @@ devicesRouter.route('/').post((req, res) => {
   Device.create(req.body, (err, device) => {
     if (err) {
       res.status(500).send({
-        status: "error",
-        text: "Could not add the device."
+        status: 'error',
+        text: 'Could not add the device.'
       });
-    }
-    else {
+    } else {
       res.json(device);
     }
   });
@@ -33,34 +31,34 @@ devicesRouter.route('/').post((req, res) => {
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndUpdate({ _id:id }, { $inc:{ views: 1 } }, { new: true }, (err, device) => {
-    if (err) {
-      res.status(500).send({
-        status: "error",
-        text: "Something went wrong, try again later."
-      });
-    } else if (!device) {
-      res.status(404).send({
-        status: "error",
-        text: "Not found."
-      });
-    } else {
-      res.json(device);
-    }
-  });
-})
+  Device.findOneAndUpdate({ _id: id },
+    { $inc: { views: 1 } }, { new: true }, (err, device) => {
+      if (err) {
+        res.status(500).send({
+          status: 'error',
+          text: 'Something went wrong, try again later.'
+        });
+      } else if (!device) {
+        res.status(404).send({
+          status: 'error',
+          text: 'Not found.'
+        });
+      } else {
+        res.json(device);
+      }
+    });
+});
 
 devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndRemove({ _id:id }, (err, device) => {
+  Device.findOneAndRemove({ _id: id }, (err, device) => {
     if (err) {
       res.status(500).send({
-        status: "error",
-        text: "Something went wrong, could not delete the device."
+        status: 'error',
+        text: 'Something went wrong, could not delete the device.'
       });
-    }
-    else {
+    } else {
       res.json(id);
     }
   });
@@ -69,11 +67,11 @@ devicesRouter.route('/:id').delete((req, res) => {
 devicesRouter.route('/:id').put((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({ _id:id }, (err, device) => {
+  Device.findOne({ _id: id }, (err, device) => {
     if (err) {
       res.status(500).send({
-        status: "error",
-        text: "Something went wrong, try again later."
+        status: 'error',
+        text: 'Something went wrong, try again later.'
       });
     }
     else {
@@ -83,15 +81,15 @@ devicesRouter.route('/:id').put((req, res) => {
         }
       }
       device.save()
-      .then(device => {
-        res.json(device);
-      })
-      .catch(err => {
-        res.status(400).send({
-          status: "error",
-          text: "unable to update the database"
+        .then(device => {
+          res.json(device);
+        })
+        .catch(err => {
+          res.status(400).send({
+            status: 'error',
+            text: 'unable to update the database'
+          });
         });
-      });
     }
   });
 });
@@ -100,12 +98,11 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
   const id = req.params.id;
   const setting = req.params.setting;
 
-  Device.findOne({ _id:id }, (err, device) => {
+  Device.findOne({ _id: id }, (err, device) => {
     if (err) {
       console.log(err);
-    }
-    else {
-      let items = device.items;
+    } else {
+      const items = device.items;
 
       items[setting].data = req.body.value;
 
@@ -118,7 +115,7 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
           res.json(device);
         })
         .catch(err => {
-          res.status(400).send("unable to update the database");
+          res.status(400).send('unable to update the database');
         });
     }
   });

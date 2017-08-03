@@ -28,7 +28,7 @@ const userSchema = new Schema({
   avatar: String
 });
 
-userSchema.methods.encryptPassword = function(password) {
+userSchema.methods.encryptPassword = function (password) {
   return crypto.createHmac('sha256', config.secret)
     .update(password)
     .digest('hex');

@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers',
-   'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
 
@@ -38,7 +38,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     path: '/',
-    domain:'localhost',
+    domain: 'localhost',
     httpOnly: true,
     maxAge: null
   },
@@ -61,7 +61,7 @@ app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname + '/../dist/index.html')));
 
 mongoose.Promise = global.Promise;
-// Connect to MongoDB
+
 mongoose.connect(config.url, { useMongoClient: true });
 const database = mongoose.connection;
 
