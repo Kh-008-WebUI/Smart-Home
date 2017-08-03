@@ -133,11 +133,20 @@
 .emergency-alert {
   display: none;
   position: absolute;
-  top: 0;
+  top: 8px;
   bottom: 0;
   font-size: 15px;
   font-weight: bold;
-  left: -21px;
+  left: -83px;
   z-index: 2;
   color: red;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.emergency-display {
+  display: block;
 }
