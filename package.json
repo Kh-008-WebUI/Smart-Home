@@ -8,7 +8,7 @@
     "prod": " cross-env NODE_ENV=production npm run clean && webpack -p && npm run node-prod",
     "clean": "rimraf ./dist/*",
     "node-prod": "cross-env NODE_ENV=production node ./server/index.js",
-    "start": "cross-env NODE_ENV=production nodemon ./server/index.js"
+    "start": "nodemon ./server/index.js"
   },
   "babel": {
     "presets": [

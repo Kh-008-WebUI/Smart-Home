@@ -72,6 +72,10 @@ export function* logoutUser (action) {
   try {
     const user = yield call(logout);
 
+    if (user.status === 'error') {
+      throw new Error(user.text);
+    }
+
     yield put(logoutSuccess(user));
     yield delay(2000);
     yield put(clearLoginStatus());
