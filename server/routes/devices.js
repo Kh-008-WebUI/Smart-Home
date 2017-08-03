@@ -1,7 +1,5 @@
 const express = require('express');
-const app = express();
 const devicesRouter = express.Router();
-
 const Device = require('../models/device');
 
 devicesRouter.route('/').get((req, res) => {

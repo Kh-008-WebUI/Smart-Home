@@ -19,3 +19,9 @@ export const getUserData = () => {
     'http://localhost:3001/api/login'
   );
 };
+
+export const logout = () => {
+  return Transport.get(
+    'http://localhost:3001/api/logout'
+  );
+};
