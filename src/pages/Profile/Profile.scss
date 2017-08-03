@@ -28,18 +28,20 @@
 .signup-form.edit  {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 700px;
   height: 100%;
+  background-color: $gray;
 }
 
-.name-field-edit,
-.email-field-edit {
-  display: flex;
-  flex-direction: row;
+.edit-name-icon,
+.edit-email-icon {
+  display: inline-block;
   padding-left: 10px;
 }
 
 .signup-form.edit .fa {
+  display: inline-block;
+  margin-left: 15px;
   padding-right: 10px;
   padding-top: 25px;
   cursor: pointer;
@@ -49,8 +51,8 @@
   margin-top: 15px;
 }
 
-.name-title,
-.email-title {
+.user-name__title,
+.user-email__title {
   color: $text-color-active;
   font-weight: bold;
   padding-bottom: 5px;
@@ -66,14 +68,50 @@
   display: none;
 }
 
-.field-name-display {
+.name-field-display {
   display: block;
 }
 
-.field-email-display {
+.email-field-display {
   display: block;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  width: 100%;
+  margin-top: -10px;
+  margin-bottom: 20px;
 }
 
 .user-image-profile {
+  display: inline-block;
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.user-profile-info {
+  display: block;
+  margin-left: 15px;
+}
+
+.profile-header-user-name {
+  display: inline-block;
+  float: left;
+  position: relative;
+  top: -20px;
+  margin-left: 40px;
+}
+
+.user-name__box,
+.user-email__box {
+  display: inline-block;
+}
+
+.edit-user-name-container,
+.edit-user-email-container {
+  display: inline-block;
+  margin-right: 20px;
 }
