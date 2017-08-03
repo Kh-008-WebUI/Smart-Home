@@ -51,16 +51,16 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../dist/index.html'));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../dist/index.html'));
 });
 
-app.get('/index_bundle.js', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
+app.get('/index_bundle.js', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../dist/index_bundle.js'));
 });
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../dist/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../dist/index.html'));
 });
 
 mongoose.Promise = global.Promise;
@@ -79,11 +79,11 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
-    ws.on('message', message => {
-      wss.clients.forEach(client => {
-        client.send(message);
-      });
+  ws.on('message', message => {
+    wss.clients.forEach(client => {
+      client.send(message);
     });
+  });
 });
 
 server.listen(config.port, () => {

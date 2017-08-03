@@ -6,36 +6,36 @@ const Device = require('../models/device');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
-    if(err) {
+    if (err) {
       res.status(500).send({
         status: "error",
         text: "Something went wrong, try again later."
       });
     }
-    else{
+    else {
       res.json(devices);
     }
-  }).sort({views: -1});
+  }).sort({ views: -1 });
 });
 
 devicesRouter.route('/').post((req, res) => {
   Device.create(req.body, (err, device) => {
-    if(err) {
+    if (err) {
       res.status(500).send({
         status: "error",
         text: "Could not add the device."
       });
     }
-    else{
+    else {
       res.json(device);
     }
-  })
-})
+  });
+});
 
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndUpdate({_id:id}, {$inc:{views: 1}}, {new: true}, (err, device) => {
+  Device.findOneAndUpdate({ _id:id }, { $inc:{ views: 1 } }, { new: true }, (err, device) => {
     if (err) {
       res.status(500).send({
         status: "error",
@@ -55,32 +55,34 @@ devicesRouter.route('/device/:id').get((req, res) => {
 devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndRemove({_id:id}, (err, device) => {
-    if(err) {
+  Device.findOneAndRemove({ _id:id }, (err, device) => {
+    if (err) {
       res.status(500).send({
         status: "error",
         text: "Something went wrong, could not delete the device."
       });
     }
-    else{
+    else {
       res.json(id);
     }
-  })
-})
+  });
+});
 
 devicesRouter.route('/:id').put((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({_id:id}, (err, device) => {
-    if(err) {
+  Device.findOne({ _id:id }, (err, device) => {
+    if (err) {
       res.status(500).send({
         status: "error",
         text: "Something went wrong, try again later."
       });
     }
-    else{
-      for(var prop in req.body) {
-        device[prop] = req.body[prop];
+    else {
+      for (let prop in req.body) {
+        if (req.body.hasOwnProperty(prop)) {
+          device[prop] = req.body[prop];
+        }
       }
       device.save()
       .then(device => {
@@ -101,11 +103,12 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
   const setting = req.params.setting;
 
   Device.findOne({ _id:id }, (err, device) => {
-    if(err) {
+    if (err) {
       console.log(err);
     }
-    else{
+    else {
       let items = device.items;
+
       items[setting].data = req.body.value;
 
       device.items = items;
@@ -117,7 +120,7 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
           res.json(device);
         })
         .catch(err => {
-              res.status(400).send("unable to update the database");
+          res.status(400).send("unable to update the database");
         });
     }
   });
