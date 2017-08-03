@@ -5,7 +5,10 @@ import {
   CLEAR_LOGIN_STATUS,
   REGISTRATION_ATTEMPT,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE
+  REGISTER_FAILURE,
+  LOGOUT_PENDING,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from '../constants/index';
 
 const initialState = {
@@ -51,6 +54,19 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status: 'FAIL',
+        errorText: action.errorText
+      };
+    case LOGOUT_PENDING:
+      return { ...state, status: 'PENDING' };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        status: 'DONE'
+      };
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        status:'FAIL',
         errorText: action.errorText
       };
     default:

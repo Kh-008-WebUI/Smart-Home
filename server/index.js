@@ -12,6 +12,7 @@ const notificationRoutes = require('./routes/notifications.js');
 const devicesRoutes = require('./routes/devices.js');
 const registerRouter = require('./routes/register.js');
 const loginRouter = require('./routes/login.js');
+const logoutRouter = require('./routes/logout.js');
 const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
@@ -47,6 +48,7 @@ app.use(session({
 router.use('/users', checkAuth, userRoutes);
 router.use('/notifications', checkAuth, notificationRoutes);
 router.use('/devices', checkAuth, devicesRoutes);
+router.use('/logout', checkAuth, logoutRouter);
 router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 app.use('/api', router);
