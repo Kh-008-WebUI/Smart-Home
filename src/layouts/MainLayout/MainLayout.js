@@ -26,7 +26,10 @@ class MainLayout extends Component {
     };
   }
   componentWillMount () {
-    this.props.getLoggedUser();
+
+    //  this.props.getLoggedUser();
+  }
+  componentDidUpdate () {
     if (!this.props.isLogged._id) {
       this.props.history.push('/auth');
     }
@@ -44,8 +47,7 @@ class MainLayout extends Component {
           clearStatus={this.props.clearLoginStatus}
           status={this.props.status}
           header={'Error'}
-          text={this.props.errorText}
-        />
+          text={this.props.errorText}/>
         </main>
       </div>
     );
@@ -55,7 +57,7 @@ function mapStateToProps (store) {
   return {
     isLogged: store.authentication.isLogged,
     errorText: store.authentication.errorText,
-    status: store.authentication.status,
+    status: store.authentication.status
   };
 }
 
@@ -73,8 +75,8 @@ MainLayout.propTypes = {
   children: PropTypes.any,
   getLoggedUser: PropTypes.func,
   logout: PropTypes.func,
-  errorText: PropTypes.String,
-  status: PropTypes.String,
+  errorText: PropTypes.string,
+  status: PropTypes.string,
   clearLoginStatus: PropTypes.func
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

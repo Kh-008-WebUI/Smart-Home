@@ -63,7 +63,7 @@
   position: absolute;
   right: 10px;
   top: 52px;
-  max-width: 300px;
+  max-width: 317px;
 
     &__notice {
 	  	border-radius: 3px;
@@ -103,12 +103,13 @@
 .notification {
   &-time {
     margin-right: 5px;
-    width: 30%;
+    width: 48%;
   }
 
   &-text {
     width: 66%;
     overflow-wrap: break-word;
+    font-style: italic;
   }
 }
 .notification-item-marker {
@@ -128,4 +129,25 @@
 .notification-item-emergency {
   color: red !important;
   font-size: 1.05em !important;
+}
+
+.emergency-alert {
+  display: none;
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  font-size: 15px;
+  font-weight: bold;
+  left: -83px;
+  z-index: 2;
+  color: red;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.emergency-display {
+  display: block;
 }

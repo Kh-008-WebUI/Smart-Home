@@ -11,8 +11,6 @@ export default class RangeSettings extends React.Component {
     this.state = {
       value: 0
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount () {
@@ -27,7 +25,7 @@ export default class RangeSettings extends React.Component {
     }
   }
 
-  onChange (e) {
+  onChange = (e) => {
     const newValue = e.target.value;
 
     this.setState({

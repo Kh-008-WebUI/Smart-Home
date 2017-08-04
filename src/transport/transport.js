@@ -3,7 +3,7 @@ function handleErrors (response) {
     throw Error(response.statusText);
   }
   return response.json();
-};
+}
 
 export default class Transport {
   static get (uri) {

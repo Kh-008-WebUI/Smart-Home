@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 registerRouter.route('/').post((req, res) => {
   User.find(
-    {email: req.body.email},
+    { email: req.body.email },
     (err, user) => {
       if (err) {
         res.statusMessage = "Internal server error. Try later.";
@@ -34,10 +34,10 @@ registerRouter.route('/').post((req, res) => {
                 created: user.created
               }
             });
-          };
-        })
-      };
-  });
+          }
+        });
+      }
+    });
 });
 
-module.exports =  registerRouter;
+module.exports = registerRouter;

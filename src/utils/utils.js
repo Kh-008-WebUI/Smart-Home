@@ -68,3 +68,15 @@ export const findByProperty = (collection, property, propertyValue) => {
 
   return obj;
 };
+
+export const sortEmergencyNotifications =
+  (listEmergency, listNotifications) => {
+    listNotifications.forEach((item, index) => {
+      if (item.emergency && (item.viewed === false)) {
+        listNotifications.splice(index, 1);
+      }
+    });
+    listEmergency.forEach((item) => {
+      listNotifications.unshift(item);
+    });
+  };
