@@ -25,7 +25,8 @@ loginRouter.route('/')
         });
       } else {
         res.status(500).send({
-          status: 'error'
+          status: 'error',
+          text: 'Cannot find user.'
         });
       }
     });

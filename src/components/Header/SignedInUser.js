@@ -3,6 +3,8 @@ import './SignedInUser.scss';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { logout } from '../../actions/auth.action';
 
 class SignedInUser extends React.Component {
 
@@ -17,8 +19,13 @@ class SignedInUser extends React.Component {
           <div className="user-block-dropdown-content">
             <NavLink to="/user"
             className="user-block-dropdown-content-item">Profile</NavLink>
-            <NavLink to="/auth"
-            className="user-block-dropdown-content-item">Log out</NavLink>
+            <NavLink
+              to="/auth"
+              onClick={(e)=>{
+                e.preventDefault();
+                this.props.logout();
+              }}
+              className="user-block-dropdown-content-item">Log out</NavLink>
           </div>
         </div>
       </div>
@@ -26,7 +33,8 @@ class SignedInUser extends React.Component {
   }
 }
 SignedInUser.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  logout: PropTypes.func
 };
 
 function mapStateToProps (store) {
@@ -34,5 +42,9 @@ function mapStateToProps (store) {
     user: store.users.user
   };
 }
-
-export default connect(mapStateToProps)(SignedInUser);
+function mapDispatchToProps (dispatch) {
+  return {
+    logout: bindActionCreators(logout, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignedInUser);
