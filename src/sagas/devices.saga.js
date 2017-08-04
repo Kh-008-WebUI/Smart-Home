@@ -80,6 +80,7 @@ export function* updateDeviceSettings (action) {
     yield put(updateDeviceSettingsSuccess(response));
   } else {
     yield put(updateDeviceFail(error.message));
+  }
 }
 
 export function* watchLoadDevices () {

@@ -48,6 +48,8 @@ export default class Transport {
       headers: {
         'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
       }
-    }).then((response) => (response.json())).catch((error) => ({ error }));
+    }).then((response) => (response.json()))
+    .then((data) => ({ response: data }))
+    .catch((error) => ({ error }));
   }
 }
