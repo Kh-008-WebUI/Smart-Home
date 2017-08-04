@@ -10,7 +10,10 @@ loginRouter.route('/')
         res.statusMessage = "Something went wrong, try again later.";
         res.status(500).end();
       }
-      if (user) {
+      if (!user) {
+        res.statusMessage = "You are not logged in.";
+        res.status(500).end();
+      } else {
         res.status(200).send({
           status: true,
           userData: {
@@ -21,9 +24,6 @@ loginRouter.route('/')
             avatar: user.avatar
           }
         });
-      } else {
-        res.statusMessage = "Cannot find user.";
-        res.status(500).end();
       }
     });
   })
