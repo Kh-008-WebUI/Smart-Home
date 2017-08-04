@@ -14,22 +14,22 @@ import { NOTIFICATIONS_FETCH_REQUESTED,
 import { ws } from '../index';
 
 function* fetchNotifications () {
-  try {
-    const notifications = yield call(getNotifications);
+  const { response, error } = yield call(getNotifications);
 
-    yield put(fetchNotificationsSuccess(notifications));
-  } catch (e) {
-    yield put(fetchNotificationsFailed(e));
+  if (response) {
+    yield put(fetchNotificationsSuccess(response));
+  } else {
+    yield put(fetchNotificationsFailed(error.message));
   }
 }
 
 export function* fetchAddNotifications (action) {
-  try {
-    const message = yield call(addNotifications, action.message);
+  const { response, error } = yield call(addNotifications, action.message);
 
-    yield put(addNotificationsSuccess(message));
-  } catch (e) {
-    console.log(e);
+  if (response) {
+    yield put(addNotificationsSuccess(response));
+  } else {
+    yield put(fetchNotificationsFailed(error.message));
   }
 }
 
@@ -38,12 +38,13 @@ export function* sendNotificationWS (action) {
 }
 
 export function* changeNotificationStatus (action) {
-  try {
-    const notification = yield call(changeStatus, action.id, action.viewed);
+  const { response, error } =
+    yield call(changeStatus, action.id, action.viewed);
 
-    yield put(changeStatusNotificationSuccess(notification));
-  } catch (e) {
-    console.log(e);
+  if (response) {
+    yield put(changeStatusNotificationSuccess(response));
+  } else {
+    console.log(error.message);
   }
 }
 

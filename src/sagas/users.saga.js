@@ -6,22 +6,22 @@ import { loadUsersSuccess, loadUsersFailed,
   updateProfileSuccess, updateProfileFailed } from '../actions/users.action';
 
 function* getUsersList () {
-  try {
-    const currentUsers = yield call(usersList);
+  const { response, error } = yield call(usersList);
 
-    yield put(loadUsersSuccess(currentUsers));
-  } catch (e) {
-    yield put(loadUsersFailed(e));
+  if (response) {
+    yield put(loadUsersSuccess(response));
+  } else {
+    yield put(loadUsersFailed(error.message));
   }
 }
 
 function* updateUserProfile (action) {
-  try {
-    const updatedProfile = yield call(updateProfileRequest, action.payload);
+  const { response, error } = yield call(updateProfileRequest, action.payload);
 
-    yield put(updateProfileSuccess(updatedProfile));
-  } catch (e) {
-    yield put(updateProfileFailed(e));
+  if (response) {
+    yield put(updateProfileSuccess(response));
+  } else {
+    yield put(updateProfileFailed(error.message));
   }
 }
 

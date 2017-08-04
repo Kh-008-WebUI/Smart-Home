@@ -54,10 +54,8 @@ devicesRouter.route('/:id').delete((req, res) => {
 
   Device.findOneAndRemove({ _id: id }, (err, device) => {
     if (err) {
-      res.status(500).send({
-        status: 'error',
-        text: 'Something went wrong, could not delete the device.'
-      });
+      res.statusMessage = "Something went wrong, could not delete the device.";
+      res.status(500).end();
     } else {
       res.json(id);
     }
