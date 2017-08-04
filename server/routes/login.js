@@ -7,10 +7,8 @@ loginRouter.route('/')
     User.findOne({ '_id': req.session.user },
     (err, user) => {
       if (err) {
-        res.status(500).send({
-          status: 'error',
-          text: 'Something went wrong, try again later.'
-        });
+        res.statusMessage = "Something went wrong, try again later.";
+        res.status(500).end();
       }
       if (user) {
         res.status(200).send({
@@ -24,10 +22,8 @@ loginRouter.route('/')
           }
         });
       } else {
-        res.status(500).send({
-          status: 'error',
-          text: 'Cannot find user.'
-        });
+        res.statusMessage = "Cannot find user.";
+        res.status(500).end();
       }
     });
   })
