@@ -8,7 +8,8 @@ import {
   loadDeviceAsync,
   loadDevice,
   updateDeviceSettings,
-  updateDevice } from '../../actions/devices.action';
+  updateDevice,
+  clearStatus } from '../../actions/devices.action';
 import { sendNotificationWS } from '../../actions/notifications.action';
 require('./DevicePage.scss');
 
@@ -42,7 +43,11 @@ class DevicePage extends React.Component {
     return (
       <div>
         {typeof this.props.device._id === 'undefined' ?
-          <Message status={this.props.status}/> :
+          <Message
+            clearStatus={this.props.clearStatus}
+            status={this.props.status}
+            header={'Error'}
+            text={this.props.errorText}/> :
         <div className="device-view">
         <Device
             device={this.props.device}
@@ -58,7 +63,8 @@ class DevicePage extends React.Component {
 const mapStateToProps = state => ({
   device: state.devicesList.device,
   loadFailed: state.devicesList.loadFailed,
-  status: state.devicesList.uploadStatus
+  status: state.devicesList.uploadStatus,
+  errorText: state.devicesList.errorText
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -67,7 +73,8 @@ const mapDispatchToProps = dispatch => ({
   setItemValue: (value, settingId, deviceId) =>
     dispatch(updateDeviceSettings(value, settingId, deviceId)),
   onStatusChange: (data, id) => dispatch(updateDevice(data, id)),
-  sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
+  sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
+  clearStatus: () => dispatch(clearStatus())
 });
 
 DevicePage.propTypes = {
@@ -87,7 +94,9 @@ DevicePage.propTypes = {
   loadFailed: PropTypes.bool,
   history: PropTypes.object,
   status: PropTypes.string,
-  sendNotificationWS: PropTypes.func
+  sendNotificationWS: PropTypes.func,
+  clearStatus: PropTypes.func,
+  errorText: PropTypes.string
 };
 
 DevicePage.defaultProps = {

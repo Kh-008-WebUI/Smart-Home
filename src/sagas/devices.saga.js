@@ -96,7 +96,7 @@ export function* updateDeviceSettings (action) {
     yield put(updateDeviceSettingsSuccess(device));
     console.log(device);
   } catch (e) {
-    console.log(e);
+    yield put(updateDeviceFail(e.message));
   }
 }
 
