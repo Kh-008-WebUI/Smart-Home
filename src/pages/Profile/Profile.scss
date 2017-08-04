@@ -58,7 +58,7 @@
   font-size: 24px;
   color: $text-color-active;
   margin-top: 15px;
-  margin-left: 20px;
+  margin-left: 15px;
   margin-bottom: 15px;
 }
 
@@ -82,13 +82,16 @@
 
 .edit-profile__user-name-container,
 .edit-profile__user-email-container {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
   margin-right: 20px;
 }
 
 .user-name__box,
 .user-email__box {
-  display: inline-block;
+  display: block;
+  margin-bottom: 15px;
 }
 
 .user-name__title,
@@ -108,12 +111,9 @@
   display: none;
 }
 
-.name-field-display {
-  display: block;
-}
-
+.name-field-display,
 .email-field-display {
-  display: block;
+  display: flex;
 }
 
 .btn--signup-active.edit {
