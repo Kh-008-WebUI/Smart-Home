@@ -10,7 +10,7 @@ devicesRouter.route('/').get((req, res) => {
         text: 'Something went wrong, try again later.'
       });
     } else {
-      res.json(devices);
+        res.json(devices);
     }
   }).sort({ views: -1 });
 });
@@ -120,6 +120,5 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
     }
   });
 });
-
 
 module.exports = devicesRouter;

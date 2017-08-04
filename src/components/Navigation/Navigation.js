@@ -28,23 +28,11 @@ const Navigation = (props) => (
           Device List
         </NavLink>
       </li>
-      <li className="navigation-item">
-        <NavLink
-          to="/auth"
-          onClick={(e)=>{
-            e.preventDefault();
-            props.logout();
-          }}
-          activeClassName="active">
-          Logout
-        </NavLink>
-      </li>
     </ul>
 );
 
 Navigation.propTypes = {
   open: PropTypes.bool,
-  logout: PropTypes.func
 };
 
 export default Navigation;

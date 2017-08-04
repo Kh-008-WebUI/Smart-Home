@@ -26,7 +26,7 @@ loginRouter.route('/')
       } else {
         res.status(500).send({
           status: 'error',
-          text: 'Wrong login or password.'
+          text: 'Cannot find user.'
         });
       }
     });

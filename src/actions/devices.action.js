@@ -124,6 +124,7 @@ export const updateDeviceSettings = (value, settingId, deviceId) => {
   };
 };
 
+
 export const clearStatus = () => {
   return {
     type: CLEAR_STATUS
