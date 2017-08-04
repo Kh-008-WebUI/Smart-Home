@@ -12,7 +12,9 @@ class Profile extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      canSubmit: false
+      canSubmit: false,
+      allowEditName: false,
+      allowEditEmail: false
     };
   }
 
@@ -35,16 +37,46 @@ class Profile extends Component {
       canSubmit: false
     });
   };
+  editName = () => {
+    this.setState({
+      allowEditName: !this.state.allowEditName
+    });
+    this.fieldName.classList.toggle('field-name-display');
+  };
+  editEmail = () => {
+    this.setState({
+      allowEditEmail: !this.state.allowEditEmail
+    });
+    this.fieldEmail.classList.toggle('field-email-display');
+  };
   render () {
     return (
       <div className="profile-container">
+      <img
+          src={this.props.user.avatar}
+          className="user-image-profile"
+      />
         <Header
           title={this.props.user.name} />
         <Formsy.Form
           onSubmit={this.updateProfile}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
-          className="signup-form">
+          className="signup-form edit">
+            <div className="user-name-box">
+              <p className="name-title">Name</p>
+                 <span className="logged-name">{this.props.user.name}</span>
+            </div>
+            <div className="name-field-edit">
+              <i className="fa fa-pencil edit-user-info"
+               onClick={this.editName} />
+            </div>
+             <div
+                className="hidden-field"
+                ref = { (el) => {
+                  this.fieldName = el;
+                }
+              }>
           <Field
             name="Name"
             type="text"
@@ -52,27 +84,47 @@ class Profile extends Component {
             ref={(input) => {
               this.name = input;
             }}
+            value={this.props.user.name}
             validations="isAlpha"
             validationError="This is not a valid name"
             required/>
+            </div>
+               <div className="email-name-box">
+                  <p className="email-title">Email</p>
+                    <span className="logged-email">
+                    {this.props.user.email}
+                    </span>
+               </div>
+               <div className="email-field-edit">
+                  <i className="fa fa-pencil edit-user-info"
+                  onClick={this.editEmail} />
+               </div>
+                <div
+                className="hidden-field"
+                ref = { (el) => {
+                  this.fieldEmail = el;
+                }
+            }>
           <Field
             name="E-mail"
+            className="hidden-field"
             type="text"
             text={'Enter your new e-mail'}
             ref={(input) => {
               this.email = input;
             }}
+            value={this.props.user.email}
             validations="isEmail"
             validationError="This is not a valid name"
             required/>
-          <div className="signup-field-group signup-btn-group">
+            </div>
+            <div className="signup-field-group signup-btn-group">
             <input
               type="submit"
               disabled={!this.state.canSubmit}
-              className="btn btn--signup btn--signup-active"
+              className="btn btn--signup btn--signup-active edit"
               value="Submit"/>
           </div>
-          <img src={this.props.user.avatar} />
         </Formsy.Form>
       </div>
     );
@@ -96,5 +148,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 Profile.propTypes = {
   updateProfileStatus: PropTypes.string,
   updateProfileRequest: PropTypes.func,
-  user: PropTypes.object
+  user: PropTypes.object,
+  email: PropTypes.object,
+  value: PropTypes.object
 };

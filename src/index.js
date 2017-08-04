@@ -22,7 +22,7 @@ export const ws = new WebSocket('ws://localhost:3001/');
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeEnhancers(),
-                          applyMiddleware(sagaMiddleware));
+  applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
@@ -30,27 +30,27 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path='/auth' component = { ()=>(
+        <Route path='/auth' component={() => (
           <Authentication>
             <Switch>
-              <Route exact path='/auth' component = { Login } />
-              <Route exact path='/auth/login' component = { Login } />
-              <Route exact path='/auth/register' component={ Register } />
+              <Route exact path='/auth' component={Login} />
+              <Route exact path='/auth/login' component={Login} />
+              <Route exact path='/auth/register' component={Register} />
             </Switch>
           </Authentication>
-          ) } />
-        <Route path='/' component = { (props)=>(
-          <MainLayout history={ props.history }>
+        )} />
+        <Route path='/' component={(props) => (
+          <MainLayout history={props.history}>
             <Switch>
-              <Route exact path='/' component = { Dashboard } />
-              <Route path='/devices/device/:id' component={ DevicePage } />
-              <Route path='/devices' component={ DeviceList } />
-              <Route path='/builder' component={ Builder } />
-              <Route path='/user' component={ Profile } />
+              <Route exact path='/' component={Dashboard} />
+              <Route path='/devices/device/:id' component={DevicePage} />
+              <Route path='/devices' component={DeviceList} />
+              <Route path='/builder' component={Builder} />
+              <Route path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />
             </Switch>
           </MainLayout>
-          ) } />
+        )} />
       </Switch>
     </Router>
   </Provider>,

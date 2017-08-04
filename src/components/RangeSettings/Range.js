@@ -11,8 +11,6 @@ export default class RangeSettings extends React.Component {
     this.state = {
       value: 0
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount () {
@@ -20,14 +18,10 @@ export default class RangeSettings extends React.Component {
       this.setState({
         value: this.props.data
       });
-
-      this.props.setItemValue(this.props.data,
-                              this.props.itemId,
-                              this.props.deviceId);
     }
   }
 
-  onChange (e) {
+  onChange = (e) => {
     const newValue = e.target.value;
 
     this.setState({

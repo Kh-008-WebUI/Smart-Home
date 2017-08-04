@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './Popup.scss';
 
 export const Popup = (props) => {
-  console.log('inside popup -- when delete', props.popupShown);
   return (
     <div className={props.popupShown ?
       'popup popup--shown' : 'popup'}>
