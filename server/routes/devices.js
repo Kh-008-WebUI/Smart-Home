@@ -10,10 +10,7 @@ devicesRouter.route('/').get((req, res) => {
         text: 'Something went wrong, try again later.'
       });
     } else {
-      res.status(500).send({
-        status: 'error',
-        text: 'Something went wrong, try again later.'
-      });
+        res.json(devices);
     }
   }).sort({ views: -1 });
 });
