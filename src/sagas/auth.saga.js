@@ -77,8 +77,6 @@ export function* logoutUser (action) {
     }
 
     yield put(logoutSuccess(user));
-    yield delay(2000);
-    yield put(clearLoginStatus());
   } catch (e) {
     yield put(logoutFailure(e.message));
   }

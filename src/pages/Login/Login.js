@@ -19,7 +19,6 @@ class Login extends Component {
     };
   }
   componentDidUpdate () {
-    console.log(this.props.history.length);
     if (this.props.loginStatus === 'DONE') {
       if (this.props.history.length > 3) {
         setTimeout(()=>{
