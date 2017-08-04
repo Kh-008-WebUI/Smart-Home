@@ -24,8 +24,8 @@ export const Device = (props) => {
           className="fa fa-pencil device-item_info-edit">
         </Link>
         <div className="device-view__info">
-          <small>07.07.17</small><br/>
-          <small>username</small>
+          <small>{props.device.time}</small><br/>
+          <small>{props.device.creator}</small>
         </div>
       </div>
       <div className="device-view__location">
