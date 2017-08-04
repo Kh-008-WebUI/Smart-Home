@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
-import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
 import { updateProfileRequest } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
@@ -59,26 +58,27 @@ class Profile extends Component {
           onInvalid={this.disableButton}
           className="signup-form edit">
           <div className="profile-header">
-      <div className="user-image-box">
-      <div className="user-image-edit">
+      <div className="profile-header__user-image-box">
+      <div className="profile-header__user-image-edit">
       <img
           src={this.props.user.avatar}
-          className="user-image-profile"/>
-          <i className="fa fa-pencil edit-user-info"/>
+          className="profile-header__user-image"/>
+          <i className="fa fa-pencil edit-user-info edit-image"/>
       </div>
-      </div>
-      <div className="profile-header-user-name">
-        <Header
-          title={this.props.user.name} />
+      <div className="profile-header__user-name">
+           {this.props.user.name}
           </div>
       </div>
-          <section className="user-profile-info">
-          <div className="edit-user-name-container">
+      </div>
+          <section className="edit-profile__user-info">
+          <div className="edit-profile__user-name-container">
             <div className="user-name__box">
               <p className="user-name__title">Name</p>
-                 <span className="logged-name">{this.props.user.name}</span>
+                 <span className="user-name__logged-name">
+                 {this.props.user.name}
+                 </span>
             </div>
-            <div className="edit-name-icon">
+            <div className="edit-user-info__icon">
               <i className="fa fa-pencil edit-user-info"
                onClick={this.editName} />
             </div>
@@ -101,14 +101,14 @@ class Profile extends Component {
             validationError="This is not a valid name"
             />
             </div>
-            <div className="edit-user-email-container">
+            <div className="edit-profile__user-email-container">
                <div className="user-email__box">
                   <p className="user-email__title">Email</p>
-                    <span className="logged-email">
+                    <span className="user-email__logged-email">
                     {this.props.user.email}
                     </span>
                </div>
-               <div className="edit-email-icon">
+               <div className="edit-user-info__icon">
                   <i className="fa fa-pencil edit-user-info"
                   onClick={this.editEmail} />
                </div>
@@ -133,7 +133,7 @@ class Profile extends Component {
             />
             </div>
             </section>
-            <div className="signup-field-group signup-btn-group">
+            <div className="signup-field-group signup-btn-group edit">
             <input
               type="submit"
               disabled={!this.state.canSubmit}
