@@ -17,7 +17,6 @@ class Profile extends Component {
       allowEditImage: true
     };
   }
-
   updateProfile = () => {
     const data = {
       name: this.name.getValue(),
@@ -70,7 +69,8 @@ class Profile extends Component {
           </div>
       </div>
       </div>
-          <section className="edit-profile__user-info">
+        <section className="edit-profile__user-info">
+        <div className="edit-profile-name">
           <div className="edit-profile__user-name-container">
             <div className="user-name__box">
               <p className="user-name__title">Name</p>
@@ -101,6 +101,8 @@ class Profile extends Component {
             validationError="This is not a valid name"
             />
             </div>
+           </div>
+           <div className="edit-profile-email">
             <div className="edit-profile__user-email-container">
                <div className="user-email__box">
                   <p className="user-email__title">Email</p>
@@ -132,8 +134,9 @@ class Profile extends Component {
             validationError="This is not a valid name"
             />
             </div>
+            </div>
             </section>
-            <div className="signup-field-group signup-btn-group edit">
+            <div className="signup-field-group signup-btn-group">
             <input
               type="submit"
               disabled={!this.state.canSubmit}
