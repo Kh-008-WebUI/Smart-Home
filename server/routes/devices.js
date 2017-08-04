@@ -1,6 +1,7 @@
 const express = require('express');
 const devicesRouter = express.Router();
 const Device = require('../models/device');
+const ws = require('../index');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
@@ -54,7 +55,9 @@ devicesRouter.route('/:id').delete((req, res) => {
       res.statusMessage = "Something went wrong, could not delete the device.";
       res.status(500).end();
     } else {
+      ws.send(JSON.stringify({ type: 'DELETE_DEVICE', deviceName: device.name }));
       res.json(id);
+
     }
   });
 });

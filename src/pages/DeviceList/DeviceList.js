@@ -67,7 +67,6 @@ class DeviceList extends React.Component {
       this.props.deleteDevice(id);
       const device = findByProperty(this.props.devices, '_id', id);
 
-      this.props.sendNotificationWS(`${device.name} was deleted`);
     };
 
     this.updateUrl = (params) => {
