@@ -14,13 +14,7 @@ import {
 const initialState = {
   status: '',
   errorText: '',
-  isLogged: {},
-  user: {
-    username: '',
-    password: '',
-    passwordRepeat: '',
-    email: ''
-  }
+  isLogged: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -61,7 +55,8 @@ const reducer = (state = initialState, action) => {
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        status: 'DONE'
+        status: '',
+        isLogged: {}
       };
     case LOGOUT_FAILURE:
       return {

@@ -18,10 +18,6 @@ export default class RangeSettings extends React.Component {
       this.setState({
         value: this.props.data
       });
-
-      this.props.setItemValue(this.props.data,
-                              this.props.itemId,
-                              this.props.deviceId);
     }
   }
 

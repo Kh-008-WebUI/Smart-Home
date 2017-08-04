@@ -58,12 +58,18 @@ export function* loadUser (action) {
 export function* logoutUser (action) {
   const { response, error } = yield call(logout);
 
+<<<<<<< HEAD
   if (response) {
     yield put(logoutSuccess(response));
     yield delay(2000);
     yield put(clearLoginStatus());
   } else {
     yield put(logoutFailure(error.message));
+=======
+    yield put(logoutSuccess(user));
+  } catch (e) {
+    yield put(logoutFailure(e.message));
+>>>>>>> origin
   }
 }
 

@@ -13,20 +13,6 @@ import {
   clearAddStatus } from '../../actions/builder.action';
 
 class Builder extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      popupShown: false
-    };
-
-    this.setPopupShown = (id) => {
-      const currentState = this.state.popupShown;
-
-      this.setState({
-        popupShown: !currentState
-      });
-    };
-  }
   componentWillMount () {
     if (typeof this.props.match.params.id !== 'undefined') {
       this.props.editDevice(this.props.match.params.id);
@@ -48,8 +34,6 @@ class Builder extends Component {
         <h1 className="device-list__title">Device Builder</h1>
         <DeviceForm />
         <Message
-          setPopupShown={this.setPopupShown}
-          popupShown={!this.state.popupShown}
           clearStatus={this.props.clearAddStatus}
           status={this.props.status}
           header={'Error'}

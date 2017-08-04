@@ -27,8 +27,7 @@ logoutRouter.route('/')
           res.status(200).send({
             status: true
           });
-        }
-        else {
+        } else {
           res.status(500).send({
             status: 'error',
             text: 'Cannot find user.'

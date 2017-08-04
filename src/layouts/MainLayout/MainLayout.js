@@ -26,8 +26,7 @@ class MainLayout extends Component {
     };
   }
   componentWillMount () {
-
-    //  this.props.getLoggedUser();
+    // this.props.getLoggedUser();
   }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
@@ -39,8 +38,7 @@ class MainLayout extends Component {
       <div>
         <Header setSidebarOpen={this.setSidebarOpen}/>
         <Navigation
-          open={this.state.sidebarOpen}
-          logout={this.props.logout}/>
+          open={this.state.sidebarOpen}/>
         <main className="content">
         {this.props.children}
         <Message
@@ -64,7 +62,6 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     getLoggedUser: bindActionCreators(getLoggedUser, dispatch),
-    logout: bindActionCreators(logout, dispatch),
     clearLoginStatus: bindActionCreators(clearLoginStatus, dispatch)
   };
 }
@@ -74,7 +71,6 @@ MainLayout.propTypes = {
   history: PropTypes.object,
   children: PropTypes.any,
   getLoggedUser: PropTypes.func,
-  logout: PropTypes.func,
   errorText: PropTypes.string,
   status: PropTypes.string,
   clearLoginStatus: PropTypes.func

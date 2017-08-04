@@ -70,16 +70,6 @@ export function* updateDevice (action) {
   } else {
     yield put(updateDeviceFail(error.message));
   }
-
-  //   if (device.status === 'error') {
-  //     throw new Error(device.text);
-  //   }
-
-  //   yield put(updateDeviceSuccess(device, action.id));
-  //   yield put(clearStatus());
-  // } catch (e) {
-  //   yield put(updateDeviceFail(e.message));
-  // }
 }
 
 export function* updateDeviceSettings (action) {
@@ -89,8 +79,7 @@ export function* updateDeviceSettings (action) {
   if (response) {
     yield put(updateDeviceSettingsSuccess(response));
   } else {
-    console.log(error.message);
-  }
+    yield put(updateDeviceFail(error.message));
 }
 
 export function* watchLoadDevices () {
