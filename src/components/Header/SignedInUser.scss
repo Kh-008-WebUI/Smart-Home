@@ -11,21 +11,30 @@
   font-size: 20px;
 }
 
-.user-block-photo {
-  background-image: url("../../img/avatar2.png");
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: $color-orange;
-  background-size: contain;
-  margin: 3px;
+ .user-block-photo {
+   width: 35px;
+   height: 35px;
+   border-radius: 50%;
 }
 
 .user-block-avatar {
+  display: none;
   width: 35px;
   height: 35px;
   border-radius: 50%;
 }
+
+.icon.fa {
+  font-size: 35px;
+  margin: 3px;
+  background-color: $gray;
+  border-radius: 50%;
+}
+
+.display-user {
+  display: block;
+}
+
 .user-block-dropdown-content {
     display: none;
     position: fixed;
