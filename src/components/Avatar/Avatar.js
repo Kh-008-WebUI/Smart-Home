@@ -7,11 +7,15 @@ const Avatar = (props) => {
     <figure className="person-view">
       <div className="person-avatar-and-name">
         <div className={props.item.avatar ?
-          'user-list-avatar' + ' display-user' : 'user-list-avatar'}>
+          'user-list-avatar display-user' :
+          'user-list-avatar'
+          }>
           <img className="user-list-avatar-img" src={props.item.avatar} />
         </div>
         <div className={props.item.avatar ?
-          'user-list-avatar' : 'user-list-avatar' + ' display-user'}>
+          'user-list-avatar' :
+          'user-list-avatar display-user'
+          }>
           <i className="fa fa-user-circle-o avatar" aria-hidden="true"></i>
         </div>
         <figurecaption>{props.item.name}</figurecaption>
