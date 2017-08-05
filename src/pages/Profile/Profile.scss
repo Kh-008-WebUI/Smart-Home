@@ -13,7 +13,6 @@
       @media (min-width: $tablet-min) {
         display: block;
         width: 100%;
-        margin-bottom: 20px;
       }
     }
     @media (min-width: $tablet-min) {
@@ -35,7 +34,6 @@
 .profile-header {
   display: block;
   width: 100%;
-  margin-top: -10px;
   margin-bottom: 20px;
 }
 
@@ -104,12 +102,7 @@
   font-size: 14px;
 }
 
-.hidden-field {
-  display: none;
-}
-
-.name-field-display,
-.email-field-display {
+.flex-display {
   display: flex;
 }
 
@@ -121,10 +114,14 @@
   margin-left: 10px;
 }
 
-.btn--signup-active.edit {
-  margin-bottom: -15px;
+.hidden {
+  display: none;
 }
 
-.signup-btn-group.edit {
-  margin-bottom: -20px;
+.photo.fa {
+  font-size: 100px;
+}
+
+.visible {
+  display: block;
 }

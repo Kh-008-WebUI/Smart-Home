@@ -40,13 +40,15 @@ class Profile extends Component {
     this.setState({
       allowEditName: !this.state.allowEditName
     });
-    this.fieldName.classList.toggle('name-field-display');
+    this.fieldName.classList.toggle('hidden');
+    this.fieldName.classList.toggle('flex-display');
   };
   editEmail = () => {
     this.setState({
       allowEditEmail: !this.state.allowEditEmail
     });
-    this.fieldEmail.classList.toggle('email-field-display');
+    this.fieldEmail.classList.toggle('hidden');
+    this.fieldEmail.classList.toggle('flex-display');
   };
   render () {
     return (
@@ -59,10 +61,20 @@ class Profile extends Component {
           <div className="profile-header">
       <div className="profile-header__user-image-box">
       <div className="profile-header__user-image-edit">
-      <img
-          src={this.props.user.avatar}
-          className="profile-header__user-image"/>
-          <i className="fa fa-pencil edit-user-info edit-image"/>
+        <div className={this.props.user.avatar ?
+          'visible' :
+          'hidden'
+          }>
+          <img className="profile-header__user-image"
+            src={this.props.user.avatar} />
+        </div>
+        <div className={this.props.user.avatar ?
+          'hidden' :
+          'visible'
+          }>
+          <i className="fa fa-user-circle-o photo" aria-hidden="true"></i>
+        </div>
+        <i className="fa fa-pencil edit-user-info edit-image"/>
       </div>
       <div className="profile-header__user-name">
            {this.props.user.name}
@@ -84,7 +96,7 @@ class Profile extends Component {
             </div>
             </div>
              <div
-                className="hidden-field"
+                className="hidden"
                 ref = { (el) => {
                   this.fieldName = el;
                 }
@@ -116,14 +128,14 @@ class Profile extends Component {
                </div>
                </div>
                 <div
-                className="hidden-field"
+                className="hidden"
                 ref = { (el) => {
                   this.fieldEmail = el;
                 }
             }>
           <Field
             name="E-mail"
-            className="hidden-field"
+            className="hidden"
             type="text"
             text={'Enter your new e-mail'}
             ref={(input) => {

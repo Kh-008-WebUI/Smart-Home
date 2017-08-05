@@ -8,37 +8,30 @@ logoutRouter.route('/')
       User.findOne({ '_id': req.session.user },
       (err, user) => {
         if (err) {
-          res.status(500).send({
-            status: 'error',
-            text: 'Something went wrong, try again later.'
-          });
+          res.statusMessage = "Something went wrong, try again later.";
+          res.status(500).end();
         }
-        if (user) {
+        if (!user) {
+          res.statusMessage = "Cannot find user.";
+          res.status(400).end();
+        } else {
           user.home = false;
           user.save().catch(err => {
-            res.status(400).send({
-              status: 'error',
-              text: 'Cannot find user.'
-            });
+            res.statusMessage = "Something went wrong, try again later.";
+            res.status(500).end();
           });
           req.session.destroy(function (err) {
-            if(err) res.status(400).send('unable to destroy session');
-          });
-          res.status(200).send({
-            status: true
-          });
-        } else {
-          res.status(500).send({
-            status: 'error',
-            text: 'Cannot find user.'
+            if (err) {
+              res.statusMessage = "Unable to destroy session.";
+              res.status(400).end();
+            }
+            res.send({});
           });
         }
       });
     } else {
-      res.status(500).send({
-        status: 'error',
-        text: 'Your session is unavaliable.'
-      });
+      res.statusMessage = "Your session is unavaliable.";
+      res.status(400).end();
     }
   });
 

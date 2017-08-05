@@ -6,13 +6,6 @@ const favicon = require('serve-favicon');
 const config = require('./config/config.js');
 const app = express();
 const router = express.Router();
-const checkAuth = require('./middleware/checkAuth.js');
-const userRoutes = require('./routes/users.js');
-const notificationRoutes = require('./routes/notifications.js');
-const devicesRoutes = require('./routes/devices.js');
-const registerRouter = require('./routes/register.js');
-const loginRouter = require('./routes/login.js');
-const logoutRouter = require('./routes/logout.js');
 const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
@@ -45,12 +38,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-router.use('/users', checkAuth, userRoutes);
-router.use('/notifications', checkAuth, notificationRoutes);
-router.use('/devices', checkAuth, devicesRoutes);
-router.use('/logout', checkAuth, logoutRouter);
-router.use('/register', registerRouter);
-router.use('/login', loginRouter);
+require('./routes/index.js')(router);
 app.use('/api', router);
 
 app.get('/', (req, res) =>

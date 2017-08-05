@@ -1,16 +1,17 @@
 import { LOAD_DEVICES_SUCCESS } from '../constants/index';
 import { CHANGE_STATUS } from '../constants/index';
-import { DELETE_DEVICE_SUCCESS, LOAD_DEVICE,
-        LOAD_DEVICE_SUCCESS,
-        LOAD_DEVICES_PENDING,
-        LOAD_DEVICE_PENDING,
-        LOAD_DEVICE_FAIL,
-        ADD_DEVICE_TO_LIST,
-        UPDATE_DEVICE_SUCCESS,
-        UPDATE_DEVICE_SETTINGS_SUCCESS,
-        UPDATE_DEVICE_FAILURE,
-        CLEAR_STATUS
-       } from '../constants/index';
+import { DELETE_DEVICE_SUCCESS,
+  DELETE_DEVICE_FAIL, LOAD_DEVICE,
+  LOAD_DEVICE_SUCCESS,
+  LOAD_DEVICES_PENDING,
+  LOAD_DEVICE_PENDING,
+  LOAD_DEVICE_FAIL,
+  ADD_DEVICE_TO_LIST,
+  UPDATE_DEVICE_SUCCESS,
+  UPDATE_DEVICE_SETTINGS_SUCCESS,
+  UPDATE_DEVICE_FAILURE,
+  CLEAR_STATUS
+  } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
 import { CHANGE_FILTER_OPTION } from '../constants/index';
@@ -82,6 +83,14 @@ export const devicesList = (state = initialState, action) => {
       return {
         ...state,
         devices:newDevices
+      };
+    }
+
+    case DELETE_DEVICE_FAIL: {
+      return {
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText
       };
     }
 
