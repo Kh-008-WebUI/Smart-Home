@@ -32,7 +32,7 @@ const Navigation = (props) => (
 );
 
 Navigation.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool
 };
 
 export default Navigation;
