@@ -24,10 +24,11 @@ const userSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  avatar: String
 });
 
-userSchema.methods.encryptPassword = function(password) {
+userSchema.methods.encryptPassword = function (password) {
   return crypto.createHmac('sha256', config.secret)
     .update(password)
     .digest('hex');

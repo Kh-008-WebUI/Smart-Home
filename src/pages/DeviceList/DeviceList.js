@@ -20,8 +20,7 @@ import {
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
 import { queryFromObject,
-         sortDevicesByLocations,
-         findByProperty } from '../../utils/utils';
+         sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
@@ -58,16 +57,10 @@ class DeviceList extends React.Component {
     };
     this.changeStatus = (status, id) => {
       this.props.changeStatus({ status }, id);
-      const device = findByProperty(this.props.devices, '_id', id);
-
-      this.props.sendNotificationWS(`${device.name} is
-                                     ${status ? 'on' : 'off'}`);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
-      const device = findByProperty(this.props.devices, '_id', id);
 
-      this.props.sendNotificationWS(`${device.name} was deleted`);
     };
 
     this.updateUrl = (params) => {
@@ -184,8 +177,6 @@ class DeviceList extends React.Component {
             />
         </Popup>
         <Message
-          setPopupShown={this.setPopupShown}
-          popupShown={this.state.popupShown}
           clearStatus={this.props.clearStatus}
           status={this.props.status}
           header={'Error'}
