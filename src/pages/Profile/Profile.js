@@ -136,7 +136,7 @@ class Profile extends Component {
             </div>
             </div>
             </section>
-            <div className="signup-field-group signup-btn-group">
+            <div className="signup-field-group signup-btn-group edit">
             <input
               type="submit"
               disabled={!this.state.canSubmit}
