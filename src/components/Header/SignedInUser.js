@@ -14,7 +14,7 @@ class SignedInUser extends React.Component {
         <div className="user-block">
           <div className="user-block-name">{this.props.user.email}</div>
           <div className={this.props.user.avatar ?
-            'user-block-avatar' + ' display-user' : 'user-block-avatar'}>
+            'user-block-avatar' + 'display-user' : 'user-block-avatar'}>
             <img className="user-block-photo" src={this.props.user.avatar} />
           </div>
           <div className={this.props.user.avatar ?
