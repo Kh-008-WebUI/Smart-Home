@@ -84,7 +84,9 @@ class NotificationsBell extends React.Component {
     }
     this.changeButtonText();
     return (
-      <div className="notification">
+      <div className="notification"
+        style={listNotify.length !== 0 ?
+          { display: 'block' } : { display: 'none' }}>
         <div className="notification-bell">
           <div className="notification-bell-self"
             onClick={this.displayNotifyBell}>
