@@ -20,8 +20,7 @@ import {
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
 import { queryFromObject,
-         sortDevicesByLocations,
-         findByProperty } from '../../utils/utils';
+         sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';

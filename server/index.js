@@ -10,6 +10,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
+const sendMessage = require('./utils/webSocket');
 
 
 app.use(bodyParser.json());
@@ -70,27 +71,7 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
   ws.on('message', message => {
-    const messageObject = JSON.parse(message);
-    let messageText = '';
-
-    switch(messageObject.type) {
-      case 'DELETE_DEVICE':{
-        messageText = messageObject.deviceName + ' was deleted';
-        break;
-      }
-      case 'CREATE_DEVICE':{
-        messageText = messageObject.deviceName + ' was created';
-        break;
-      }
-      case 'STATUS_DEVICE':{
-        messageText = messageObject.deviceName + ` is ${messageObject.deviceStatus ? 'on' : 'off'}`;
-        break;
-      }
-    }
-
-    wss.clients.forEach(client => {
-      client.send(messageText);
-    });
+    sendMessage(message, wss);
   });
 });
 
