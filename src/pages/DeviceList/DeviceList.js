@@ -58,14 +58,9 @@ class DeviceList extends React.Component {
     };
     this.changeStatus = (status, id) => {
       this.props.changeStatus({ status }, id);
-      const device = findByProperty(this.props.devices, '_id', id);
-
-      this.props.sendNotificationWS(`${device.name} is
-                                     ${status ? 'on' : 'off'}`);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
-      const device = findByProperty(this.props.devices, '_id', id);
 
     };
 

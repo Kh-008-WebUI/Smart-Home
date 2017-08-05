@@ -76,6 +76,15 @@ wss.on('connection', function connection (ws, req) {
     switch(messageObject.type) {
       case 'DELETE_DEVICE':{
         messageText = messageObject.deviceName + ' was deleted';
+        break;
+      }
+      case 'CREATE_DEVICE':{
+        messageText = messageObject.deviceName + ' was created';
+        break;
+      }
+      case 'STATUS_DEVICE':{
+        messageText = messageObject.deviceName + ` is ${messageObject.deviceStatus ? 'on' : 'off'}`;
+        break;
       }
     }
 

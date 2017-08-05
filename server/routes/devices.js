@@ -24,6 +24,7 @@ devicesRouter.route('/').post((req, res) => {
         text: 'Could not add the device.'
       });
     } else {
+      ws.send(JSON.stringify({ type: 'CREATE_DEVICE', deviceName: device.name }));
       res.json(device);
     }
   });
@@ -72,12 +73,13 @@ devicesRouter.route('/:id').put((req, res) => {
     }
     else {
       for (let prop in req.body) {
-        if (req.body.hasOwnProperty(prop)) {
-          device[prop] = req.body[prop];
-        }
+       device[prop] = req.body[prop];
       }
       device.save()
         .then(device => {
+          if (Object.keys(req.body).length  === 1) {
+            ws.send(JSON.stringify({ type: 'STATUS_DEVICE', deviceName: device.name, deviceStatus: device.status }));
+          }
           res.json(device);
         })
         .catch(err => {
