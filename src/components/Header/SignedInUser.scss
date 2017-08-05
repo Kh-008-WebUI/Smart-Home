@@ -2,18 +2,19 @@
 
 .user-block {
   display: flex;
-  height: 40px;
+  height: 45px;
   padding: 5px 10px;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .user-block-name {
   margin-right: 10px;
-  color: #333;
+  color: $text-color-title;
   font-size: 14px;
   vertical-align: middle;
   line-height: 40px;
-  font-weight: 400;
+  font-weight: bold;
 }
 
  .user-block-photo {
@@ -47,20 +48,20 @@
 .user-block-dropdown-content {
     display: none;
     position: fixed;
-    top: 11px;
     right: 0;
     background: $modals-bg;
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
     margin-top: 40px;
     z-index: 1;
     border-radius: $border-radius;
+    width: 150px;
   }
 
 .user-block-dropdown-content-item {
   display: block;
   padding: 10px 15px; 
   color: $text-color-active;
-  font-size: 16px;
+  font-size: 14px;
 }
 .user-block-dropdown-content-item:hover {
   color: $text-color-input;

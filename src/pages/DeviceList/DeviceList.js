@@ -99,6 +99,7 @@ class DeviceList extends React.Component {
           <DeviceListItem
             data={device}
             key={i}
+            location={''}
             changeStatus={this.changeStatus}
             setPopupShown={this.setPopupShown}/>
         );
