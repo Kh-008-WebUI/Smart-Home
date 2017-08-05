@@ -60,9 +60,7 @@ class DeviceList extends React.Component {
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
-
     };
-
     this.updateUrl = (params) => {
       const match = this.props.match;
       const history = this.props.history;

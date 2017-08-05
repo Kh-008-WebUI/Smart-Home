@@ -83,18 +83,6 @@ export function* updateDeviceSettings (action) {
   }
 }
 
-export function* updateDeviceSettings (action) {
-  try {
-    const device = yield call(DeviceListApi.updateDeviceSettings,
-     action.value, action.settingId, action.deviceId);
-
-    yield put(updateDeviceSettingsSuccess(device));
-    console.log(device);
-  } catch (e) {
-    console.log(e);
-  }
-}
-
 export function* watchLoadDevices () {
   yield takeEvery(LOAD_DEVICES, loadDevicesSaga);
 }
