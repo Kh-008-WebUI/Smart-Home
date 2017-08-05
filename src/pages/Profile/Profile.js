@@ -52,10 +52,18 @@ class Profile extends Component {
   render () {
     return (
       <div className="profile-container">
-      <img
-          src={this.props.user.avatar}
-          className="user-image-profile"
-      />
+      <div className={this.props.user.avatar ?
+        'user-image display-user' :
+        'user-image'
+        }>
+        <img className="user-image-profile" src={this.props.user.avatar} />
+      </div>
+      <div className={this.props.user.avatar ?
+        'user-image' :
+        'user-image display-user'
+        }>
+        <i className="fa fa-user-circle-o photo" aria-hidden="true"></i>
+      </div>
         <Header
           title={this.props.user.name} />
         <Formsy.Form

@@ -74,6 +74,20 @@
   display: block;
 }
 
+.user-image {
+  display: none;
+}
+
 .user-image-profile {
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.photo.fa {
+  font-size: 100px;
+}
+
+.display-user {
+  display: block;
 }
