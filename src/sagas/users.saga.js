@@ -1,0 +1,34 @@
+import { UPDATE_USERS_REQUEST,
+  UPDATE_USER_PROFILE_REQUEST } from '../constants/index';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { usersList, updateProfileRequest } from '../api/usersApi';
+import { loadUsersSuccess, loadUsersFailed,
+  updateProfileSuccess, updateProfileFailed } from '../actions/users.action';
+
+function* getUsersList () {
+  const { response, error } = yield call(usersList);
+
+  if (response) {
+    yield put(loadUsersSuccess(response));
+  } else {
+    yield put(loadUsersFailed(error.message));
+  }
+}
+
+function* updateUserProfile (action) {
+  const { response, error } = yield call(updateProfileRequest, action.payload);
+
+  if (response) {
+    yield put(updateProfileSuccess(response));
+  } else {
+    yield put(updateProfileFailed(error.message));
+  }
+}
+
+export function* watchLoadUsers () {
+  yield takeEvery(UPDATE_USERS_REQUEST, getUsersList);
+}
+
+export function* watchUpdateUserProfile () {
+  yield takeEvery(UPDATE_USER_PROFILE_REQUEST, updateUserProfile);
+}
