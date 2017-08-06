@@ -2,6 +2,7 @@ const express = require('express');
 const devicesRouter = express.Router();
 const Device = require('../models/device');
 const ws = require('../index');
+const moment = require('moment');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
@@ -17,7 +18,13 @@ devicesRouter.route('/').get((req, res) => {
 });
 
 devicesRouter.route('/').post((req, res) => {
-  Device.create(req.body, (err, device) => {
+  const device = req.body;
+
+  device.status = true;
+  device.createdDate = moment().format('LL');
+  device.createdBy = req.session.user;
+
+  Device.create(device, (err, device) => {
     if (err) {
       res.status(500).send({
         status: 'error',
@@ -74,6 +81,9 @@ devicesRouter.route('/:id').put((req, res) => {
     else {
       for (let prop in req.body) {
        device[prop] = req.body[prop];
+      }
+      if (Object.keys(req.body).length > 1) {
+        device.updetedDate = moment().format('LL');
       }
       device.save()
         .then(device => {
