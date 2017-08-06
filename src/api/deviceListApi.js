@@ -6,8 +6,6 @@ export default class DeviceListApi {
     return Transport.get('http://localhost:3001/api/devices');
   }
   static addDevice (device) {
-    device.status = true;
-
     return Transport.post(
       'http://localhost:3001/api/devices',
       JSON.stringify(device));

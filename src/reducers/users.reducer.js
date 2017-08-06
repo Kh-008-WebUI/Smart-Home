@@ -9,8 +9,15 @@ import {
   UPDATE_USER_PROFILE_FAILURE }
 from '../constants/index';
 
-export const users = (state = { users: [],
-  loadUsersStatus: '', displayUsersStatus: true, user: {} }, action) => {
+const initialState = {
+  users: [],
+  loadUsersStatus: '',
+  displayUsersStatus: true,
+  user: {},
+  errorText: ''
+};
+
+export const users = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_USERS_SUCCESS: {
       return Object.assign(
@@ -26,7 +33,10 @@ export const users = (state = { users: [],
         user: action.user
       };
     case LOAD_USERS_FAILURE: {
-      return Object.assign({}, state, { loadUsersStatus: 'ERROR' });
+      return Object.assign({}, state, {
+        loadUsersStatus: 'ERROR',
+        errorText: action.payload
+      });
     }
     case UPDATE_USERS_REQUEST: {
       return Object.assign({}, state, { loadUsersStatus: 'PENDING' });
@@ -40,7 +50,11 @@ export const users = (state = { users: [],
     case UPDATE_USER_PROFILE_SUCCESS:
       return { ...state, user: action.payload, updateProfileStatus: 'DONE' };
     case UPDATE_USER_PROFILE_FAILURE: {
-      return { ...state, updateProfileStatus: 'FAIL' };
+      return {
+        ...state,
+        updateProfileStatus: 'FAIL',
+        errorText: action.payload
+      };
     }
     default:
       return state;
