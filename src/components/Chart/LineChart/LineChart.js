@@ -12,7 +12,7 @@ export default class LineChart extends Component {
   }
 
   render () {
-    const margin = { top: 20, right: 50, bottom: 20, left: 50 },
+    const margin = { top: 20, right: 20, bottom: 20, left: 50 },
       w = this.props.width - (margin.left + margin.right),
       h = this.props.height - (margin.top + margin.bottom);
     const parseDate = d3.timeParse('%x');
