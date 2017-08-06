@@ -103,7 +103,7 @@ class ListDevices extends React.Component {
 }
 
 const mapStateToProps = state =>({
-  devices: filterItems(state),
+  devices: state.devicesList.devices,
   status: state.devicesList.uploadStatus,
   errorText: state.devicesList.errorText
 });

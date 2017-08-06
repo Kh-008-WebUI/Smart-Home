@@ -46,7 +46,7 @@ devicesRouter.route('/device/:id').get((req, res) => {
     });
 });
 
-devicesRouter.route('/:id').delete((req, res) => {
+devicesRouter.route('/device/:id').delete((req, res) => {
   const id = req.params.id;
 
   Device.findOneAndRemove({ _id: id }, (err, device) => {
@@ -59,7 +59,7 @@ devicesRouter.route('/:id').delete((req, res) => {
   });
 });
 
-devicesRouter.route('/:id').put((req, res) => {
+devicesRouter.route('/device/:id').put((req, res) => {
   const id = req.params.id;
 
   Device.findOne({ _id: id }, (err, device) => {

@@ -8,6 +8,12 @@ const notificationSchema = new Schema({
   },
   text: {
     type: String,
+    validate: {
+      validator: (v) => {
+        return (typeof v === 'String').test(v);
+      },
+      message: 'The text must be a string.'
+    },
     required: true
   },
   viewed: {
@@ -22,3 +28,12 @@ const notificationSchema = new Schema({
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);
+
+// notificationSchema.pre('save', function() {
+//   if(typeof this.text === 'String') {
+//     next(new Error('text is invalid'));
+//     return;
+//   }
+
+//   next();
+// });
