@@ -10,6 +10,8 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
+const sendMessage = require('./utils/webSocket');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +40,9 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
+const ws = new WebSocket('ws://localhost:3001/');
+module.exports = ws;
+
 require('./routes/index.js')(router);
 app.use('/api', router);
 
@@ -60,14 +65,13 @@ database.once('open', () => {
   console.log('Connected to database!');
 });
 
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
   ws.on('message', message => {
-    wss.clients.forEach(client => {
-      client.send(message);
-    });
+    sendMessage(message, wss);
   });
 });
 

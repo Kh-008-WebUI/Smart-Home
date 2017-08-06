@@ -1,6 +1,7 @@
 const express = require('express');
 const devicesRouter = express.Router();
 const Device = require('../models/device');
+const ws = require('../index');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
@@ -23,6 +24,7 @@ devicesRouter.route('/').post((req, res) => {
         text: 'Could not add the device.'
       });
     } else {
+      ws.send(JSON.stringify({ type: 'CREATE_DEVICE', deviceName: device.name }));
       res.json(device);
     }
   });
@@ -54,7 +56,9 @@ devicesRouter.route('/:id').delete((req, res) => {
       res.statusMessage = "Something went wrong, could not delete the device.";
       res.status(500).end();
     } else {
+      ws.send(JSON.stringify({ type: 'DELETE_DEVICE', deviceName: device.name }));
       res.json(id);
+
     }
   });
 });
@@ -69,12 +73,13 @@ devicesRouter.route('/:id').put((req, res) => {
     }
     else {
       for (let prop in req.body) {
-        if (req.body.hasOwnProperty(prop)) {
-          device[prop] = req.body[prop];
-        }
+       device[prop] = req.body[prop];
       }
       device.save()
         .then(device => {
+          if (Object.keys(req.body).length  === 1) {
+            ws.send(JSON.stringify({ type: 'STATUS_DEVICE', deviceName: device.name, deviceStatus: device.status }));
+          }
           res.json(device);
         })
         .catch(err => {
