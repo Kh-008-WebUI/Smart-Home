@@ -72,5 +72,6 @@ RangeSettings.propTypes = {
   setItemValue: PropTypes.func,
   data: PropTypes.any,
   onTimerChange:PropTypes.func,
-  deviceId: PropTypes.string
+  deviceId: PropTypes.string,
+  setTimerValue: PropTypes.func
 };
