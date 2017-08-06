@@ -39,5 +39,7 @@ SettingsListItem.propTypes = {
   name: PropTypes.string,
   addDescription: PropTypes.func,
   deleteItem: PropTypes.func.isRequired,
-  children: PropTypes.any
+  children: PropTypes.any,
+  description: PropTypes.string,
+  data: PropTypes.any
 };
