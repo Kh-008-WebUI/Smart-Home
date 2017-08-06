@@ -31,7 +31,7 @@ class DeviceListItem extends React.Component {
         </div>
         <div className="device-item__description">
             <div className="device-item__description-location">
-              {this.props.data.location}</div>
+              {this.props.location}</div>
             <div className="device-item__description-icon">
               <div className="device-item__description-icon-delete">
                 <a className="fa fa-trash"
@@ -49,6 +49,7 @@ DeviceListItem.propTypes = {
   changeStatus: PropTypes.func,
   deleteDevice: PropTypes.func,
   setPopupShown: PropTypes.func,
+  location: PropTypes.string,
   data: PropTypes.shape({
     status: PropTypes.boolean,
     _id: PropTypes.string,

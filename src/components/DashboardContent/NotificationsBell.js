@@ -76,7 +76,7 @@ class NotificationsBell extends React.Component {
       sortEmergencyNotifications(emergencyList, listNotify);
     }
     const classForBellEmergency =
-    'fa fa-bell-o notification-bell__icon bell-emergency';
+      'fa fa-bell-o notification-bell__icon bell-emergency';
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
     if (!this.state.showAllNotify) {
@@ -84,7 +84,9 @@ class NotificationsBell extends React.Component {
     }
     this.changeButtonText();
     return (
-      <div className="notification">
+      <div className="notification"
+        style={listNotify.length !== 0 ?
+          { display: 'block' } : { display: 'none' }}>
         <div className="notification-bell">
           <div className="notification-bell-self"
             onClick={this.displayNotifyBell}>
@@ -102,11 +104,11 @@ class NotificationsBell extends React.Component {
                 }>
               </i>
               <div className={
-              this.props.loadNotificationsStatus === 'ERROR' ?
-              'notification-round-error' : '' }></div>
+                this.props.loadNotificationsStatus === 'ERROR' ?
+                  'notification-round-error' : '' }></div>
               <div className={
-              unViewedMessages.length === 0 ?
-              'remove-block' : 'notification-round' }>
+                unViewedMessages.length === 0 ?
+                  'remove-block' : 'notification-round' }>
               <div className="notification-messages">
                 {unViewedMessages.length}
               </div>
