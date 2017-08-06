@@ -6,8 +6,8 @@ const deviceSchema = new Schema({
   name: {
     type: String,
     required: [true, 'You forgot to give a name for device.'],
-    min: [3, 'Name of yor device is too short.'],
-    max: 18
+    minlength: [3, 'Name of yor device is too short.'],
+    maxlength: 18
   },
   location: {
     type: String,
@@ -19,7 +19,8 @@ const deviceSchema = new Schema({
   },
   views: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0
   },
   items: {
     type: Array,

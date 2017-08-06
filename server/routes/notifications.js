@@ -13,17 +13,18 @@ notificationRouter.route('/')
     }).sort({ time: -1 });
   })
   .post((req, res) => {
-    const notification = new Notification(req.body);
+    const notification = new Notification({text: '128s'});
 
     notification.time = Date.now();
     notification.viewed = false;
 
     notification.save((err, users) => {
       if (err) {
-        res.statusMessage = "Failed to send notification.";
+        res.statusMessage = err;//"Failed to send notification.";
         res.status(500).end();
+      } else {
+        res.json({ notification });
       }
-      res.json({ notification });
     });
   });
 
