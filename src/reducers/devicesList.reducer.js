@@ -95,8 +95,16 @@ export const devicesList = (state = initialState, action) => {
     }
 
     case UPDATE_DEVICE_SETTINGS_SUCCESS: {
+      const devices = state.devices.map((device, index) => {
+        if (device._id === action.device._id) {
+          return action.device;
+        } else {
+          return device;
+        }
+      });
+
       return {
-        ...state, device: action.device
+        ...state, devices, device: action.device
       };
     }
 
