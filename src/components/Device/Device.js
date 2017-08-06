@@ -12,7 +12,7 @@ export const Device = (props) => {
       <div className="device-view__header">
         <div className="device-view__name">
           <h1>{device.name}</h1>
-          <small>Last updated 7 days ago</small>
+          <small>Last updated {props.device.updetedDate}</small>
         </div>
         <div className="device-item__info-status">
           <ToggleSettings

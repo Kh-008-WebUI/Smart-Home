@@ -82,6 +82,9 @@ devicesRouter.route('/:id').put((req, res) => {
       for (let prop in req.body) {
        device[prop] = req.body[prop];
       }
+      if (Object.keys(req.body).length > 1) {
+        device.updetedDate = moment().format('LL');
+      }
       device.save()
         .then(device => {
           if (Object.keys(req.body).length  === 1) {

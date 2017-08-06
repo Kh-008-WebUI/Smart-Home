@@ -5,6 +5,7 @@ const deviceSchema = new Schema({
   id: Number,
   createdDate: String,
   createdBy: String,
+  updetedDate: String,
   name: {
     type: String,
     required: [true, 'You forgot to give a name for device.'],
