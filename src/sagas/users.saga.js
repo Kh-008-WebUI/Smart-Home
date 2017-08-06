@@ -1,9 +1,11 @@
 import { UPDATE_USERS_REQUEST,
   UPDATE_USER_PROFILE_REQUEST } from '../constants/index';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import { usersList, updateProfileRequest } from '../api/usersApi';
 import { loadUsersSuccess, loadUsersFailed,
-  updateProfileSuccess, updateProfileFailed } from '../actions/users.action';
+  updateProfileSuccess, updateProfileFailed,
+  clearUpdateProfileStatus } from '../actions/users.action';
 
 function* getUsersList () {
   const { response, error } = yield call(usersList);
@@ -20,6 +22,8 @@ function* updateUserProfile (action) {
 
   if (response) {
     yield put(updateProfileSuccess(response));
+    yield delay(2000);
+    yield put(clearUpdateProfileStatus());
   } else {
     yield put(updateProfileFailed(error.message));
   }
