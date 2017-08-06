@@ -63,7 +63,6 @@ class Profile extends Component {
   };
 
   handleFileSelect = (e) => {
-    console.log('show spinner here++++++++++++++');
     this.setState({ updateImageStatus: 'Loading...' });
     const files = e.dataTransfer.files;
 
@@ -84,7 +83,6 @@ class Profile extends Component {
           const binaryString = readerEvent.target.result;
 
           this.base64Str = 'data:image/jpeg;base64,' + btoa(binaryString);
-          console.log('hide spinner here-----------');
           this.setState({ updateImageStatus: this.base64Str });
         };
 
@@ -132,14 +130,14 @@ class Profile extends Component {
                 <div className="profile-drop-aria"
                   onDrop={this.handleFileSelect}
                   onDragOver={this.preventDefault}>
-                  <div className="profile-drop-aria-inner">
+                  <div>
                     <div className= {
-                      this.updateImageStatus === 'Drop your photo' ?
-                      'profile-header__user-image' :
-                      'profile-header__user-image hidden'
+                      this.state.updateImageStatus === 'Drop your photo' ?
+                      'profile-header__user-drop-aria' :
+                      'profile-header__user-drop-image hidden'
                     }>{this.state.updateImageStatus}</div>
                     <img className= {
-                      this.updateImageStatus === 'Drop your photo' ?
+                      this.state.updateImageStatus === 'Drop your photo' ?
                       'profile-header__user-image hidden' :
                       'profile-header__user-image'
                     }

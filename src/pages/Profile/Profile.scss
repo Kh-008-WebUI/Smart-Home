@@ -126,9 +126,11 @@
   display: block;
 }
 
-.profile-drop-aria {
+.profile-header__user-drop-aria{
   border-radius: 50px;
   height: 100px;
   width: 100px;
   border: 1px solid $orange;
+  padding: 20px;
+  text-align: center;
 }
