@@ -2,8 +2,10 @@
 
 .user-block {
   display: flex;
+  align-items: center;
   height: 41px;
   margin: 5px 10px;
+  cursor: pointer;
 }
 .user-block-name {
   margin: 10px;
@@ -36,16 +38,13 @@
 }
 
 .user-block-dropdown-content {
-    display: none;
-    position: fixed;
-    top: 11px;
-    right: 0;
-    background-color: $color-bg-grey;
-    margin-top: 40px;
-    z-index: 1;
-    border-radius: 10px;
-  }
-
+  display: block;
+  position: fixed;
+  top: 51px;
+  background-color: $nav-bg;
+  z-index: 1;
+  transition: right 1s;
+}
 .user-block-dropdown-content-item {
   display: block;
   padding: 10px 15px; 
@@ -53,8 +52,11 @@
   font-size: 20px;
 }
 .user-block-dropdown-content-item:hover {
-  color: $text-color-input;;
+  color: $text-color-input;
 }
-.user-block:hover .user-block-dropdown-content {
-  display: block;
+
+@media (max-width: $tablet-min){
+  .user-block-name {
+    display: none;
+  }
 }
