@@ -61,7 +61,7 @@ class DeviceList extends React.Component {
       const device = findByProperty(this.props.devices, '_id', id);
 
       this.props.sendNotificationWS(`${device.name} is
-                                     ${status ? 'on' : 'off'}`);
+        ${status ? 'on' : 'off'}`);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
@@ -74,6 +74,7 @@ class DeviceList extends React.Component {
       const match = this.props.match;
       const history = this.props.history;
 
+      this.initialParams = params;
       history.push({
         pathname: match.url,
         search: queryFromObject(params)
