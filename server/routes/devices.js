@@ -106,7 +106,8 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
 
   Device.findOne({ _id: id }, (err, device) => {
     if (err) {
-      console.log(err);
+      res.statusMessage = "Something went wrong, try again later.";
+      res.status(500).end();
     } else {
       const items = device.items;
 
@@ -127,33 +128,5 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
     }
   });
 });
-
-devicesRouter.route('/items/:id/:setting').put((req, res) => {
-  const id = req.params.id;
-  const setting = req.params.setting;
-
-  Device.findOne({ _id:id }, (err, device) => {
-    if(err) {
-      console.log(err);
-    }
-    else{
-      let items = device.items;
-      items[setting].data = req.body.value;
-
-      device.items = items;
-
-      device.markModified('items');
-
-      device.save()
-        .then(device => {
-          res.json(device);
-        })
-        .catch(err => {
-              res.status(400).send("unable to update the database");
-        });
-    }
-  });
-});
-
 
 module.exports = devicesRouter;
