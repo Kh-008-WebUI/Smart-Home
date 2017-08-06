@@ -4,36 +4,37 @@ const Schema = mongoose.Schema;
 const notificationSchema = new Schema({
   time: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    validate: [dateValidator, 'Date must be in past']
   },
   text: {
     type: String,
-    validate: {
-      validator: (v) => {
-        return (typeof v === 'String').test(v);
-      },
-      message: 'The text must be a string.'
-    },
-    required: true
+    required: true,
+    validate: [stringValidator, 'Field must be string']
   },
   viewed: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
+    validate: [booleanValidator, 'Field must be boolean']
   },
   emergency: {
     type: Boolean,
-    default: false
+    default: false,
+    validate: [booleanValidator, 'Field must be boolean']
   }
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);
 
-// notificationSchema.pre('save', function() {
-//   if(typeof this.text === 'String') {
-//     next(new Error('text is invalid'));
-//     return;
-//   }
+function booleanValidator(value) {
+  return (value === true || value === 'true' || value === false || value === 'false');
+};
 
-//   next();
-// });
+function stringValidator(value) {
+  return (typeof value === 'string' && isNaN(value)) ;
+}
+
+function dateValidator(value) {
+  return (value <= Date.now());
+}

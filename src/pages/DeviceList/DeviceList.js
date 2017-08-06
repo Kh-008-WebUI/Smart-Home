@@ -31,7 +31,7 @@ class DeviceList extends React.Component {
     super(props);
     this.initialParams = {
       search: '',
-      filter: this.props.filterOption
+      filter: 'all'
     };
     this.state = {
       popupShown: false,
@@ -65,6 +65,7 @@ class DeviceList extends React.Component {
       const match = this.props.match;
       const history = this.props.history;
 
+      this.initialParams = params;
       history.push({
         pathname: match.url,
         search: queryFromObject(params)
@@ -82,7 +83,10 @@ class DeviceList extends React.Component {
       this.handleSearchResult(searchValue);
     }
   }
-
+  componentWillUnmount () {
+    this.props.filterAction('all');
+    this.props.findItems('');
+  }
   renderDevices (locations, location) {
     return (
       locations[location].map((device, i) => {
