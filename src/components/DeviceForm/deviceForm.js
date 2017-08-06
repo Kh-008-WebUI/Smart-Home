@@ -77,7 +77,6 @@ class DeviceForm extends React.Component {
       this.props.updateDevice(this.props.settings, this.props.settings._id);
     } else {
       this.props.addDevice(this.props.settings);
-      this.props.sendNotificationWS(`${this.props.settings.name} was created`);
     }
   };
 

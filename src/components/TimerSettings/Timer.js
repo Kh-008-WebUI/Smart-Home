@@ -28,17 +28,18 @@ export default class TimerSettings extends React.Component {
     this.setState({
       hours: event.target.value
     });
-    this.props.setItemValue(`${this.state.hours}:${this.state.minutes}`,
-    this.props.itemId,
-    this.props.deviceId);
   }
 
   changeMinutes = (event) => {
     this.setState({
       minutes: event.target.value
     });
+  }
+
+  setTimerValue = () => {
     this.props.setItemValue(`${this.state.hours}:${this.state.minutes}`,
-    this.props.itemId);
+    this.props.itemId,
+    this.props.deviceId);
   }
 
   hoursKeyDown = (event) => {
@@ -88,6 +89,7 @@ export default class TimerSettings extends React.Component {
             max={99}
             setItemValue={this.props.setItemValue}
             onTimerChange={this.changeHours}
+            setTimerValue={this.setTimerValue}
             hideLabel={true}
             data={this.state.hours}
           />
@@ -98,6 +100,7 @@ export default class TimerSettings extends React.Component {
             max={59}
             setItemValue={this.props.setItemValue}
             onTimerChange={this.changeMinutes}
+            setTimerValue={this.setTimerValue}
             hideLabel={true}
             data={this.state.minutes}
           />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
-import { Header } from '../../components/Auth/Header/Header';
 import Field from '../../components/Auth/Field/Field';
 import { updateProfileRequest } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
@@ -14,10 +13,10 @@ class Profile extends Component {
     this.state = {
       canSubmit: false,
       allowEditName: false,
-      allowEditEmail: false
+      allowEditEmail: false,
+      allowEditImage: true
     };
   }
-
   updateProfile = () => {
     const data = {
       name: this.name.getValue(),
@@ -41,46 +40,63 @@ class Profile extends Component {
     this.setState({
       allowEditName: !this.state.allowEditName
     });
-    this.fieldName.classList.toggle('field-name-display');
+    this.fieldName.classList.toggle('hidden');
+    this.fieldName.classList.toggle('flex-display');
   };
   editEmail = () => {
     this.setState({
       allowEditEmail: !this.state.allowEditEmail
     });
-    this.fieldEmail.classList.toggle('field-email-display');
+    this.fieldEmail.classList.toggle('hidden');
+    this.fieldEmail.classList.toggle('flex-display');
   };
   render () {
     return (
       <div className="profile-container">
-      <div className={this.props.user.avatar ?
-        'user-image display-user' :
-        'user-image'
-        }>
-        <img className="user-image-profile" src={this.props.user.avatar} />
-      </div>
-      <div className={this.props.user.avatar ?
-        'user-image' :
-        'user-image display-user'
-        }>
-        <i className="fa fa-user-circle-o photo" aria-hidden="true"></i>
-      </div>
-        <Header
-          title={this.props.user.name} />
         <Formsy.Form
           onSubmit={this.updateProfile}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
           className="signup-form edit">
-            <div className="user-name-box">
-              <p className="name-title">Name</p>
-                 <span className="logged-name">{this.props.user.name}</span>
+          <div className="profile-header">
+      <div className="profile-header__user-image-box">
+      <div className="profile-header__user-image-edit">
+        <div className={this.props.user.avatar ?
+          'visible' :
+          'hidden'
+          }>
+          <img className="profile-header__user-image"
+            src={this.props.user.avatar} />
+        </div>
+        <div className={this.props.user.avatar ?
+          'hidden' :
+          'visible'
+          }>
+          <i className="fa fa-user-circle-o photo" aria-hidden="true"></i>
+        </div>
+        <i className="fa fa-pencil edit-user-info edit-image"/>
+      </div>
+      <div className="profile-header__user-name">
+           {this.props.user.name}
+          </div>
+      </div>
+      </div>
+        <section className="edit-profile__user-info">
+        <div className="edit-profile-name">
+          <div className="edit-profile__user-name-container">
+            <div className="user-name__box">
+              <p className="user-name__title">Name</p>
+                 <span className="user-name__logged-name">
+                 {this.props.user.name}
+                 </span>
             </div>
-            <div className="name-field-edit">
+            <div className="edit-user-info__icon">
               <i className="fa fa-pencil edit-user-info"
                onClick={this.editName} />
             </div>
+            </div>
              <div
-                className="hidden-field"
+                className="hidden"
                 ref = { (el) => {
                   this.fieldName = el;
                 }
@@ -95,27 +111,31 @@ class Profile extends Component {
             value={this.props.user.name}
             validations="isAlpha"
             validationError="This is not a valid name"
-            required/>
+            />
             </div>
-               <div className="email-name-box">
-                  <p className="email-title">Email</p>
-                    <span className="logged-email">
+           </div>
+           <div className="edit-profile-email">
+            <div className="edit-profile__user-email-container">
+               <div className="user-email__box">
+                  <p className="user-email__title">Email</p>
+                    <span className="user-email__logged-email">
                     {this.props.user.email}
                     </span>
                </div>
-               <div className="email-field-edit">
+               <div className="edit-user-info__icon">
                   <i className="fa fa-pencil edit-user-info"
                   onClick={this.editEmail} />
                </div>
+               </div>
                 <div
-                className="hidden-field"
+                className="hidden"
                 ref = { (el) => {
                   this.fieldEmail = el;
                 }
             }>
           <Field
             name="E-mail"
-            className="hidden-field"
+            className="hidden"
             type="text"
             text={'Enter your new e-mail'}
             ref={(input) => {
@@ -124,9 +144,11 @@ class Profile extends Component {
             value={this.props.user.email}
             validations="isEmail"
             validationError="This is not a valid name"
-            required/>
+            />
             </div>
-            <div className="signup-field-group signup-btn-group">
+            </div>
+            </section>
+            <div className="signup-field-group signup-btn-group edit">
             <input
               type="submit"
               disabled={!this.state.canSubmit}
