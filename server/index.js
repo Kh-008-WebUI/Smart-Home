@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 const sendMessage = require('./utils/webSocket');
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {

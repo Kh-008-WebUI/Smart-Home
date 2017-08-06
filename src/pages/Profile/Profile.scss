@@ -125,3 +125,10 @@
 .visible {
   display: block;
 }
+
+.profile-drop-aria {
+  border-radius: 50px;
+  height: 100px;
+  width: 100px;
+  border: 1px solid $orange;
+}
