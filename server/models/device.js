@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const deviceSchema = new Schema({
   id: Number,
-  time: String,
-  creator: String,
+  createdDate: String,
+  createdBy: String,
   name: {
     type: String,
     required: [true, 'You forgot to give a name for device.'],
