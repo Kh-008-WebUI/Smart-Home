@@ -7,12 +7,13 @@ loginRouter.route('/')
     User.findOne({ '_id': req.session.user },
     (err, user) => {
       if (err) {
-        res.status(500).send({
-          status: 'error',
-          text: 'Something went wrong, try again later.'
-        });
+        res.statusMessage = "Something went wrong, try again later.";
+        res.status(500).end();
       }
-      if (user) {
+      if (!user) {
+        res.statusMessage = "You are not logged in.";
+        res.status(500).end();
+      } else {
         res.status(200).send({
           status: true,
           userData: {
@@ -22,11 +23,6 @@ loginRouter.route('/')
             created: user.created,
             avatar: user.avatar
           }
-        });
-      } else {
-        res.status(500).send({
-          status: 'error',
-          text: 'Cannot find user.'
         });
       }
     });

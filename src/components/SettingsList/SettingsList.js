@@ -18,8 +18,10 @@ export const SettingsList = (props) => (
           deleteItem={props.deleteItem}
           setItemValue={props.setItemValue}
           checked={setting.data}
+          data={setting.data}
+          description={setting.description}
           id={i}>
-          <Item />
+          <Item/>
         </SettingsListItem>
       );
     })}

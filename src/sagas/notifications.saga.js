@@ -44,7 +44,7 @@ export function* changeNotificationStatus (action) {
   if (response) {
     yield put(changeStatusNotificationSuccess(response));
   } else {
-    console.log(error.message);
+    yield put(fetchNotificationsFailed(error.message));
   }
 }
 

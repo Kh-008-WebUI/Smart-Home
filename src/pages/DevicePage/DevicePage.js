@@ -19,8 +19,6 @@ class DevicePage extends React.Component {
 
     this.changeStatus = (status, id) => {
       this.props.onStatusChange({ status }, id);
-      this.props.sendNotificationWS(`${this.props.device.name} is
-                                     ${status ? 'on' : 'off'}`);
     };
   }
   componentDidUpdate () {

@@ -6,17 +6,12 @@ const favicon = require('serve-favicon');
 const config = require('./config/config.js');
 const app = express();
 const router = express.Router();
-const checkAuth = require('./middleware/checkAuth.js');
-const userRoutes = require('./routes/users.js');
-const notificationRoutes = require('./routes/notifications.js');
-const devicesRoutes = require('./routes/devices.js');
-const registerRouter = require('./routes/register.js');
-const loginRouter = require('./routes/login.js');
-const logoutRouter = require('./routes/logout.js');
 const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
+const sendMessage = require('./utils/webSocket');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,12 +40,10 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-router.use('/users', checkAuth, userRoutes);
-router.use('/notifications', checkAuth, notificationRoutes);
-router.use('/devices', checkAuth, devicesRoutes);
-router.use('/logout', checkAuth, logoutRouter);
-router.use('/register', registerRouter);
-router.use('/login', loginRouter);
+const ws = new WebSocket('ws://localhost:3001/');
+module.exports = ws;
+
+require('./routes/index.js')(router);
 app.use('/api', router);
 
 app.get('/', (req, res) =>
@@ -72,14 +65,13 @@ database.once('open', () => {
   console.log('Connected to database!');
 });
 
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
   ws.on('message', message => {
-    wss.clients.forEach(client => {
-      client.send(message);
-    });
+    sendMessage(message, wss);
   });
 });
 
