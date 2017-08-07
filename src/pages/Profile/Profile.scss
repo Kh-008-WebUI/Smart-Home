@@ -73,6 +73,8 @@
 
 .edit-profile__user-info {
   display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .edit-profile__user-name-container,
@@ -133,4 +135,12 @@
   border: 1px solid $orange;
   padding: 30px 10px;
   text-align: center;
+}
+
+.btn--signup-active.edit {
+  margin-left: 0px;
+}
+
+.edit-profile__user-info .signup-form__error-message {
+  margin-top: -10px;
 }
