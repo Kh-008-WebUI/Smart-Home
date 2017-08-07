@@ -7,7 +7,7 @@ import './Dashboard.scss';
 import DashChart from '../../components/DashboardContent/DashChart';
 
 const Dashboard = () => (
-  <div className="dashboard-block">
+  <div className="dashboard-block clearfix">
     <ListDevices />
     <ListUsers />
     <DashChart />
