@@ -240,7 +240,7 @@ class Profile extends Component {
               className="btn btn--signup btn--signup-active edit"
               value="Submit" />
               <Link to={'/'} className="btn btn--primary exit--editing">
-              Home
+              Cancel
             </Link>
           </div>
         </Formsy.Form>
