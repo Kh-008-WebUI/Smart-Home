@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest,
-  changeStatusNotification,
-  fetchAddNotifications
+  changeStatusNotification
 } from '../../actions/notifications.action';
-import { ws } from '../../index';
 import moment from 'moment';
-import { findByProperty } from '../../utils/utils';
-import { sortEmergencyNotifications } from '../../utils/utils';
+import {
+  findByProperty,
+  sortEmergencyNotifications
+} from '../../utils/utils';
 
 class NotificationsBell extends React.Component {
   constructor (props) {
@@ -23,13 +23,6 @@ class NotificationsBell extends React.Component {
   }
 
   componentDidMount () {
-    ws.onmessage = msg => {
-      const message = JSON.parse(msg.data);
-
-      if (message.type === 'notification') {
-        this.props.fetchAddNotifications(message.message);
-      }
-    };
     this.props.getNotifications();
   }
   changeNotifyView = (el) => {
@@ -164,8 +157,6 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    fetchAddNotifications: (message) =>
-      dispatch(fetchAddNotifications(message)),
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed))

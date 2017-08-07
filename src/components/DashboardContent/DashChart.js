@@ -11,34 +11,24 @@ class DashChart extends React.Component {
     super(props);
   }
   componentDidMount () {
-    ws.onmessage = msg => {
-      const message = JSON.parse(msg.data);
-
-      if (message.type === 'chart') {
-        const d = 1;
-      }
-    };
   }
   render () {
     return (
       <div className='chart'>
         <h2 className="list-title">ChartMUTHAFUCKA</h2>
-        <Chart />
+        <Chart data={ this.props.data }/>
       </div>
     );
   }
 }
 function mapStateToProps (store) {
   return {
-  };
-}
-function mapDispatchToProps (dispatch) {
-  return {
+    data: store.chart.data
   };
 }
 
 DashChart.propTypes = {
-
+  data: PropTypes.array
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashChart);
+export default connect(mapStateToProps)(DashChart);

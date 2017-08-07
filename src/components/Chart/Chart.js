@@ -32,7 +32,8 @@ export default class Chart extends React.Component {
           this.div = el;
         } }>
           <LineChart
-            width={this.state.calcWidth}/>
+            width={this.state.calcWidth}
+            data={this.props.data}/>
       </div>
     );
   }
@@ -40,5 +41,6 @@ export default class Chart extends React.Component {
 
 Chart.propTypes = {
   parent: PropTypes.string,
-  styleName: PropTypes.string
+  styleName: PropTypes.string,
+  data: PropTypes.array
 };

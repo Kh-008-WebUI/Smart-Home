@@ -48,25 +48,30 @@ export default class LineChart extends Component {
               scale={x}
               gridType="x"
               orient={'Bottom'}
-              ticks={this.data.length / 2}/>
+              ticks={6}/>
             <Grid
               h={h}
               len={w}
               scale={y}
               gridType="y"
               orient={'Left'}
-              ticks={this.data.length / 2}/>
+              ticks={6}/>
             <Axis h={h}
               orient={'Left'}
               scale={y}
               axisType="y"
-              ticks={this.data.length / 2} />
+              ticks={6} />
             <Axis h={h}
               orient={'Bottom'}
               scale={x}
               axisType="x"
-              ticks={this.data.length / 2}
+              ticks={6}
               format={'%d/%m'}/>
+            <Dots
+              x={x}
+              y={y}
+              data={this.data}
+              yData={this.props.yData} />
             <path
               className="line shadow"
               d={line(this.data)}
