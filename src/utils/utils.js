@@ -1,4 +1,8 @@
-import { ws } from '../index';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+  fetchAddNotifications
+} from '../actions/notifications.action';
 
 export function searchItem (item, searchValue) {
   const result = item.name.toLowerCase()
@@ -80,3 +84,18 @@ export const sortEmergencyNotifications =
       listNotifications.unshift(item);
     });
   };
+
+export const webSocket = (msg, notif, updChart) => {
+  const message = JSON.parse(msg.data);
+
+  switch (message.type) {
+    case 'chart':
+      updChart(message.data);
+      break;
+    case 'notification':
+      notif(message.message);
+      break;
+    default:
+      break;
+  }
+};
