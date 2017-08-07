@@ -30,6 +30,7 @@ export const DELETE_DEVICE_FAIL = 'device/DELETE_DEVICE_FAIL';
 export const ADD_DEVICE_SUCCESS = 'builder/ADD_DEVICE_SUCCESS';
 export const ADD_DEVICE_FAILURE = 'builder/ADD_DEVICE_FAILURE';
 export const EDIT_DEVICE = 'builder/EDIT_DEVICE';
+export const RESET_DEVICE = 'device/RESET_DEVICE';
 export const EDIT_DEVICE_SUCCESS = 'builder/EDIT_DEVICE_SUCCESS';
 export const UPDATE_DEVICE = 'device/UPDATE_DEVICE';
 export const UPDATE_DEVICE_SUCCESS = 'device/UPDATE_DEVICE_SUCCESS';
