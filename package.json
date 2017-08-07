@@ -16,7 +16,7 @@
       "react"
     ]
   },
-  "author": "Abramtsova Ekaterina",
+  "author": "Kh-008-WebUI",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.16.1",
