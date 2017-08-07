@@ -8,7 +8,7 @@ const deviceSchema = new Schema({
   name: {
     type: String,
     required: [true, 'You forgot to give a name for device.'],
-    minlength: [3, 'Name of yor device is too short.'],
+    minlength: [3, 'Name of your device is too short.'],
     maxlength: 18
   },
   location: {

@@ -1,9 +1,15 @@
 @import '../../scss/_variables.scss';
 
 .list-users {
-  width: 20%;
-  height: 185px;
+  font-size: 14px;
   color: $text-color-active;
+  width: 100%;
+  margin-bottom: 30px;
+
+  @media (min-width: $tablet-min) {
+    width: 20%;
+    float: right;
+  }
 
   li {
     padding: 5px;
@@ -23,5 +29,13 @@
 
 .list-menu-users {
   overflow-y: auto; 
-  max-height: 500px;
+  max-height: 150px;
+
+  @media (min-width: $tablet-min) {
+    max-height: 290px;
+  }
+
+  @media (min-width: $desktop-min) {
+    max-height: 450px;
+  }
 }
