@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../../components/Auth/Field/Field';
 import { updateProfileRequest } from '../../actions/users.action';
@@ -187,7 +186,7 @@ class Profile extends Component {
                 }
                 }>
                 <Field
-                  name="Name"
+                  name=" "
                   type="text"
                   text={'Enter your new name'}
                   ref={(input) => {
@@ -219,7 +218,7 @@ class Profile extends Component {
                 }
                 }>
                 <Field
-                  name="E-mail"
+                  name=" "
                   className="hidden"
                   type="text"
                   text={'Enter your new e-mail'}
@@ -239,9 +238,6 @@ class Profile extends Component {
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active edit"
               value="Submit" />
-              <Link to={'/'} className="btn btn--primary exit--editing">
-              Cancel
-            </Link>
           </div>
         </Formsy.Form>
       </div>
