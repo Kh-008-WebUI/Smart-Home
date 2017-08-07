@@ -15,12 +15,12 @@ import {
   loadDevices,
   changeStatus,
   deleteDevice,
-  updateDevice } from '../../actions/devices.action';
+  updateDevice,
+  clearStatus } from '../../actions/devices.action';
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
 import { queryFromObject,
-         sortDevicesByLocations,
-         findByProperty } from '../../utils/utils';
+         sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
@@ -31,7 +31,7 @@ class DeviceList extends React.Component {
     super(props);
     this.initialParams = {
       search: '',
-      filter: this.props.filterOption
+      filter: 'all'
     };
     this.state = {
       popupShown: false,
@@ -57,22 +57,15 @@ class DeviceList extends React.Component {
     };
     this.changeStatus = (status, id) => {
       this.props.changeStatus({ status }, id);
-      const device = findByProperty(this.props.devices, '_id', id);
-
-      this.props.sendNotificationWS(`${device.name} is
-                                     ${status ? 'on' : 'off'}`);
     };
     this.deleteDevice = (id) => {
       this.props.deleteDevice(id);
-      const device = findByProperty(this.props.devices, '_id', id);
-
-      this.props.sendNotificationWS(`${device.name} was deleted`);
     };
-
     this.updateUrl = (params) => {
       const match = this.props.match;
       const history = this.props.history;
 
+      this.initialParams = params;
       history.push({
         pathname: match.url,
         search: queryFromObject(params)
@@ -90,7 +83,10 @@ class DeviceList extends React.Component {
       this.handleSearchResult(searchValue);
     }
   }
-
+  componentWillUnmount () {
+    this.props.filterAction('all');
+    this.props.findItems('');
+  }
   renderDevices (locations, location) {
     return (
       locations[location].map((device, i) => {
@@ -182,6 +178,12 @@ class DeviceList extends React.Component {
               innerText={'Cancel'}
             />
         </Popup>
+        <Message
+          clearStatus={this.props.clearStatus}
+          status={this.props.status}
+          header={'Error'}
+          text={this.props.errorText}
+        />
       </section>
     );
   }
@@ -191,7 +193,8 @@ const mapStateToProps = state =>({
   devices: filterItems(state),
   filterOption: state.searchAndFilter.filterOption,
   search: state.searchAndFilter.searchValue,
-  status: state.devicesList.uploadStatus
+  status: state.devicesList.uploadStatus,
+  errorText: state.devicesList.errorText
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -200,7 +203,8 @@ const mapDispatchToProps = (dispatch) => ({
   findItems: (searchValue) => dispatch(searchAction(searchValue)),
   loadDevices: () => dispatch(loadDevices()),
   deleteDevice: (id) => dispatch(deleteDevice(id)),
-  sendNotificationWS: (message) => dispatch(sendNotificationWS(message))
+  sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
+  clearStatus: () => dispatch(clearStatus())
 });
 
 DeviceList.propTypes = {
@@ -216,7 +220,9 @@ DeviceList.propTypes = {
   history: PropTypes.object,
   location: PropTypes.object,
   status: PropTypes.string,
-  sendNotificationWS: PropTypes.func
+  sendNotificationWS: PropTypes.func,
+  errorText: PropTypes.string,
+  clearStatus: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);

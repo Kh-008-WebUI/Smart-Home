@@ -17,6 +17,7 @@ export const SettingsListItem = (props) => (
           className="description-input"
           placeholder="Description"
           type="text"
+          value={props.description}
           onChange={ (e)=> props.addDescription(props.id, e.target.value) }/>
       </label>
     </div>
@@ -24,7 +25,8 @@ export const SettingsListItem = (props) => (
       styleName: 'item-body',
       setItemValue: props.setItemValue,
       itemId: props.id,
-      checked: props.checked
+      checked: props.checked,
+      data: props.data
     })}
  </div>
 );
@@ -37,5 +39,7 @@ SettingsListItem.propTypes = {
   name: PropTypes.string,
   addDescription: PropTypes.func,
   deleteItem: PropTypes.func.isRequired,
-  children: PropTypes.any
+  children: PropTypes.any,
+  description: PropTypes.string,
+  data: PropTypes.any
 };

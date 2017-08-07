@@ -2,21 +2,61 @@
 
 .user-block {
   display: flex;
+  align-items: center;
   height: 41px;
   margin: 5px 10px;
+  cursor: pointer;
 }
-.user-name {
+.user-block-name {
   margin: 10px;
   color: #333;
   font-size: 20px;
 }
 
-.user-photo {
-  background-image: url("../../img/avatar2.png");
+ .user-block-photo {
+   width: 35px;
+   height: 35px;
+   border-radius: 50%;
+}
+
+.user-block-avatar {
+  display: none;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: $color-orange;
-  background-size: contain;
+}
+
+.icon.fa {
+  font-size: 35px;
   margin: 3px;
+  background-color: $gray;
+  border-radius: 50%;
+}
+
+.display-user {
+  display: block;
+}
+
+.user-block-dropdown-content {
+  display: block;
+  position: fixed;
+  top: 51px;
+  background-color: $nav-bg;
+  z-index: 1;
+  transition: right 1s;
+}
+.user-block-dropdown-content-item {
+  display: block;
+  padding: 10px 15px; 
+  color: $text-color-active;
+  font-size: 20px;
+}
+.user-block-dropdown-content-item:hover {
+  color: $text-color-input;
+}
+
+@media (max-width: $tablet-min){
+  .user-block-name {
+    display: none;
+  }
 }

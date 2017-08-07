@@ -6,7 +6,8 @@ userRouter.route('/')
   .get((req, res) => {
     User.find((err, users) => {
       if (err) {
-        res.send(err);
+        res.statusMessage = "Failed to find user.";
+        res.status(500).end();
       }
       res.json(users);
     });
@@ -16,7 +17,8 @@ userRouter.route('/')
 
     user.save((err, users) => {
       if (err) {
-        res.send(err);
+        res.statusMessage = "Failed to save.";
+        res.status(500).end();
       }
       res.json({ message: 'User created' });
     });
@@ -26,21 +28,27 @@ userRouter.route('/:id')
   .get((req, res) => {
     User.findById(req.params.id, (err, user) => {
       if (err) {
-        res.send(err);
+        res.statusMessage = "Something went wrong, try again later.";
+        res.status(500).end();
       } else {
-        res.send(user);
+        res.send({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          created: user.created
+        });
       }
     });
   })
   .put((req, res) => {
     User.findById(req.params.id, (err, user) => {
       if (err) {
-        res.send(err);
-        return;
+        res.statusMessage = "Something went wrong, try again later.";
+        res.status(500).end();
       }
       if (!user) {
-        res.send(`user ${req.params.id} not found in the database`);
-        return;
+        res.statusMessage = "Something went wrong, try again later.";
+        res.status(500).end();
       }
       for (const prop in req.body) {
         if (req.body.hasOwnProperty(prop)) {
@@ -49,7 +57,8 @@ userRouter.route('/:id')
       }
       user.save((error) => {
         if (error) {
-          return res.send(error);
+          res.statusMessage = "Failed to save.";
+          res.status(500).end();
         }
         return res.json(user);
       });
@@ -58,7 +67,8 @@ userRouter.route('/:id')
   .delete((req, res) => {
     User.findByIdAndRemove(req.params.id, (err, user) => {
       if (err) {
-        res.send(err);
+        res.statusMessage = "Failed to delete.";
+        res.status(500).end();
       } else {
         res.send({
           message: 'note successfully deleted',

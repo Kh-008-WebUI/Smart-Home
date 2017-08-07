@@ -11,8 +11,6 @@ export default class RangeSettings extends React.Component {
     this.state = {
       value: 0
     };
-
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount () {
@@ -20,27 +18,28 @@ export default class RangeSettings extends React.Component {
       this.setState({
         value: this.props.data
       });
-
-      this.props.setItemValue(this.props.data,
-                              this.props.itemId,
-                              this.props.deviceId);
     }
   }
 
-  onChange (e) {
-    const newValue = e.target.value;
-
+  onChange = (e) => {
     this.setState({
-      value: newValue
+      value: e.target.value
     });
-    this.props.setItemValue(newValue,
-                            this.props.itemId,
-                            this.props.deviceId);
+
     if (typeof this.props.onTimerChange !== 'undefined') {
       this.props.onTimerChange(e);
     }
   }
 
+  setValue = (e) => {
+    if (typeof this.props.setTimerValue !== 'undefined') {
+      this.props.setTimerValue();
+    } else {
+      this.props.setItemValue(this.state.value,
+                            this.props.itemId,
+                            this.props.deviceId);
+    }
+  }
 
   render () {
     const { max, min } = this.props;
@@ -52,6 +51,7 @@ export default class RangeSettings extends React.Component {
         <input
           type='range'
           onChange={ this.onChange }
+          onMouseUp={ this.setValue }
           min={min || 0}
           max={max || 100}
           step={1}
@@ -72,5 +72,6 @@ RangeSettings.propTypes = {
   setItemValue: PropTypes.func,
   data: PropTypes.any,
   onTimerChange:PropTypes.func,
-  deviceId: PropTypes.string
+  deviceId: PropTypes.string,
+  setTimerValue: PropTypes.func
 };

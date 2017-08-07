@@ -28,13 +28,6 @@ const Navigation = (props) => (
           Device List
         </NavLink>
       </li>
-      <li className="navigation-item">
-        <NavLink
-          to="/auth"
-          activeClassName="active">
-          Register
-        </NavLink>
-      </li>
     </ul>
 );
 

@@ -11,11 +11,6 @@ export default class TimerSettings extends React.Component {
       hours: 0,
       minutes: 0
     };
-
-    this.changeHours = this.changeHours.bind(this);
-    this.changeMinutes = this.changeMinutes.bind(this);
-    this.hoursKeyDown = this.hoursKeyDown.bind(this);
-    this.minutesKeyDown = this.minutesKeyDown.bind(this);
   }
 
   componentDidMount () {
@@ -26,30 +21,28 @@ export default class TimerSettings extends React.Component {
         hours:time[0],
         minutes:time[1]
       });
-      this.props.setItemValue(this.props.data,
-                              this.props.itemId,
-                              this.props.deviceId);
     }
   }
 
-  changeHours (event) {
+  changeHours = (event) => {
     this.setState({
       hours: event.target.value
     });
-    this.props.setItemValue(`${this.state.hours}:${this.state.minutes}`,
-                            this.props.itemId,
-                            this.props.deviceId);
   }
 
-  changeMinutes (event) {
+  changeMinutes = (event) => {
     this.setState({
       minutes: event.target.value
     });
-    this.props.setItemValue(`${this.state.hours}:${this.state.minutes}`,
-      this.props.itemId);
   }
 
-  hoursKeyDown (event) {
+  setTimerValue = () => {
+    this.props.setItemValue(`${this.state.hours}:${this.state.minutes}`,
+    this.props.itemId,
+    this.props.deviceId);
+  }
+
+  hoursKeyDown = (event) => {
     if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 8) {
       event.preventDefault();
     }
@@ -58,7 +51,7 @@ export default class TimerSettings extends React.Component {
     }
   }
 
-  minutesKeyDown (event) {
+  minutesKeyDown = (event) => {
     if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 8) {
       event.preventDefault();
     }
@@ -96,6 +89,7 @@ export default class TimerSettings extends React.Component {
             max={99}
             setItemValue={this.props.setItemValue}
             onTimerChange={this.changeHours}
+            setTimerValue={this.setTimerValue}
             hideLabel={true}
             data={this.state.hours}
           />
@@ -106,6 +100,7 @@ export default class TimerSettings extends React.Component {
             max={59}
             setItemValue={this.props.setItemValue}
             onTimerChange={this.changeMinutes}
+            setTimerValue={this.setTimerValue}
             hideLabel={true}
             data={this.state.minutes}
           />

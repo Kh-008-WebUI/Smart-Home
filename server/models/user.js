@@ -8,7 +8,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  home: Boolean,
+  home: {
+    type: Boolean,
+    default: false
+  },
   email: {
     type: String,
     unique: true,
@@ -22,10 +25,10 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  isLogged: Boolean
+  avatar: String
 });
 
-userSchema.methods.encryptPassword = function(password) {
+userSchema.methods.encryptPassword = function (password) {
   return crypto.createHmac('sha256', config.secret)
     .update(password)
     .digest('hex');
@@ -35,7 +38,6 @@ userSchema.virtual('password')
   .set(function (password) {
     this._plainPassword = password;
     this.salt = config.secret;
-    console.log(this);
     this.hashedPassword = this.encryptPassword(password);
   })
   .get(function () {

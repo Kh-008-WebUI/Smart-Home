@@ -12,7 +12,7 @@ export const Device = (props) => {
       <div className="device-view__header">
         <div className="device-view__name">
           <h1>{device.name}</h1>
-          <small>Last updated 7 days ago</small>
+          <small>Last updated {props.device.updetedDate}</small>
         </div>
         <div className="device-item__info-status">
           <ToggleSettings
@@ -24,8 +24,8 @@ export const Device = (props) => {
           className="fa fa-pencil device-item_info-edit">
         </Link>
         <div className="device-view__info">
-          <small>07.07.17</small><br/>
-          <small>username</small>
+          <small>{props.device.createdDate}</small><br/>
+          <small>{props.device.createdBy}</small>
         </div>
       </div>
       <div className="device-view__location">

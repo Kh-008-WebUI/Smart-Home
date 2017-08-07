@@ -11,25 +11,24 @@ import { delay } from 'redux-saga';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
 export function* addDevice (action) {
-  try {
-    const device = yield call(DeviceListApi.addDevice, action.device);
+  const { response, error } =
+    yield call(DeviceListApi.addDevice, action.device);
 
-    yield put(addDeviceSuccess());
+  if (response) {
+    yield put(addDeviceSuccess(response));
     yield put(loadDevices());
-  } catch (e) {
-    yield put(addDeviceFailure(e));
-    yield delay(2000);
-    yield put(clearAddStatus());
+  } else {
+    yield put(addDeviceFailure(error.message));
   }
 }
 
 export function* editDevice (action) {
-  try {
-    const device = yield call(DeviceListApi.getDevice, action.id);
+  const { response, error } = yield call(DeviceListApi.getDevice, action.id);
 
-    yield put(editDeviceSuccess(device));
-  } catch (error) {
-    yield put(addDeviceFailure(error));
+  if (response) {
+    yield put(editDeviceSuccess(response));
+  } else {
+    yield put(addDeviceFailure(error.message));
   }
 }
 

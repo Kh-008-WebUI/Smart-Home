@@ -1,44 +1,69 @@
-import { LOGIN_PENDING, REGISTRATION_ATTEMPT } from '../constants/index';
-import { login, getRegisterData } from '../api/authenticationApi';
+import { LOGIN_PENDING,
+  REGISTRATION_ATTEMPT,
+  LOAD_LOGGED_USER,
+  LOGOUT_PENDING } from '../constants/index';
+import { login,
+  getRegisterData,
+  getUserData,
+  logout } from '../api/authenticationApi';
 import { loginSuccess,
   loginFailure,
   clearLoginStatus,
   registration,
   registrationPending,
   registrationSuccess,
-  registrationFailure } from '../actions/auth.action';
+  registrationFailure,
+  getLoggedUser,
+  logoutSuccess,
+  logoutFailure } from '../actions/auth.action';
 import { delay } from 'redux-saga';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
 export function* checkLogin (action) {
-  try {
-    const status = yield call(login, action.user);
+  const { response, error } = yield call(login, action.user);
 
-    if (status.status === 'error') {
-      throw new Error(status.text);
-    }
-
-    yield put(loginSuccess(status));
+  if (response) {
+    yield put(loginSuccess(response));
     yield delay(2000);
     yield put(clearLoginStatus());
-  } catch (e) {
-    yield put(loginFailure(e.message));
+  } else {
+    yield put(loginFailure(error.message));
   }
 }
 
 export function* register (action) {
-  try {
-    const registerData = yield call(getRegisterData, action.userData);
+  const { response, error } = yield call(getRegisterData, action.userData);
 
-    if (registerData.status === 'error') {
-      throw new Error(registerData.text);
-    }
-
-    yield put(registrationSuccess(registerData));
+  if (response) {
+    yield put(registrationSuccess(response));
     yield delay(2000);
     yield put(clearLoginStatus());
-  } catch (e) {
-    yield put(registrationFailure(e.message));
+  } else {
+    yield put(registrationFailure(error.message));
+  }
+}
+
+export function* loadUser (action) {
+  const { response, error } = yield call(getUserData);
+
+  if (response) {
+    yield put(loginSuccess(response));
+    yield delay(2000);
+    yield put(clearLoginStatus());
+  } else {
+    yield put(loginFailure(error.message));
+  }
+}
+
+export function* logoutUser (action) {
+  const { response, error } = yield call(logout);
+
+  if (response) {
+    yield put(logoutSuccess(response));
+    yield delay(2000);
+    yield put(clearLoginStatus());
+  } else {
+    yield put(logoutFailure(error.message));
   }
 }
 
@@ -48,4 +73,12 @@ export function* watchLogin () {
 
 export function* watchRegistration () {
   yield takeEvery(REGISTRATION_ATTEMPT, register);
+}
+
+export function* watchLoadUser () {
+  yield takeEvery(LOAD_LOGGED_USER, loadUser);
+}
+
+export function* watchLogout () {
+  yield takeEvery(LOGOUT_PENDING, logoutUser);
 }

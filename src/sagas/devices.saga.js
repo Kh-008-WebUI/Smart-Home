@@ -8,7 +8,9 @@ import {
   deleteDeviceFail,
   loadDeviceFail,
   updateDeviceSuccess,
-  updateDeviceSettingsSuccess
+  updateDeviceSettingsSuccess,
+  updateDeviceFail,
+  clearStatus
   } from '../actions/devices.action';
 import {
   LOAD_DEVICES,
@@ -26,57 +28,58 @@ import {
   UPDATE_DEVICE_SETTINGS } from '../constants/index';
 
 export function* loadDevicesSaga () {
-  try {
-    yield put({ type:LOAD_DEVICES_PENDING });
-    const devices = yield call(DeviceListApi.getDevices);
+  const { response, error } = yield call(DeviceListApi.getDevices);
 
-    yield put(loadDevicesSuccess(devices));
-  } catch (e) {
-    yield put(loadDevicesFail());
+  if (response) {
+    yield put(loadDevicesSuccess(response));
+    yield put(clearStatus());
+  } else {
+    yield put(loadDeviceFail(error.message));
   }
 }
 
 export function* loadDeviceSaga (action) {
-  try {
-    yield put({ type:LOAD_DEVICE_PENDING });
-    const device = yield call(DeviceListApi.getDevice, action.id);
+  const { response, error } = yield call(DeviceListApi.getDevice, action.id);
 
-    yield put(loadDeviceSuccess(device));
-  } catch (error) {
-    yield put(loadDeviceFail(error));
+  if (response) {
+    yield put(loadDeviceSuccess(response));
+    yield put(clearStatus());
+  } else {
+    yield put(loadDeviceFail(error.message));
   }
 }
 
 export function* deleteDevice (action) {
-  try {
-    const id = yield call(DeviceListApi.deleteDevice, action.id);
+  const { response, error } = yield call(DeviceListApi.deleteDevice, action.id);
 
-    yield put(deleteDeviceSuccess(id));
-  } catch (e) {
-    yield put(deleteDeviceFail(e));
+  if (response) {
+    yield put(deleteDeviceSuccess(response));
+    yield put(clearStatus());
+  } else {
+    yield put(deleteDeviceFail(error.message));
   }
 }
 
 export function* updateDevice (action) {
-  try {
-    const device = yield call(DeviceListApi.updateDevice,
+  const { response, error } = yield call(DeviceListApi.updateDevice,
       action.id, action.data);
 
-    yield put(updateDeviceSuccess(device, action.id));
-  } catch (e) {
-    console.log(e);
+  if (response) {
+    yield put(updateDeviceSuccess(response, action.id));
+    yield put(clearStatus());
+  } else {
+    yield put(updateDeviceFail(error.message));
   }
 }
 
 export function* updateDeviceSettings (action) {
-  try {
-    const device = yield call(DeviceListApi.updateDeviceSettings,
+  const { response, error } = yield call(DeviceListApi.updateDeviceSettings,
      action.value, action.settingId, action.deviceId);
 
-    yield put(updateDeviceSettingsSuccess(device));
-    console.log(device);
-  } catch (e) {
-    console.log(e);
+  if (response) {
+    yield put(updateDeviceSettingsSuccess(response));
+  } else {
+    yield put(updateDeviceFail(error.message));
   }
 }
 

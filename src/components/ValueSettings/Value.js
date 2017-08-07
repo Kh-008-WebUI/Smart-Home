@@ -9,7 +9,6 @@ export default class ValueSettings extends React.Component {
     this.state = {
       value: ''
     };
-    this.onChangeValue = this.onChangeValue.bind(this);
   }
 
   componentDidMount () {
@@ -17,14 +16,10 @@ export default class ValueSettings extends React.Component {
       this.setState({
         value: this.props.data
       });
-
-      this.props.setItemValue(this.props.data,
-                              this.props.itemId,
-                              this.props.deviceId);
     }
   }
 
-  onChangeValue (e) {
+  onChangeValue = (e) => {
     const newValue = e.target.value;
 
     this.setState({
@@ -32,8 +27,8 @@ export default class ValueSettings extends React.Component {
     });
 
     this.props.setItemValue(newValue,
-                            this.props.itemId,
-                            this.props.deviceId);
+      this.props.itemId,
+      this.props.deviceId);
   }
 
   render () {

@@ -6,21 +6,15 @@ import {
   REGISTRATION_ATTEMPT,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
-  UPDATE_USER_PROFILE_REQUEST,
-  UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_FAILURE
+  LOGOUT_PENDING,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from '../constants/index';
 
 const initialState = {
   status: '',
   errorText: '',
-  isLogged: true,
-  user: {
-    username: '',
-    password: '',
-    passwordRepeat: '',
-    email: ''
-  }
+  isLogged: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,14 +25,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status: 'DONE',
-        isLogged: action.status,
-        user: action.user
+        isLogged: action.user
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         status:'FAIL',
-        isLogged: false,
+        isLogged: {},
         errorText: action.errorText
       };
     case CLEAR_LOGIN_STATUS:
@@ -48,8 +41,7 @@ const reducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        user: action.userData,
-        isLogged: true,
+        isLogged: action.user,
         status: 'DONE'
       };
     case REGISTER_FAILURE:
@@ -58,14 +50,20 @@ const reducer = (state = initialState, action) => {
         status: 'FAIL',
         errorText: action.errorText
       };
-    case UPDATE_USER_PROFILE_REQUEST: {
-      return { ...state, updateProfileStatus: 'PENDING' };
-    }
-    case UPDATE_USER_PROFILE_SUCCESS:
-      return { ...state, user: action.payload, updateProfileStatus: 'DONE' };
-    case UPDATE_USER_PROFILE_FAILURE: {
-      return { ...state, updateProfileStatus: 'FAIL' };
-    }
+    case LOGOUT_PENDING:
+      return { ...state, status: 'PENDING' };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        status: '',
+        isLogged: {}
+      };
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        status:'FAIL',
+        errorText: action.errorText
+      };
     default:
       return state;
   }

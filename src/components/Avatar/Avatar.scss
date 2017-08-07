@@ -1,7 +1,6 @@
 @import '../../scss/_variables';
 
-.avatar-image {
-  background-image: url("../../img/avatar2.png");
+/*  .avatar-image {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -9,6 +8,26 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  margin-right: 7px;
+} */
+
+.user-list-avatar {
+  display: none;
+}
+
+.display-user {
+  display: block;
+}
+
+.user-list-avatar-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+
+.avatar.fa {
+  font-size: 30px;
   margin-right: 7px;
 }
 
@@ -47,3 +66,5 @@
   margin-left: 10px;
   cursor: pointer;
 }
+
+
