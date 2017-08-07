@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Device from '../../components/Device/Device';
+import { Device } from '../../components/Device/Device';
 import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
@@ -22,6 +22,7 @@ class DevicePage extends React.Component {
       this.props.onStatusChange({ status }, id);
     };
   }
+
   componentDidUpdate () {
     if (this.props.status === 'FAIL') {
       setTimeout(()=>{
@@ -29,16 +30,18 @@ class DevicePage extends React.Component {
       }, 1000);
     }
   }
+
   componentWillMount () {
-      this.props.loadDeviceAsync(this.props.match.params.id);
-    }
+    this.props.loadDeviceAsync(this.props.match.params.id);
+  }
+
   componentWillUnmount () {
     this.props.resetDevice(this.props.match.params.id);
   }
 
   render () {
     const id = this.props.match.params.id;
-console.log(this.props.device);
+
     return (
       <div>
         {typeof this.props.device._id === 'undefined' ?

@@ -19,7 +19,8 @@ import {
   UPDATE_DEVICE_SETTINGS,
   UPDATE_DEVICE_FAILURE,
   UPDATE_DEVICE_SETTINGS_SUCCESS,
-  CLEAR_STATUS
+  CLEAR_STATUS,
+  RESET_DEVICE
  } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
@@ -124,10 +125,9 @@ export const updateDeviceSettings = (value, settingId, deviceId) => {
   };
 };
 
-export const resetDevice = (id) => {
+export const resetDevice = () => {
   return {
-    type: 'RESET_DEVICE',
-    id
+    type: RESET_DEVICE
   };
 };
 

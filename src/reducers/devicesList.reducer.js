@@ -10,7 +10,8 @@ import { DELETE_DEVICE_SUCCESS,
   UPDATE_DEVICE_SUCCESS,
   UPDATE_DEVICE_SETTINGS_SUCCESS,
   UPDATE_DEVICE_FAILURE,
-  CLEAR_STATUS
+  CLEAR_STATUS,
+  RESET_DEVICE
   } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
@@ -68,13 +69,10 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case 'RESET_DEVICE': {
-      let resetDevice = state.device;
-
-      resetDevice = {};
+    case RESET_DEVICE: {
       return {
         ...state,
-        device: resetDevice
+        device: {}
       };
     }
 
