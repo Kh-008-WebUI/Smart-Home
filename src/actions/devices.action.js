@@ -124,6 +124,12 @@ export const updateDeviceSettings = (value, settingId, deviceId) => {
   };
 };
 
+export const resetDevice = (id) => {
+  return {
+    type: 'RESET_DEVICE',
+    id
+  };
+};
 
 export const clearStatus = () => {
   return {

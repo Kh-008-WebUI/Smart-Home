@@ -39,9 +39,7 @@ class ListDevices extends React.Component {
     };
   }
   componentDidMount () {
-    if (this.props.devices.length === 0) {
-      this.props.loadDevices();
-    }
+    this.props.loadDevices();
   }
   render () {
     const listDevices = this.props.devices.slice(0, 3);
