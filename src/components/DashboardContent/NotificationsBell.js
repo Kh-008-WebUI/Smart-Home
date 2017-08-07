@@ -24,7 +24,7 @@ class NotificationsBell extends React.Component {
 
   componentDidMount () {
     ws.onmessage = msg => {
-      this.props.fetchAddNotifications(msg.data);
+      this.props.getNotifications();
     };
     this.props.getNotifications();
   }

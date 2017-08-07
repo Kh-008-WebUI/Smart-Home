@@ -3,6 +3,7 @@ const devicesRouter = express.Router();
 const Device = require('../models/device');
 const ws = require('../index');
 const moment = require('moment');
+const Notification = require('../models/notification.js');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find((err, devices) => {
@@ -31,7 +32,16 @@ devicesRouter.route('/').post((req, res) => {
         text: 'Could not add the device.'
       });
     } else {
-      ws.send(JSON.stringify({ type: 'CREATE_DEVICE', deviceName: device.name }));
+      let notification = new Notification({
+        time:  Date.now(),
+        text: `${device.name} was created`,
+        viewed: false,
+        emergency: false
+      });
+
+      Notification.create(notification);
+
+      ws.send(JSON.stringify(notification));
       res.json(device);
     }
   });
@@ -63,9 +73,17 @@ devicesRouter.route('/:id').delete((req, res) => {
       res.statusMessage = "Something went wrong, could not delete the device.";
       res.status(500).end();
     } else {
-      ws.send(JSON.stringify({ type: 'DELETE_DEVICE', deviceName: device.name }));
-      res.json(id);
+      let notification = new Notification({
+        time:  Date.now(),
+        text: `${device.name} was deleted`,
+        viewed: false,
+        emergency: true
+      });
 
+      Notification.create(notification);
+
+      ws.send(JSON.stringify(notification));
+      res.json(id);
     }
   });
 });
@@ -88,7 +106,16 @@ devicesRouter.route('/:id').put((req, res) => {
       device.save()
         .then(device => {
           if (Object.keys(req.body).length  === 1) {
-            ws.send(JSON.stringify({ type: 'STATUS_DEVICE', deviceName: device.name, deviceStatus: device.status }));
+            let notification = new Notification({
+              time:  Date.now(),
+              text: `${device.name} is ${device.status ? 'on' : 'off'}`,
+              viewed: false,
+              emergency: false
+            });
+
+            Notification.create(notification);
+
+            ws.send(JSON.stringify(notification));
           }
           res.json(device);
         })
