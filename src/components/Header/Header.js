@@ -20,12 +20,8 @@ export default class Header extends React.Component {
           </button>
         </div>
         <div className="header-blok-right">
-          <div className="notification-block">
             <NotificationsBell />
-          </div>
-          <div className="signed-in-user-block">
             <SignedInUser />
-          </div>
         </div>
       </header>
     );

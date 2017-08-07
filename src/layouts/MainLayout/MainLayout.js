@@ -19,7 +19,7 @@ class MainLayout extends Component {
       sidebarOpen: false
     };
 
-    this.setSidebarOpen = (open) => {
+    this.setSidebarOpen = () => {
       const currentState = this.state.sidebarOpen;
 
       this.setState({ sidebarOpen: !currentState });
@@ -39,7 +39,8 @@ class MainLayout extends Component {
       <div>
         <Header setSidebarOpen={this.setSidebarOpen}/>
         <Navigation
-          open={this.state.sidebarOpen}/>
+          open={this.state.sidebarOpen}
+          setSidebarOpen={this.setSidebarOpen}/>
         <main className="content">
         {this.props.children}
         <Message

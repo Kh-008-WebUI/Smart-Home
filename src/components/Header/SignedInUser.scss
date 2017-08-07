@@ -2,15 +2,19 @@
 
 .user-block {
   display: flex;
-  align-items: center;
-  height: 41px;
-  margin: 5px 10px;
+  height: 45px;
+  padding: 5px 10px;
+  margin-left: 5px;
   cursor: pointer;
 }
+
 .user-block-name {
-  margin: 10px;
-  color: #333;
-  font-size: 20px;
+  margin-right: 10px;
+  color: $text-color-title;
+  font-size: 14px;
+  vertical-align: middle;
+  line-height: 40px;
+  font-weight: bold;
 }
 
  .user-block-photo {
@@ -24,6 +28,10 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
+
+  .icon.fa {
+    margin: 0;
+  }
 }
 
 .icon.fa {
@@ -41,7 +49,8 @@
   display: block;
   position: fixed;
   top: 51px;
-  background-color: $nav-bg;
+  background: $modals-bg;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
   z-index: 1;
   transition: right 1s;
 }
@@ -49,7 +58,7 @@
   display: block;
   padding: 10px 15px; 
   color: $text-color-active;
-  font-size: 20px;
+  font-size: 14px;
 }
 .user-block-dropdown-content-item:hover {
   color: $text-color-input;

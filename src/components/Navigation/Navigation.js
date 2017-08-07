@@ -5,7 +5,14 @@ import './Navigation.scss';
 
 const Navigation = (props) => (
     <ul className={props.open ?
-      'navigation navigation--shown' : 'navigation'}>
+      'navigation navigation--shown' : 'navigation'}
+      onClick={(event) => {
+        const elem = event.target;
+
+        if (elem) {
+          props.setSidebarOpen();
+        }
+      }}>
       <li className="navigation-item">
         <NavLink
           to="/"
@@ -32,7 +39,8 @@ const Navigation = (props) => (
 );
 
 Navigation.propTypes = {
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  setSidebarOpen: PropTypes.func
 };
 
 export default Navigation;

@@ -22,8 +22,9 @@ notificationRouter.route('/')
       if (err) {
         res.statusMessage = "Failed to send notification.";
         res.status(500).end();
+      } else {
+        res.json({ notification });
       }
-      res.json({ notification });
     });
   });
 
