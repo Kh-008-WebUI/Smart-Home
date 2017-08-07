@@ -17,7 +17,8 @@ class Profile extends Component {
       allowEditName: false,
       allowEditEmail: false,
       allowEditImage: false,
-      updateImageStatus: 'Drop your photo'
+      updateImageStatus: 'Drop your photo',
+      imageBase64: null
     };
   }
   updateProfile = () => {
@@ -60,9 +61,15 @@ class Profile extends Component {
   };
 
   editImage = () => {
+    this.setState({
+      allowEditImage: !this.state.allowEditImage
+    });
+    this.fieldImage.classList.toggle('hidden');
+    this.fieldImage.classList.toggle('flex-display');
   };
 
   handleFileSelect = (e) => {
+    e.preventDefault();
     this.setState({ updateImageStatus: 'Loading...' });
     const files = e.dataTransfer.files;
 
@@ -73,7 +80,7 @@ class Profile extends Component {
         const maxFileSize = 1024 * 1024;
 
         if (file.size > maxFileSize) {
-          console.log(`file ${file.size} exceeds max allowed ${maxFileSize}`);
+          this.setState({ updateImageStatus: 'Exceeding 1MB limit' });
           return;
         }
 
@@ -83,13 +90,12 @@ class Profile extends Component {
           const binaryString = readerEvent.target.result;
 
           this.base64Str = 'data:image/jpeg;base64,' + btoa(binaryString);
-          this.setState({ updateImageStatus: this.base64Str });
+          this.setState({ imageBase64: this.base64Str, updateImageStatus: '' });
         };
 
         reader.readAsBinaryString(file);
       }
     }
-    e.preventDefault();
   }
   preventDefault = (event) => {
     event.preventDefault();
@@ -127,21 +133,25 @@ class Profile extends Component {
                 </div>
                 <i className="fa fa-pencil edit-user-info edit-image"
                   onClick={this.editImage} />
-                <div className="profile-drop-aria"
+                <div className="hidden"
+                  ref={(el) => {
+                    this.fieldImage = el;
+                  }
+                }
                   onDrop={this.handleFileSelect}
                   onDragOver={this.preventDefault}>
                   <div>
                     <div className= {
-                      this.state.updateImageStatus === 'Drop your photo' ?
+                      this.state.updateImageStatus !== '' ?
                       'profile-header__user-drop-aria' :
                       'profile-header__user-drop-image hidden'
                     }>{this.state.updateImageStatus}</div>
                     <img className= {
-                      this.state.updateImageStatus === 'Drop your photo' ?
+                      this.state.updateImageStatus !== '' ?
                       'profile-header__user-image hidden' :
                       'profile-header__user-image'
                     }
-                    src={this.state.updateImageStatus} /></div>
+                    src={this.state.imageBase64} /></div>
                 </div>
               </div>
               <div className="profile-header__user-name">
