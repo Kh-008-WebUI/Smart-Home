@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../../components/Auth/Field/Field';
 import { updateProfileRequest } from '../../actions/users.action';
@@ -100,7 +101,13 @@ class Profile extends Component {
   preventDefault = (event) => {
     event.preventDefault();
   }
-
+  componentDidUpdate () {
+    if (this.props.updateProfileStatus === 'DONE') {
+      setTimeout(()=>{
+        this.props.history.push('/');
+      }, 1000);
+    }
+  }
   render = () => {
     return (
       <div className="profile-container">
@@ -232,6 +239,9 @@ class Profile extends Component {
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active edit"
               value="Submit" />
+              <Link to={'/'} className="btn btn--primary exit--editing">
+              Back
+            </Link>
           </div>
         </Formsy.Form>
       </div>
@@ -260,5 +270,6 @@ Profile.propTypes = {
   user: PropTypes.object,
   email: PropTypes.object,
   errorText: PropTypes.string,
-  value: PropTypes.object
+  value: PropTypes.object,
+  history: PropTypes.object
 };
