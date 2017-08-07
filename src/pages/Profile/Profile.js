@@ -194,7 +194,7 @@ class Profile extends Component {
                   }}
                   value={this.props.user.name}
                   validations="isAlpha"
-                  validationError="Name is not valid"
+                  validationError="This is not a valid name"
                 />
               </div>
             </div>
@@ -227,7 +227,7 @@ class Profile extends Component {
                   }}
                   value={this.props.user.email}
                   validations="isEmail"
-                  validationError="Email is not valid"
+                  validationError="This is not a valid email"
                 />
               </div>
             </div>
