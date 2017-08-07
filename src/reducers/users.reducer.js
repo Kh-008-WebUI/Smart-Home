@@ -6,14 +6,15 @@ import {
   LOGIN_SUCCESS,
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_FAILURE }
+  UPDATE_USER_PROFILE_FAILURE,
+  CLEAR_UPDATE_PROFILE_STATUS }
 from '../constants/index';
 
 const initialState = {
   users: [],
   loadUsersStatus: '',
   displayUsersStatus: true,
-  user: {},
+  user: { errorText: '' },
   errorText: ''
 };
 
@@ -47,13 +48,16 @@ export const users = (state = initialState, action) => {
     case UPDATE_USER_PROFILE_REQUEST: {
       return { ...state, updateProfileStatus: 'PENDING' };
     }
+    case CLEAR_UPDATE_PROFILE_STATUS: {
+      return { ...state, updateProfileStatus: '' };
+    }
     case UPDATE_USER_PROFILE_SUCCESS:
       return { ...state, user: action.payload, updateProfileStatus: 'DONE' };
     case UPDATE_USER_PROFILE_FAILURE: {
       return {
         ...state,
         updateProfileStatus: 'FAIL',
-        errorText: action.payload
+        errorText: action.errorText
       };
     }
     default:

@@ -1,20 +1,11 @@
 @import '../../scss/_variables.scss';
 
 .notification-bell {
-  font-size: 40px;
-  margin-right: 15px;
+  font-size: 34px;
   cursor: pointer;
 
-  @media (min-width: $desktop-min) {
-    margin-right: 40px;
-  }
-
   &__icon.fa {
-    font-size: 30px;
-
-    @media (min-width: $desktop-min) {
-      font-size: 35px;
-    }
+    font-size: 28px;
   }
 }
 
@@ -24,19 +15,20 @@
 }
 
 .bell-emergency {
-  color: $red;
- }
+  background-color: $warning-color;
+  border-radius: 10px;
+}
 
 .notification-round {
-  height: 20px;
-  width: 20px;
+  height: 17px;
+  width: 17px;
   border-radius: 50%;
   border: 1px solid $border-color-hover;
   background-color: $orange;
   position: absolute;
   font-size: 11px;
   text-align: center;
-  line-height: 20px;
+  line-height: 17px;
   top: 41%;
   right: -13%;
 }
@@ -126,8 +118,7 @@
   margin: 10px 0 10px;
 }
 .notification-item-emergency {
-  color: red !important;
-  font-size: 1.05em !important;
+  color: $warning-color !important;
 }
 
 .emergency-alert {
@@ -139,7 +130,7 @@
   font-weight: bold;
   left: -83px;
   z-index: 2;
-  color: red;
+  color: $warning-color;
   animation: blinker 1s linear infinite;
 }
 

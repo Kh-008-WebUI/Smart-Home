@@ -6,16 +6,18 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    minlength: [3, 'Entered name is too short']
   },
   home: {
     type: Boolean,
-    default: false
+    default: false,
+    validate: [booleanValidator, 'Field must be boolean']
   },
   email: {
     type: String,
     unique: true,
-    required:  true
+    required: true
   },
   hashedPassword: {
     type: String,
@@ -23,7 +25,8 @@ const userSchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    validate: [dateValidator, 'Wrong date']
   },
   avatar: String
 });
@@ -49,3 +52,11 @@ userSchema.methods.checkPassword = function (password) {
 };
 
 module.exports = mongoose.model('User', userSchema);
+
+function booleanValidator(value) {
+  return (value === true || value === 'true' || value === false || value === 'false');
+};
+
+function dateValidator(value) {
+  return (value <= Date.now());
+}
