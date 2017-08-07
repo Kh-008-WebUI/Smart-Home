@@ -5,7 +5,8 @@
   cursor: pointer;
 
   &__icon.fa {
-    font-size: 28px;
+    font-size: 25px;
+    color: $icons-headier-bg;
   }
 }
 
@@ -14,36 +15,20 @@
   position: relative;
 }
 
-.bell-emergency {
-  background-color: $warning-color;
-  border-radius: 10px;
+.bell-emergency.fa {
+  color: $warning-color;
+  animation: blinker 1.5s linear infinite;
 }
 
 .notification-round {
-  height: 17px;
-  width: 17px;
-  border-radius: 50%;
-  border: 1px solid $border-color-hover;
+  padding: 2px 5px;
   background-color: $orange;
   position: absolute;
-  font-size: 11px;
+  top: 20%;
+  right: -50%;
+  font-size: 10px;
   text-align: center;
-  line-height: 17px;
-  top: 41%;
-  right: -13%;
-}
-
-.notification-round-error {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background-color: $warning-color;
-  position: absolute;
-  font-size: 11px;
-  text-align: center;
-  line-height: 20px;
-  top: 41%;
-  right: 13%;
+  color: #fff;
 }
 
 .notification-list {
@@ -54,6 +39,7 @@
   position: absolute;
   right: 10px;
   top: 52px;
+  min-width: 300px;
   max-width: 317px;
 
     &__notice {
@@ -121,23 +107,6 @@
   color: $warning-color !important;
 }
 
-.emergency-alert {
-  display: none;
-  position: absolute;
-  top: 8px;
-  bottom: 0;
-  font-size: 15px;
-  font-weight: bold;
-  left: -83px;
-  z-index: 2;
-  color: $warning-color;
-  animation: blinker 1s linear infinite;
-}
-
 @keyframes blinker {
   50% { opacity: 0; }
-}
-
-.emergency-display {
-  display: block;
 }

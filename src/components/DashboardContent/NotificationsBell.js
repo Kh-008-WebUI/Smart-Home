@@ -81,19 +81,10 @@ class NotificationsBell extends React.Component {
     }
     this.changeButtonText();
     return (
-      <div className="notification"
-        style={listNotify.length !== 0 ?
-          { display: 'block' } : { display: 'none' }}>
+      <div className="notification">
         <div className="notification-bell">
           <div className="notification-bell-self"
             onClick={this.displayNotifyBell}>
-              <div className={
-                emergencyList.length === 0 ?
-                'emergency-alert' :
-                'emergency-alert emergency-display'
-                }>
-                Attention! Emergency!
-              </div>
               <i className={
                 emergencyList.length === 0 ?
                 'fa fa-bell-o notification-bell__icon' :
@@ -102,14 +93,15 @@ class NotificationsBell extends React.Component {
               </i>
               <div className={
                 this.props.loadNotificationsStatus === 'ERROR' ?
-                  'notification-round-error' : '' }></div>
-              <div className={
-                unViewedMessages.length === 0 ?
-                  'remove-block' : 'notification-round' }>
-              <div className="notification-messages">
-                {unViewedMessages.length}
+                  'notification-round-error' : '' }>
               </div>
-            </div>
+              <div
+                className={
+                  unViewedMessages.length === 0 ?
+                  'remove-block' : 'notification-round' }
+                >
+                  {unViewedMessages.length}
+              </div>
           </div>
         </div>
         <div className="notification-list"

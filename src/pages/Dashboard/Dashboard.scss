@@ -1,37 +1,7 @@
 @import "../../scss/_variables";
 
-.dashboard-devices-and-persons {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-@media screen and (max-width: $tablet-min) {
-  .dashboard-devices-and-persons {
-    flex-direction: column;
-  }
-
-  .list-device {
-    width: 100%
-  }
-
-  .list-users {
-    width: 50%;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .list-device-menu {
-    flex-direction: column;
-  }
-
-  .list-users {
-    width: 100%;
-  }
-
-  .device-single {
-    width: 100%;
+.dashboard-block {
+  .chart {
+    float: left;
   }
 }
