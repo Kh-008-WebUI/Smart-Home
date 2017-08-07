@@ -76,9 +76,7 @@ class DeviceList extends React.Component {
     const location = this.props.location;
     const searchValue = queryString.parse(location.search).search;
 
-    if (this.props.devices.length === 0) {
-      this.props.loadDevices();
-    }
+    this.props.loadDevices();
     if (searchValue) {
       this.handleSearchResult(searchValue);
     }
@@ -94,6 +92,7 @@ class DeviceList extends React.Component {
           <DeviceListItem
             data={device}
             key={i}
+            location={''}
             changeStatus={this.changeStatus}
             setPopupShown={this.setPopupShown}/>
         );

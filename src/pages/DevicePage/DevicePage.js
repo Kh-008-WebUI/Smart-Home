@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Device } from '../../components/Device/Device';
+import Device from '../../components/Device/Device';
 import { Message } from '../../components/Message/Message';
 import PropTypes from 'prop-types';
 import {
@@ -9,7 +9,8 @@ import {
   loadDevice,
   updateDeviceSettings,
   updateDevice,
-  clearStatus } from '../../actions/devices.action';
+  clearStatus,
+  resetDevice } from '../../actions/devices.action';
 import { sendNotificationWS } from '../../actions/notifications.action';
 require('./DevicePage.scss');
 
@@ -28,16 +29,16 @@ class DevicePage extends React.Component {
       }, 1000);
     }
   }
-  componentDidMount () {
-    this.props.loadDevice(this.props.match.params.id);
-    if (typeof this.props.device._id === 'undefined') {
+  componentWillMount () {
       this.props.loadDeviceAsync(this.props.match.params.id);
     }
+  componentWillUnmount () {
+    this.props.resetDevice(this.props.match.params.id);
   }
 
   render () {
     const id = this.props.match.params.id;
-
+console.log(this.props.device);
     return (
       <div>
         {typeof this.props.device._id === 'undefined' ?
@@ -72,7 +73,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateDeviceSettings(value, settingId, deviceId)),
   onStatusChange: (data, id) => dispatch(updateDevice(data, id)),
   sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
-  clearStatus: () => dispatch(clearStatus())
+  clearStatus: () => dispatch(clearStatus()),
+  resetDevice: (id) => dispatch(resetDevice(id))
 });
 
 DevicePage.propTypes = {
@@ -94,7 +96,8 @@ DevicePage.propTypes = {
   status: PropTypes.string,
   sendNotificationWS: PropTypes.func,
   clearStatus: PropTypes.func,
-  errorText: PropTypes.string
+  errorText: PropTypes.string,
+  resetDevice: PropTypes.func
 };
 
 DevicePage.defaultProps = {

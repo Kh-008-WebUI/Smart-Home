@@ -68,10 +68,13 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case LOAD_DEVICE_PENDING: {
+    case 'RESET_DEVICE': {
+      let resetDevice = state.device;
+
+      resetDevice = {};
       return {
         ...state,
-        uploadStatus:'PENDING'
+        device: resetDevice
       };
     }
 
@@ -105,16 +108,6 @@ export const devicesList = (state = initialState, action) => {
 
       return {
         ...state, devices, device: action.device
-      };
-    }
-
-    case ADD_DEVICE_TO_LIST: {
-      const devices = Object.assign([], state.devices);
-
-      devices.push(action.device);
-      return {
-        ...state,
-        devices
       };
     }
 
