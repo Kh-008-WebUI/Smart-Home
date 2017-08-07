@@ -55,7 +55,7 @@ class SignedInUser extends React.Component {
             'user-block-avatar' :
             'user-block-avatar display-user'
             }>
-            <i className="fa fa-user-circle-o icon" aria-hidden="true"></i>
+            <i className="fa fa-user icon" aria-hidden="true"></i>
           </div>
           <i className={ `fa ${ this.state.caret }` } aria-hidden="true"></i>
           <div

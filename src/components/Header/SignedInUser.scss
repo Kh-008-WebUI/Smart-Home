@@ -3,18 +3,30 @@
 .user-block {
   display: flex;
   height: 45px;
+  align-items: center;
   padding: 5px 10px;
-  margin-left: 5px;
+  margin-left: 15px;
   cursor: pointer;
+
+  .fa-caret-down,
+  .fa-caret-up {
+    margin-left: 5px;
+    color: $icons-headier-bg;
+  }
 }
 
 .user-block-name {
+  display: none;
   margin-right: 10px;
   color: $text-color-title;
   font-size: 14px;
   vertical-align: middle;
   line-height: 40px;
   font-weight: bold;
+
+  @media (min-width: $tablet-min){
+    display: block;
+  }
 }
 
  .user-block-photo {
@@ -25,20 +37,12 @@
 
 .user-block-avatar {
   display: none;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-
-  .icon.fa {
-    margin: 0;
-  }
 }
 
 .icon.fa {
-  font-size: 35px;
+  font-size: 25px;
   margin: 3px;
-  background-color: $gray;
-  border-radius: 50%;
+  color: $icons-headier-bg;
 }
 
 .display-user {

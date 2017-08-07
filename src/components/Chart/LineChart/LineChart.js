@@ -12,7 +12,7 @@ export default class LineChart extends Component {
   }
 
   render () {
-    const margin = { top: 20, right: 50, bottom: 20, left: 50 },
+    const margin = { top: 20, right: 20, bottom: 20, left: 50 },
       w = this.props.width - (margin.left + margin.right),
       h = this.props.height - (margin.top + margin.bottom);
     const parseDate = d3.timeParse('%x');
@@ -48,25 +48,30 @@ export default class LineChart extends Component {
               scale={x}
               gridType="x"
               orient={'Bottom'}
-              ticks={this.data.length / 2}/>
+              ticks={6}/>
             <Grid
               h={h}
               len={w}
               scale={y}
               gridType="y"
               orient={'Left'}
-              ticks={this.data.length / 2}/>
+              ticks={6}/>
             <Axis h={h}
               orient={'Left'}
               scale={y}
               axisType="y"
-              ticks={this.data.length / 2} />
+              ticks={6} />
             <Axis h={h}
               orient={'Bottom'}
               scale={x}
               axisType="x"
-              ticks={this.data.length / 2}
+              ticks={6}
               format={'%d/%m'}/>
+            <Dots
+              x={x}
+              y={y}
+              data={this.data}
+              yData={this.props.yData} />
             <path
               className="line shadow"
               d={line(this.data)}

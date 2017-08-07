@@ -4,13 +4,13 @@ import ListDevices from
 import ListUsers from
 '../../components/DashboardContent/ListUsers';
 import './Dashboard.scss';
+import DashChart from '../../components/DashboardContent/DashChart';
 
 const Dashboard = () => (
-  <div className="dashboard-block">
-    <div className="dashboard-devices-and-persons">
-      <ListDevices />
-      <ListUsers />
-    </div>
+  <div className="dashboard-block clearfix">
+    <ListDevices />
+    <ListUsers />
+    <DashChart />
   </div>
 );
 

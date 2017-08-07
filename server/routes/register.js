@@ -20,6 +20,7 @@ registerRouter.route('/').post((req, res) => {
             res.status(500).end();
           } else {
             req.session.user = user._id;
+            req.session.name = user.name;
             user.home = true;
             user.save().catch(err => {
               res.statusMessage = "Unable to update the database.";

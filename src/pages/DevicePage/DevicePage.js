@@ -9,7 +9,8 @@ import {
   loadDevice,
   updateDeviceSettings,
   updateDevice,
-  clearStatus } from '../../actions/devices.action';
+  clearStatus,
+  resetDevice } from '../../actions/devices.action';
 import { sendNotificationWS } from '../../actions/notifications.action';
 require('./DevicePage.scss');
 
@@ -21,6 +22,7 @@ class DevicePage extends React.Component {
       this.props.onStatusChange({ status }, id);
     };
   }
+
   componentDidUpdate () {
     if (this.props.status === 'FAIL') {
       setTimeout(()=>{
@@ -28,11 +30,13 @@ class DevicePage extends React.Component {
       }, 1000);
     }
   }
-  componentDidMount () {
-    this.props.loadDevice(this.props.match.params.id);
-    if (typeof this.props.device._id === 'undefined') {
-      this.props.loadDeviceAsync(this.props.match.params.id);
-    }
+
+  componentWillMount () {
+    this.props.loadDeviceAsync(this.props.match.params.id);
+  }
+
+  componentWillUnmount () {
+    this.props.resetDevice(this.props.match.params.id);
   }
 
   render () {
@@ -72,7 +76,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateDeviceSettings(value, settingId, deviceId)),
   onStatusChange: (data, id) => dispatch(updateDevice(data, id)),
   sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
-  clearStatus: () => dispatch(clearStatus())
+  clearStatus: () => dispatch(clearStatus()),
+  resetDevice: (id) => dispatch(resetDevice(id))
 });
 
 DevicePage.propTypes = {
@@ -94,7 +99,8 @@ DevicePage.propTypes = {
   status: PropTypes.string,
   sendNotificationWS: PropTypes.func,
   clearStatus: PropTypes.func,
-  errorText: PropTypes.string
+  errorText: PropTypes.string,
+  resetDevice: PropTypes.func
 };
 
 DevicePage.defaultProps = {
