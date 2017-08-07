@@ -125,3 +125,12 @@
 .visible {
   display: block;
 }
+
+.profile-header__user-drop-aria{
+  border-radius: 50px;
+  height: 100px;
+  width: 100px;
+  border: 1px solid $orange;
+  padding: 30px 10px;
+  text-align: center;
+}
