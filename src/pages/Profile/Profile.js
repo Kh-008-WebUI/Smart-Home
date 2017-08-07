@@ -100,6 +100,13 @@ class Profile extends Component {
   preventDefault = (event) => {
     event.preventDefault();
   }
+  componentDidUpdate () {
+    if (this.props.updateProfileStatus === 'DONE') {
+      setTimeout(()=>{
+        this.props.history.push('/');
+      }, 1000);
+    }
+  }
   render = () => {
     return (
       <div className="profile-container">
