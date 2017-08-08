@@ -63,7 +63,6 @@ database.once('open', () => {
   console.log('Connected to database!');
 });
 
-
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
@@ -75,6 +74,7 @@ wss.on('connection', function connection (ws, req) {
   });
 });
 
+require('./utils/chartData.js')();
 server.listen(config.port, () => {
   console.log(`node server is working on port ${config.port}...`);
 });

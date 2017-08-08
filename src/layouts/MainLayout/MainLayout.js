@@ -10,7 +10,14 @@ import {
   getLoggedUser,
   logout,
   clearLoginStatus } from '../../actions/auth.action';
+import {
+    fetchNotificationsRequest
+  } from '../../actions/notifications.action';
 import { Message } from '../../components/Message/Message';
+import { fetchAddNotifications } from '../../actions/notifications.action';
+import { updateChart } from '../../actions/chart.action';
+import { ws } from '../../index';
+import { webSocket } from '../../utils/utils';
 
 class MainLayout extends Component {
   constructor (props) {
@@ -23,6 +30,14 @@ class MainLayout extends Component {
       const currentState = this.state.sidebarOpen;
 
       this.setState({ sidebarOpen: !currentState });
+    };
+  }
+  componentDidMount () {
+    ws.onmessage = (msg)=>{
+      webSocket(
+        msg,
+        this.props.getNotifications,
+        this.props.updateChart);
     };
   }
   componentWillMount () {
@@ -64,7 +79,10 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     getLoggedUser: bindActionCreators(getLoggedUser, dispatch),
-    clearLoginStatus: bindActionCreators(clearLoginStatus, dispatch)
+    clearLoginStatus: bindActionCreators(clearLoginStatus, dispatch),
+    fetchAddNotifications: bindActionCreators(fetchAddNotifications, dispatch),
+    updateChart: bindActionCreators(updateChart, dispatch),
+    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch)
   };
 }
 
@@ -75,6 +93,9 @@ MainLayout.propTypes = {
   getLoggedUser: PropTypes.func,
   errorText: PropTypes.string,
   status: PropTypes.string,
-  clearLoginStatus: PropTypes.func
+  clearLoginStatus: PropTypes.func,
+  fetchAddNotifications: PropTypes.func,
+  updateChart: PropTypes.func,
+  getNotifications: PropTypes.func
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

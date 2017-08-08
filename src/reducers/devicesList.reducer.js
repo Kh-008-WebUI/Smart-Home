@@ -10,7 +10,8 @@ import { DELETE_DEVICE_SUCCESS,
   UPDATE_DEVICE_SUCCESS,
   UPDATE_DEVICE_SETTINGS_SUCCESS,
   UPDATE_DEVICE_FAILURE,
-  CLEAR_STATUS
+  CLEAR_STATUS,
+  RESET_DEVICE
   } from '../constants/index';
 import { LIST_SET_ITEM_VALUE } from '../constants/index';
 import { SEARCH_ITEM } from '../constants/index';
@@ -68,10 +69,10 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
-    case LOAD_DEVICE_PENDING: {
+    case RESET_DEVICE: {
       return {
         ...state,
-        uploadStatus:'PENDING'
+        device: {}
       };
     }
 
@@ -105,16 +106,6 @@ export const devicesList = (state = initialState, action) => {
 
       return {
         ...state, devices, device: action.device
-      };
-    }
-
-    case ADD_DEVICE_TO_LIST: {
-      const devices = Object.assign([], state.devices);
-
-      devices.push(action.device);
-      return {
-        ...state,
-        devices
       };
     }
 

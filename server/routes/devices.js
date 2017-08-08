@@ -23,7 +23,7 @@ devicesRouter.route('/').post((req, res) => {
 
   device.status = true;
   device.createdDate = moment().format('LL');
-  device.createdBy = req.session.user;
+  device.createdBy = req.session.name;
 
   Device.create(device, (err, device) => {
     if (err) {
