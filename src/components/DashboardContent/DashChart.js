@@ -10,14 +10,10 @@ class DashChart extends React.Component {
     super(props);
   }
 
-  componentDidUpdate () {
-    window.dispatchEvent(new Event('resize'));
-  }
-
   render () {
     return (
       <div className='chart'>
-        <h2 className="list-title">ChartMUTHAFUCKA</h2>
+        <h2 className="list-title">Power consumption</h2>
         <Chart
           data={ this.props.data }
           styleName='dashChart' />

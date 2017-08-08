@@ -105,12 +105,14 @@ class DeviceForm extends React.Component {
             this.name = input;
           }}
           text={'Please enter device name'}
-          validations="isAlphanumeric"
+          validations={{
+            matchRegexp: /[\w\d\s]+/
+          }}
           validationError="This is not a valid name"
           required
           value={this.props.settings.name} />
         <div className="input-container">
-         <label>Location:</label> <br />
+          <label>Location:</label>
           <Select
             name="location"
             required
@@ -121,7 +123,7 @@ class DeviceForm extends React.Component {
           />
         </div>
         <div>
-          <label> Device config:</label> <br />
+          <label> Device config:</label>
           { this.createButtons() }
         </div>
         <div className="main-button-wrap signup-field-group signup-btn-group">

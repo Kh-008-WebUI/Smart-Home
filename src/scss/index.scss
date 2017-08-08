@@ -97,3 +97,22 @@ select{
 ::-webkit-scrollbar-thumb {
 	background-color: $modals-bg;
 }
+
+.col-xs-8 {
+  width: 100%;
+  margin-bottom: 30px;
+
+  @media (min-width: $tablet-min) {
+    float: left;
+    width: 75%;
+  }
+}
+
+.col-xs-4 {
+  width: 100%;
+
+  @media (min-width: $tablet-min) {
+    float: right;
+    width: 20%;
+  }
+}

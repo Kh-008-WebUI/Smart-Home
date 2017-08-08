@@ -114,8 +114,7 @@ class Profile extends Component {
           onChange={this.handleFileSelect} /> */}
         <Message
           status={this.props.updateProfileStatus}
-          text={this.props.errorText}
-        />
+          text={this.props.errorText} />
         <Formsy.Form
           onSubmit={this.updateProfile}
           onValid={this.enableButton}
