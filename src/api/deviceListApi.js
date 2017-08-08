@@ -8,7 +8,7 @@ export default class DeviceListApi {
   }
   static addDevice (device) {
     return Transport.post(
-      `${SERVER_API}/api/devices`,
+      `${SERVER_API}/devices`,
       JSON.stringify(device));
   }
   static getDevice (id) {
