@@ -8,11 +8,11 @@ import DashChart from '../../components/DashboardContent/DashChart';
 
 const Dashboard = () => (
   <div className="dashboard-block clearfix">
-    <div className="col-xs-8">
+    <div className="dashboard-main">
       <ListDevices />
       <DashChart />
     </div>
-    <div className="col-xs-4">
+    <div className="dashboard-sidebar">
       <ListUsers />
     </div>
   </div>
