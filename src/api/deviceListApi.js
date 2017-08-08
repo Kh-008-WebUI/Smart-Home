@@ -23,7 +23,7 @@ export default class DeviceListApi {
   }
   static updateDeviceSettings (value, settingId, deviceId) {
     return Transport.put(
-      `${SERVER_API}/devices/device/items/${deviceId}/${settingId}`,
+      `${SERVER_API}/devices/items/${deviceId}/${settingId}`,
     JSON.stringify({ value }));
   }
 }
