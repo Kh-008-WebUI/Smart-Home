@@ -10,9 +10,7 @@ import {
   getLoggedUser,
   logout,
   clearLoginStatus } from '../../actions/auth.action';
-import {
-    fetchNotificationsRequest
-  } from '../../actions/notifications.action';
+import { fetchNotificationsRequest } from '../../actions/notifications.action';
 import { Message } from '../../components/Message/Message';
 import { fetchAddNotifications } from '../../actions/notifications.action';
 import { updateChart } from '../../actions/chart.action';

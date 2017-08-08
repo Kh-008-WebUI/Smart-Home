@@ -23,9 +23,6 @@ class NotificationsBell extends React.Component {
   }
 
   componentDidMount () {
-    ws.onmessage = msg => {
-      this.props.getNotifications();
-    };
     this.props.getNotifications();
   }
   changeNotifyView = (el) => {
