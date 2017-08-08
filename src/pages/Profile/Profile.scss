@@ -16,7 +16,7 @@
       }
     }
     @media (min-width: $tablet-min) {
-      width: 400px;
+      width: 335px;
       max-width: inherit;
     }
   }
@@ -73,6 +73,7 @@
 
 .edit-profile__user-info {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .edit-profile__user-name-container,
@@ -108,10 +109,6 @@
 
 .btn--signup-active.edit {
   margin-top: 25px;
-}
-
-.edit-profile-email {
-  margin-left: 10px;
 }
 
 .hidden {
