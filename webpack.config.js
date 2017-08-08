@@ -114,7 +114,7 @@ module.exports = {
       allChunks: true
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin()
   ]
 };
 

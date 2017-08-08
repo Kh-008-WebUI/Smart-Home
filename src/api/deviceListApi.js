@@ -1,28 +1,29 @@
 import devices from '../data/data.json';
 import Transport from '../transport/transport';
+import { SERVER_API } from '../constants/index';
 
 export default class DeviceListApi {
   static getDevices () {
-    return Transport.get('http://localhost:3001/api/devices');
+    return Transport.get(`${SERVER_API}/devices`);
   }
   static addDevice (device) {
     return Transport.post(
-      'http://localhost:3001/api/devices',
+      `${SERVER_API}/devices`,
       JSON.stringify(device));
   }
   static getDevice (id) {
-    return Transport.get('http://localhost:3001/api/devices/device/' + id);
+    return Transport.get(`${SERVER_API}/devices/device/${id}`);
   }
   static deleteDevice (id) {
-    return Transport.delete('http://localhost:3001/api/devices/' + id);
+    return Transport.delete(`${SERVER_API}/devices/${id}`);
   }
   static updateDevice (id, data) {
-    return Transport.put('http://localhost:3001/api/devices/' + id,
+    return Transport.put(`${SERVER_API}/devices/${id}`,
     JSON.stringify(data));
   }
   static updateDeviceSettings (value, settingId, deviceId) {
     return Transport.put(
-      `http://localhost:3001/api/devices/items/${deviceId}/${settingId}`,
+      `${SERVER_API}/devices/items/${deviceId}/${settingId}`,
     JSON.stringify({ value }));
   }
 }

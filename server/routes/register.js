@@ -7,23 +7,23 @@ registerRouter.route('/').post((req, res) => {
     { email: req.body.email },
     (err, user) => {
       if (err) {
-        res.statusMessage = "Internal server error. Try later.";
+        res.statusMessage = 'Internal server error. Try later.';
         res.status(500).end();
       };
       if (user.length > 0) {
-          res.statusMessage = "A user with this email already exists.";
+          res.statusMessage = 'A user with this email already exists.';
           res.status(500).end();
       } else {
         User.create(req.body, (err, user) => {
           if (err) {
-            res.statusMessage = "Could not create user";
+            res.statusMessage = 'Could not create user';
             res.status(500).end();
           } else {
             req.session.user = user._id;
             req.session.name = user.name;
             user.home = true;
             user.save().catch(err => {
-              res.statusMessage = "Unable to update the database.";
+              res.statusMessage = 'Unable to update the database.';
               res.status(400).end();
             });
             res.status(200).send({
