@@ -23,7 +23,6 @@ export default class Chart extends React.Component {
     });
   }
   getElementWidth () {
-    console.log(this.div);
     return this.div.offsetWidth;
   }
   render () {
