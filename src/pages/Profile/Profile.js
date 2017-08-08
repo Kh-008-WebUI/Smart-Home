@@ -110,12 +110,14 @@ class Profile extends Component {
   }
   render = () => {
     window.addEventListener('dragover', function (e) {
-      e = e || event;
-      e.preventDefault();
+      const evnt = e || event;
+
+      evnt.preventDefault();
     }, false);
     window.addEventListener('drop', function (e) {
-      e = e || event;
-      e.preventDefault();
+      const evnt = e || event;
+
+      evnt.preventDefault();
     }, false);
 
     return (
