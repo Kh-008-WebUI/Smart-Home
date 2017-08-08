@@ -96,7 +96,6 @@ export const webSocket = (msg, notif, updChart) => {
       notif();
       break;
     default:
-      console.log(message);
       break;
   }
 };

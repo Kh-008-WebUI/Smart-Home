@@ -1,0 +1,25 @@
+@import '../../scss/_variables.scss';
+
+.dashboard-main {
+  width: 100%;
+  margin-bottom: 30px;
+
+  @media (min-width: $desktop-min) {
+    float: left;
+    width: 75%;
+    margin-right: 4%;
+  }
+}
+
+.dashboard-sidebar {
+  width: 100%;
+
+  @media (min-width: $tablet-min) {
+    width: 30%;
+    
+    @media (min-width: $desktop-min) {
+      float: left;
+      width: 20%;
+    }
+  }
+}
