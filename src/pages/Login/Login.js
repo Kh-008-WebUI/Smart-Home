@@ -60,8 +60,7 @@ class Login extends Component {
           clearStatus={this.props.clearLoginStatus}
           status={this.props.loginStatus}
           header={'Authorization failed'}
-          text={this.props.errorText}
-        />
+          text={this.props.errorText} />
         <Formsy.Form
           onSubmit={this.addLogin}
           onValid={this.enableButton}
