@@ -71,6 +71,11 @@
 .settings-linechart{
   width: 97%;
   order:2;
+
+  .item-body{
+    padding: 20px 0;
+  }
+
   @media (min-width: $tablet-min) {
     width: 85%;
   }

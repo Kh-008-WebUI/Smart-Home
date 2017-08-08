@@ -18,7 +18,9 @@ class DashChart extends React.Component {
     return (
       <div className='chart'>
         <h2 className="list-title">ChartMUTHAFUCKA</h2>
-        <Chart data={ this.props.data }/>
+        <Chart
+          data={ this.props.data }
+          styleName='dashChart' />
       </div>
     );
   }

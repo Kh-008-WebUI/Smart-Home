@@ -35,5 +35,5 @@ function generateData(day, month) {
 }
 
 function sendChartData(ws, data) {
-  ws.send(JSON.stringify({ type: 'SEND_DATA', data }));
+  ws.send(JSON.stringify({ type: 'chart', data }));
 }
