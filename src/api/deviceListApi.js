@@ -2,10 +2,9 @@ import devices from '../data/data.json';
 import Transport from '../transport/transport';
 import { SERVER_API } from '../constants/index';
 
-
 export default class DeviceListApi {
   static getDevices () {
-    return Transport.get(`${SERVER_API}//devices`);
+    return Transport.get(`${SERVER_API}/devices`);
   }
   static addDevice (device) {
     return Transport.post(
