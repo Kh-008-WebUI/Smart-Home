@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest,
-  changeStatusNotification,
-  fetchAddNotifications
+  changeStatusNotification
 } from '../../actions/notifications.action';
-import { ws } from '../../index';
 import moment from 'moment';
-import { findByProperty } from '../../utils/utils';
-import { sortEmergencyNotifications } from '../../utils/utils';
+import {
+  findByProperty,
+  sortEmergencyNotifications
+} from '../../utils/utils';
 
 class NotificationsBell extends React.Component {
   constructor (props) {
@@ -23,9 +23,6 @@ class NotificationsBell extends React.Component {
   }
 
   componentDidMount () {
-    ws.onmessage = msg => {
-      this.props.fetchAddNotifications(msg.data);
-    };
     this.props.getNotifications();
   }
   changeNotifyView = (el) => {
@@ -84,19 +81,10 @@ class NotificationsBell extends React.Component {
     }
     this.changeButtonText();
     return (
-      <div className="notification"
-        style={listNotify.length !== 0 ?
-          { display: 'block' } : { display: 'none' }}>
+      <div className="notification">
         <div className="notification-bell">
           <div className="notification-bell-self"
             onClick={this.displayNotifyBell}>
-              <div className={
-                emergencyList.length === 0 ?
-                'emergency-alert' :
-                'emergency-alert emergency-display'
-                }>
-                Attention! Emergency!
-              </div>
               <i className={
                 emergencyList.length === 0 ?
                 'fa fa-bell-o notification-bell__icon' :
@@ -105,14 +93,15 @@ class NotificationsBell extends React.Component {
               </i>
               <div className={
                 this.props.loadNotificationsStatus === 'ERROR' ?
-                  'notification-round-error' : '' }></div>
-              <div className={
-                unViewedMessages.length === 0 ?
-                  'remove-block' : 'notification-round' }>
-              <div className="notification-messages">
-                {unViewedMessages.length}
+                  'notification-round-error' : '' }>
               </div>
-            </div>
+              <div
+                className={
+                  unViewedMessages.length === 0 ?
+                  'remove-block' : 'notification-round' }
+                >
+                  {unViewedMessages.length}
+              </div>
           </div>
         </div>
         <div className="notification-list"
@@ -160,8 +149,6 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    fetchAddNotifications: (message) =>
-      dispatch(fetchAddNotifications(message)),
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed))

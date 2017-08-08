@@ -10,7 +10,7 @@
   min-width: 161px;
   transition: width 1s;
   -webkit-transition: left 1s;
-  z-index: 10;
+  z-index: 20;
 
   @media (min-width: $desktop-min) {
     left: 0;

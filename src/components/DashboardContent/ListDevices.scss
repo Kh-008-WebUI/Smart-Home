@@ -1,10 +1,19 @@
 @import '../../scss/_variables.scss';
 
 .list-device {
-  width: 78%;
   display: flex;
   border-radius: 10px;
   flex-direction: column;
+  width: 100%;
+  margin-bottom: 30px;
+
+  @media (min-width: $desktop-min) {
+    width: 78%;
+  }
+  
+  @media (min-width: $desktop-min) {
+    float: left;
+  }
 }
 
 .list-device-group {

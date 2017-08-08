@@ -100,7 +100,13 @@ class Profile extends Component {
   preventDefault = (event) => {
     event.preventDefault();
   }
-
+  componentDidUpdate () {
+    if (this.props.updateProfileStatus === 'DONE') {
+      setTimeout(()=>{
+        this.props.history.push('/');
+      }, 1000);
+    }
+  }
   render = () => {
     return (
       <div className="profile-container">
@@ -180,7 +186,7 @@ class Profile extends Component {
                 }
                 }>
                 <Field
-                  name="Name"
+                  name=" "
                   type="text"
                   text={'Enter your new name'}
                   ref={(input) => {
@@ -212,7 +218,7 @@ class Profile extends Component {
                 }
                 }>
                 <Field
-                  name="E-mail"
+                  name=" "
                   className="hidden"
                   type="text"
                   text={'Enter your new e-mail'}
@@ -221,7 +227,7 @@ class Profile extends Component {
                   }}
                   value={this.props.user.email}
                   validations="isEmail"
-                  validationError="This is not a valid name"
+                  validationError="This is not a valid email"
                 />
               </div>
             </div>
@@ -260,5 +266,6 @@ Profile.propTypes = {
   user: PropTypes.object,
   email: PropTypes.object,
   errorText: PropTypes.string,
-  value: PropTypes.object
+  value: PropTypes.object,
+  history: PropTypes.object
 };

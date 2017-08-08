@@ -36,6 +36,7 @@ loginRouter.route('/')
       }
       if (user && user.checkPassword(req.body.password)) {
         req.session.user = user._id;
+        req.session.name = user.name;
         user.home = true;
         user.save().catch(err => {
           res.statusMessage = "Unable to update the database.";
