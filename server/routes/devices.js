@@ -41,7 +41,7 @@ devicesRouter.route('/').post((req, res) => {
 
       Notification.create(notification);
 
-      ws.send(JSON.stringify(notification));
+      ws.send(JSON.stringify({type: 'notification'}));
       res.json(device);
     }
   });
@@ -82,7 +82,7 @@ devicesRouter.route('/:id').delete((req, res) => {
 
       Notification.create(notification);
 
-      ws.send(JSON.stringify(notification));
+      ws.send(JSON.stringify({type: 'notification'}));
       res.json(id);
     }
   });
@@ -115,7 +115,7 @@ devicesRouter.route('/:id').put((req, res) => {
 
             Notification.create(notification);
 
-            ws.send(JSON.stringify(notification));
+            ws.send(JSON.stringify({type: 'notification'}));
           }
           res.json(device);
         })
