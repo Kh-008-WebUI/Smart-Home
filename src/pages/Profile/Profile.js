@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../../components/Auth/Field/Field';
-import { updateProfileRequest } from '../../actions/users.action';
+import { updateProfileRequest,
+  clearUpdateProfileStatus } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
 import { connect } from 'react-redux';
@@ -121,8 +122,10 @@ class Profile extends Component {
     return (
       <div className="profile-container">
         <Message
+          clearStatus={this.props.clearStatus}
           status={this.props.updateProfileStatus}
-          text={this.props.errorText} />
+          text={this.props.errorText}
+          header={'Error'} />
         <Formsy.Form
           onSubmit={this.updateProfile}
           onValid={this.enableButton}
@@ -263,7 +266,8 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch)
+    updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch),
+    clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch)
   };
 }
 
@@ -276,5 +280,6 @@ Profile.propTypes = {
   email: PropTypes.object,
   errorText: PropTypes.string,
   value: PropTypes.object,
-  history: PropTypes.object
+  history: PropTypes.object,
+  clearStatus: PropTypes.func
 };
