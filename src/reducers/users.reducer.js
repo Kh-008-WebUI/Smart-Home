@@ -57,7 +57,7 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         updateProfileStatus: 'FAIL',
-        errorText: action.errorText
+        user: { errorText: action.errorText }
       };
     }
     default:

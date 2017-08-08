@@ -1,27 +1,28 @@
 import Transport from '../transport/transport';
+import { SERVER_API } from '../constants/index';
 
 export const login = (data) => {
   return Transport.post(
-    'http://localhost:3001/api/login',
+    `${SERVER_API}/login`,
     JSON.stringify(data)
   );
 };
 
 export const getRegisterData = (data) => {
   return Transport.post(
-    'http://localhost:3001/api/register',
+    `${SERVER_API}/register`,
     JSON.stringify(data)
   );
 };
 
 export const getUserData = () => {
   return Transport.get(
-    'http://localhost:3001/api/login'
+    `${SERVER_API}/login`
   );
 };
 
 export const logout = () => {
   return Transport.get(
-    'http://localhost:3001/api/logout'
+    `${SERVER_API}/logout`
   );
 };

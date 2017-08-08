@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../../components/Auth/Field/Field';
-import { updateProfileRequest } from '../../actions/users.action';
+import { updateProfileRequest,
+  clearUpdateProfileStatus } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
 import { connect } from 'react-redux';
@@ -100,22 +101,31 @@ class Profile extends Component {
   preventDefault = (event) => {
     event.preventDefault();
   }
+
   componentDidUpdate () {
     if (this.props.updateProfileStatus === 'DONE') {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.props.history.push('/');
       }, 1000);
     }
   }
   render = () => {
+    window.addEventListener('dragover', function (e) {
+      e = e || event;
+      e.preventDefault();
+    }, false);
+    window.addEventListener('drop', function (e) {
+      e = e || event;
+      e.preventDefault();
+    }, false);
+
     return (
       <div className="profile-container">
-        {/* <input name="Image" type="file"
-          onChange={this.handleFileSelect} /> */}
         <Message
+          clearStatus={this.props.clearStatus}
           status={this.props.updateProfileStatus}
           text={this.props.errorText}
-        />
+          header={'Error'} />
         <Formsy.Form
           onSubmit={this.updateProfile}
           onValid={this.enableButton}
@@ -143,21 +153,21 @@ class Profile extends Component {
                   ref={(el) => {
                     this.fieldImage = el;
                   }
-                }
+                  }
                   onDrop={this.handleFileSelect}
                   onDragOver={this.preventDefault}>
                   <div>
-                    <div className= {
+                    <div className={
                       this.state.updateImageStatus !== '' ?
-                      'profile-header__user-drop-aria' :
-                      'profile-header__user-drop-image hidden'
+                        'profile-header__user-drop-aria' :
+                        'profile-header__user-drop-image hidden'
                     }>{this.state.updateImageStatus}</div>
-                    <img className= {
+                    <img className={
                       this.state.updateImageStatus !== '' ?
-                      'profile-header__user-image hidden' :
-                      'profile-header__user-image'
+                        'profile-header__user-image hidden' :
+                        'profile-header__user-image'
                     }
-                    src={this.state.imageBase64} /></div>
+                      src={this.state.imageBase64} /></div>
                 </div>
               </div>
               <div className="profile-header__user-name">
@@ -195,6 +205,7 @@ class Profile extends Component {
                   value={this.props.user.name}
                   validations="isAlpha"
                   validationError="This is not a valid name"
+                  required
                 />
               </div>
             </div>
@@ -228,6 +239,7 @@ class Profile extends Component {
                   value={this.props.user.email}
                   validations="isEmail"
                   validationError="This is not a valid email"
+                  required
                 />
               </div>
             </div>
@@ -254,7 +266,8 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch)
+    updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch),
+    clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch)
   };
 }
 
@@ -267,5 +280,6 @@ Profile.propTypes = {
   email: PropTypes.object,
   errorText: PropTypes.string,
   value: PropTypes.object,
-  history: PropTypes.object
+  history: PropTypes.object,
+  clearStatus: PropTypes.func
 };

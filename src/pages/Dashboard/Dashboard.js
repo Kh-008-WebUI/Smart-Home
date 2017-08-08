@@ -8,9 +8,13 @@ import DashChart from '../../components/DashboardContent/DashChart';
 
 const Dashboard = () => (
   <div className="dashboard-block clearfix">
-    <ListDevices />
-    <ListUsers />
-    <DashChart />
+    <div className="dashboard-main">
+      <ListDevices />
+      <DashChart />
+    </div>
+    <div className="dashboard-sidebar">
+      <ListUsers />
+    </div>
   </div>
 );
 

@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import { loadDevices,
   changeStatus,
   deleteDevice,
-  updateDevice } from '../../actions/devices.action.js';
+  updateDevice,
+  clearStatus } from '../../actions/devices.action.js';
 import DeviceListItem from '../DeviceListItem/DeviceListItem';
 import { Message } from '../Message/Message';
 import { Popup } from '../Popup/Popup';
@@ -91,6 +92,7 @@ class ListDevices extends React.Component {
             />
         </Popup>
         <Message
+          clearStatus={this.props.clearStatus}
           status={this.props.status}
           header={'Error'}
           text={this.props.errorText}
@@ -109,7 +111,8 @@ const mapStateToProps = state =>({
 const mapDispatchToProps = (dispatch) => ({
   loadDevices: bindActionCreators(loadDevices, dispatch),
   changeStatus: (data, id) => dispatch(updateDevice(data, id)),
-  deleteDevice: (id) => dispatch(deleteDevice(id))
+  deleteDevice: (id) => dispatch(deleteDevice(id)),
+  clearStatus: () => dispatch(clearStatus())
 });
 
 ListDevices.propTypes = {

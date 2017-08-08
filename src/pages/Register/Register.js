@@ -72,7 +72,7 @@ class Register extends Component {
             validationError="Name must contain only letters"/>
           <Field
             name="Email"
-            type="email"
+            type="text"
             text={'Your address email to contact'}
             ref={(input) => {
               this.email = input;
