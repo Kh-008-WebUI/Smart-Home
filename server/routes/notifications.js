@@ -18,7 +18,7 @@ notificationRouter.route('/')
     notification.time = Date.now();
     notification.viewed = false;
 
-    notification.save((err, users) => {
+    notification.save((err, notifications) => {
       if (err) {
         res.statusMessage = 'Failed to send notification.';
         res.status(500).end();

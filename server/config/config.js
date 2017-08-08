@@ -16,4 +16,4 @@ const configLocal = {
   origin
 };
 
-module.exports = configRemote;
+module.exports = configLocal;
