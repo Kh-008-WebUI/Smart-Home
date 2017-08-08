@@ -4,14 +4,16 @@ import Chart from '../../components/Chart/Chart';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ws } from '../../index';
 
 class DashChart extends React.Component {
   constructor (props) {
     super(props);
   }
-  componentDidMount () {
+
+  componentDidUpdate () {
+    window.dispatchEvent(new Event('resize'));
   }
+
   render () {
     return (
       <div className='chart'>
