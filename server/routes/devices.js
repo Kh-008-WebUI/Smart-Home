@@ -32,7 +32,7 @@ devicesRouter.route('/').post((req, res) => {
         text: 'Could not add the device.'
       });
     } else {
-      let notification = new Notification({
+      const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was created`,
         viewed: false,
@@ -41,7 +41,7 @@ devicesRouter.route('/').post((req, res) => {
 
       Notification.create(notification);
 
-      ws.send(JSON.stringify({type: 'notification'}));
+      ws.send(JSON.stringify({ type: 'notification' }));
       res.json(device);
     }
   });
@@ -53,11 +53,11 @@ devicesRouter.route('/device/:id').get((req, res) => {
   Device.findOneAndUpdate({ _id: id },
     { $inc: { views: 1 } }, { new: true }, (err, device) => {
       if (err) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
       if (!device) {
-        res.statusMessage = "Not found";
+        res.statusMessage = 'Not found';
         res.status(404).end();
       } else {
         res.json(device);
@@ -70,10 +70,10 @@ devicesRouter.route('/:id').delete((req, res) => {
 
   Device.findOneAndRemove({ _id: id }, (err, device) => {
     if (err) {
-      res.statusMessage = "Something went wrong, could not delete the device.";
+      res.statusMessage = 'Something went wrong, could not delete the device.';
       res.status(500).end();
     } else {
-      let notification = new Notification({
+      const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was deleted`,
         viewed: false,
@@ -82,7 +82,7 @@ devicesRouter.route('/:id').delete((req, res) => {
 
       Notification.create(notification);
 
-      ws.send(JSON.stringify({type: 'notification'}));
+      ws.send(JSON.stringify({ type: 'notification' }));
       res.json(id);
     }
   });
@@ -93,7 +93,7 @@ devicesRouter.route('/:id').put((req, res) => {
 
   Device.findOne({ _id: id }, (err, device) => {
     if (err) {
-      res.statusMessage = "Something went wrong, try again later.";
+      res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
     }
     else {
@@ -106,7 +106,7 @@ devicesRouter.route('/:id').put((req, res) => {
       device.save()
         .then(device => {
           if (Object.keys(req.body).length  === 1) {
-            let notification = new Notification({
+            const notification = new Notification({
               time:  Date.now(),
               text: `${device.name} is ${device.status ? 'on' : 'off'}`,
               viewed: false,
@@ -115,12 +115,12 @@ devicesRouter.route('/:id').put((req, res) => {
 
             Notification.create(notification);
 
-            ws.send(JSON.stringify({type: 'notification'}));
+            ws.send(JSON.stringify({ type: 'notification' }));
           }
           res.json(device);
         })
         .catch(err => {
-          res.statusMessage = "Unable to update the database.";
+          res.statusMessage = 'Unable to update the database.';
           res.status(400).end();
         });
     }
@@ -133,7 +133,7 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
 
   Device.findOne({ _id: id }, (err, device) => {
     if (err) {
-      res.statusMessage = "Something went wrong, try again later.";
+      res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
     } else {
       const items = device.items;
@@ -149,7 +149,7 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
           res.json(device);
         })
         .catch(err => {
-          res.statusMessage = "Unable to update the database.";
+          res.statusMessage = 'Unable to update the database.';
           res.status(400).end();
         });
     }

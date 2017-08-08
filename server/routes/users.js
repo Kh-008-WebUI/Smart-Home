@@ -6,7 +6,7 @@ userRouter.route('/')
   .get((req, res) => {
     User.find((err, users) => {
       if (err) {
-        res.statusMessage = "Failed to find user.";
+        res.statusMessage = 'Failed to find user.';
         res.status(500).end();
       }
       res.json(users);
@@ -17,7 +17,7 @@ userRouter.route('/')
 
     user.save((err, users) => {
       if (err) {
-        res.statusMessage = "Failed to save.";
+        res.statusMessage = 'Failed to save.';
         res.status(500).end();
       }
       res.json({ message: 'User created' });
@@ -28,7 +28,7 @@ userRouter.route('/:id')
   .get((req, res) => {
     User.findById(req.params.id, (err, user) => {
       if (err) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       } else {
         res.send({
@@ -43,11 +43,11 @@ userRouter.route('/:id')
   .put((req, res) => {
     User.findById(req.params.id, (err, user) => {
       if (err) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
       if (!user) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
       for (const prop in req.body) {
@@ -57,7 +57,7 @@ userRouter.route('/:id')
       }
       user.save((error) => {
         if (error) {
-          res.statusMessage = "Failed to save.";
+          res.statusMessage = 'Failed to save.';
           res.status(500).end();
         }
         return res.json(user);
@@ -67,7 +67,7 @@ userRouter.route('/:id')
   .delete((req, res) => {
     User.findByIdAndRemove(req.params.id, (err, user) => {
       if (err) {
-        res.statusMessage = "Failed to delete.";
+        res.statusMessage = 'Failed to delete.';
         res.status(500).end();
       } else {
         res.send({

@@ -7,11 +7,11 @@ loginRouter.route('/')
     User.findOne({ '_id': req.session.user },
     (err, user) => {
       if (err) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
       if (!user) {
-        res.statusMessage = "You are not logged in.";
+        res.statusMessage = 'You are not logged in.';
         res.status(500).end();
       } else {
         res.status(200).send({
@@ -31,7 +31,7 @@ loginRouter.route('/')
     User.findOne({ 'email': req.body.email },
     (err, user) => {
       if (err) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
       if (user && user.checkPassword(req.body.password)) {
@@ -39,7 +39,7 @@ loginRouter.route('/')
         req.session.name = user.name;
         user.home = true;
         user.save().catch(err => {
-          res.statusMessage = "Unable to update the database.";
+          res.statusMessage = 'Unable to update the database.';
           res.status(500).end();
         });
         res.status(200).send({
@@ -53,7 +53,7 @@ loginRouter.route('/')
           }
         });
       } else {
-        res.statusMessage = "You have entered an incorrect email or password.";
+        res.statusMessage = 'You have entered an incorrect email or password.';
         res.status(500).end();
       }
     });

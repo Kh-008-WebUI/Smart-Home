@@ -100,18 +100,26 @@ class Profile extends Component {
   preventDefault = (event) => {
     event.preventDefault();
   }
+
   componentDidUpdate () {
     if (this.props.updateProfileStatus === 'DONE') {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.props.history.push('/');
       }, 1000);
     }
   }
   render = () => {
+    window.addEventListener('dragover', function (e) {
+      e = e || event;
+      e.preventDefault();
+    }, false);
+    window.addEventListener('drop', function (e) {
+      e = e || event;
+      e.preventDefault();
+    }, false);
+
     return (
       <div className="profile-container">
-        {/* <input name="Image" type="file"
-          onChange={this.handleFileSelect} /> */}
         <Message
           status={this.props.updateProfileStatus}
           text={this.props.errorText}
@@ -143,21 +151,21 @@ class Profile extends Component {
                   ref={(el) => {
                     this.fieldImage = el;
                   }
-                }
+                  }
                   onDrop={this.handleFileSelect}
                   onDragOver={this.preventDefault}>
                   <div>
-                    <div className= {
+                    <div className={
                       this.state.updateImageStatus !== '' ?
-                      'profile-header__user-drop-aria' :
-                      'profile-header__user-drop-image hidden'
+                        'profile-header__user-drop-aria' :
+                        'profile-header__user-drop-image hidden'
                     }>{this.state.updateImageStatus}</div>
-                    <img className= {
+                    <img className={
                       this.state.updateImageStatus !== '' ?
-                      'profile-header__user-image hidden' :
-                      'profile-header__user-image'
+                        'profile-header__user-image hidden' :
+                        'profile-header__user-image'
                     }
-                    src={this.state.imageBase64} /></div>
+                      src={this.state.imageBase64} /></div>
                 </div>
               </div>
               <div className="profile-header__user-name">
@@ -195,6 +203,7 @@ class Profile extends Component {
                   value={this.props.user.name}
                   validations="isAlpha"
                   validationError="This is not a valid name"
+                  required
                 />
               </div>
             </div>
@@ -228,6 +237,7 @@ class Profile extends Component {
                   value={this.props.user.email}
                   validations="isEmail"
                   validationError="This is not a valid email"
+                  required
                 />
               </div>
             </div>
