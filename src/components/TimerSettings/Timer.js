@@ -27,13 +27,15 @@ export default class TimerSettings extends React.Component {
   changeHours = (event) => {
     this.setState({
       hours: event.target.value
-    });
+    },
+    this.setTimerValue);
   }
 
   changeMinutes = (event) => {
     this.setState({
       minutes: event.target.value
-    });
+    },
+    this.setTimerValue);
   }
 
   setTimerValue = () => {
