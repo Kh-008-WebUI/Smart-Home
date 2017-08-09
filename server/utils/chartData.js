@@ -2,22 +2,26 @@ const ws = require('../index');
 
 module.exports = function () {
   const data = [
-    { day:'02/26/2017', count:310 },
-    { day:'02/27/2017', count:430 },
-    { day:'02/28/2017', count:180 },
-    { day:'02/29/2017', count:150 },
-    { day:'02/30/2017', count:180 },
-    { day:'02/31/2017', count:250 }
+    { day:'01/1/2017', count:310 },
+    { day:'01/2/2017', count:430 },
+    { day:'01/3/2017', count:180 },
+    { day:'01/4/2017', count:150 },
+    { day:'01/5/2017', count:180 },
+    { day:'01/6/2017', count:250 }
   ];
 
-  let day = 1;
-  let month = 3;
+  let day = 7;
+  let month = 1;
   setInterval(function () {
     sendChartData(ws, data);
     data.push(generateData(day, month));
     data.shift();
     if (day > 30){
-      month++;
+      if(month < 12) {
+        month++;
+      } else {
+        month = 1;
+      }
       day = 1;
     } else {
       day++;
