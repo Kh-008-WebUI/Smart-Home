@@ -26,7 +26,7 @@ export default class LineChart extends Component {
       .domain(d3.extent(this.data, (d) => d.date))
       .rangeRound([0, w]);
     const y = d3.scaleLinear()
-      .domain([0, d3.max(this.data, (d) => d[this.props.yData])])
+      .domain([0, 500])
       .range([h, 0]);
     const line = d3.line()
       .x((d)=> x(d.date))
