@@ -21,6 +21,12 @@ export default class RangeSettings extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      value: nextProps.data || 0
+    });
+  }
+
   onChange = (e) => {
     this.setState({
       value: e.target.value
@@ -36,8 +42,8 @@ export default class RangeSettings extends React.Component {
       this.props.setTimerValue();
     } else {
       this.props.setItemValue(this.state.value,
-                            this.props.itemId,
-                            this.props.deviceId);
+      this.props.itemId,
+      this.props.deviceId);
     }
   }
 

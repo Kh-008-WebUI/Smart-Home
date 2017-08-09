@@ -3,7 +3,7 @@
 .profile {
   &-container {
     margin: 0 auto;
-    width: 390px;
+    max-width: 390px;
     position: relative;
     margin-top: -235px;
     top: 40%;
@@ -16,6 +16,7 @@
       }
     }
     @media (min-width: $tablet-min) {
+      width: 335px;
       max-width: inherit;
     }
   }
@@ -26,7 +27,6 @@
   flex-direction: row;
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 100%;
   height: 100%;
   background-color: $gray;
 }
@@ -73,6 +73,7 @@
 
 .edit-profile__user-info {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .edit-profile__user-name-container,
@@ -110,10 +111,6 @@
   margin-top: 25px;
 }
 
-.edit-profile-email {
-  margin-left: 10px;
-}
-
 .hidden {
   display: none;
 }
@@ -140,5 +137,8 @@
 }
 
 .edit-profile__user-info .signup-form__error-message {
-  margin-top: -10px;
+    margin-top: -10px;
+    top: 0;
+    right: 0;
+    width: auto;
 }
