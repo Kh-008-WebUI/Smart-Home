@@ -35,8 +35,6 @@ devicesRouter.route('/').post((req, res) => {
       const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was created`,
-        viewed: false,
-        emergency: false
       });
 
       Notification.create(notification);
@@ -76,7 +74,6 @@ devicesRouter.route('/:id').delete((req, res) => {
       const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was deleted`,
-        viewed: false,
         emergency: true
       });
 
@@ -97,9 +94,7 @@ devicesRouter.route('/:id').put((req, res) => {
       res.status(500).end();
     }
     else {
-      for (let prop in req.body) {
-       device[prop] = req.body[prop];
-      }
+      Object.assign(device, req.body);
       if (Object.keys(req.body).length > 1) {
         device.updetedDate = moment().format('LL');
       }
@@ -108,9 +103,7 @@ devicesRouter.route('/:id').put((req, res) => {
           if (Object.keys(req.body).length  === 1) {
             const notification = new Notification({
               time:  Date.now(),
-              text: `${device.name} is ${device.status ? 'on' : 'off'}`,
-              viewed: false,
-              emergency: false
+              text: `${device.name} is ${device.status ? 'on' : 'off'}`
             });
 
             Notification.create(notification);
