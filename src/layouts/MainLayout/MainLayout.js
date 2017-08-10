@@ -38,9 +38,9 @@ class MainLayout extends Component {
         this.props.updateChart);
     };
   }
-  componentWillMount () {
-    this.props.getLoggedUser();
-  }
+  // componentWillMount () {
+  //   this.props.getLoggedUser();
+  // }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
       this.props.history.push('/auth');

@@ -42,21 +42,16 @@ notificationRouter.route('/:id')
   .put((req, res) => {
     Notification.findOne({ _id: req.params.id }, (err, notification) => {
       if (err) {
-        res.send(err);
-      } else {
-        for (let prop in req.body) {
-          if (req.body.hasOwnProperty(prop)) {
-            notification[prop] = req.body[prop];
-          }
-        }
-        notification.save((error) => {
-          if (error) {
-            res.statusMessage = 'Failed to save notification.';
-            res.status(500).end();
-          }
-          res.json(notification);
-        });
+        return res.send(err);
       }
+      Object.assign(notification, req.body);
+      notification.save((error) => {
+        if (error) {
+          res.statusMessage = 'Failed to save notification.';
+          res.status(500).end();
+        }
+        res.json(notification);
+      });
     });
   })
   .delete((req, res) => {

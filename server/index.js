@@ -39,6 +39,7 @@ app.use(session({
 }));
 
 const ws = new WebSocket('ws://localhost:3001/');
+
 module.exports = ws;
 
 require('./routes/index.js')(router);
