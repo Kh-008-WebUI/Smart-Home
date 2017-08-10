@@ -1,27 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Header.scss';
 import NotificationsBell from '../DashboardContent/NotificationsBell.js';
 import SignedInUser from './SignedInUser';
 
 export default class Header extends React.Component {
-
   render () {
     return (
-      <header className="header-block">
-        <div className="header-blok-left">
-          <div className="header-block-text">smart home</div>
+      <header className="main-header">
+        <div className={ this.props.open ?
+            'main-header__nav main-header__nav--shown' :
+            'main-header__nav'}>
+          <div className="main-header__logo">
+            <Link to="/">
+              smart home
+            </Link>
+          </div>
           <button
-            className="header-block__navicon"
+            className="main-header__navicon"
             onClick={this.props.setSidebarOpen}>
             <i
-              className="fa fa-bars header-block__navicon-bars"
+              className="fa fa-bars main-header__navicon-bars"
               aria-hidden="true"></i>
           </button>
         </div>
-        <div className="header-blok-right">
-            <NotificationsBell />
-            <SignedInUser />
+        <div className="main-header__personal">
+          <NotificationsBell />
+          <SignedInUser />
         </div>
       </header>
     );
@@ -29,5 +35,6 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
+  open: PropTypes.bool,
   setSidebarOpen: PropTypes.func
 };

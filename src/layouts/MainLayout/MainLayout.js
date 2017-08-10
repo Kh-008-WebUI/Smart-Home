@@ -38,9 +38,9 @@ class MainLayout extends Component {
         this.props.updateChart);
     };
   }
-  // componentWillMount () {
-  //   this.props.getLoggedUser();
-  // }
+  componentWillMount () {
+    // this.props.getLoggedUser();
+  }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
       this.props.history.push('/auth');
@@ -49,7 +49,9 @@ class MainLayout extends Component {
   render () {
     return (
       <div>
-        <Header setSidebarOpen={this.setSidebarOpen}/>
+        <Header
+          open={this.state.sidebarOpen}
+          setSidebarOpen={this.setSidebarOpen}/>
         <Navigation
           open={this.state.sidebarOpen}
           setSidebarOpen={this.setSidebarOpen}/>

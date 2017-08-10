@@ -29,6 +29,10 @@
     &:nth-child(4n) {
       margin-right: 0;
     }
+
+    &:hover .device-item__description-icon {
+      display: block;
+    }
   }
 
   &__info {
@@ -70,6 +74,10 @@
     cursor: pointer;
     float: right;
     color: $light-gray;
+
+    @media (min-width: $desktop-min) {
+      display: none;
+    }
   }
 
   &__description-icon-delete {
