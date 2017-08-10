@@ -44,10 +44,7 @@ module.exports = ws;
 require('./routes/index.js')(router);
 app.use('/api', router);
 
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname + '/../dist/index.html')));
-app.get('/index_bundle.js', (req, res) =>
-  res.sendFile(path.join(__dirname + '/../dist/index_bundle.js')));
+app.use('/', express.static(__dirname + '/../dist'));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname + '/../dist/index.html')));
 

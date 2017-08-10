@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const glob = require('glob');
-
 const isProd = process.env.NODE_ENV === 'production';
 const cssDev = [
   'style-loader?convertToAbsoluteUrls',
