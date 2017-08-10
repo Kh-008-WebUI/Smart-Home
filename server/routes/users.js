@@ -50,11 +50,7 @@ userRouter.route('/:id')
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
-      for (const prop in req.body) {
-        if (req.body.hasOwnProperty(prop)) {
-          user[prop] = req.body[prop];
-        }
-      }
+      Object.assign(user, req.body);
       user.save((error) => {
         if (error) {
           res.statusMessage = 'Failed to save.';

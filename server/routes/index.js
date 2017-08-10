@@ -6,7 +6,7 @@ const registerRouter = require('./register.js');
 const loginRouter = require('./login.js');
 const logoutRouter = require('./logout.js');
 
-module.exports = function (router) {
+module.exports = (router) => {
   router.use('/users', checkAuth, userRoutes);
   router.use('/notifications', checkAuth, notificationRoutes);
   router.use('/devices', checkAuth, devicesRoutes);
