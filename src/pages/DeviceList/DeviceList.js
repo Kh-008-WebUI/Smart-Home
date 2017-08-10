@@ -8,6 +8,7 @@ import { Popup } from '../../components/Popup/Popup';
 import { Button } from '../../components/Button/Button';
 import FilterSelect from '../../components/FilterSelect/FilterSelect';
 import Search from '../../components/Search/Search';
+import Pagination from '../../components/Pagination/Pagination';
 import { options } from '../../data/filterOptions';
 import {
   filterAction,
@@ -153,6 +154,7 @@ class DeviceList extends React.Component {
           { this.props.status === 'DONE' && this.props.devices.length === 0 ?
             <span>You need to add device</span> : this.renderDeviceGroup()
           }
+          <Pagination list={this.props.devices}/>
         </section>
         <Popup
             setPopupShown={this.setPopupShown}
