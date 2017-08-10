@@ -1,0 +1,75 @@
+@import "../../scss/_variables.scss";
+
+.user-block {
+  display: flex;
+  height: 45px;
+  align-items: center;
+  padding: 5px 10px;
+  margin-left: 15px;
+  cursor: pointer;
+
+  .fa-caret-down,
+  .fa-caret-up {
+    margin-left: 5px;
+    color: $icons-headier-bg;
+  }
+}
+
+.user-block-name {
+  display: none;
+  margin-right: 10px;
+  color: $text-color-title;
+  font-size: 14px;
+  vertical-align: middle;
+  line-height: 40px;
+  font-weight: bold;
+
+  @media (min-width: $tablet-min){
+    display: block;
+  }
+}
+
+ .user-block-photo {
+   width: 35px;
+   height: 35px;
+   border-radius: 50%;
+}
+
+.user-block-avatar {
+  display: none;
+}
+
+.icon.fa {
+  font-size: 25px;
+  margin: 3px;
+  color: $icons-headier-bg;
+}
+
+.display-user {
+  display: block;
+}
+
+.user-block-dropdown-content {
+  display: block;
+  position: fixed;
+  top: 51px;
+  background: $modals-bg;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  z-index: 1;
+  transition: right 1s;
+}
+.user-block-dropdown-content-item {
+  display: block;
+  padding: 10px 15px; 
+  color: $text-color-active;
+  font-size: 14px;
+}
+.user-block-dropdown-content-item:hover {
+  color: $text-color-input;
+}
+
+@media (max-width: $tablet-min){
+  .user-block-name {
+    display: none;
+  }
+}

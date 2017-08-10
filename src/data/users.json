@@ -1,0 +1,26 @@
+[{
+    "id": 0,
+    "name": "George",
+    "home": true
+  },
+  {
+    "id": 1,
+    "name": "Boris",
+    "home": true
+  },
+  {
+    "id": 2,
+    "name": "Linda",
+    "home": false
+  },
+  {
+    "id": 3,
+    "name": "Micky",
+    "home": false
+  },
+  {
+    "id": 4,
+    "name": "Tom",
+    "home": true
+  }
+]

@@ -1,0 +1,62 @@
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    min-width: 100px;
+    height: 34px;
+    line-height: 14px;
+    font-size: 14px;
+    font-weight: normal;
+    color: $text-color-active;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid $btn-border-primary;
+    border-radius: $border-radius;
+    outline: 0;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+
+    &:hover {
+        background-color: $btn-bg-hover;
+        color: $text-color-active;
+    }
+
+    &--primary {
+        background: $color-orange;
+
+        &:hover {
+            background: darken($color-orange, 10%);
+        }
+    }
+
+    &--success {
+        border-color: $btn-border-success;
+
+        &:hover {
+            background-color: $success-bg-hover;
+        }
+    }
+
+    &--danger {
+        border-color: $btn-border-warning;
+
+        &:hover {
+            background-color: $warning-bg-hover;
+        }
+    }
+
+    &--info {
+        border-color: $btn-border-info;
+
+        &:hover {
+            background-color: $info-bg-hover;
+        }
+    }
+
+    &--default {
+        border-color: $btn-border-default;
+
+        &:hover {
+            background-color: $default-bg-hover;
+        }
+    }
+}

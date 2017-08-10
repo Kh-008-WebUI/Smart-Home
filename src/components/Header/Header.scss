@@ -1,0 +1,52 @@
+@import "../../scss/_variables.scss";
+
+.header-block {
+  position: fixed;
+  background-color: $header-bg;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 51px;
+  display: flex;
+  justify-content: space-between;
+
+  &__navicon {
+    border: 0;
+    background: transparent;
+    outline: none;
+
+    @media (min-width: $desktop-min) {
+      display: none;
+    }
+
+    &-bars.fa {
+      color: $nav-bg;
+      font-size: 24px;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+.header-block-text {
+  text-align: center;
+  width: 161px;
+  line-height: 51px;
+  background-color: $color_orange;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.header-blok-right {
+  display: flex;
+  padding-top: 3px;
+}
+
+.signed-in-user-block:hover .user-block-dropdown-content{
+  display: block;
+}

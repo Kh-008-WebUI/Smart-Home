@@ -1,0 +1,17 @@
+@import "../../scss/_variables.scss";
+
+.content {
+    margin: 51px auto 0;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 51px);
+
+  @media (min-width: $tablet-min) {
+    overflow-y: auto;
+    height: calc(100vh - 51px);
+  }
+
+  @media (min-width: $desktop-min) {
+    margin-left: 161px;
+  }
+}

@@ -1,0 +1,41 @@
+@import '../../scss/_variables.scss';
+
+.list-device {
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.list-device-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .device-item {
+    @media (min-width: $tablet-min) {
+      width: 30%;
+      margin-right: 0;
+    }
+  }
+}
+
+.list-title {
+  margin-bottom: 20px;
+}
+
+.device-item-name_and_power {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-device-spinner {
+  width: 78%;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}

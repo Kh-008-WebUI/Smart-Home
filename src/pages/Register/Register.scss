@@ -1,0 +1,150 @@
+@import '../../scss/_variables.scss';
+
+.signup {
+  &-container {
+    margin: 0 auto;
+    max-width: 390px;
+    position: relative;
+    top: 10vh;
+    
+
+    @media (min-width: $tablet-min) {
+      width: 700px;
+      max-width: inherit;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -200px 0 0 -350px;
+    }
+  }
+
+  &-header {
+    padding-left: 20px;
+    margin-bottom: 15px;
+
+    &__icon {
+      margin-right: 15px;
+    }
+
+    &__title {
+      font-size: 24px;
+      font-weight: normal;
+      display: inline-block;
+      color: $text-color-active;
+    }
+
+    &__caption {
+      font-weight: normal;
+      display: block;
+    }
+  }
+
+  &-field-group {
+    display: block;
+    width: 100%;
+    max-width: 335px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    position: relative;
+
+    @media (min-width: $tablet-min) {
+      display: inline-block;
+      width: 48%;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  &-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: rgba(68, 70, 79, 0.5);
+    padding: 30px 20px;
+
+    &__label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      color: $text-color-active;
+      margin-bottom: 5px;
+    }
+
+    &__input-field {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+
+      &:focus {
+        border-color: $border-color-focus;
+      }
+    }
+
+    &__error-message {
+      position: absolute;
+      top: -10px;
+      right: -25px;
+      font-size: 13px;
+      color: $text-color-error;
+      width: 125px;
+
+      @media (min-width: $tablet-min) {
+        width: initial;
+        top: 0;
+        right: 0;
+      }
+    }
+
+    &__caption {
+      &--text {
+        display: block;
+
+        @media (min-width: $tablet-min) {
+          display: inline-block;
+        }
+      }
+
+      &--link {
+        margin-left: 5px;
+        color: $link-color;
+        cursor: pointer;
+
+        &:hover {
+          color: $link-color-hover;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  
+  &-btn-group.signup-field-group {
+    width: 100%;
+
+    .btn:disabled {
+      color: $light-gray;
+      border-color: $light-gray;
+      background: rgba(204,204,204, 0.3);
+    }
+    @media (min-width: $tablet-min) {
+      margin: 0;
+    }
+  }
+}
+
+.caption {
+  font-size: 12px;
+  color: $text-color-input;
+}
+
+.btn.btn--signup {
+  width: 50%;
+  max-width: 115px;
+  margin-right: 15px;
+  line-height: 10px;
+  margin-bottom: 15px;
+
+  &-active:hover {
+    border-color: $btn-border-primary;
+    background: $btn-bg-hover;
+  }
+}

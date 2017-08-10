@@ -1,0 +1,132 @@
+[{
+    "id":1,
+    "name":"fridge",
+	"items":[
+		{
+			"id": 1,
+			"name": "Toggle",
+			"type": "togle",
+			"description":"On/Off"
+		},
+		{
+			"id": 2,
+			"name": "Timer",
+			"type": "timer",
+			"description":"TV off"
+		},
+		{
+			"id": 3,
+			"name": "LineChart",
+			"type": "linechart",
+			"description":"Temperature"
+		},
+		{
+			"id": 4,
+			"name": "Value",
+			"type": "value",
+			"data": "Samsung",
+			"description": "Manufacturer"
+		},
+		{
+			"id": 5,
+			"name": "Range",
+			"type": "range",
+			"data":"10",
+			"description":"Set temp"
+		}
+	],
+	"status":false,
+	"location":"kitchen"
+},
+{
+    "id":2,
+    "name":"microwave",
+	"items":[
+		{
+			"id": 5,
+			"name": "Range",
+			"type": "range",
+      "data": "",
+			"description":"Time"
+		},
+		{
+			"id": 2,
+			"name": "Timer",
+			"type": "timer",
+			"description":"Current time"
+		},
+		{
+			"id": 3,
+			"name": "LineChart",
+			"type": "linechart",
+			"description":"Uses"
+		},
+		{
+			"id": 4,
+			"name": "Value",
+			"type": "value"
+		},
+		{
+			"id": 5,
+			"name": "Range",
+			"type": "range"
+		}
+	],
+	"status":false,
+	"location":"kitchen"
+},
+{
+	"id":3,
+	"name":"alarm",
+	"items":[
+		{
+			"id": 54,
+			"name": "Range",
+			"type": "range",
+			"description":"Timer"
+		}
+	],
+	"status":true,
+	"location":"roof"
+},
+{
+	"id":4,
+    "name":"car",
+	"items":[
+		{
+			"id": 51,
+			"name": "Range",
+			"type": "range"
+		}
+	],
+	"status":true,
+	"location":"parking"
+},
+{
+	"id":5,
+    "name":"coffemachine",
+	"items":[
+		{
+			"id": 4,
+			"name": "Range",
+			"type": "range",
+			"description":"Cook time"
+		}
+	],
+	"status":false,
+	"location":"kitchen"
+},
+{
+	"id":6,
+    "name":"washmachine",
+	"items":[
+		{
+			"id": 5,
+			"name": "Range",
+			"type": "range",
+			"description":"Wash timer"
+		}
+	],
+	"status":true,
+	"location":"bathroom"
+}]

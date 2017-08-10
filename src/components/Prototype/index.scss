@@ -1,0 +1,14 @@
+@import "/../../scss/variables";
+
+.Prototype{
+  border-bottom: 1px solid #3d404c;
+  color:$text-color-active;
+  text-align:center;
+  position: relative;
+
+  h3{
+    padding: 20px 0;
+    border-bottom: 1px solid $color-orange ;
+    margin-bottom: 20px;
+  }
+}

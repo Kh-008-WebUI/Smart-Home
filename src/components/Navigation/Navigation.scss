@@ -1,0 +1,47 @@
+@import "../../scss/_variables.scss";
+
+.navigation {
+  position: fixed;
+  background-color: $nav-bg;
+  top: 51px;
+  bottom: 0;
+  left: -161px;
+  padding-top: 20px;
+  min-width: 161px;
+  transition: width 1s;
+  -webkit-transition: left 1s;
+  z-index: 20;
+
+  @media (min-width: $desktop-min) {
+    left: 0;
+  }
+
+  &--shown {
+    left: 0;
+  }
+  
+  li {
+    padding: 10px 15px;
+
+    &:hover a{
+      color: $text-color-active;
+    }
+
+    @media (min-width: $desktop-min) {
+      padding: 10px 21px;
+      font-size: 14px;
+    }
+
+    a {
+      color: $text-color-input;
+    }
+  }
+}
+
+.navigation-item {
+  margin-bottom: 20px;
+}
+
+.navigation .active {
+  color:  $text-color-active;
+}

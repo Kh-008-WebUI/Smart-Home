@@ -1,0 +1,69 @@
+// colors
+
+$orange: #f6a821;
+$blue: #0f83c9;
+$green: #1bbf89;
+$red: #db524b;
+$gray: #44464f;
+$dark-gray: #2f323b;
+$light-gray:#ccc;
+$main-gray: rgba(68, 70, 79, 0.5);
+
+
+$color-orange: $orange;
+$color-bg-grey: $gray;
+$color-bg-dark-grey: $dark-gray;
+$warning-color: $red;
+$color-primary: $orange;
+
+$nav-bg: #2a2d35;
+$header-bg: #e7e7e7;
+$main-bg: $dark-gray;
+$light-bg: $gray;
+$extra-light-bg: $light-gray;
+$default-border: #3d404c;
+$icons-headier-bg: #2a2d35;
+
+// buttons
+
+$btn-border-success: $green;
+$btn-border-primary: $orange;
+$btn-border-warning: $red;
+$btn-border-info: $blue;
+$btn-border-default: #616779;
+
+// bg hover
+$btn-bg-hover: rgba(246, 168, 33, 0.3);
+$success-bg-hover: rgba(27, 191, 137, 0.3);
+$warning-bg-hover: rgba(219, 82, 75, 0.3);
+$info-bg-hover: rgba(15, 131, 201, 0.3);
+$default-bg-hover: #3d404c;
+$modals-bg: #1d1f24;
+
+
+// font-color
+$text-color-title: #555;
+$text-color-input: #848c94;
+$text-color-active: #f5f5f5;
+$text-color-error: $red;
+$link-color: $orange;
+$link-color-hover: darken($orange, 10%);
+
+// font size
+
+$border-color:#616779;
+$border-color-hover: #798094;
+$border-color-focus: #f6a821;
+
+$input-bg: rgba(97, 103, 121, 0.1);
+$input-bg-active: rgb(73, 75, 84);
+
+$border-radius: 4px;
+
+$main-font: 'Roboto Regular';
+
+
+// =================== adaptive steps ===================
+
+$tablet-min: 768px; // min width from where tablet starts
+$desktop-min: 1200px; // min-width from where desctop starts

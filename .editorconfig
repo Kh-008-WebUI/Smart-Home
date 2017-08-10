@@ -4,6 +4,9 @@
 # any sections. Set to true to stop .editor config file search on current file
 root = true
 
+[*]
+end_of_line = lf
+insert_final_newline = true
 # Indentation style
 # Possible values - tab, space
 indent_style = space

@@ -1,0 +1,11 @@
+.filterBox{
+    display: inline-block;
+
+    &__filter {
+        margin-right: 15px;
+    }
+}
+
+.filterBox select > option:hover{
+	background-color:#f6a821;
+}

@@ -1,0 +1,89 @@
+@import "../../scss/_variables";
+
+.device-list {
+  width: 100%;
+  margin: 0 auto;
+  color: $text-color-active;
+
+  &__header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $default-border;
+
+    @media (min-width: $tablet-min) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &--right {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__content{
+    position: relative;
+  }
+}
+
+.device-list {
+  .add-item-button {
+    display: inline-block;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+
+.hide-enter {
+    opacity: 0;
+    transform:   translate(-1000px,0);
+    transform: translate3d(-1000px,0,0);
+}
+
+.hide-enter.hide-enter-active {
+	opacity: 1;
+	transition: opacity 1s ease;
+	transform:   translate(0,0);
+	transform: translate3d(0,0,0);
+	transition-property: transform, opacity;
+	transition-duration: 200ms;
+}
+
+.hide-leave {
+	opacity: 1;
+	transform:   translate(0,0,0);
+	transform: translate3d(0,0,0);
+  transition-property: transform, opacity;
+	transition-duration: 200ms;
+}
+
+.hide-leave.hide-leave-active {
+	opacity: 0;
+	transform:   translate(1000px,0);
+	transform: translate3d(1000px,0,0);
+}
+
+.device-group {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $default-border;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  &__items {
+    @media (min-width: $tablet-min) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}

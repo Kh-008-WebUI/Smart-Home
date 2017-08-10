@@ -1,0 +1,123 @@
+@import "/../../scss/variables";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.device-form {
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid #3d404c;
+  color:$text_color_active;
+
+  .Select-clear-zone {
+    display: none;
+  }
+  .signup-field-group {
+    .signup-form__label {
+      font-weight: initial;
+      font-size: 16px;
+    }
+  }
+  label {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .input-container {
+    display: inline-block;
+    width: 35%;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    vertical-align: top;
+
+    //select styles
+    .Select {
+      height: 34px;
+      margin-top: -2px;
+    }
+    .Select-value {
+      border: 1px #798094 solid;
+      border-radius: 4px;
+    }
+    .Select-control, .Select-option {
+      background-color: $color-bg-grey;
+      color: $text_color_input;
+      border: none;
+      height: 30px;
+      font-size: 14px;
+      input {
+        color: $text_color_input;
+      }
+    }
+    .has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select-input {
+      color: $text_color_input;
+    }
+    .Select-menu {
+      background-color: $color-bg-grey;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    .Select-menu-outer {
+      border: none;
+      border-radius: 5px;
+    }
+    .is-focused:not(.is-open) > .Select-control {
+      box-shadow: none;
+    }
+    .Select-option.is-focused {
+      background-color: rgba(246,168,33,0.8);
+      color: $text_color_active;
+    }
+  }
+
+  //buttons styles
+
+  .form-button {
+    color: $text_color_input;
+    border: 1px solid $border_color;
+    padding: 5px;
+    border-radius: 3px;
+    width: 15%;
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+  .form-button:hover {
+    background-color: rgba(132,140,148,0.3);
+    color: $text_color_active;
+  }
+  .main-button-wrap{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    max-width: 115px;
+    z-index: 10;
+  }
+}
+
+//phone
+@media screen and (max-width: $tablet-min) {
+  .device-form {
+    .input-container {
+      width: 100%;
+      margin-left: 0;
+    }
+    .signup-field-group {
+      max-width: none;
+    }
+    .form-button {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .main-button-wrap{
+      position: relative;
+      right: 0;
+      bottom: 0;
+      max-width: none;
+      text-align: center;
+      .btn.btn--signup {
+        width: 50%;
+        max-width: none;
+        margin: 0;
+      }
+    }
+  }
+}

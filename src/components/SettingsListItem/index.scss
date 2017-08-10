@@ -1,0 +1,94 @@
+@import "/../../scss/variables";
+
+.settings-block{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 15px 0;
+}
+
+.settings{
+  width: 100%;
+  border-radius: 10px;
+  background: $color-bg-grey;
+  margin: 10px;
+  border-bottom: 1px solid $border_color;
+
+  @media (min-width: $tablet-min) {
+    width: 45%;
+  }
+
+  @media (min-width: $desktop-min) {
+    width: 23%;
+  }
+
+  .item-body{
+    padding: 20px;
+    min-height: 70px;
+  }
+
+  .item-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $color-orange;
+    padding:5px 10px;
+
+    .item-header__delete-btn{
+      position: relative;
+      width: 15px;
+      height:15px;
+      border: 0px;
+      background: transparent;
+      cursor: pointer;
+
+      &::before,&::after{
+        position: absolute;
+        content: ' ';
+        height: 15px;
+        left: 6px;
+        top: 0;
+        width: 2px;
+        background-color: #fff;
+      }
+
+      &:hover::before,&:hover::after{
+          background-color: #000;
+          cursor: pointer;
+      }
+
+      &::before{
+        transform: rotate(45deg);
+      }
+
+      &::after{
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+.settings-linechart{
+  width: 97%;
+  order:2;
+
+  .item-body{
+    padding: 20px 0;
+  }
+
+  @media (min-width: $tablet-min) {
+    width: 85%;
+  }
+
+  @media (min-width: $desktop-min) {
+    width: 48%;
+  }
+}
+
+.settings-timer{
+  order:3;
+}
+
+.description-input {
+  margin-top: 20px;
+}

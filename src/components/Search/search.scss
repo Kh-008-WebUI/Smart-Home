@@ -1,0 +1,46 @@
+@import "../../scss/_variables";
+
+.searchBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+
+    @media (min-width: $tablet-min) {
+        float: left;
+        margin-bottom: 0;
+    }
+
+    &__results {
+        color: $text-color-active;
+        display: inline-block;
+        margin-right: 15px;
+        font-weight: 100;
+        line-height: 35px;
+        vertical-align: middle;
+        order: 2;
+
+        @media (min-width: $tablet-min) {
+            order: initial;
+        }
+
+        span {
+            font-size: 16px;
+            font-weight: 900;
+        }
+    }
+
+    &__field {
+        width: 150px;
+        line-height: 35px;
+        vertical-align: middle;
+
+        @media (min-width: $desktop-min) {
+            width: 180px;
+        }
+
+        &:focus {
+            border-color: $border-color-focus;
+        }
+    }
+}
