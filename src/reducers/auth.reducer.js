@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
         errorText: action.errorText
       };
     case CLEAR_LOGIN_STATUS:
-      return { ...state, status: '' };
+      return { ...state, status: '', errorText: '' };
     case REGISTRATION_ATTEMPT:
       return { ...state, status: 'PENDING' };
     case REGISTER_SUCCESS:
