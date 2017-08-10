@@ -39,7 +39,7 @@ class MainLayout extends Component {
     };
   }
   componentWillMount () {
-    this.props.getLoggedUser();
+    // this.props.getLoggedUser();
   }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
@@ -49,7 +49,9 @@ class MainLayout extends Component {
   render () {
     return (
       <div>
-        <Header setSidebarOpen={this.setSidebarOpen}/>
+        <Header
+          open={this.state.sidebarOpen}
+          setSidebarOpen={this.setSidebarOpen}/>
         <Navigation
           open={this.state.sidebarOpen}
           setSidebarOpen={this.setSidebarOpen}/>
