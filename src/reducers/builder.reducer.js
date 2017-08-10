@@ -11,7 +11,8 @@ import {
   CLEAR_ADD_STATUS,
   UPDATE_DEVICE_SUCCESS,
   EDIT_DEVICE_SUCCESS,
-  UPDATE_DEVICE_FAILURE
+  UPDATE_DEVICE_FAILURE,
+  LOAD_LOCATIONS_SUCCESS
 } from '../constants/index';
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
     name: '',
     location: 'living room',
     items: []
-  }
+  },
+  locations: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -97,6 +99,11 @@ const reducer = (state = initialState, action) => {
         errorText: action.errorText
       };
     }
+    case LOAD_LOCATIONS_SUCCESS:
+      return {
+        ...state,
+        locations: action.locations
+      };
     default:
       return state;
   }
