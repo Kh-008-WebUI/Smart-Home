@@ -94,7 +94,7 @@ class Register extends Component {
             }}
             validationError={'Password is not valid'}/>
           <Field
-            name="Repeat-Password"
+            name="Repeat Password"
             type="password"
             text={'Please repeat your pasword'}
             ref={(input) => {
