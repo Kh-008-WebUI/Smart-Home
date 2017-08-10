@@ -13,4 +13,4 @@ module.exports = function (router) {
   router.use('/logout', checkAuth, logoutRouter);
   router.use('/register', registerRouter);
   router.use('/login', loginRouter);
-}
+};

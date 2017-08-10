@@ -12,7 +12,8 @@ const configRemote = {
 const configLocal = {
   secret: 'MoneyIsPower',
   port: 3001,
-  url: 'mongodb://localhost:27017/smart_home'
+  url: 'mongodb://localhost:27017/smart_home',
+  origin
 };
 
 module.exports = configRemote;

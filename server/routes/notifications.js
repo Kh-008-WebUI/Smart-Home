@@ -6,7 +6,7 @@ notificationRouter.route('/')
   .get((req, res) => {
     Notification.find((err, notifications) => {
       if (err) {
-        res.statusMessage = "Something went wrong, try again later.";
+        res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
       res.json(notifications);
@@ -18,9 +18,9 @@ notificationRouter.route('/')
     notification.time = Date.now();
     notification.viewed = false;
 
-    notification.save((err, users) => {
+    notification.save((err, notifications) => {
       if (err) {
-        res.statusMessage = "Failed to send notification.";
+        res.statusMessage = 'Failed to send notification.';
         res.status(500).end();
       } else {
         res.json({ notification });
@@ -32,7 +32,7 @@ notificationRouter.route('/:id')
   .get((req, res) => {
     Notification.findById(req.params.id, (err, notification) => {
       if (err) {
-        res.statusMessage = "Failed to find notification.";
+        res.statusMessage = 'Failed to find notification.';
         res.status(500).end();
       } else {
         res.send(notification);
@@ -51,7 +51,7 @@ notificationRouter.route('/:id')
         }
         notification.save((error) => {
           if (error) {
-            res.statusMessage = "Failed to save notification.";
+            res.statusMessage = 'Failed to save notification.';
             res.status(500).end();
           }
           res.json(notification);
@@ -62,7 +62,7 @@ notificationRouter.route('/:id')
   .delete((req, res) => {
     Notification.findByIdAndRemove(req.params.id, (err, notification) => {
       if (err) {
-        res.statusMessage = "Failed to delete notification.";
+        res.statusMessage = 'Failed to delete notification.';
         res.status(500).end();
       } else {
         res.send({

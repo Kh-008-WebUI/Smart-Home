@@ -10,8 +10,6 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
-const sendMessage = require('./utils/webSocket');
-
 
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -70,7 +68,9 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
   ws.on('message', message => {
-    sendMessage(message, wss);
+    wss.clients.forEach(client => {
+      client.send(message);
+    });
   });
 });
 

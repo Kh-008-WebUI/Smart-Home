@@ -93,7 +93,7 @@ export const webSocket = (msg, notif, updChart) => {
       updChart(message.data);
       break;
     case 'notification':
-      notif(message.message);
+      notif();
       break;
     default:
       break;

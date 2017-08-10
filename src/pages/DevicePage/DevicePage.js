@@ -11,7 +11,6 @@ import {
   updateDevice,
   clearStatus,
   resetDevice } from '../../actions/devices.action';
-import { sendNotificationWS } from '../../actions/notifications.action';
 require('./DevicePage.scss');
 
 class DevicePage extends React.Component {
@@ -36,7 +35,7 @@ class DevicePage extends React.Component {
   }
 
   componentWillUnmount () {
-    this.props.resetDevice(this.props.match.params.id);
+    this.props.resetDevice();
   }
 
   render () {
@@ -75,9 +74,8 @@ const mapDispatchToProps = dispatch => ({
   setItemValue: (value, settingId, deviceId) =>
     dispatch(updateDeviceSettings(value, settingId, deviceId)),
   onStatusChange: (data, id) => dispatch(updateDevice(data, id)),
-  sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
   clearStatus: () => dispatch(clearStatus()),
-  resetDevice: (id) => dispatch(resetDevice(id))
+  resetDevice: (id) => dispatch(resetDevice())
 });
 
 DevicePage.propTypes = {
@@ -97,7 +95,6 @@ DevicePage.propTypes = {
   loadFailed: PropTypes.bool,
   history: PropTypes.object,
   status: PropTypes.string,
-  sendNotificationWS: PropTypes.func,
   clearStatus: PropTypes.func,
   errorText: PropTypes.string,
   resetDevice: PropTypes.func

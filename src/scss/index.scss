@@ -5,26 +5,26 @@
 @import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background: #393b45;
-    background-image: -webkit-radial-gradient(top, circle cover, #393b45 0%, #2d3038 70%);
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    min-width: 320px;
-    height: 100%;
+  background: #393b45;
+  background-image: -webkit-radial-gradient(top, circle cover, #393b45 0%, #2d3038 70%);
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  min-width: 320px;
+  height: 100%;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a, a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .clearfix::after,
@@ -91,7 +91,7 @@ select{
 
 ::-webkit-scrollbar {
 	width: 6px;
-    background-color: transparent;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
