@@ -1,24 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Pagination.scss';
 
 class Pagination extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      list: this.props.list,
-      currentPage: 1,
-      todosPerPage: 3
-    };
-
-    this.handleClick = (event) => {
-      this.setState({
-        currentPage: Number(event.target.id)
-      });
-    };
   }
 
   render () {
-    const { list, currentPage, listPerPage } = this.state;
     const pageNumbers = [];
 
     for (let i = 1; i <= 5; i++) {
@@ -26,13 +15,15 @@ class Pagination extends React.Component {
     }
 
     return (
-      <ul>
+      <ul className="pagination-pages">
         {
           pageNumbers.map(number => {
             return (
               <li
+                className="pagination-pages__num btn btn--default"
                 key={number}
-                onClick={this.handleClick}>
+                id={number}
+                onClick={this.props.handleClick}>
                 {number}
               </li>
             );
@@ -44,7 +35,7 @@ class Pagination extends React.Component {
 }
 
 Pagination.propTypes = {
-  list: PropTypes.array
+  handleClick: PropTypes.func
 };
 
 export default Pagination;

@@ -36,7 +36,9 @@ class DeviceList extends React.Component {
     };
     this.state = {
       popupShown: false,
-      currentId: ''
+      currentId: '',
+      currentPage: 1,
+      todosPerPage: 6
     };
 
     this.setPopupShown = (id) => {
@@ -45,6 +47,12 @@ class DeviceList extends React.Component {
       this.setState({
         popupShown: !currentState,
         currentId: id
+      });
+    };
+
+    this.handleClick = (event) => {
+      this.setState({
+        currentPage: Number(event.target.id)
       });
     };
 
@@ -154,7 +162,9 @@ class DeviceList extends React.Component {
           { this.props.status === 'DONE' && this.props.devices.length === 0 ?
             <span>You need to add device</span> : this.renderDeviceGroup()
           }
-          <Pagination list={this.props.devices}/>
+          <Pagination
+            handleClick={this.handleClick}
+            list={this.props.devices}/>
         </section>
         <Popup
             setPopupShown={this.setPopupShown}
