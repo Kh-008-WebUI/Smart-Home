@@ -7,6 +7,7 @@ import { Popup } from '../../components/Popup/Popup';
 import { Button } from '../../components/Button/Button';
 import Pagination from '../../components/Pagination/Pagination';
 import ListHeader from '../../components/ListHeader/ListHeader';
+import DevicesSection from '../../components/DevisesSection/DevisesSection';
 import {
   loadDevices,
   changeStatus,
@@ -98,54 +99,29 @@ class LocationList extends React.Component {
     }
 
     return (
-      <section className="device-list">
-        <h1 className="device-list__title">
-          Your devices in {locationOfDevices}
-        </h1>
-        <ListHeader
-          quantity={devicesInLocation.length}
-          location={this.props.location}
-          history={this.props.history}
-          match={this.props.match} />
-        <section className="device-list__content">
-          { this.props.status === 'DONE' && this.props.devices.length === 0 ?
-            <span>You need to add device</span> :
-            this.renderDeviceGroup(devicesInLocation)
-          }
-          <Pagination
+      <DevicesSection
+        filterOption={this.props.match.params.filterOption}
+        devices={this.props.devices}
+        location={this.props.location}
+        history={this.props.history}
+        match={this.props.match}
+        status={this.props.status}
+        text={this.props.errorText}
+        setPopupShown={this.setPopupShown}
+        popupShown={this.state.popupShown}
+        deleteDevice={this.deleteDevice}
+        clearStatus={this.props.clearStatus}
+        currentId={this.state.currentId}
+        quantity={devicesInLocation.length}>
+
+        { this.props.status === 'DONE' && this.props.devices.length === 0 ?
+          <span>You need to add device</span> :
+          this.renderDeviceGroup(devicesInLocation)
+        }
+        <Pagination
             handleClick={this.handleClick}
             list={this.props.devices}/>
-        </section>
-        <Popup
-            setPopupShown={this.setPopupShown}
-            popupShown={this.state.popupShown}
-            header="Confirm the action"
-            text="Are you sure you want to remove the device?"
-        >
-          <Button
-            setPopupShown={this.setPopupShown}
-            okHandler={() => {
-              this.deleteDevice(this.state.currentId);
-              this.setPopupShown();
-            }}
-            className={'btn popup__btn'}
-            innerText={'Ok'}
-          />
-          <Button
-            okHandler={() => {
-              this.setPopupShown();
-            }}
-            className={'btn btn--default popup__btn'}
-            innerText={'Cancel'}
-          />
-        </Popup>
-        <Message
-          clearStatus={this.props.clearStatus}
-          status={this.props.status}
-          header={'Error'}
-          text={this.props.errorText}
-        />
-      </section>
+      </DevicesSection>
     );
   }
 }
