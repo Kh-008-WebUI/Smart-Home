@@ -18,12 +18,9 @@ locationRouter.route('/').get((req, res) => {
 });
 
 locationRouter.route('/').post((req, res) => {
-  const location = req.body;
-
-  location.label = location;
-  location.value = location;
-  
-  Location.create(location, (err, location) => {
+  const location = req.body.location;
+console.log(req.body);
+  Location.create({value: location, label:location}, (err, location) => {
     if (err) {
       res.status(500).send({
         status: 'error',

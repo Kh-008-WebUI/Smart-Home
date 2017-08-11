@@ -41,10 +41,17 @@ class DeviceForm extends React.Component {
   }
 
   editLocation = () => {
-    return (<input
-      className="form-button"
-      type='text'
-      onChange={this.changeLocationValue}/>);
+    return (
+      <div>
+        <label>Add Location</label>
+        <input
+          className="form-button"
+          type='text'
+          onChange={this.changeLocationValue}/>
+        <i className="fa fa-check device-form__icon"
+          onClick={this.addLocationValue}>
+        </i>
+      </div>);
   };
   changeLocationValue = (e) => {
     const newLocationValue = e.target.value;
@@ -54,8 +61,10 @@ class DeviceForm extends React.Component {
       ...this.state,
       locationValue: newLocationValue
     });
-    this.props.addLocation(newLocationValue);
   };
+  addLocationValue = () => {
+    this.props.addLocation(this.state.locationValue);
+  }
 
   showInputLocation = () => {
     this.setState({
@@ -146,9 +155,9 @@ class DeviceForm extends React.Component {
               onChange={ this.handleSelectLocation }
               value={ this.props.settings.location }
             />
-            <p className="fa fa-pencil"
+            <a className="fa fa-pencil device-form__icon"
               onClick={ this.showInputLocation }>
-            </p>
+            </a>
         </div>
         <div>
           {this.state.input ? this.editLocation() : null}

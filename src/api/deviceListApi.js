@@ -31,6 +31,6 @@ export default class DeviceListApi {
   }
   static addLocation (location) {
     return Transport.post(`${SERVER_API}/location`,
-      JSON.stringify(location));
+      JSON.stringify({ location }));
   }
 }

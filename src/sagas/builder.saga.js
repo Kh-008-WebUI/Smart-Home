@@ -45,7 +45,8 @@ export function* loadLocations (action) {
 }
 
 export function* addLocation (action) {
-  const { response, error } = yield call(DeviceListApi.addLocation);
+  const { response, error } = yield call(DeviceListApi.addLocation,
+    action.location);
 
   if (response) {
     yield put(addLocationSuccess(response));
