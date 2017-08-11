@@ -62,7 +62,7 @@ export default class TimerSettings extends React.Component {
 
   render () {
     return (
-<div className={`m-time ${this.props.styleName}`}>
+      <div className={`m-time ${this.props.styleName}`}>
         <div className="showtime">
           <input
           className="showtime__time"

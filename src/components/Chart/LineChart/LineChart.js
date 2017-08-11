@@ -48,7 +48,7 @@ export default class LineChart extends Component {
               scale={x}
               gridType="x"
               orient={'Bottom'}
-              ticks={6}/>
+              ticks={this.data.length * 2}/>
             <Grid
               h={h}
               len={w}
@@ -65,7 +65,7 @@ export default class LineChart extends Component {
               orient={'Bottom'}
               scale={x}
               axisType="x"
-              ticks={6}
+              ticks={8}
               format={'%d/%m'}/>
             <Dots
               x={x}

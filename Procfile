@@ -1,2 +1,2 @@
 web: webpack-dev-server --open
-api: nodemon ./server/index.js
+api: pm2 kill && pm2 start ./server/index.js --no-daemon --watch

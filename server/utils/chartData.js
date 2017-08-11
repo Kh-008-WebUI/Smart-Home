@@ -1,17 +1,23 @@
-const ws = require('../index');
 
-module.exports = function () {
+module.exports = function (ws) {
   const data = [
     { day:'01/1/2017', count:310 },
     { day:'01/2/2017', count:430 },
     { day:'01/3/2017', count:180 },
     { day:'01/4/2017', count:150 },
     { day:'01/5/2017', count:180 },
-    { day:'01/6/2017', count:250 }
+    { day:'01/6/2017', count:250 },
+    { day:'01/7/2017', count:110 },
+    { day:'01/8/2017', count:230 },
+    { day:'01/9/2017', count:480 },
+    { day:'01/10/2017', count:250 },
+    { day:'01/11/2017', count:380 },
+    { day:'01/12/2017', count:50 }
   ];
 
-  let day = 7;
+  let day = 13;
   let month = 1;
+  sendChartData(ws, data);
   setInterval(function () {
     sendChartData(ws, data);
     data.push(generateData(day, month));
@@ -26,7 +32,7 @@ module.exports = function () {
     } else {
       day++;
     }
-  }, 1000);
+  }, 60000);
 }
 
 function generateData(day, month) {
