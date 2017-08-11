@@ -16,6 +16,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
+import LocationList from './pages/LocationList/LocationList';
 
 export const ws = new WebSocket('ws://localhost:3001/');
 
@@ -44,7 +45,8 @@ ReactDOM.render(
             <Switch>
               <Route exact path='/' component={Dashboard} />
               <Route path='/devices/device/:id' component={DevicePage} />
-              <Route path='/devices' component={DeviceList} />
+              <Route exact path='/devices' component={DeviceList} />
+              <Route path='/devices/:location' component={LocationList} />
               <Route path='/builder' component={Builder} />
               <Route path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />

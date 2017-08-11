@@ -1,11 +1,11 @@
 import React from 'react';
-import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import { Message } from '../../components/Message/Message';
 import { Popup } from '../../components/Popup/Popup';
 import { Button } from '../../components/Button/Button';
+import Pagination from '../../components/Pagination/Pagination';
 import ListHeader from '../../components/ListHeader/ListHeader';
 import {
   loadDevices,
@@ -15,13 +15,12 @@ import {
   clearStatus } from '../../actions/devices.action';
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
-import { sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
-require('./DeviceList.scss');
+require('../DeviceList/DeviceList.scss');
 
-class DeviceList extends React.Component {
+class LocationList extends React.Component {
   constructor (props) {
     super(props);
 
@@ -41,6 +40,12 @@ class DeviceList extends React.Component {
       });
     };
 
+    this.handleClick = (event) => {
+      this.setState({
+        currentPage: Number(event.target.id)
+      });
+    };
+
     this.changeStatus = (status, id) => {
       this.props.changeStatus({ status }, id);
     };
@@ -48,13 +53,14 @@ class DeviceList extends React.Component {
       this.props.deleteDevice(id);
     };
   }
+
   componentDidMount () {
     this.props.loadDevices();
   }
 
-  renderDevices (locations, location) {
+  renderDevices (devicesInLocation) {
     return (
-      locations[location].map((device, i) => {
+      devicesInLocation.map((device, i) => {
         return (
           <DeviceListItem
             data={device}
@@ -67,32 +73,25 @@ class DeviceList extends React.Component {
     );
   }
 
-  renderDeviceGroup () {
-    const locations = sortDevicesByLocations(this.props.devices);
-
+  renderDeviceGroup (devicesInLocation) {
     return (
-      Object.keys(locations).map((location, i) => {
-        return (
-          <div className="device-group" key={i}>
-            <h2
-              className="device-group__title">
-                {location.toUpperCase()}
-            </h2>
-            <ReactCSSTransitionGroup
-              className="device-group__items"
-              transitionName="hide"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
-              {this.renderDevices(locations, location)}
-            </ReactCSSTransitionGroup>
-          </div>
-        );
-      })
+      <div className="device-group">
+        <ReactCSSTransitionGroup
+          className="device-group__items"
+          transitionName="hide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {this.renderDevices(devicesInLocation)}
+        </ReactCSSTransitionGroup>
+      </div>
     );
   }
 
   render () {
     const filterOption = this.props.match.params.filterOption;
+    const locationOfDevices = this.props.match.params.location;
+    const devicesInLocation = this.props.devices
+      .filter(item => item.location === locationOfDevices);
 
     if (typeof filterOption !== 'undefined') {
       this.props.filterAction(filterOption);
@@ -100,16 +99,22 @@ class DeviceList extends React.Component {
 
     return (
       <section className="device-list">
-        <h1 className="device-list__title">Your devices</h1>
+        <h1 className="device-list__title">
+          Your devices in {locationOfDevices}
+        </h1>
         <ListHeader
-          quantity={this.props.devices.length}
+          quantity={devicesInLocation.length}
           location={this.props.location}
           history={this.props.history}
           match={this.props.match} />
         <section className="device-list__content">
           { this.props.status === 'DONE' && this.props.devices.length === 0 ?
-            <span>You need to add device</span> : this.renderDeviceGroup()
+            <span>You need to add device</span> :
+            this.renderDeviceGroup(devicesInLocation)
           }
+          <Pagination
+            handleClick={this.handleClick}
+            list={this.props.devices}/>
         </section>
         <Popup
             setPopupShown={this.setPopupShown}
@@ -118,21 +123,21 @@ class DeviceList extends React.Component {
             text="Are you sure you want to remove the device?"
         >
           <Button
-              setPopupShown={this.setPopupShown}
-              okHandler={() => {
-                this.deleteDevice(this.state.currentId);
-                this.setPopupShown();
-              }}
-              className={'btn popup__btn'}
-              innerText={'Ok'}
-            />
-            <Button
-              okHandler={() => {
-                this.setPopupShown();
-              }}
-              className={'btn btn--default popup__btn'}
-              innerText={'Cancel'}
-            />
+            setPopupShown={this.setPopupShown}
+            okHandler={() => {
+              this.deleteDevice(this.state.currentId);
+              this.setPopupShown();
+            }}
+            className={'btn popup__btn'}
+            innerText={'Ok'}
+          />
+          <Button
+            okHandler={() => {
+              this.setPopupShown();
+            }}
+            className={'btn btn--default popup__btn'}
+            innerText={'Cancel'}
+          />
         </Popup>
         <Message
           clearStatus={this.props.clearStatus}
@@ -159,7 +164,9 @@ const mapDispatchToProps = (dispatch) => ({
   clearStatus: () => dispatch(clearStatus())
 });
 
-DeviceList.propTypes = {
+LocationList.propTypes = {
+  search: PropTypes.string,
+  filterOption:  PropTypes.string,
   match: PropTypes.object,
   changeStatus: PropTypes.func,
   devices: PropTypes.array,
@@ -175,4 +182,4 @@ DeviceList.propTypes = {
   clearStatus: PropTypes.func
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);
+export default connect(mapStateToProps, mapDispatchToProps)(LocationList);
