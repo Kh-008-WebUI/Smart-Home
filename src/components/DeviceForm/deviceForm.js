@@ -7,7 +7,8 @@ import {
   addDevice,
   addItem,
   setValue,
-  resetProto
+  resetProto,
+  loadLocations
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
@@ -24,19 +25,16 @@ const itemsToChoose = [
   'Range'
 ];
 
-const locationOptions = [
-  { value: 'living room', label: 'Living Room' },
-  { value: 'bedroom', label: 'Bedroom' },
-  { value: 'kitchen', label: 'Kitchen' },
-  { value: 'hallway', label: 'Hallway' }
-];
-
 class DeviceForm extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       items: []
     };
+  }
+
+  componentDidMount () {
+    this.props.loadLocations();
   }
 
   addItem = (e) => {
@@ -117,7 +115,7 @@ class DeviceForm extends React.Component {
             name="location"
             required
             placeholder="select location"
-            options={ locationOptions }
+            options={ this.props.locations }
             onChange={ this.handleSelectLocation }
             value={ this.props.settings.location }
           />
@@ -142,7 +140,8 @@ class DeviceForm extends React.Component {
 function mapStateToProps (store) {
   return {
     settings: store.builder.device,
-    status: store.builder.uploadStatus
+    status: store.builder.uploadStatus,
+    locations: store.builder.locations
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -152,7 +151,8 @@ function mapDispatchToProps (dispatch) {
     resetProto: bindActionCreators(resetProto, dispatch),
     addDevice: bindActionCreators(addDevice, dispatch),
     sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
-    updateDevice: (data, id) => dispatch(updateDevice(data, id))
+    updateDevice: (data, id) => dispatch(updateDevice(data, id)),
+    loadLocations: () => dispatch(loadLocations())
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -165,5 +165,7 @@ DeviceForm.propTypes = {
   settings: PropTypes.object,
   status: PropTypes.string,
   sendNotificationWS: PropTypes.func,
-  updateDevice: PropTypes.func
+  updateDevice: PropTypes.func,
+  loadLocations: PropTypes.func,
+  locations: PropTypes.array
 };
