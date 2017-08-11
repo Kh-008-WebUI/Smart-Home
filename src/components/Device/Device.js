@@ -24,7 +24,9 @@ export const Device = (props) => {
           className="fa fa-pencil device-item_info-edit">
         </Link>
         <div className="device-view__info">
+          <small>Date of create </small>
           <small>{props.device.createdDate}</small><br/>
+          <small>Created by </small>
           <small>{props.device.createdBy}</small>
         </div>
       </div>
