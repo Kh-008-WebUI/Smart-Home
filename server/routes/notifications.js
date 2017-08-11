@@ -1,16 +1,30 @@
 const express = require('express');
 const notificationRouter = express.Router();
 const Notification = require('../models/notification.js');
+const User = require('../models/user.js');
+const moment = require('moment');
 
 notificationRouter.route('/')
   .get((req, res) => {
-    Notification.find((err, notifications) => {
+    User.findById(req.session.user, (err, user) => {
       if (err) {
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
-      res.json(notifications);
-    }).sort({ time: -1 });
+      if (!user) {
+        res.statusMessage = 'Something went wrong, try again later.';
+        res.status(500).end();
+      }
+    }).then((user) => {
+      Notification.find({ 'time': { '$gte': user.created } },
+        (err, notifications) => {
+          if (err) {
+            res.statusMessage = 'Something went wrong, try again later.';
+            res.status(500).end();
+          }
+          res.json(notifications);
+        }).sort({ time: -1 });
+    });
   })
   .post((req, res) => {
     const notification = new Notification(req.body);
