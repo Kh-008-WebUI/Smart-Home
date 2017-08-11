@@ -89,3 +89,16 @@ export const loadLocationsSuccess = (locations) => {
     locations
   };
 };
+export const addLocation = (location) => {
+  return {
+    type: 'ADD_LOCATION',
+    location
+  };
+};
+
+export const addLocationSuccess = (location) => {
+  return {
+    type: 'ADD_LOCATION_SUCCESS',
+    location
+  };
+};

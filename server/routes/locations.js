@@ -17,5 +17,22 @@ locationRouter.route('/').get((req, res) => {
   });
 });
 
-module.exports = locationRouter;
+locationRouter.route('/').post((req, res) => {
+  const location = req.body;
 
+  location.label = location;
+  location.value = location;
+  
+  Location.create(location, (err, location) => {
+    if (err) {
+      res.status(500).send({
+        status: 'error',
+        text: 'Could not add the location.'
+      });
+    } else {
+      res.json(location);
+    }
+  });
+});
+
+module.exports = locationRouter;
