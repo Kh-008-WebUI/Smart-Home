@@ -15,7 +15,6 @@ notificationRouter.route('/')
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
-      console.log(user.created);
     }).then((user) => {
       Notification.find({ 'time': { '$gte': user.created } },
         (err, notifications) => {
@@ -23,7 +22,6 @@ notificationRouter.route('/')
             res.statusMessage = 'Something went wrong, try again later.';
             res.status(500).end();
           }
-          // console.log(notifications + ' ' + userDateRegistration);
           res.json(notifications);
         }).sort({ time: -1 });
     });
