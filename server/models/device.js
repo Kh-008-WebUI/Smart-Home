@@ -8,13 +8,12 @@ const deviceSchema = new Schema({
   name: {
     type: String,
     required: [true, 'You forgot to give a name for device.'],
-    minlength: [3, 'Name of your device is too short.'],
+    minlength: [2, 'Name of your device is too short.'],
     maxlength: 18
   },
   location: {
     type: String,
-    required: [true, 'Location is required.'],
-    enum: ['living room', 'hallway', 'kitchen', 'bedroom']
+    required: [true, 'Location is required.']
   },
   status: {
     type: Boolean,
