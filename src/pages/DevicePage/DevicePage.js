@@ -11,7 +11,7 @@ import {
   updateDevice,
   clearStatus,
   resetDevice } from '../../actions/devices.action';
-require('./DevicePage.scss');
+import './DevicePage.scss';
 
 class DevicePage extends React.Component {
   constructor (props) {

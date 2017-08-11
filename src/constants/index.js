@@ -1,3 +1,5 @@
+import { config } from '../config/config';
+
 export const CHANGE_FILTER_OPTION = 'CHANGE_FILTER_OPTION';
 export const SEARCH_ITEM = 'SEARCH_ITEM';
 export const CHANGE_STATUS = 'CHANGE_STATUS';
@@ -67,4 +69,4 @@ export const LOGOUT_PENDING = 'auth/LOGOUT_PENDING';
 export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 export const UPDATE_CHART = 'UPDATE_CHART';
-export const SERVER_API = 'http://localhost:3001/api';
+export const SERVER_API = `http://${config.origin}/api`;

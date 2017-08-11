@@ -1,4 +1,4 @@
-require('./scss/index.scss');
+import styles from './scss/index.scss';
 import createSagaMiddleware from 'redux-saga';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -16,10 +16,12 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
+import { config } from './config/config';
 
-export const ws = new WebSocket('ws://localhost:3001/');
+export const ws = new WebSocket(`ws://${config.origin}/`);
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = config.isProd ?
+  compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeEnhancers(),
   applyMiddleware(sagaMiddleware));
@@ -46,7 +48,7 @@ ReactDOM.render(
               <Route path='/devices/device/:id' component={DevicePage} />
               <Route path='/devices' component={DeviceList} />
               <Route path='/builder' component={Builder} />
-              <Route path='/user' component={Profile} />
+              <Route exact path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />
             </Switch>
           </MainLayout>
