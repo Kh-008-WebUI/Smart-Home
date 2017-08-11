@@ -4,11 +4,15 @@ const Notification = require('../models/notification.js');
 
 notificationRouter.route('/')
   .get((req, res) => {
-    Notification.find((err, notifications) => {
+    const userDateRegistration = new Date(2017, 7, 11);
+
+    Notification.find({ 'time': { '$gte': userDateRegistration } },
+    (err, notifications) => {
       if (err) {
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
+      console.log(notifications + ' ' + userDateRegistration);
       res.json(notifications);
     }).sort({ time: -1 });
   })
