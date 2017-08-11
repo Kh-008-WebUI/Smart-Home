@@ -64,6 +64,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
+  require('./utils/chartData.js')(ws);
   ws.on('message', message => {
     wss.clients.forEach(client => {
       client.send(message);
@@ -71,7 +72,6 @@ wss.on('connection', function connection (ws, req) {
   });
 });
 
-require('./utils/chartData.js')();
 server.listen(config.port, () => {
   console.log(`node server is working on port ${config.port}...`);
 });
