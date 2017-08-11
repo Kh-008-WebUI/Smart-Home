@@ -52,7 +52,6 @@ class ListHeader extends React.Component {
   }
 
   render () {
-    console.log('this.props', this.props);
     return (
       <header className="device-list__header">
         <Search
