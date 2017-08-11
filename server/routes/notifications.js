@@ -3,6 +3,7 @@ const notificationRouter = express.Router();
 const Notification = require('../models/notification.js');
 const User = require('../models/user.js');
 const moment = require('moment');
+const getUserBySession = require('../utils/getUserBySession');
 
 notificationRouter.route('/')
   .get((req, res) => {
@@ -11,12 +12,8 @@ notificationRouter.route('/')
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       }
-      if (!user) {
-        res.statusMessage = 'Something went wrong, try again later.';
-        res.status(500).end();
-      }
     }).then((user) => {
-      Notification.find({ 'time': { '$gte': user.created } },
+      Notification.find({ 'time': { '$gte': user ? user.created : new Date(2017, 1, 1) } },
         (err, notifications) => {
           if (err) {
             res.statusMessage = 'Something went wrong, try again later.';
@@ -80,6 +77,18 @@ notificationRouter.route('/:id')
         });
       }
     });
+
+    // Notification.findByIdAndRemove(req.params.id), (err, notification) => {
+    //   if (err) {
+    //     res.statusMessage = 'Failed to delete notification.';
+    //     res.status(500).end();
+    //   } else {
+    //     res.send({
+    //       message: 'Note successfully deleted',
+    //       id: req.params.id
+    //     });
+    //   }
+    // });
   });
 
 module.exports = notificationRouter;
