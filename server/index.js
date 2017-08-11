@@ -45,10 +45,7 @@ module.exports = ws;
 require('./routes/index.js')(router);
 app.use('/api', router);
 
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname + '/../dist/index.html')));
-app.get('/index_bundle.js', (req, res) =>
-  res.sendFile(path.join(__dirname + '/../dist/index_bundle.js')));
+app.use('/', express.static(__dirname + '/../dist'));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname + '/../dist/index.html')));
 
@@ -68,6 +65,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection (ws, req) {
+  require('./utils/chartData.js')(ws);
   ws.on('message', message => {
     wss.clients.forEach(client => {
       client.send(message);
@@ -75,7 +73,6 @@ wss.on('connection', function connection (ws, req) {
   });
 });
 
-require('./utils/chartData.js')();
 server.listen(config.port, () => {
   console.log(`node server is working on port ${config.port}...`);
 });

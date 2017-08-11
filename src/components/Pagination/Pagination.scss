@@ -1,0 +1,11 @@
+.pagination-pages {
+  text-align: center;
+
+  &__num.btn {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 12px;
+    min-width: 20px;
+    line-height: 9px;
+  }
+}

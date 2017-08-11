@@ -26,4 +26,7 @@ export default class DeviceListApi {
       `${SERVER_API}/devices/items/${deviceId}/${settingId}`,
     JSON.stringify({ value }));
   }
+  static loadLocations () {
+    return Transport.get(`${SERVER_API}/location`);
+  }
 }

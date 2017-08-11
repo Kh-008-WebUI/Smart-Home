@@ -10,7 +10,9 @@ import {
   ADD_ITEM_DESCRIPTION,
   CLEAR_ADD_STATUS,
   EDIT_DEVICE_SUCCESS,
-  EDIT_DEVICE
+  EDIT_DEVICE,
+  LOAD_LOCATIONS_SUCCESS,
+  LOAD_LOCATIONS
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -72,5 +74,18 @@ export const editDeviceSuccess = (device) => {
   return {
     type: EDIT_DEVICE_SUCCESS,
     device
+  };
+};
+
+export const loadLocations = () => {
+  return {
+    type: LOAD_LOCATIONS
+  };
+};
+
+export const loadLocationsSuccess = (locations) => {
+  return {
+    type: LOAD_LOCATIONS_SUCCESS,
+    locations
   };
 };
