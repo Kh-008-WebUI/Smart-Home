@@ -1,4 +1,7 @@
-import { ADD_DEVICE, EDIT_DEVICE, LOAD_LOCATIONS } from '../constants/index';
+import { ADD_DEVICE,
+  EDIT_DEVICE,
+  LOAD_LOCATIONS,
+  ADD_LOCATION } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import {
   addDeviceSuccess,
@@ -68,5 +71,5 @@ export function* watchLoadLocations () {
 }
 
 export function* watchAddLocation () {
-  yield takeEvery('ADD_LOCATION', addLocation);
+  yield takeEvery(ADD_LOCATION, addLocation);
 }

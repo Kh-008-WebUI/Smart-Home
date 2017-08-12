@@ -12,7 +12,9 @@ import {
   EDIT_DEVICE_SUCCESS,
   EDIT_DEVICE,
   LOAD_LOCATIONS_SUCCESS,
-  LOAD_LOCATIONS
+  LOAD_LOCATIONS,
+  ADD_LOCATION_SUCCESS,
+  ADD_LOCATION
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -91,14 +93,14 @@ export const loadLocationsSuccess = (locations) => {
 };
 export const addLocation = (location) => {
   return {
-    type: 'ADD_LOCATION',
+    type: ADD_LOCATION,
     location
   };
 };
 
 export const addLocationSuccess = (location) => {
   return {
-    type: 'ADD_LOCATION_SUCCESS',
+    type: ADD_LOCATION_SUCCESS,
     location
   };
 };

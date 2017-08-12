@@ -56,9 +56,7 @@ class DeviceForm extends React.Component {
   changeLocationValue = (e) => {
     const newLocationValue = e.target.value;
 
-    console.log(newLocationValue);
     this.setState({
-      ...this.state,
       locationValue: newLocationValue
     });
   };
