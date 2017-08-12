@@ -53,7 +53,7 @@ class NotificationsBell extends React.Component {
       this.buttonText = 'show all';
     }
   }
-  addClassName = (item) => {
+  addClassNameViewed = (item) => {
     let classForNotifyItem = '';
 
     if (!item.viewed) {
@@ -98,8 +98,7 @@ class NotificationsBell extends React.Component {
               <div
                 className={
                   unViewedMessages.length === 0 ?
-                  'remove-block' : 'notification-round' }
-                >
+                  'remove-block' : 'notification-round' }>
                   {unViewedMessages.length}
               </div>
           </div>
@@ -115,7 +114,7 @@ class NotificationsBell extends React.Component {
                 return (
                   <li
                     id={item._id}
-                    className={ this.addClassName(item) }
+                    className={ this.addClassNameViewed(item) }
                     key={key}>
                     <div className="notification-message">
                       <div className="notification-time">

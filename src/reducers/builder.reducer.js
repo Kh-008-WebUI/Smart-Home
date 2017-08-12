@@ -12,7 +12,8 @@ import {
   UPDATE_DEVICE_SUCCESS,
   EDIT_DEVICE_SUCCESS,
   UPDATE_DEVICE_FAILURE,
-  LOAD_LOCATIONS_SUCCESS
+  LOAD_LOCATIONS_SUCCESS,
+  ADD_LOCATION_SUCCESS
 } from '../constants/index';
 
 const initialState = {
@@ -104,6 +105,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         locations: action.locations
       };
+
+    case ADD_LOCATION_SUCCESS: {
+      const newLocations = [...state.locations];
+
+      newLocations.push(action.location);
+      return {
+        ...state,
+        locations: newLocations
+      };
+    }
+
     default:
       return state;
   }
