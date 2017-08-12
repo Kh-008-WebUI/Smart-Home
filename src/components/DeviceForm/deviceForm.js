@@ -8,7 +8,8 @@ import {
   addItem,
   setValue,
   resetProto,
-  loadLocations
+  loadLocations,
+  addLocation
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
@@ -29,13 +30,46 @@ class DeviceForm extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
+      input: false,
+      locationValue: ''
     };
   }
 
   componentDidMount () {
     this.props.loadLocations();
   }
+
+  editLocation = () => {
+    return (
+      <div>
+        <label>Add Location</label>
+        <input
+          className="form-button"
+          type='text'
+          onChange={this.changeLocationValue}/>
+        <i className="fa fa-check device-form__icon"
+          onClick={this.addLocationValue}>
+        </i>
+      </div>);
+  };
+  changeLocationValue = (e) => {
+    const newLocationValue = e.target.value;
+
+    this.setState({
+      locationValue: newLocationValue
+    });
+  };
+  addLocationValue = () => {
+    this.props.addLocation(this.state.locationValue);
+  }
+
+  showInputLocation = () => {
+    this.setState({
+      ...this.state,
+      input: !this.state.input
+    });
+  };
 
   addItem = (e) => {
     const newItem = {
@@ -111,14 +145,20 @@ class DeviceForm extends React.Component {
           value={this.props.settings.name} />
         <div className="input-container">
           <label>Location:</label>
-          <Select
-            name="location"
-            required
-            placeholder="select location"
-            options={ this.props.locations }
-            onChange={ this.handleSelectLocation }
-            value={ this.props.settings.location }
-          />
+            <Select
+              name="location"
+              required
+              placeholder="select location"
+              options={ this.props.locations }
+              onChange={ this.handleSelectLocation }
+              value={ this.props.settings.location }
+            />
+            <a className="fa fa-pencil device-form__icon"
+              onClick={ this.showInputLocation }>
+            </a>
+        </div>
+        <div>
+          {this.state.input ? this.editLocation() : null}
         </div>
         <div>
           <label> Device config:</label>
@@ -152,7 +192,8 @@ function mapDispatchToProps (dispatch) {
     addDevice: bindActionCreators(addDevice, dispatch),
     sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
     updateDevice: (data, id) => dispatch(updateDevice(data, id)),
-    loadLocations: () => dispatch(loadLocations())
+    loadLocations: () => dispatch(loadLocations()),
+    addLocation: (location) => dispatch(addLocation(location))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -167,5 +208,6 @@ DeviceForm.propTypes = {
   sendNotificationWS: PropTypes.func,
   updateDevice: PropTypes.func,
   loadLocations: PropTypes.func,
-  locations: PropTypes.array
+  locations: PropTypes.array,
+  addLocation: PropTypes.func
 };

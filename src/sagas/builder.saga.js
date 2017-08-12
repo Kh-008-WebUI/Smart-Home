@@ -1,11 +1,15 @@
-import { ADD_DEVICE, EDIT_DEVICE, LOAD_LOCATIONS } from '../constants/index';
+import { ADD_DEVICE,
+  EDIT_DEVICE,
+  LOAD_LOCATIONS,
+  ADD_LOCATION } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import {
   addDeviceSuccess,
   addDeviceFailure,
   clearAddStatus,
   editDeviceSuccess,
-  loadLocationsSuccess
+  loadLocationsSuccess,
+  addLocationSuccess
 } from '../actions/builder.action';
 import { loadDevices } from '../actions/devices.action';
 import { delay } from 'redux-saga';
@@ -43,6 +47,17 @@ export function* loadLocations (action) {
   }
 }
 
+export function* addLocation (action) {
+  const { response, error } = yield call(DeviceListApi.addLocation,
+    action.location);
+
+  if (response) {
+    yield put(addLocationSuccess(response));
+  } else {
+    yield put(addDeviceFailure(error.message));
+  }
+}
+
 export function* watchAddDevice () {
   yield takeEvery(ADD_DEVICE, addDevice);
 }
@@ -53,4 +68,8 @@ export function* watchEditDevice () {
 
 export function* watchLoadLocations () {
   yield takeEvery(LOAD_LOCATIONS, loadLocations);
+}
+
+export function* watchAddLocation () {
+  yield takeEvery(ADD_LOCATION, addLocation);
 }

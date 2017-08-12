@@ -6,7 +6,8 @@ import { watchLoadNotifications,
   watchNotificationChangeStatus } from './notifications.saga';
 import { watchAddDevice,
   watchEditDevice,
-  watchLoadLocations } from './builder.saga';
+  watchLoadLocations,
+  watchAddLocation } from './builder.saga';
 import { watchLogin,
   watchRegistration,
   watchLoadUser,
@@ -38,7 +39,7 @@ export default function* rootSaga () {
     watchUpdateDeviceSettings(),
     watchLoadUser(),
     watchLogout(),
-    watchLoadLocations()
+    watchLoadLocations(),
+    watchAddLocation()
   ]);
 }
-
