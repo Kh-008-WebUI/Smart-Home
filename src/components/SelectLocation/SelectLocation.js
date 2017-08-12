@@ -22,6 +22,16 @@ export default class SelectLocation extends React.Component {
       locationValue: newLocationValue
     });
   };
+  deleteSelectedLocation = (id) => {
+    this.props.deleteLocation(id);
+
+    console.log(id);
+  };
+  setLocationValue = (location) => {
+    this.setState({
+      locationValue: location
+    });
+  };
   addLocationValue = () => {
     this.props.addLocation(this.state.locationValue);
   }
@@ -30,7 +40,9 @@ export default class SelectLocation extends React.Component {
       <div className="Select-control">
         <div className="Select-value select-menu-container">
           <div className="select-menu-label">
-            <span className="Select-value-label">{this.state.locationValue}</span>
+            <span className="Select-value-label">
+              {this.state.locationValue}
+            </span>
             <i className="select-toggle fa fa-caret-down"
             onClick={ this.showInputLocation }></i>
           </div>
@@ -49,9 +61,16 @@ export default class SelectLocation extends React.Component {
                 {this.props.locations.map((location, i) => {
                   return (
                     <li key={i} className="Select-option"
-                    onClick={this.changeLocationValue}>
-                      {location.value}
-                      <i className="fa fa-trash Select-option__icon"></i>
+                      >
+                        <span
+                        onClick={this.setLocationValue.bind(this,
+                           location.value)}>
+                          {location.value}
+                        </span>
+                      <i className="fa fa-trash Select-option__icon"
+                      onClick={this.deleteSelectedLocation.bind(this,
+                          location._id)}>
+                      </i>
                     </li>
                   );
                 })
@@ -64,5 +83,7 @@ export default class SelectLocation extends React.Component {
 }
 SelectLocation.propTypes = {
   locations: PropTypes.array,
-  addLocation: PropTypes.func
+  addLocation: PropTypes.func,
+  deleteLocation: PropTypes.func,
+  locationId: PropTypes.string
 };

@@ -9,7 +9,8 @@ import {
   setValue,
   resetProto,
   loadLocations,
-  addLocation
+  addLocation,
+  deleteLocation
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
@@ -146,7 +147,9 @@ class DeviceForm extends React.Component {
             />
             <SelectLocation
               locations={this.props.locations}
-              addLocation={this.props.addLocation}/>
+              addLocation={this.props.addLocation}
+              deleteLocation={this.props.deleteLocation}
+              locationId={this.props.locations._id}/>
             <a className="fa fa-pencil device-form__icon"
               onClick={ this.showInputLocation }>
             </a>
@@ -187,7 +190,8 @@ function mapDispatchToProps (dispatch) {
     sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
     updateDevice: (data, id) => dispatch(updateDevice(data, id)),
     loadLocations: () => dispatch(loadLocations()),
-    addLocation: (location) => dispatch(addLocation(location))
+    addLocation: (location) => dispatch(addLocation(location)),
+    deleteLocation: (id) => dispatch(deleteLocation(id))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -203,5 +207,6 @@ DeviceForm.propTypes = {
   updateDevice: PropTypes.func,
   loadLocations: PropTypes.func,
   locations: PropTypes.array,
-  addLocation: PropTypes.func
+  addLocation: PropTypes.func,
+  deleteLocation: PropTypes.func
 };

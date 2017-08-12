@@ -104,3 +104,17 @@ export const addLocationSuccess = (location) => {
     location
   };
 };
+
+export const deleteLocation = (id) => {
+  return {
+    type: 'DELETE_LOCATION',
+    id
+  };
+};
+
+export const deleteLocationSuccess = (id) => {
+  return {
+    type: 'DELETE_LOCATION_SUCCESS',
+    id
+  };
+};

@@ -19,7 +19,7 @@ locationRouter.route('/').get((req, res) => {
 
 locationRouter.route('/').post((req, res) => {
   const location = req.body.location;
-console.log(req.body);
+
   Location.create({value: location, label:location}, (err, location) => {
     if (err) {
       res.status(500).send({
@@ -32,4 +32,16 @@ console.log(req.body);
   });
 });
 
+locationRouter.route('/:id').delete((req, res) => {
+  const id = req.params.id;
+
+  Location.findOneAndRemove({ _id: id }, (err, location) => {
+    if (err) {
+      res.statusMessage = 'Something went wrong, could not delete the device.';
+      res.status(500).end();
+    } else {
+      res.json(id);
+    }
+  });
+});
 module.exports = locationRouter;
