@@ -41,6 +41,12 @@ class LocationList extends React.Component {
       });
     };
 
+    this.setPage = (pageNumber) => {
+      this.setState({
+        currentPage: pageNumber
+      });
+    };
+
     this.changeStatus = (status, id) => {
       this.props.changeStatus({ status }, id);
     };
@@ -122,6 +128,7 @@ class LocationList extends React.Component {
         }
         <Pagination
           handleClick={this.handleClick}
+          setPage={this.setPage}
           list={this.props.devices}
           currentPage={this.state.currentPage}
           totalPages={totalPages}/>

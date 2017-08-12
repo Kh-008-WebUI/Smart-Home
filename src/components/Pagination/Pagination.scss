@@ -3,9 +3,13 @@
 
   &__num.btn {
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 5px;
     padding: 12px;
     min-width: 20px;
     line-height: 9px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

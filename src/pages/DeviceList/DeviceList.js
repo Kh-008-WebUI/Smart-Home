@@ -54,9 +54,12 @@ class DeviceList extends React.Component {
   }
 
   renderDevices (locations, location) {
+    const devicesList = locations[location].length > 8 ?
+      locations[location].slice(0, 7) :
+      locations[location];
+
     return (
-      locations[location].slice(0, 7)
-      .map((device, i) => {
+      devicesList.map((device, i) => {
         return (
           <DeviceListItem
             data={device}
@@ -86,12 +89,12 @@ class DeviceList extends React.Component {
               transitionEnterTimeout={500}
               transitionLeaveTimeout={300}>
               {this.renderDevices(locations, location)}
-              {locations[location].length > 7 ?
+              {locations[location].length > 8 ?
                 <Link
                   className="device-group__link"
                   to={`/devices/${location}`}>
                   <i
-                    className="fa fa-arrow-circle-o-right"
+                    className="fa fa-repeat"
                     aria-hidden="true"></i>
                   More devices
                 </Link> : null
