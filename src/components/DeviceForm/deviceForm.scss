@@ -52,6 +52,10 @@
       input {
         color: $text_color_input;
       }
+      &__icon {
+        float: right;
+        color: $color-bg-grey;
+      }
     }
     .has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select-input {
       color: $text_color_input;
@@ -68,11 +72,41 @@
     .is-focused:not(.is-open) > .Select-control {
       box-shadow: none;
     }
-    .Select-option.is-focused {
+    .Select-option:hover {
       background-color: rgba(246,168,33,0.8);
       color: $text_color_active;
     }
+
+    .select-menu-container{
+      height: 32px;
+      .select-toggle {
+        float: right;
+        margin-right: 3px;
+      }
+      .select-menu-label{
+        margin: 7px;
+      }
+    }
   }
+  .Select-input_add-location{
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    border-radius: 0px;
+
+    width: 90%
+  }
+  .Select-input_add-location_icon{
+    float: right;
+    margin: 10px 10px 0 0;
+    color: $text_color_input;
+    &:hover{
+      color: rgba(246,168,33,0.8);
+      cursor: pointer;
+    }
+  }
+
+
 
   //buttons styles
 

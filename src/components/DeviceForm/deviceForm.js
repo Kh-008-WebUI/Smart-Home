@@ -14,6 +14,7 @@ import {
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
+import SelectLocation from '../SelectLocation/SelectLocation';
 import { setItemDefaultData } from '../../utils/utils';
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { updateDevice } from '../../actions/devices.action';
@@ -53,16 +54,6 @@ class DeviceForm extends React.Component {
         </i>
       </div>);
   };
-  changeLocationValue = (e) => {
-    const newLocationValue = e.target.value;
-
-    this.setState({
-      locationValue: newLocationValue
-    });
-  };
-  addLocationValue = () => {
-    this.props.addLocation(this.state.locationValue);
-  }
 
   showInputLocation = () => {
     this.setState({
@@ -153,6 +144,9 @@ class DeviceForm extends React.Component {
               onChange={ this.handleSelectLocation }
               value={ this.props.settings.location }
             />
+            <SelectLocation
+              locations={this.props.locations}
+              addLocation={this.props.addLocation}/>
             <a className="fa fa-pencil device-form__icon"
               onClick={ this.showInputLocation }>
             </a>
