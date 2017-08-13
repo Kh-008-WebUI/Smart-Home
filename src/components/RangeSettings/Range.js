@@ -87,8 +87,11 @@ export default class RangeSettings extends React.Component {
     return (
       <div className={ `${ this.props.styleName }` }>
         {this.props.showMinMax ?
-          <div className="range__settings">
-            <div className="range__settings--min">
+          <div className="range-settings">
+            <p className="range-settings__title">
+              Enter min and max values for setting
+            </p>
+            <div className="range-settings__val">
               <input
                 type="number"
                 name="min"
@@ -96,7 +99,7 @@ export default class RangeSettings extends React.Component {
                 onChange={ this.setMinValue }
                 value={this.state.params.minValue}/>
             </div>
-            <div className="range__settings--max">
+            <div className="range-settings__val">
               <input
                 type="number"
                 name="max"
@@ -104,9 +107,11 @@ export default class RangeSettings extends React.Component {
                 onChange={ this.setMaxValue }
                 value={this.state.params.maxValue}/>
             </div>
-            <input
-              type="button"
-              onClick={ this.setParams }/>
+            <button
+              onClick={ this.setParams }
+              className="btn range-settings__btn">
+                Submit
+            </button>
           </div> :
           null
         }
