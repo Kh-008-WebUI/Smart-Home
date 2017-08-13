@@ -27,7 +27,9 @@ export const SettingsListItem = (props) => (
       setParameters: props.setParameters,
       itemId: props.id,
       checked: props.checked,
-      data: props.data
+      data: props.data,
+      params: props.params,
+      showMinMax: true
     })}
  </div>
 );
@@ -43,5 +45,6 @@ SettingsListItem.propTypes = {
   children: PropTypes.any,
   description: PropTypes.string,
   data: PropTypes.any,
-  setParameters: PropTypes.func
+  setParameters: PropTypes.func,
+  params: PropTypes.object
 };
