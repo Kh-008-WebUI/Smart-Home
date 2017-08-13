@@ -86,4 +86,22 @@
       flex-wrap: wrap;
     }
   }
+
+  &__link {
+    font-size: 18px;
+    font-weight: 400;
+    color: $link-color;
+    line-height: 70px;
+    vertical-align: middle;
+
+    &:hover, &:hover .fa{
+        color: $link-color-hover;
+      }
+
+    .fa {
+      font-size: 36px;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+  }
 }
