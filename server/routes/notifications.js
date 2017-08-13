@@ -66,17 +66,18 @@ notificationRouter.route('/:id')
     });
   })
   .delete((req, res) => {
-    Notification.findByIdAndRemove(req.params.id, (err, notification) => {
-      if (err) {
+    Notification
+      .findByIdAndRemove(req.params.id).exec()
+      .then(notification => res.send({
+        message: 'Note successfully deleted',
+        id: req.params.id
+      })
+      )
+      .catch((err) => {
         res.statusMessage = 'Failed to delete notification.';
         res.status(500).end();
-      } else {
-        res.send({
-          message: 'Note successfully deleted',
-          id: req.params.id
-        });
-      }
-    });
+      });
+
 
     // Notification.findByIdAndRemove(req.params.id), (err, notification) => {
     //   if (err) {
