@@ -9,8 +9,13 @@ class Pagination extends React.Component {
 
   render () {
     const pageNumbers = [];
+    const currentPage = this.props.currentPage;
 
-    for (let i = 1; i <= 5; i++) {
+    if (!this.props.totalPages || this.props.totalPages <= 1) {
+      return null;
+    }
+
+    for (let i = 1; i <= this.props.totalPages; i++) {
       pageNumbers.push(i);
     }
 
@@ -20,7 +25,10 @@ class Pagination extends React.Component {
           pageNumbers.map(number => {
             return (
               <li
-                className="pagination-pages__num btn btn--default"
+                className={currentPage === number ?
+                'pagination-pages__num btn' :
+                'pagination-pages__num btn btn--default'
+                }
                 key={number}
                 id={number}
                 onClick={this.props.handleClick}>
@@ -35,7 +43,10 @@ class Pagination extends React.Component {
 }
 
 Pagination.propTypes = {
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  setPage: PropTypes.func,
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number
 };
 
 export default Pagination;
