@@ -3,7 +3,7 @@ import { settingsComponents } from '../../data/componentsNames';
 import ToggleSettings from '../ToggleSettings/ToggleSettings';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-require('./Device.scss');
+import './Device.scss';
 export const Device = (props) => {
   const device = props.device;
 
