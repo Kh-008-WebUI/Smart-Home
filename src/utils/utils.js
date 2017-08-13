@@ -56,6 +56,10 @@ export const setItemDefaultData = (item) => {
       break;
     case 'Range':
       item.data = 0;
+      item.params = {
+        minValue: 0,
+        maxValue: 100
+      };
       break;
     case 'Timer':
       item.data = '00:00';

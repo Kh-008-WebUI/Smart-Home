@@ -20,6 +20,7 @@ export const SettingsList = (props) => (
           setParameters={props.setParameters}
           checked={setting.data}
           data={setting.data}
+          params={setting.params}
           description={setting.description}
           id={i}>
           <Item/>

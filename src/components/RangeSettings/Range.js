@@ -4,22 +4,28 @@ import './RangeStyle.scss';
 
 
 export default class RangeSettings extends React.Component {
-
   constructor (props) {
     super(props);
+
+    let minValue, maxValue;
+
+    if (this.props.params) {
+      minValue = this.props.params.minValue;
+      maxValue = this.props.params.maxValue;
+    }
 
     this.state = {
       value: 0,
       params: {
-        minValue: 0,
-        maxValue: 100
+        minValue: minValue || 0,
+        maxValue: maxValue || 100
       }
     };
 
     this.setMinValue = (e) => {
       this.setState({
         params: {
-          minValue: e.target.value,
+          minValue: parseInt(e.target.value),
           maxValue: this.state.params.maxValue
         }
       });
@@ -28,7 +34,7 @@ export default class RangeSettings extends React.Component {
     this.setMaxValue = (e) => {
       this.setState({
         params: {
-          maxValue: e.target.value,
+          maxValue: parseInt(e.target.value),
           minValue: this.state.params.minValue
         }
       });
@@ -76,35 +82,45 @@ export default class RangeSettings extends React.Component {
   }
 
   render () {
-    const { max, min } = this.props;
+    const { min, max } = this.props;
 
     return (
       <div className={ `${ this.props.styleName }` }>
-        <div className="range__settings">
-          <div className="range__settings--min">
-            <input
-              type="number"
-              name="min"
-              placeholder="Enter min value"
-              onChange={ this.setMinValue }/>
-          </div>
-          <div className="range__settings--max">
-            <input
-              type="number"
-              name="max"
-              placeholder="Enter max value"
-              onChange={ this.setMaxValue }/>
-          </div>
-        </div>
+        {this.props.showMinMax ?
+          <div className="range-settings">
+            <p className="range-settings__title">
+              Enter min and max values for setting
+            </p>
+            <div className="range-settings__val">
+              <input
+                type="number"
+                name="min"
+                placeholder="Enter min value"
+                onChange={ this.setMinValue }
+                value={this.state.params.minValue}/>
+            </div>
+            <div className="range-settings__val">
+              <input
+                type="number"
+                name="max"
+                placeholder="Enter max value"
+                onChange={ this.setMaxValue }
+                value={this.state.params.maxValue}/>
+            </div>
+            <button
+              onClick={ this.setParams }
+              className="btn range-settings__btn">
+                Submit
+            </button>
+          </div> :
+          null
+        }
         {this.props.hideLabel ? null : <p className='range_value'>
           {this.state.value}</p>}
         <input
           type='range'
           onChange={ this.onChange }
-          onMouseUp={ () => {
-            this.setParams();
-            this.setValue();
-          }}
+          onMouseUp={ this.setValue }
           min={min || this.state.params.minValue}
           max={max || this.state.params.maxValue}
           step={1}
@@ -127,5 +143,9 @@ RangeSettings.propTypes = {
   onTimerChange:PropTypes.func,
   deviceId: PropTypes.string,
   setTimerValue: PropTypes.func,
-  setParameters: PropTypes.func
+  setParameters: PropTypes.func,
+  showMinMax: PropTypes.bool,
+  maxValue: PropTypes.number,
+  minValue: PropTypes.number,
+  params: PropTypes.object
 };
