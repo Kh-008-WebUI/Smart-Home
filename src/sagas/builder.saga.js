@@ -1,7 +1,8 @@
 import { ADD_DEVICE,
   EDIT_DEVICE,
   LOAD_LOCATIONS,
-  ADD_LOCATION } from '../constants/index';
+  ADD_LOCATION,
+  DELETE_LOCATION } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import {
   addDeviceSuccess,
@@ -85,5 +86,5 @@ export function* watchAddLocation () {
 }
 
 export function* watchDeleteLocation () {
-  yield takeEvery('DELETE_LOCATION', deleteLocation);
+  yield takeEvery(DELETE_LOCATION, deleteLocation);
 }

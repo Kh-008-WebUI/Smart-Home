@@ -13,7 +13,8 @@ import {
   EDIT_DEVICE_SUCCESS,
   UPDATE_DEVICE_FAILURE,
   LOAD_LOCATIONS_SUCCESS,
-  ADD_LOCATION_SUCCESS
+  ADD_LOCATION_SUCCESS,
+  DELETE_LOCATION_SUCCESS
 } from '../constants/index';
 
 const initialState = {
@@ -115,7 +116,7 @@ const reducer = (state = initialState, action) => {
         locations: newLocations
       };
     }
-    case 'DELETE_LOCATION_SUCCESS': {
+    case DELETE_LOCATION_SUCCESS: {
       const newLocations = state.locations.filter((item) => {
         return item._id !== action.id;
       });

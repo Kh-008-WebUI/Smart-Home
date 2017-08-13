@@ -4,86 +4,120 @@ import PropTypes from 'prop-types';
 export default class SelectLocation extends React.Component {
   constructor (props) {
     super(props);
+
     this.state = {
       input: false,
-      locationValue: ''
+      locationValue: '',
+      inputValue: ''
     };
   }
+
+  componentWillReceiveProps (nextProps) {
+    if (typeof this.props.defaultLocation !== 'undefined') {
+      this.setState({
+        locationValue: this.props.defaultLocation
+      });
+    } else if (nextProps.locations.length > 0
+      && this.state.locationValue === '') {
+      this.setState({
+        locationValue: nextProps.locations[0].value
+      });
+
+      this.props.selectLocation(nextProps.locations[0].value);
+    }
+  }
+
   showInputLocation = () => {
     this.setState({
       input: !this.state.input
     });
   };
 
-  changeLocationValue = (e) => {
-    const newLocationValue = e.target.value;
-
+  setInputValue = (e) => {
     this.setState({
-      locationValue: newLocationValue
+      inputValue: e.target.value
     });
   };
+
+  changeLocationValue = (e) => {
+    this.setState({
+      locationValue: e.target.value
+    });
+  };
+
   deleteSelectedLocation = (id) => {
     this.props.deleteLocation(id);
-
-    console.log(id);
   };
+
   setLocationValue = (location) => {
     this.setState({
       locationValue: location
     });
+
+    this.props.selectLocation(location);
+    this.showInputLocation();
   };
+
   addLocationValue = () => {
-    this.props.addLocation(this.state.locationValue);
+    if (this.state.inputValue.trim() !== '') {
+      this.props.addLocation(this.state.inputValue);
+    }
+
+    this.setState({
+      inputValue: ''
+    });
   }
+
   render () {
     return (
       <div className="Select-control">
         <div className="Select-value select-menu-container">
-          <div className="select-menu-label">
+          <div className="select-menu-label"
+            onClick={ this.showInputLocation }>
             <span className="Select-value-label">
               {this.state.locationValue}
             </span>
-            <i className="select-toggle fa fa-caret-down"
-            onClick={ this.showInputLocation }></i>
+            <i className={`select-toggle fa ${this.state.input ?
+              'fa-caret-up' : 'fa-caret-down'}`}></i>
           </div>
         </div>
         {this.state.input ?
-        <div>
-          <div>
+        <div className="Select-menu__outer">
+          <div className="Select-input-location">
             <input type="text"
               placeholder="Add new location"
               className="Select-input_add-location"
-              onChange={this.changeLocationValue}/>
+              onChange={this.setInputValue}
+              value={this.state.inputValue}/>
             <i className="fa fa-plus Select-input_add-location_icon"
               onClick={this.addLocationValue}></i>
           </div>
               <ul className="Select-menu">
                 {this.props.locations.map((location, i) => {
                   return (
-                    <li key={i} className="Select-option"
-                      >
-                        <span
-                        onClick={this.setLocationValue.bind(this,
-                           location.value)}>
+                    <li key={i} className="Select-option">
+                        <span className="Select-option__item"
+                          onClick={this.setLocationValue.bind(this,
+                            location.value)}>
                           {location.value}
                         </span>
                       <i className="fa fa-trash Select-option__icon"
-                      onClick={this.deleteSelectedLocation.bind(this,
-                          location._id)}>
-                      </i>
+                        onClick={this.deleteSelectedLocation.bind(this,
+                          location._id)}></i>
                     </li>
                   );
-                })
-                }
+                })}
             </ul>
         </div> : null }
       </div>
     );
   }
 }
+
 SelectLocation.propTypes = {
   locations: PropTypes.array,
   addLocation: PropTypes.func,
   deleteLocation: PropTypes.func,
-  locationId: PropTypes.string
+  selectLocation: PropTypes.func,
+  defaultLocation: PropTypes.string
 };

@@ -14,7 +14,9 @@ import {
   LOAD_LOCATIONS_SUCCESS,
   LOAD_LOCATIONS,
   ADD_LOCATION_SUCCESS,
-  ADD_LOCATION
+  ADD_LOCATION,
+  DELETE_LOCATION,
+  DELETE_LOCATION_SUCCESS
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -91,6 +93,7 @@ export const loadLocationsSuccess = (locations) => {
     locations
   };
 };
+
 export const addLocation = (location) => {
   return {
     type: ADD_LOCATION,
@@ -107,14 +110,14 @@ export const addLocationSuccess = (location) => {
 
 export const deleteLocation = (id) => {
   return {
-    type: 'DELETE_LOCATION',
+    type: DELETE_LOCATION,
     id
   };
 };
 
 export const deleteLocationSuccess = (id) => {
   return {
-    type: 'DELETE_LOCATION_SUCCESS',
+    type: DELETE_LOCATION_SUCCESS,
     id
   };
 };
