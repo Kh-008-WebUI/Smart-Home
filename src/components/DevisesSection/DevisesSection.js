@@ -1,21 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import { Message } from '../../components/Message/Message';
 import { Popup } from '../../components/Popup/Popup';
 import { Button } from '../../components/Button/Button';
 import ListHeader from '../../components/ListHeader/ListHeader';
-import {
-  loadDevices,
-  changeStatus,
-  deleteDevice,
-  updateDevice,
-  clearStatus } from '../../actions/devices.action';
-import { sendNotificationWS } from '../../actions/notifications.action';
-import { filterItems } from '../../selectors';
-import { sortDevicesByLocations } from '../../utils/utils';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
 
@@ -33,7 +21,11 @@ class DevicesSection extends React.Component {
 
     return (
       <section className="device-list">
-        <h1 className="device-list__title">Your devices</h1>
+        <h1 className="device-list__title">
+          {this.props.locationOfDevices ?
+            this.props.locationOfDevices.toUpperCase()
+            : 'Your devices'}
+        </h1>
         <ListHeader
           quantity={this.props.quantity}
           location={this.props.location}
@@ -89,7 +81,8 @@ DevicesSection.propTypes = {
   currentId: PropTypes.string,
   setPopupShown: PropTypes.func,
   popupShown: PropTypes.bool,
-  quantity: PropTypes.number
+  quantity: PropTypes.number,
+  locationOfDevices: PropTypes.string
 };
 
 export default DevicesSection;
