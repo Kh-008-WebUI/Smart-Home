@@ -13,11 +13,12 @@ import DeviceList from './pages/DeviceList/DeviceList';
 import DevicePage from './pages/DevicePage/DevicePage';
 import Builder from './pages/Builder/Builder';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
 import LocationList from './pages/LocationList/LocationList';
 import { config } from './config/config';
+import AsyncComponent from './components/AsyncComponent/AsyncComponent';
+import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
 
 export const ws = new WebSocket(`ws://${config.origin}/`);
 
@@ -29,6 +30,12 @@ const store = createStore(rootReducer, composeEnhancers(),
 
 sagaMiddleware.run(rootSaga);
 
+/*
+  const Login = AsyncComponent(() =>
+  import('./pages/Login/Login')
+  );
+*/
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
@@ -36,9 +43,15 @@ ReactDOM.render(
         <Route path='/auth' component={() => (
           <Authentication>
             <Switch>
-              <Route exact path='/auth' component={Login} />
-              <Route exact path='/auth/login' component={Login} />
-              <Route exact path='/auth/register' component={Register} />
+              <Route
+                exact path='/auth'
+                component={Login} />
+              <Route
+                exact path='/auth/login'
+                component={Login} />
+              <Route
+                exact path='/auth/register'
+                component={Register} />
             </Switch>
           </Authentication>
         )} />
