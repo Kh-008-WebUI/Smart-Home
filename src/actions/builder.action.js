@@ -16,8 +16,8 @@ import {
   ADD_LOCATION_SUCCESS,
   ADD_LOCATION,
   DELETE_LOCATION,
+  DELETE_LOCATION_SUCCESS,
   SET_PARAMS
-  DELETE_LOCATION_SUCCESS
 } from '../constants/index';
 
 export const addItem = (item) => ({
