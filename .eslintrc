@@ -202,7 +202,7 @@
 
     "max-depth": [2, 3],
     "max-len": [2, 80, 2],
-    "max-params": [2, 3]
+    "max-params": [2, 4]
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"]
 }
