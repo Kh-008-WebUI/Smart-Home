@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './index.scss';
 import { SettingsList } from '../SettingsList/SettingsList';
-import { addDescription, setItemValue } from '../../actions/builder.action';
+import {
+  addDescription,
+  setItemValue,
+  setParameters } from '../../actions/builder.action';
 import { bindActionCreators } from 'redux';
 
 const Prototype = (props) => (
@@ -14,6 +17,7 @@ const Prototype = (props) => (
       settings={props.device}
       deleteItem={props.deleteItem}
       setItemValue={props.setItemValue}
+      setParameters={props.setParameters}
     />
   </div>
 );
@@ -27,7 +31,8 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     addDescription: bindActionCreators(addDescription, dispatch),
-    setItemValue: bindActionCreators(setItemValue, dispatch)
+    setItemValue: bindActionCreators(setItemValue, dispatch),
+    setParameters: bindActionCreators(setParameters, dispatch)
   };
 }
 
@@ -36,7 +41,8 @@ Prototype.propTypes = {
   addDescription: PropTypes.func,
   deleteItem: PropTypes.func,
   setItemValue: PropTypes.func,
-  settings: PropTypes.object
+  settings: PropTypes.object,
+  setParameters: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Prototype);

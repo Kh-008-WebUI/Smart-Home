@@ -14,7 +14,8 @@ import {
   LOAD_LOCATIONS_SUCCESS,
   LOAD_LOCATIONS,
   ADD_LOCATION_SUCCESS,
-  ADD_LOCATION
+  ADD_LOCATION,
+  SET_PARAMS
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -102,5 +103,13 @@ export const addLocationSuccess = (location) => {
   return {
     type: ADD_LOCATION_SUCCESS,
     location
+  };
+};
+
+export const setParameters = (id, params) => {
+  return {
+    type: SET_PARAMS,
+    id,
+    params
   };
 };
