@@ -38,9 +38,9 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-const ws = new WebSocket('ws://localhost:3001/');
+const wsClient = new WebSocket('ws://localhost:3001/');
 
-module.exports = ws;
+module.exports = wsClient;
 
 require('./routes/index.js')(router);
 app.use('/api', router);
@@ -67,13 +67,30 @@ database.once('open', () => {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-wss.on('connection', function connection (ws, req) {
-  ws.on('message', message => {
-    wss.clients.forEach(client => {
-      client.send(message);
-    });
-  });
+wss.on('connection', (ws, req) => {
+  ws.onmessage = (event) => {
+    if (event.type === 'message') {
+      const data = JSON.parse(event.data);
+
+      if (data.type === 'users') {
+        event.target.user = data.user;
+      }
+    }
+    wss.send(event.data);
+  };
+
+  ws.onclose = (event) => {
+    const userOffline = Object.assign({}, event.target.user, { home: false });
+
+    wss.send(JSON.stringify({ type: 'users', user: userOffline }));
+  };
 });
+
+wss.send = (data) => {
+  wss.clients.forEach(client => {
+    client.send(data);
+  });
+};
 
 require('./utils/chartData.js')();
 server.listen(config.port, () => {

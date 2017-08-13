@@ -85,7 +85,7 @@ export const sortEmergencyNotifications =
     });
   };
 
-export const webSocket = (msg, notif, updChart) => {
+export const webSocket = (msg, notif, updChart, updateUsersOnline) => {
   const message = JSON.parse(msg.data);
 
   switch (message.type) {
@@ -94,6 +94,9 @@ export const webSocket = (msg, notif, updChart) => {
       break;
     case 'notification':
       notif();
+      break;
+    case 'users':
+      updateUsersOnline(message);
       break;
     default:
       break;

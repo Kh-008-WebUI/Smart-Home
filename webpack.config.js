@@ -101,7 +101,10 @@ module.exports = {
     stats: 'errors-only',
     historyApiFallback: true,
     open: true,
-    port: 8081
+    port: 8081,
+    proxy: {
+      '/api/*': 'http://localhost:3001'
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
