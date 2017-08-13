@@ -8,7 +8,7 @@ import { login, clearLoginStatus } from '../../actions/auth.action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-require('./Login.scss');
+import './Login.scss';
 import { registrationSuccess } from '../../actions/auth.action';
 
 class Login extends Component {

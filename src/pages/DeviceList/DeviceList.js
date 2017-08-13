@@ -19,7 +19,7 @@ import { sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
-require('./DeviceList.scss');
+import './DeviceList.scss';
 
 class DeviceList extends React.Component {
   constructor (props) {
