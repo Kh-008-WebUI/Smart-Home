@@ -4,15 +4,21 @@ import './RangeStyle.scss';
 
 
 export default class RangeSettings extends React.Component {
-
   constructor (props) {
     super(props);
+
+    let minValue, maxValue;
+
+    if (this.props.params) {
+      minValue = this.props.params.minValue;
+      maxValue = this.props.params.maxValue;
+    }
 
     this.state = {
       value: 0,
       params: {
-        minValue: 0,
-        maxValue: 100
+        minValue: minValue || 0,
+        maxValue: maxValue || 100
       }
     };
 
@@ -77,7 +83,6 @@ export default class RangeSettings extends React.Component {
 
   render () {
     const { min, max } = this.props;
-    const { minValue, maxValue } = this.props.params;
 
     return (
       <div className={ `${ this.props.styleName }` }>
@@ -89,7 +94,7 @@ export default class RangeSettings extends React.Component {
                 name="min"
                 placeholder="Enter min value"
                 onChange={ this.setMinValue }
-                value={minValue || this.state.params.minValue}/>
+                value={this.state.params.minValue}/>
             </div>
             <div className="range__settings--max">
               <input
@@ -97,7 +102,7 @@ export default class RangeSettings extends React.Component {
                 name="max"
                 placeholder="Enter max value"
                 onChange={ this.setMaxValue }
-                value={maxValue || this.state.params.maxValue}/>
+                value={this.state.params.maxValue}/>
             </div>
             <input
               type="button"
@@ -111,10 +116,8 @@ export default class RangeSettings extends React.Component {
           type='range'
           onChange={ this.onChange }
           onMouseUp={ this.setValue }
-          min={min || minValue||
-            this.state.params.minValue}
-          max={max || maxValue ||
-            this.state.params.maxValue}
+          min={min || this.state.params.minValue}
+          max={max || this.state.params.maxValue}
           step={1}
           value={this.state.value}
         />

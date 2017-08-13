@@ -38,10 +38,13 @@ export const Device = (props) => {
       </div>
       <section className="device-view__settings">
         {device.items.map((setting, i) => {
-          const { minValue, maxValue } = setting.params;
           const SettingsComponent = settingsComponents[setting.name];
+          let minValue, maxValue;
 
-          console.log('in Device', setting.params);
+          if (setting.params) {
+            minValue = setting.params.minValue;
+            maxValue = setting.params.maxValue;
+          }
 
           return (
             <div
