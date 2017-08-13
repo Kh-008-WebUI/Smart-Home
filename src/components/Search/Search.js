@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-require('./search.scss');
+import './search.scss';
 
 const Search = (props) => {
   return (

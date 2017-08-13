@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nf start -p 3000",
-    "prod": " npm run clean && cross-env NODE_ENV=production webpack -p && npm run node-prod",
+    "prod": " npm run clean && cross-env NODE_ENV=production webpack --colors --progress -p && npm run node-prod",
     "clean": "rimraf ./dist/*",
     "node-prod": "pm2 kill && cross-env NODE_ENV=production pm2 start ./server/index.js --no-daemon",
     "start": "pm2 kill && pm2 start ./server/index.js --no-daemon --watch"
@@ -52,6 +52,8 @@
     "babel-core": "^6.24.1",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^7.0.0",
+    "babel-plugin-dynamic-import-webpack": "^1.0.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
