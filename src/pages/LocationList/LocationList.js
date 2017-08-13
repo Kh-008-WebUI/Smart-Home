@@ -1,12 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
-import { Message } from '../../components/Message/Message';
-import { Popup } from '../../components/Popup/Popup';
-import { Button } from '../../components/Button/Button';
 import Pagination from '../../components/Pagination/Pagination';
-import ListHeader from '../../components/ListHeader/ListHeader';
+import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
 import DevicesSection from '../../components/DevisesSection/DevisesSection';
 import {
   loadDevices,
@@ -19,7 +14,6 @@ import { filterItems } from '../../selectors';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
-require('../DeviceList/DeviceList.scss');
 
 class LocationList extends React.Component {
   constructor (props) {
@@ -29,7 +23,7 @@ class LocationList extends React.Component {
       popupShown: false,
       currentId: '',
       currentPage: 1,
-      todosPerPage: 6
+      devicesPerPage: 12
     };
 
     this.setPopupShown = (id) => {
@@ -44,6 +38,12 @@ class LocationList extends React.Component {
     this.handleClick = (event) => {
       this.setState({
         currentPage: Number(event.target.id)
+      });
+    };
+
+    this.setPage = (pageNumber) => {
+      this.setState({
+        currentPage: pageNumber
       });
     };
 
@@ -93,6 +93,13 @@ class LocationList extends React.Component {
     const locationOfDevices = this.props.match.params.location;
     const devicesInLocation = this.props.devices
       .filter(item => item.location === locationOfDevices);
+    const { currentPage, devicesPerPage } = this.state;
+    const totalPages = Math.ceil(
+      devicesInLocation.length / devicesPerPage);
+    const indexOfLastDevice = currentPage * devicesPerPage;
+    const indexOfFirstDevice = indexOfLastDevice - devicesPerPage;
+    const currentDevices = devicesInLocation
+      .slice(indexOfFirstDevice, indexOfLastDevice);
 
     if (typeof filterOption !== 'undefined') {
       this.props.filterAction(filterOption);
@@ -112,15 +119,19 @@ class LocationList extends React.Component {
         deleteDevice={this.deleteDevice}
         clearStatus={this.props.clearStatus}
         currentId={this.state.currentId}
-        quantity={devicesInLocation.length}>
+        quantity={devicesInLocation.length}
+        locationOfDevices={locationOfDevices}>
 
         { this.props.status === 'DONE' && this.props.devices.length === 0 ?
           <span>You need to add device</span> :
-          this.renderDeviceGroup(devicesInLocation)
+          this.renderDeviceGroup(currentDevices)
         }
         <Pagination
-            handleClick={this.handleClick}
-            list={this.props.devices}/>
+          handleClick={this.handleClick}
+          setPage={this.setPage}
+          list={this.props.devices}
+          currentPage={this.state.currentPage}
+          totalPages={totalPages}/>
       </DevicesSection>
     );
   }
