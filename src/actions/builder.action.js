@@ -15,6 +15,8 @@ import {
   LOAD_LOCATIONS,
   ADD_LOCATION_SUCCESS,
   ADD_LOCATION,
+  DELETE_LOCATION,
+  DELETE_LOCATION_SUCCESS,
   SET_PARAMS
 } from '../constants/index';
 
@@ -92,6 +94,7 @@ export const loadLocationsSuccess = (locations) => {
     locations
   };
 };
+
 export const addLocation = (location) => {
   return {
     type: ADD_LOCATION,
@@ -111,5 +114,19 @@ export const setParameters = (id, params) => {
     type: SET_PARAMS,
     id,
     params
+  };
+};
+
+export const deleteLocation = (id) => {
+  return {
+    type: DELETE_LOCATION,
+    id
+  };
+};
+
+export const deleteLocationSuccess = (id) => {
+  return {
+    type: DELETE_LOCATION_SUCCESS,
+    id
   };
 };
