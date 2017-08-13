@@ -1,3 +1,5 @@
+import { config } from '../config/config';
+
 export const CHANGE_FILTER_OPTION = 'CHANGE_FILTER_OPTION';
 export const SEARCH_ITEM = 'SEARCH_ITEM';
 export const CHANGE_STATUS = 'CHANGE_STATUS';
@@ -25,6 +27,10 @@ export const LOAD_DEVICES_FAIL = 'devices/LOAD_DEVICES_FAIL';
 export const LOAD_DEVICE_FAIL = 'device/LOAD_DEVICE_FAIL';
 export const LOAD_DEVICE_SUCCESS = 'device/LOAD_DEVICE_SUCCESS';
 export const LOAD_LOCATIONS_SUCCESS = 'builder/LOAD_LOCATIONS_SUCCESS';
+export const ADD_LOCATION_SUCCESS = 'builder/ADD_LOCATION_SUCCESS';
+export const ADD_LOCATION = 'builder/ADD_LOCATION';
+export const DELETE_LOCATION_SUCCESS = 'builder/DELETE_LOCATION_SUCCESS';
+export const DELETE_LOCATION = 'builder/DELETE_LOCATION';
 export const LOAD_LOCATIONS = 'builder/LOAD_LOCATIONS';
 export const LOAD_DEVICE = 'device/LOAD_DEVICE';
 export const LOAD_DEVICE_ASYNC = 'device/LOAD_DEVICE_ASYNC';
@@ -69,3 +75,4 @@ export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 export const UPDATE_CHART = 'UPDATE_CHART';
 export const SERVER_API = 'api';
+export const SET_PARAMS = 'builder/SET_PARAMS';

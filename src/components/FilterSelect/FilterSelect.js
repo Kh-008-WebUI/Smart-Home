@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-require('./FilterSelect.scss');
+import './FilterSelect.scss';
 
 const FilterSelect = (props) => {
   return (

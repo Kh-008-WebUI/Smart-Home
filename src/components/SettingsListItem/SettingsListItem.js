@@ -24,9 +24,12 @@ export const SettingsListItem = (props) => (
     { React.cloneElement(props.children, {
       styleName: 'item-body',
       setItemValue: props.setItemValue,
+      setParameters: props.setParameters,
       itemId: props.id,
       checked: props.checked,
-      data: props.data
+      data: props.data,
+      params: props.params,
+      showMinMax: true
     })}
  </div>
 );
@@ -41,5 +44,7 @@ SettingsListItem.propTypes = {
   deleteItem: PropTypes.func.isRequired,
   children: PropTypes.any,
   description: PropTypes.string,
-  data: PropTypes.any
+  data: PropTypes.any,
+  setParameters: PropTypes.func,
+  params: PropTypes.object
 };

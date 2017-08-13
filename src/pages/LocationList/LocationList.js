@@ -1,11 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Pagination from '../../components/Pagination/Pagination';
 import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
-import { Message } from '../../components/Message/Message';
-import { Popup } from '../../components/Popup/Popup';
-import { Button } from '../../components/Button/Button';
-import ListHeader from '../../components/ListHeader/ListHeader';
 import DevicesSection from '../../components/DevisesSection/DevisesSection';
 import {
   loadDevices,
@@ -15,13 +11,11 @@ import {
   clearStatus } from '../../actions/devices.action';
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { filterItems } from '../../selectors';
-import { sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
-import './DeviceList.scss';
 
-class DeviceList extends React.Component {
+class LocationList extends React.Component {
   constructor (props) {
     super(props);
 
@@ -29,11 +23,7 @@ class DeviceList extends React.Component {
       popupShown: false,
       currentId: '',
       currentPage: 1,
-      todosPerPage: 6
-    };
-
-    this.deleteDevice = (id) => {
-      this.props.deleteDevice(id);
+      devicesPerPage: 12
     };
 
     this.setPopupShown = (id) => {
@@ -44,8 +34,24 @@ class DeviceList extends React.Component {
         currentId: id
       });
     };
+
+    this.handleClick = (event) => {
+      this.setState({
+        currentPage: Number(event.target.id)
+      });
+    };
+
+    this.setPage = (pageNumber) => {
+      this.setState({
+        currentPage: pageNumber
+      });
+    };
+
     this.changeStatus = (status, id) => {
       this.props.changeStatus({ status }, id);
+    };
+    this.deleteDevice = (id) => {
+      this.props.deleteDevice(id);
     };
   }
 
@@ -53,13 +59,9 @@ class DeviceList extends React.Component {
     this.props.loadDevices();
   }
 
-  renderDevices (locations, location) {
-    const devicesList = locations[location].length > 8 ?
-      locations[location].slice(0, 7) :
-      locations[location];
-
+  renderDevices (devicesInLocation) {
     return (
-      devicesList.map((device, i) => {
+      devicesInLocation.map((device, i) => {
         return (
           <DeviceListItem
             data={device}
@@ -72,42 +74,32 @@ class DeviceList extends React.Component {
     );
   }
 
-  renderDeviceGroup () {
-    const locations = sortDevicesByLocations(this.props.devices);
-
+  renderDeviceGroup (devicesInLocation) {
     return (
-      Object.keys(locations).map((location, i) => {
-        return (
-          <div className="device-group" key={i}>
-            <h2
-              className="device-group__title">
-                {location.toUpperCase()}
-            </h2>
-            <ReactCSSTransitionGroup
-              className="device-group__items"
-              transitionName="hide"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
-              {this.renderDevices(locations, location)}
-              {locations[location].length > 8 ?
-                <Link
-                  className="device-group__link"
-                  to={`/devices/${location}`}>
-                  <i
-                    className="fa fa-repeat"
-                    aria-hidden="true"></i>
-                  More devices
-                </Link> : null
-              }
-            </ReactCSSTransitionGroup>
-          </div>
-        );
-      })
+      <div className="device-group">
+        <ReactCSSTransitionGroup
+          className="device-group__items"
+          transitionName="hide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {this.renderDevices(devicesInLocation)}
+        </ReactCSSTransitionGroup>
+      </div>
     );
   }
 
   render () {
     const filterOption = this.props.match.params.filterOption;
+    const locationOfDevices = this.props.match.params.location;
+    const devicesInLocation = this.props.devices
+      .filter(item => item.location === locationOfDevices);
+    const { currentPage, devicesPerPage } = this.state;
+    const totalPages = Math.ceil(
+      devicesInLocation.length / devicesPerPage);
+    const indexOfLastDevice = currentPage * devicesPerPage;
+    const indexOfFirstDevice = indexOfLastDevice - devicesPerPage;
+    const currentDevices = devicesInLocation
+      .slice(indexOfFirstDevice, indexOfLastDevice);
 
     if (typeof filterOption !== 'undefined') {
       this.props.filterAction(filterOption);
@@ -127,11 +119,19 @@ class DeviceList extends React.Component {
         deleteDevice={this.deleteDevice}
         clearStatus={this.props.clearStatus}
         currentId={this.state.currentId}
-        quantity={this.props.devices.length}>
+        quantity={devicesInLocation.length}
+        locationOfDevices={locationOfDevices}>
 
         { this.props.status === 'DONE' && this.props.devices.length === 0 ?
-          <span>You need to add device</span> : this.renderDeviceGroup()
+          <span>You need to add device</span> :
+          this.renderDeviceGroup(currentDevices)
         }
+        <Pagination
+          handleClick={this.handleClick}
+          setPage={this.setPage}
+          list={this.props.devices}
+          currentPage={this.state.currentPage}
+          totalPages={totalPages}/>
       </DevicesSection>
     );
   }
@@ -151,7 +151,9 @@ const mapDispatchToProps = (dispatch) => ({
   clearStatus: () => dispatch(clearStatus())
 });
 
-DeviceList.propTypes = {
+LocationList.propTypes = {
+  search: PropTypes.string,
+  filterOption:  PropTypes.string,
   match: PropTypes.object,
   changeStatus: PropTypes.func,
   devices: PropTypes.array,
@@ -167,4 +169,4 @@ DeviceList.propTypes = {
   clearStatus: PropTypes.func
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeviceList);
+export default connect(mapStateToProps, mapDispatchToProps)(LocationList);

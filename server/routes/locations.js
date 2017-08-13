@@ -9,7 +9,6 @@ locationRouter.route('/').get((req, res) => {
         status: 'error',
         text: 'Something went wrong, try again later.'
       });
-
       return;
     }
 
@@ -17,5 +16,35 @@ locationRouter.route('/').get((req, res) => {
   });
 });
 
-module.exports = locationRouter;
+locationRouter.route('/').post((req, res) => {
+  const location = req.body.location;
 
+  Location.create({ value: location.toLowerCase(), label:location },
+    (err, location) => {
+      if (err) {
+        res.status(500).send({
+          status: 'error',
+          text: 'Could not add the location.'
+        });
+        return;
+      }
+
+      res.json(location);
+  });
+});
+
+locationRouter.route('/:id').delete((req, res) => {
+  const id = req.params.id;
+
+  Location.findOneAndRemove({ _id: id }, (err, location) => {
+    if (err) {
+      res.statusMessage = 'Something went wrong, could not delete the device.';
+      res.status(500).end();
+      return;
+    }
+
+    res.json(id);
+  });
+});
+
+module.exports = locationRouter;

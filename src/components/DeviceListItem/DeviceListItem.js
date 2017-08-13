@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ToggleSettings from '../ToggleSettings/ToggleSettings';
-require('./DeviceListItem.scss');
+import './DeviceListItem.scss';
 
 class DeviceListItem extends React.Component {
   constructor (props) {

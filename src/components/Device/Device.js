@@ -3,7 +3,8 @@ import { settingsComponents } from '../../data/componentsNames';
 import ToggleSettings from '../ToggleSettings/ToggleSettings';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-require('./Device.scss');
+import './Device.scss';
+
 export const Device = (props) => {
   const device = props.device;
 
@@ -24,7 +25,9 @@ export const Device = (props) => {
           className="fa fa-pencil device-item_info-edit">
         </Link>
         <div className="device-view__info">
+          <small>Date of create </small>
           <small>{props.device.createdDate}</small><br/>
+          <small>Created by </small>
           <small>{props.device.createdBy}</small>
         </div>
       </div>
@@ -36,6 +39,12 @@ export const Device = (props) => {
       <section className="device-view__settings">
         {device.items.map((setting, i) => {
           const SettingsComponent = settingsComponents[setting.name];
+          let minValue, maxValue;
+
+          if (setting.params) {
+            minValue = setting.params.minValue;
+            maxValue = setting.params.maxValue;
+          }
 
           return (
             <div
@@ -48,13 +57,15 @@ export const Device = (props) => {
             <SettingsComponent
               data={setting.data}
               checked={setting.data}
+              params={setting.params}
               setItemValue={props.setItemValue}
               itemId={i}
               deviceId={props.device._id}
               styleName={
                 'device-settings__item device-settings__item--'
                 + setting.name.toLowerCase()
-            }/>
+              }
+              showMinMax={false}/>
             </div>
           );
         })}
@@ -66,5 +77,7 @@ export const Device = (props) => {
 Device.propTypes = {
   device: PropTypes.any.isRequired,
   onStatusChange: PropTypes.func,
-  setItemValue: PropTypes.func
+  setItemValue: PropTypes.func,
+  minValue: PropTypes.number,
+  maxValue: PropTypes.number
 };

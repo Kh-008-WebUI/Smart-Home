@@ -23,11 +23,11 @@ export const queryFromObject = (params) => {
 };
 
 const sortDevicesByAlphabet = (devices) => {
-  return devices.sort((a, b) => {
-    if (a.location < b.location) {
+  return devices.sort((first, second) => {
+    if (first.location < second.location) {
       return -1;
     }
-    if (a.location > b.location) {
+    if (first.location > second.location) {
       return 1;
     }
 
@@ -56,6 +56,10 @@ export const setItemDefaultData = (item) => {
       break;
     case 'Range':
       item.data = 0;
+      item.params = {
+        minValue: 0,
+        maxValue: 100
+      };
       break;
     case 'Timer':
       item.data = '00:00';
