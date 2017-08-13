@@ -78,10 +78,6 @@ export default class RangeSettings extends React.Component {
   render () {
     const { max, min } = this.props;
 
-    console.log(this.state.params);
-    console.log(this.props);
-    console.log(this.props.itemId);
-
     return (
       <div className={ `${ this.props.styleName }` }>
         <div className="range__settings">

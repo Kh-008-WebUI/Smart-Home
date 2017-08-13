@@ -17,7 +17,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
 import LocationList from './pages/LocationList/LocationList';
-import NotFound from './components/NotFound/NotFound';
+import { NotFound } from './components/NotFound/NotFound';
 
 export const ws = new WebSocket('ws://localhost:3001/');
 
@@ -51,7 +51,7 @@ ReactDOM.render(
               <Route path='/builder' component={Builder} />
               <Route path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />
-              <Route path='*' component={NotFound}/>
+              <Route component={NotFound}/>
             </Switch>
           </MainLayout>
         )} />

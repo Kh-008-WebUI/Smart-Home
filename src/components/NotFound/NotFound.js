@@ -1,7 +1,9 @@
 import React from 'react';
-import Header from '../../components/Auth/Header/Header';
+import { Header } from '../../components/Auth/Header/Header';
+import './NotFound.scss';
 
 export const NotFound = (props) => {
+  console.log('hello');
   return (
     <div className="not-found">
       <Header
@@ -9,8 +11,8 @@ export const NotFound = (props) => {
         title={'404'}
         text={'Page Not Found'}/>
       <div className="not-found__info">
-        Sorry, but the page you are looking for has note been found.
-        Try checking the URL for error, then hit the refresh button
+        Sorry, but the page you are looking for is not found.
+        Try checking the URL, then hit the refresh button
         on your browser or try found something else in our app.
       </div>
     </div>
