@@ -12,21 +12,6 @@ export default class SelectLocation extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (typeof this.props.defaultLocation !== 'undefined') {
-      this.setState({
-        locationValue: this.props.defaultLocation
-      });
-    } else if (nextProps.locations.length > 0
-      && this.state.locationValue === '') {
-      this.setState({
-        locationValue: nextProps.locations[0].value
-      });
-
-      this.props.selectLocation(nextProps.locations[0].value);
-    }
-  }
-
   showInputLocation = () => {
     this.setState({
       input: !this.state.input
@@ -39,22 +24,16 @@ export default class SelectLocation extends React.Component {
     });
   };
 
-  changeLocationValue = (e) => {
-    this.setState({
-      locationValue: e.target.value
-    });
-  };
-
   deleteSelectedLocation = (id) => {
     this.props.deleteLocation(id);
   };
 
   setLocationValue = (location) => {
     this.setState({
-      locationValue: location
+      locationValue: location.label
     });
 
-    this.props.selectLocation(location);
+    this.props.selectLocation(location.value);
     this.showInputLocation();
   };
 
@@ -75,7 +54,9 @@ export default class SelectLocation extends React.Component {
           <div className="select-menu-label"
             onClick={ this.showInputLocation }>
             <span className="Select-value-label">
-              {this.state.locationValue}
+              {this.state.locationValue === '' ?
+                this.props.defaultLocation :
+                this.state.locationValue}
             </span>
             <i className={`select-toggle fa ${this.state.input ?
               'fa-caret-up' : 'fa-caret-down'}`}></i>
@@ -98,8 +79,8 @@ export default class SelectLocation extends React.Component {
                     <li key={i} className="Select-option">
                         <span className="Select-option__item"
                           onClick={this.setLocationValue.bind(this,
-                            location.value)}>
-                          {location.value}
+                            location)}>
+                          {location.label}
                         </span>
                       <i className="fa fa-trash Select-option__icon"
                         onClick={this.deleteSelectedLocation.bind(this,

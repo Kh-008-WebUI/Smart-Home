@@ -19,7 +19,7 @@ locationRouter.route('/').get((req, res) => {
 locationRouter.route('/').post((req, res) => {
   const location = req.body.location;
 
-  Location.create({ value: location, label:location },
+  Location.create({ value: location.toLowerCase(), label:location },
     (err, location) => {
       if (err) {
         res.status(500).send({
