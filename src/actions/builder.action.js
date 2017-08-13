@@ -16,6 +16,7 @@ import {
   ADD_LOCATION_SUCCESS,
   ADD_LOCATION,
   DELETE_LOCATION,
+  SET_PARAMS
   DELETE_LOCATION_SUCCESS
 } from '../constants/index';
 
@@ -105,6 +106,14 @@ export const addLocationSuccess = (location) => {
   return {
     type: ADD_LOCATION_SUCCESS,
     location
+  };
+};
+
+export const setParameters = (id, params) => {
+  return {
+    type: SET_PARAMS,
+    id,
+    params
   };
 };
 

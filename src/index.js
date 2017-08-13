@@ -15,6 +15,7 @@ import Builder from './pages/Builder/Builder';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import LocationList from './pages/LocationList/LocationList';
+import { NotFound } from './components/NotFound/NotFound';
 import { config } from './config/config';
 import AsyncComponent from './components/AsyncComponent/AsyncComponent';
 import Register from './pages/Register/Register';
@@ -65,6 +66,7 @@ ReactDOM.render(
               <Route path='/builder' component={Builder} />
               <Route exact path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />
+              <Route component={NotFound}/>
             </Switch>
           </MainLayout>
         )} />
