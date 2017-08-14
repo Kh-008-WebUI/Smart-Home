@@ -23,7 +23,7 @@ export default (getComponent) => (
     render () {
       const { Component } = this.state;
 
-      return !Component ? null : React.createElement(Component);
+      return !Component ? null : <Component {...this.props}/>;
     }
   }
 );
