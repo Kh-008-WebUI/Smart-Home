@@ -23,7 +23,7 @@ const initialState = {
   uploadStatus:'',
   device:{
     name: '',
-    location: 'living room',
+    location: '',
     items: []
   },
   locations: []

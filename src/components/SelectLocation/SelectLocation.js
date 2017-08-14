@@ -37,6 +37,7 @@ export default class SelectLocation extends React.Component {
     this.showInputLocation();
   };
 
+
   addLocationValue = () => {
     if (this.state.inputValue.trim() !== '') {
       this.props.addLocation(this.state.inputValue);
@@ -54,9 +55,9 @@ export default class SelectLocation extends React.Component {
           <div className="select-menu-label"
             onClick={ this.showInputLocation }>
             <span className="Select-value-label">
-              {this.state.locationValue === '' ?
+              { !this.state.locationValue ?
                 this.props.defaultLocation :
-                this.state.locationValue}
+                this.state.locationValue }
             </span>
             <i className={`select-toggle fa ${this.state.input ?
               'fa-caret-up' : 'fa-caret-down'}`}></i>
