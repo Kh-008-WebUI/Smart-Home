@@ -74,5 +74,5 @@ export const LOGOUT_PENDING = 'auth/LOGOUT_PENDING';
 export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 export const UPDATE_CHART = 'UPDATE_CHART';
-export const SERVER_API = 'api';
+export const SERVER_API = `http://${config.origin}/api`;
 export const SET_PARAMS = 'builder/SET_PARAMS';
