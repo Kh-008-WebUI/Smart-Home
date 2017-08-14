@@ -48,7 +48,6 @@ export function* loadUser (action) {
 
   if (response) {
     yield put(loginSuccess(response));
-    yield delay(2000);
     yield put(clearLoginStatus());
   } else {
     yield put(loginFailure(error.message));
