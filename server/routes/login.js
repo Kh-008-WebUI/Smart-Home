@@ -5,7 +5,7 @@ const User = require('../models/user');
 loginRouter.route('/')
   .get((req, res) => {
     User.findOne({ '_id': req.session.user })
-      .then( user => {
+      .then(user => {
         if (!user) {
           res.send({ userData: {} });
         } else {
@@ -21,14 +21,14 @@ loginRouter.route('/')
           });
         }
       })
-      .catch( err => {
+      .catch(err => {
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
       });
   })
   .post((req, res) => {
     User.findOne({ 'email': req.body.email })
-      .then( user => {
+      .then(user => {
         if (user && user.checkPassword(req.body.password)) {
           req.session.user = user._id;
           req.session.name = user.name;
@@ -55,10 +55,10 @@ loginRouter.route('/')
           res.status(500).end();
         }
       })
-      .catch( err => {
+      .catch(err => {
         res.statusMessage = 'Something went wrong, try again later.';
         res.status(500).end();
-      })
+      });
   });
 
 module.exports = loginRouter;
