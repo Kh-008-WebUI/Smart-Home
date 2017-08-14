@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Popup } from '../../components/Popup/Popup';
+import { Button } from '../../components/Button/Button';
 
 export default class SelectLocation extends React.Component {
   constructor (props) {
@@ -8,9 +10,19 @@ export default class SelectLocation extends React.Component {
     this.state = {
       input: false,
       locationValue: '',
-      inputValue: ''
+      inputValue: '',
+      popupShown: false,
+      idLocation: ''
     };
   }
+setPopupShown = (id) => {
+    const currentState = this.state.popupShown;
+
+    this.setState({
+      popupShown: !currentState,
+      idLocation: id
+    });
+  };
 
   showInputLocation = () => {
     this.setState({
@@ -49,6 +61,7 @@ export default class SelectLocation extends React.Component {
 
   render () {
     return (
+      <div>
       <div className="Select-control">
         <div className="Select-value select-menu-container">
           <div className="select-menu-label"
@@ -77,19 +90,43 @@ export default class SelectLocation extends React.Component {
                 {this.props.locations.map((location, i) => {
                   return (
                     <li key={i} className="Select-option">
-                        <span className="Select-option__item"
-                          onClick={this.setLocationValue.bind(this,
-                            location)}>
-                          {location.label}
-                        </span>
+                      <span className="Select-option__item"
+                        onClick={this.setLocationValue.bind(this,
+                          location)}>
+                           {location.label}
+                      </span>
                       <i className="fa fa-trash Select-option__icon"
-                        onClick={this.deleteSelectedLocation.bind(this,
-                          location._id)}></i>
+                        onClick={ (e) => (this.setPopupShown(location._id))}></i>
                     </li>
                   );
                 })}
             </ul>
         </div> : null }
+      </div>
+      <Popup
+        setPopupShown={this.setPopupShown}
+        popupShown={this.state.popupShown}
+        header="Confirm the action"
+        text="Are you sure you want to remove the location?
+          All devices which located in this location wil be remove">
+        <Button
+          setPopupShown={this.setPopupShown}
+          okHandler={() => {
+            console.log(this.state.idLocation);
+            this.deleteSelectedLocation(this.state.idLocation);
+            this.setPopupShown();
+          }}
+          className={'btn popup__btn'}
+          innerText={'Ok'}
+        />
+        <Button
+          okHandler={() => {
+            this.setPopupShown();
+          }}
+          className={'btn btn--default popup__btn'}
+          innerText={'Cancel'}
+        />
+      </Popup>
       </div>
     );
   }

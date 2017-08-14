@@ -33,6 +33,12 @@ locationRouter.route('/').post((req, res) => {
 locationRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
+  Device.find({ localion._id: id }, (err, location) =>
+    if(location) {
+        res.statusMessage = "You have devices in this location, you can't delete
+        this location";
+        return;
+    }
   Location.findOneAndRemove({ _id: id }, (err, location) => {
     if (err) {
       res.statusMessage = 'Something went wrong, could not delete the device.';
