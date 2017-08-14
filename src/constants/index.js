@@ -73,7 +73,12 @@ export const LOAD_LOGGED_USER = 'auth/LOAD_LOGGED_USER';
 export const LOGOUT_PENDING = 'auth/LOGOUT_PENDING';
 export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
+<<<<<<< Updated upstream
 export const UPDATE_CHART = 'ws/UPDATE_CHART';
 export const SERVER_API = `http://${config.origin}/api`;
+=======
+export const UPDATE_CHART = 'UPDATE_CHART';
+export const SERVER_API = '/api';
+>>>>>>> Stashed changes
 export const SET_PARAMS = 'builder/SET_PARAMS';
 export const WS_MESSAGE = 'ws/WS_MESSAGE';

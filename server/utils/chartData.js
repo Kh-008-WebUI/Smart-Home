@@ -44,8 +44,17 @@ function generateData(day, month) {
   }
 }
 
+<<<<<<< Updated upstream
 function sendChartData(ws, data, chartInterval) {
   ws.send(JSON.stringify({ type: 'chart', data }), (err) => {
     if (err) clearInterval(chartInterval);
   });
+=======
+function sendChartData(ws, data) {
+  try {
+    ws.send(JSON.stringify({ type: 'chart', data }));
+  } catch (e) {
+    console.log('error sending chart data', e);
+  }
+>>>>>>> Stashed changes
 }
