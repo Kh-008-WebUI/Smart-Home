@@ -6,21 +6,24 @@ logoutRouter.route('/')
   .get((req, res) => {
     if (req.session.user) {
       User.findOne({ '_id': req.session.user })
-        .then( user => {
+        .then(user => {
           if (!user) {
             res.statusMessage = 'Cannot find user.';
             res.status(400).end();
           } else {
             user.home = false;
             user.save()
-              .then( () => {
+              .then(() => {
                 req.session.destroy(function (err) {
                   if (err) {
                     res.statusMessage = 'Unable to destroy session.';
                     res.status(400).end();
                     return;
                   }
-                  res.send({});
+                  res.status(200).send({ userData: {
+                    _id: user._id
+                  }
+                  });
                 });
               })
               .catch(err => {
@@ -29,7 +32,7 @@ logoutRouter.route('/')
               });
           }
         })
-        .catch( err => {
+        .catch(err => {
           res.statusMessage = 'Something went wrong, try again later.';
           res.status(500).end();
         });

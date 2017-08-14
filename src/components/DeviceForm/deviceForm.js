@@ -92,6 +92,14 @@ class DeviceForm extends React.Component {
   };
 
   render () {
+    let defaultLocation;
+
+    if (!this.props.settings.location && this.props.locations[0]) {
+      defaultLocation = this.props.locations[0].label;
+    } else {
+      defaultLocation = this.props.settings.location;
+    }
+
     return (
       <Formsy.Form
         onSubmit={this.handleSubmit}
@@ -119,7 +127,7 @@ class DeviceForm extends React.Component {
               locations={this.props.locations}
               addLocation={this.props.addLocation}
               deleteLocation={this.props.deleteLocation}
-              defaultLocation={this.props.settings.location}/>
+              defaultLocation={defaultLocation}/>
         </div>
         <div>
           <label> Device config:</label>
