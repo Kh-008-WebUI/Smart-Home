@@ -42,7 +42,7 @@ class MainLayout extends Component {
   }
   componentWillMount () {
 
-    //this.props.getLoggedUser();
+    // this.props.getLoggedUser();
   }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
