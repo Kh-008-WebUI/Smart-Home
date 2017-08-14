@@ -3,7 +3,6 @@ import { Header } from '../../components/Auth/Header/Header';
 import './NotFound.scss';
 
 export const NotFound = (props) => {
-  console.log('hello');
   return (
     <div className="not-found">
       <Header
