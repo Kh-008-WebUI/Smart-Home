@@ -17,8 +17,10 @@ export const SettingsList = (props) => (
           name={setting.name}
           deleteItem={props.deleteItem}
           setItemValue={props.setItemValue}
+          setParameters={props.setParameters}
           checked={setting.data}
           data={setting.data}
+          params={setting.params}
           description={setting.description}
           id={i}>
           <Item/>
@@ -33,5 +35,6 @@ SettingsList.propTypes = {
   width: PropTypes.number,
   addDescription: PropTypes.func,
   deleteItem: PropTypes.func,
-  setItemValue: PropTypes.func
+  setItemValue: PropTypes.func,
+  setParameters: PropTypes.func
 };

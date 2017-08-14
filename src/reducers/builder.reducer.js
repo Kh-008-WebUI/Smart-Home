@@ -13,7 +13,9 @@ import {
   EDIT_DEVICE_SUCCESS,
   UPDATE_DEVICE_FAILURE,
   LOAD_LOCATIONS_SUCCESS,
-  ADD_LOCATION_SUCCESS
+  ADD_LOCATION_SUCCESS,
+  DELETE_LOCATION_SUCCESS,
+  SET_PARAMS
 } from '../constants/index';
 
 const initialState = {
@@ -74,6 +76,19 @@ const reducer = (state = initialState, action) => {
           })
         }
       });
+    case SET_PARAMS:
+      return {
+        ...state,
+        device: {
+          ...state.device,
+          items: state.device.items.map((item, i) => {
+            if (i === action.id) {
+              item.params = action.params;
+            }
+            return item;
+          })
+        }
+      };
     case SET_ITEM_VALUE:
       return ({
         ...state,
@@ -115,7 +130,16 @@ const reducer = (state = initialState, action) => {
         locations: newLocations
       };
     }
+    case DELETE_LOCATION_SUCCESS: {
+      const newLocations = state.locations.filter((item) => {
+        return item._id !== action.id;
+      });
 
+      return {
+        ...state,
+        locations: newLocations
+      };
+    }
     default:
       return state;
   }

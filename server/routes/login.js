@@ -7,8 +7,7 @@ loginRouter.route('/')
     User.findOne({ '_id': req.session.user })
       .then( user => {
         if (!user) {
-          res.statusMessage = 'You are not logged in.';
-          res.status(500).end();
+          res.send({ userData: {} });
         } else {
           res.status(200).send({
             status: true,

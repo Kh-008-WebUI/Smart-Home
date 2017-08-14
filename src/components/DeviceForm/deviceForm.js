@@ -9,11 +9,13 @@ import {
   setValue,
   resetProto,
   loadLocations,
-  addLocation
+  addLocation,
+  deleteLocation
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
+import SelectLocation from '../SelectLocation/SelectLocation';
 import { setItemDefaultData } from '../../utils/utils';
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { updateDevice } from '../../actions/devices.action';
@@ -30,46 +32,13 @@ class DeviceForm extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      items: [],
-      input: false,
-      locationValue: ''
+      items: []
     };
   }
 
   componentDidMount () {
     this.props.loadLocations();
   }
-
-  editLocation = () => {
-    return (
-      <div>
-        <label>Add Location</label>
-        <input
-          className="form-button"
-          type='text'
-          onChange={this.changeLocationValue}/>
-        <i className="fa fa-check device-form__icon"
-          onClick={this.addLocationValue}>
-        </i>
-      </div>);
-  };
-  changeLocationValue = (e) => {
-    const newLocationValue = e.target.value;
-
-    this.setState({
-      locationValue: newLocationValue
-    });
-  };
-  addLocationValue = () => {
-    this.props.addLocation(this.state.locationValue);
-  }
-
-  showInputLocation = () => {
-    this.setState({
-      ...this.state,
-      input: !this.state.input
-    });
-  };
 
   addItem = (e) => {
     const newItem = {
@@ -98,10 +67,8 @@ class DeviceForm extends React.Component {
     this.props.setValue('name', this.name.getValue());
   };
 
-  handleSelectLocation = (val) => {
-    const selectedValue = val.value;
-
-    this.props.setValue('location', selectedValue);
+  selectLocation = (value) => {
+    this.props.setValue('location', value);
   };
 
   handleSubmit = () => {
@@ -117,11 +84,13 @@ class DeviceForm extends React.Component {
       canSubmit: true
     });
   };
+
   disableButton = () => {
     this.setState({
       canSubmit: false
     });
   };
+
   render () {
     return (
       <Formsy.Form
@@ -145,20 +114,12 @@ class DeviceForm extends React.Component {
           value={this.props.settings.name} />
         <div className="input-container">
           <label>Location:</label>
-            <Select
-              name="location"
-              required
-              placeholder="select location"
-              options={ this.props.locations }
-              onChange={ this.handleSelectLocation }
-              value={ this.props.settings.location }
-            />
-            <a className="fa fa-pencil device-form__icon"
-              onClick={ this.showInputLocation }>
-            </a>
-        </div>
-        <div>
-          {this.state.input ? this.editLocation() : null}
+            <SelectLocation
+              selectLocation={this.selectLocation}
+              locations={this.props.locations}
+              addLocation={this.props.addLocation}
+              deleteLocation={this.props.deleteLocation}
+              defaultLocation={this.props.settings.location}/>
         </div>
         <div>
           <label> Device config:</label>
@@ -190,10 +151,10 @@ function mapDispatchToProps (dispatch) {
     addItem:  bindActionCreators(addItem, dispatch),
     resetProto: bindActionCreators(resetProto, dispatch),
     addDevice: bindActionCreators(addDevice, dispatch),
-    sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
     updateDevice: (data, id) => dispatch(updateDevice(data, id)),
     loadLocations: () => dispatch(loadLocations()),
-    addLocation: (location) => dispatch(addLocation(location))
+    addLocation: (location) => dispatch(addLocation(location)),
+    deleteLocation: (id) => dispatch(deleteLocation(id))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -205,9 +166,9 @@ DeviceForm.propTypes = {
   addDevice:  PropTypes.func,
   settings: PropTypes.object,
   status: PropTypes.string,
-  sendNotificationWS: PropTypes.func,
   updateDevice: PropTypes.func,
   loadLocations: PropTypes.func,
   locations: PropTypes.array,
-  addLocation: PropTypes.func
+  addLocation: PropTypes.func,
+  deleteLocation: PropTypes.func
 };
