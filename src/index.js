@@ -24,7 +24,7 @@ import Login from './pages/Login/Login';
 export const ws = new WebSocket(`ws://${config.origin}/`);
 
 const composeEnhancers = config.isProd ?
-  compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeEnhancers(),
   applyMiddleware(sagaMiddleware));
