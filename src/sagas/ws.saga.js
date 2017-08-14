@@ -4,6 +4,7 @@ import {
 } from '../constants/index';
 import { updateChart } from '../actions/ws.action';
 import { fetchNotificationsRequest } from '../actions/notifications.action';
+import { updateUsersOnline } from '../actions/users.action';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
 export function* wsMessage (action) {
@@ -13,6 +14,9 @@ export function* wsMessage (action) {
       break;
     case 'notification':
       yield put(fetchNotificationsRequest());
+      break;
+    case 'users':
+      yield put(updateUsersOnline(action));
       break;
     default:
       break;
