@@ -18,8 +18,8 @@ module.exports = function (ws) {
   let day = 13;
   let month = 1;
   sendChartData(ws, data);
-  setInterval(function () {
-    sendChartData(ws, data);
+  const chartInterval = setInterval(function () {
+    sendChartData(ws, data, chartInterval);
     data.push(generateData(day, month));
     data.shift();
     if (day > 30){
@@ -44,6 +44,8 @@ function generateData(day, month) {
   }
 }
 
-function sendChartData(ws, data) {
-  ws.send(JSON.stringify({ type: 'chart', data }));
+function sendChartData(ws, data, chartInterval) {
+  ws.send(JSON.stringify({ type: 'chart', data }), (err) => {
+    if (err) clearInterval(chartInterval);
+  });
 }
