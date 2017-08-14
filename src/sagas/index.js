@@ -8,7 +8,8 @@ import { watchAddDevice,
   watchEditDevice,
   watchLoadLocations,
   watchAddLocation,
-  watchDeleteLocation } from './builder.saga';
+  watchDeleteLocation,
+  watchDevicesInLocation } from './builder.saga';
 import { watchLogin,
   watchRegistration,
   watchLoadUser,
@@ -42,6 +43,7 @@ export default function* rootSaga () {
     watchLogout(),
     watchLoadLocations(),
     watchAddLocation(),
-    watchDeleteLocation()
+    watchDeleteLocation(),
+    watchDevicesInLocation()
   ]);
 }

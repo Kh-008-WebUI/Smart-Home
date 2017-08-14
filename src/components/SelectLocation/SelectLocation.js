@@ -15,8 +15,12 @@ export default class SelectLocation extends React.Component {
       idLocation: ''
     };
   }
-setPopupShown = (id) => {
+  setPopupShown = (id) => {
     const currentState = this.state.popupShown;
+
+    if (typeof id !== 'undefined') {
+      this.props.deviceExistInLocation(id);
+    }
 
     this.setState({
       popupShown: !currentState,
@@ -92,42 +96,48 @@ setPopupShown = (id) => {
                   return (
                     <li key={i} className="Select-option">
                       <span className="Select-option__item"
-                        onClick={this.setLocationValue.bind(this,
-                          location)}>
+                        onClick={ (e) =>
+                        (this.setLocationValue(location))}>
                            {location.label}
                       </span>
                       <i className="fa fa-trash Select-option__icon"
-                        onClick={ (e) => (this.setPopupShown(location._id))}></i>
+                        onClick={ (e) =>
+                          (this.setPopupShown(location._id))}>
+                      </i>
                     </li>
                   );
                 })}
             </ul>
         </div> : null }
       </div>
-      <Popup
-        setPopupShown={this.setPopupShown}
-        popupShown={this.state.popupShown}
-        header="Confirm the action"
-        text="Are you sure you want to remove the location?
-          All devices which located in this location wil be remove">
-        <Button
+        <Popup
           setPopupShown={this.setPopupShown}
-          okHandler={() => {
-            console.log(this.state.idLocation);
-            this.deleteSelectedLocation(this.state.idLocation);
-            this.setPopupShown();
-          }}
-          className={'btn popup__btn'}
-          innerText={'Ok'}
-        />
-        <Button
-          okHandler={() => {
-            this.setPopupShown();
-          }}
-          className={'btn btn--default popup__btn'}
-          innerText={'Cancel'}
-        />
-      </Popup>
+          popupShown={this.state.popupShown}
+          header="Confirm the action"
+          text={this.props.deviceInLocation ?
+            'You can\'t delete this location, because you have devices in it' :
+            'Are you sure you want to delete this location?'
+          }>
+          <Button
+            disabled={this.props.deviceInLocation}
+            setPopupShown={this.setPopupShown}
+            okHandler={() => {
+              this.deleteSelectedLocation(this.state.idLocation);
+              this.setPopupShown();
+            }}
+            className={this.props.deviceInLocation ?
+              'btn btn--default' :
+              'btn popup__btn'}
+            innerText={'Ok'}
+          />
+          <Button
+            okHandler={() => {
+              this.setPopupShown();
+            }}
+            className={'btn btn--default popup__btn'}
+            innerText={'Cancel'}
+          />
+        </Popup>
       </div>
     );
   }
@@ -138,5 +148,7 @@ SelectLocation.propTypes = {
   addLocation: PropTypes.func,
   deleteLocation: PropTypes.func,
   selectLocation: PropTypes.func,
-  defaultLocation: PropTypes.string
+  defaultLocation: PropTypes.string,
+  deviceExistInLocation: PropTypes.func,
+  deviceInLocation: PropTypes.bool
 };
