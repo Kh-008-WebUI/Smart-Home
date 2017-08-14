@@ -13,6 +13,7 @@ import {
 import { fetchNotificationsRequest } from '../../actions/notifications.action';
 import { Message } from '../../components/Message/Message';
 import { fetchAddNotifications } from '../../actions/notifications.action';
+import { updateUsersOnline } from '../../actions/users.action';
 import { updateChart } from '../../actions/chart.action';
 import { ws } from '../../index';
 import { webSocket } from '../../utils/utils';
@@ -35,7 +36,8 @@ class MainLayout extends Component {
       webSocket(
         msg,
         this.props.getNotifications,
-        this.props.updateChart);
+        this.props.updateChart,
+        this.props.updateUsersOnline);
     };
   }
   componentWillMount () {
@@ -82,7 +84,8 @@ function mapDispatchToProps (dispatch) {
     clearLoginStatus: bindActionCreators(clearLoginStatus, dispatch),
     fetchAddNotifications: bindActionCreators(fetchAddNotifications, dispatch),
     updateChart: bindActionCreators(updateChart, dispatch),
-    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch)
+    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
+    updateUsersOnline: bindActionCreators(updateUsersOnline, dispatch)
   };
 }
 
@@ -96,6 +99,7 @@ MainLayout.propTypes = {
   clearLoginStatus: PropTypes.func,
   fetchAddNotifications: PropTypes.func,
   updateChart: PropTypes.func,
-  getNotifications: PropTypes.func
+  getNotifications: PropTypes.func,
+  updateUsersOnline: PropTypes.func
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
