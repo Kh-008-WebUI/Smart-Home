@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 export default (getComponent) => (
-  class AsyncComponent extends Component {
+  class AsyncComponent extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
@@ -21,9 +21,9 @@ export default (getComponent) => (
     }
 
     render () {
-      const { Сomponent } = this.state;
+      const { Component } = this.state;
 
-      return !Сomponent ? null : React.createElement(Component);
+      return !Component ? null : <Component {...this.props}/>;
     }
   }
 );

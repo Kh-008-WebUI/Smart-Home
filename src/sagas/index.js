@@ -21,6 +21,7 @@ import {
   watchDeleteDeviceAsync,
   watchUpdateDeviceAsync,
   watchUpdateDeviceSettings } from './devices.saga.js';
+import { watchWS } from './ws.saga';
 
 export default function* rootSaga () {
   yield all([
@@ -44,6 +45,7 @@ export default function* rootSaga () {
     watchLoadLocations(),
     watchAddLocation(),
     watchDeleteLocation(),
-    watchDevicesInLocation()
+    watchDevicesInLocation(),
+    watchWS()
   ]);
 }

@@ -12,7 +12,8 @@
       "jsx": 1,
       "experimentalObjectRestSpread": 1,
       "classes": 1,
-      "destructuring": 1
+      "destructuring": 1,
+      "allowImportExportEverywhere": 1
     }
   },
   "globals": {

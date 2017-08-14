@@ -81,6 +81,16 @@ wss.on('connection', (ws, req) => {
     const userOffline = Object.assign({}, event.target.user, { home: false });
 
     wss.send(JSON.stringify({ type: 'users', user: userOffline }));
+
+    const User = require('./models/user');
+
+    User.findOne({ _id: userOffline._id })
+      .then(user => {
+        if (user) {
+          user.home = false;
+          user.save();
+        }
+      });
   };
 });
 
