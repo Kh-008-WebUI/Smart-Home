@@ -62,7 +62,7 @@ export const users = (state = initialState, action) => {
       };
     }
     case UPDATE_USERS_ONLINE: {
-      const user = action.payload.user;
+      const user = action.payload.msg.user;
 
       const userIndex = state.users.findIndex(item => item._id === user._id);
 
