@@ -2,7 +2,8 @@ import { ADD_DEVICE,
   EDIT_DEVICE,
   LOAD_LOCATIONS,
   ADD_LOCATION,
-  DELETE_LOCATION } from '../constants/index';
+  DELETE_LOCATION,
+  DEVICES_IN_LOCATION } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import {
   addDeviceSuccess,
@@ -11,7 +12,9 @@ import {
   editDeviceSuccess,
   loadLocationsSuccess,
   addLocationSuccess,
-  deleteLocationSuccess
+  deleteLocationSuccess,
+  setValue,
+  devicesInLocationSuccess
 } from '../actions/builder.action';
 import { loadDevices } from '../actions/devices.action';
 import { delay } from 'redux-saga';
@@ -45,6 +48,7 @@ export function* loadLocations (action) {
 
   if (response) {
     yield put(loadLocationsSuccess(response));
+    yield put(setValue('location', response[0].label));
   } else {
     yield put(addDeviceFailure(error.message));
   }
@@ -70,6 +74,17 @@ export function* deleteLocation (action) {
     yield put(addDeviceFailure(error.message));
   }
 }
+
+export function* devicesInLocation (action) {
+  const { response, error } = yield call(DeviceListApi.devicesInLocation,
+    action.id);
+
+  if (response) {
+    yield put(devicesInLocationSuccess(response));
+  } else {
+    yield put(addDeviceFailure(error.message));
+  }
+}
 export function* watchAddDevice () {
   yield takeEvery(ADD_DEVICE, addDevice);
 }
@@ -88,4 +103,8 @@ export function* watchAddLocation () {
 
 export function* watchDeleteLocation () {
   yield takeEvery(DELETE_LOCATION, deleteLocation);
+}
+
+export function* watchDevicesInLocation () {
+  yield takeEvery(DEVICES_IN_LOCATION, devicesInLocation);
 }

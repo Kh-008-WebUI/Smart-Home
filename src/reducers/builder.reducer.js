@@ -15,7 +15,8 @@ import {
   LOAD_LOCATIONS_SUCCESS,
   ADD_LOCATION_SUCCESS,
   DELETE_LOCATION_SUCCESS,
-  SET_PARAMS
+  SET_PARAMS,
+  DEVICES_IN_LOCATION_SUCCESSS
 } from '../constants/index';
 
 const initialState = {
@@ -23,10 +24,11 @@ const initialState = {
   uploadStatus:'',
   device:{
     name: '',
-    location: 'living room',
+    location: '',
     items: []
   },
-  locations: []
+  locations: [],
+  deviceInLocation: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -138,6 +140,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         locations: newLocations
+      };
+    }
+    case DEVICES_IN_LOCATION_SUCCESSS: {
+      return {
+        ...state,
+        deviceInLocation: action.deviceInLocation.deviceInLocation
       };
     }
     default:
