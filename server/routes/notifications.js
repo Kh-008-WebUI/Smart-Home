@@ -6,26 +6,25 @@ const moment = require('moment');
 
 notificationRouter.route('/')
   .get((req, res) => {
-    User.findById(req.session.user)
-      .then(user => {
-        Notification.find({ 'time': { '$gte': user.created } })
-          .sort({ time: -1 })
-          .then(notifications => {
-            notifications.forEach((item) => {
+    Notification.find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .sort({ time: -1 })
+    .then(notifications => {
+      notifications.forEach((item) => {
+        console.log(notifications);
+        let status = item.viewedByUser.filter((objItem) => {
+          console.log(objItem);
+          objItem.id === req.session.user;
+          
+        });
 
-            })
-            console.log(notifications);
-            res.json(notifications);
-          })
-          .catch(err => {
-            res.statusMessage = 'Something went wrong, try again later.';
-            res.status(500).end();
-          });
-      })
-      .catch(err => {
-        res.statusMessage = 'Something went wrong, try again later.';
-        res.status(500).end();
+        // console.log(status);
       });
+      res.json(notifications);
+    })
+    .catch(err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
+    });
   })
   .post((req, res) => {
     const notification = new Notification(req.body);

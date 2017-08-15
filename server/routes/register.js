@@ -13,6 +13,7 @@ registerRouter.route('/').post((req, res) => {
           .then( user => {
             req.session.user = user._id;
             req.session.name = user.name;
+            // req.session.userCreatedDate = user.created;
             user.home = true;
             user.save().catch(err => {
               res.statusMessage = 'Unable to update the database.';
