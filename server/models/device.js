@@ -28,10 +28,6 @@ const deviceSchema = new Schema({
   items: {
     type: Array,
     default: []
-  },
-  isEditing:  {
-    type: Boolean,
-    default: false
   }
 });
 

@@ -33,7 +33,6 @@ export function* addDevice (action) {
 }
 
 export function* editDevice (action) {
-  yield call(DeviceListApi.updateDevice, action.id, { isEditing: true });
   const { response, error } = yield call(DeviceListApi.getDevice, action.id);
 
   if (response) {
