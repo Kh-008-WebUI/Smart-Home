@@ -10,14 +10,16 @@ notificationRouter.route('/')
     .sort({ time: -1 })
     .then(notifications => {
       notifications.forEach((item) => {
-        console.log(notifications);
+        // console.log(notifications);
         let status = item.viewedByUser.filter((objItem) => {
-          console.log(objItem);
-          objItem.id === req.session.user;
+          // console.log(objItem.id + ' + ' + req.session.user);
+          if (objItem.id === req.session.user) {
+            console.log('wewwew');
+          };
           
         });
 
-        // console.log(status);
+        console.log(status);
       });
       res.json(notifications);
     })
