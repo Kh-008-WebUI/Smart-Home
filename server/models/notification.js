@@ -26,6 +26,10 @@ const notificationSchema = new Schema({
     type: Boolean,
     default: false,
     validate: [booleanValidator, 'Field must be boolean']
+  },
+  viewedByUser: {
+    type: Array,
+    default: []
   }
 });
 

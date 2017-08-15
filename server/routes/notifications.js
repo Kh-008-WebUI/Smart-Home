@@ -3,7 +3,6 @@ const notificationRouter = express.Router();
 const Notification = require('../models/notification.js');
 const User = require('../models/user.js');
 const moment = require('moment');
-const getUserBySession = require('../utils/getUserBySession');
 
 notificationRouter.route('/')
   .get((req, res) => {
@@ -12,8 +11,11 @@ notificationRouter.route('/')
         Notification.find({ 'time': { '$gte': user.created } })
           .sort({ time: -1 })
           .then(notifications => {
-            res.json(notifications);
+            notifications.forEach((item) => {
+
+            })
             console.log(notifications);
+            res.json(notifications);
           })
           .catch(err => {
             res.statusMessage = 'Something went wrong, try again later.';
