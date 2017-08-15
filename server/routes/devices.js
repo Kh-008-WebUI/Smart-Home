@@ -91,6 +91,12 @@ devicesRouter.route('/:id').put((req, res) => {
 
   Device.findOne({ _id: id })
     .then( device => {
+      if(!device) {
+        console.log('Device doesn\'t exist');
+        res.statusMessage = 'Device doesn\'t exist';
+        res.status(404).end();
+        return;
+      }      
       Object.assign(device, req.body);
       if (Object.keys(req.body).length > 1) {
         device.updetedDate = moment().format('LL');

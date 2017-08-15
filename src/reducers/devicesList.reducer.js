@@ -133,6 +133,7 @@ export const devicesList = (state = initialState, action) => {
       };
     }
     case UPDATE_DEVICE_FAILURE: {
+      console.log(action.errorText);
       return {
         ...state,
         uploadStatus:'FAIL',
