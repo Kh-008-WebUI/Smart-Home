@@ -17,7 +17,9 @@ import {
   ADD_LOCATION,
   DELETE_LOCATION,
   DELETE_LOCATION_SUCCESS,
-  SET_PARAMS
+  SET_PARAMS,
+  DEVICES_IN_LOCATION,
+  DEVICES_IN_LOCATION_SUCCESSS
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -130,3 +132,18 @@ export const deleteLocationSuccess = (id) => {
     id
   };
 };
+
+export const devicesInLocation = (id) => {
+  return {
+    type: DEVICES_IN_LOCATION,
+    id
+  };
+};
+
+export const devicesInLocationSuccess = (deviceInLocation) => {
+  return {
+    type: DEVICES_IN_LOCATION_SUCCESSS,
+    deviceInLocation
+  };
+};
+

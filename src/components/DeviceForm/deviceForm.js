@@ -10,7 +10,8 @@ import {
   resetProto,
   loadLocations,
   addLocation,
-  deleteLocation
+  deleteLocation,
+  devicesInLocation
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
@@ -92,6 +93,14 @@ class DeviceForm extends React.Component {
   };
 
   render () {
+    let defaultLocation;
+
+    if (!this.props.settings.location && this.props.locations[0]) {
+      defaultLocation = this.props.locations[0].label;
+    } else {
+      defaultLocation = this.props.settings.location;
+    }
+
     return (
       <Formsy.Form
         onSubmit={this.handleSubmit}
@@ -119,7 +128,10 @@ class DeviceForm extends React.Component {
               locations={this.props.locations}
               addLocation={this.props.addLocation}
               deleteLocation={this.props.deleteLocation}
-              defaultLocation={this.props.settings.location}/>
+              defaultLocation={defaultLocation}
+              deviceExistInLocation={this.props.deviceExistInLocation}
+              deviceInLocation={this.props.deviceInLocation}
+              />
         </div>
         <div>
           <label> Device config:</label>
@@ -142,7 +154,8 @@ function mapStateToProps (store) {
   return {
     settings: store.builder.device,
     status: store.builder.uploadStatus,
-    locations: store.builder.locations
+    locations: store.builder.locations,
+    deviceInLocation: store.builder.deviceInLocation
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -154,7 +167,8 @@ function mapDispatchToProps (dispatch) {
     updateDevice: (data, id) => dispatch(updateDevice(data, id)),
     loadLocations: () => dispatch(loadLocations()),
     addLocation: (location) => dispatch(addLocation(location)),
-    deleteLocation: (id) => dispatch(deleteLocation(id))
+    deleteLocation: (id) => dispatch(deleteLocation(id)),
+    deviceExistInLocation: (id) => dispatch(devicesInLocation(id))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -170,5 +184,7 @@ DeviceForm.propTypes = {
   loadLocations: PropTypes.func,
   locations: PropTypes.array,
   addLocation: PropTypes.func,
-  deleteLocation: PropTypes.func
+  deleteLocation: PropTypes.func,
+  deviceInLocation: PropTypes.bool,
+  deviceExistInLocation: PropTypes.func
 };
