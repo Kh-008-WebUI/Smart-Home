@@ -88,7 +88,6 @@ devicesRouter.route('/:id').put((req, res) => {
   Device.findOne({ _id: id })
     .then( device => {
       if(!device){
-        console.log('Device doesn\'t exist');
         res.statusMessage = 'Device doesn\'t exist';
         res.status(404).end();
         return;
