@@ -1,40 +1,57 @@
 import styles from './scss/index.scss';
+import './pages/Register/Register.scss';
 import createSagaMiddleware from 'redux-saga';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import { Authentication } from './layouts/Authentication/Authentication';
 import rootSaga from './sagas/index';
-import DeviceList from './pages/DeviceList/DeviceList';
-import DevicePage from './pages/DevicePage/DevicePage';
-import Builder from './pages/Builder/Builder';
-import Dashboard from './pages/Dashboard/Dashboard';
-import Profile from './pages/Profile/Profile';
-import LocationList from './pages/LocationList/LocationList';
-import { NotFound } from './components/NotFound/NotFound';
 import { config } from './config/config';
-import AsyncComponent from './components/AsyncComponent/AsyncComponent';
-import Register from './pages/Register/Register';
-
-// import Login from './pages/Login/Login';
+import { loadAsync } from './utils/utils';
+const Login = (props) => (
+  loadAsync(() => import('./pages/Login/Login'), props)
+);
+const Register = (props) => (
+  loadAsync(() => import('./pages/Register/Register'), props)
+);
+const DeviceList = (props) => (
+  loadAsync(() => import('./pages/DeviceList/DeviceList'), props)
+);
+const Builder = (props) => (
+  loadAsync(() => import('./pages/Builder/Builder'), props)
+);
+const Dashboard = (props) => (
+  loadAsync(() => import('./pages/Dashboard/Dashboard'), props)
+);
+const DevicePage = (props) => (
+  loadAsync(() => import('./pages/DevicePage/DevicePage'), props)
+);
+const Profile = (props) => (
+  loadAsync(() => import('./pages/Profile/Profile'), props)
+);
+const LocationList = (props) => (
+  loadAsync(() => import('./pages/LocationList/LocationList'), props)
+);
+const NotFound = (props) => (
+  loadAsync(() => import('./components/NotFound/NotFound'), props)
+);
 
 export const ws = new WebSocket(`ws://${config.origin}/`);
 
 const composeEnhancers = config.isProd ?
   compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, composeEnhancers(),
-  applyMiddleware(sagaMiddleware));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(),
+  applyMiddleware(sagaMiddleware)
+);
 
 sagaMiddleware.run(rootSaga);
-
-
-const Login = AsyncComponent(() => import('./pages/Login/Login'));
-
 
 ReactDOM.render(
   <Provider store={store}>
@@ -52,6 +69,7 @@ ReactDOM.render(
               <Route
                 exact path='/auth/register'
                 component={Register} />
+              <Route component={NotFound}/>
             </Switch>
           </Authentication>
         )} />
