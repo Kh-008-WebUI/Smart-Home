@@ -1,12 +1,15 @@
-import { LOAD_USERS_SUCCESS,
+import {
+  LOAD_USERS_SUCCESS,
   UPDATE_USERS_REQUEST,
   LOAD_USERS_FAILURE,
   DISPLAY_USERS_STATUS,
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
-  CLEAR_UPDATE_PROFILE_STATUS }
-from '../constants/index';
+  CLEAR_UPDATE_PROFILE_STATUS,
+  UPDATE_USERS_ONLINE
+}
+  from '../constants/index';
 
 export const loadUsersSuccess = (payload) => {
   return {
@@ -59,5 +62,12 @@ export const updateProfileFailed = (errorText) => {
 export const clearUpdateProfileStatus = () => {
   return {
     type: CLEAR_UPDATE_PROFILE_STATUS
+  };
+};
+
+export const updateUsersOnline = (payload) => {
+  return {
+    type: UPDATE_USERS_ONLINE,
+    payload
   };
 };

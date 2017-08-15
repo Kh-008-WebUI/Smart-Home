@@ -58,7 +58,9 @@ module.exports = {
               plugins: [
                 'babel-plugin-transform-class-properties',
                 'babel-plugin-transform-object-rest-spread',
-                'babel-plugin-transform-decorators-legacy'
+                'babel-plugin-transform-decorators-legacy',
+                'babel-plugin-syntax-dynamic-import',
+                ['dynamic-import-webpack'],
               ]
             }
           },
@@ -100,7 +102,10 @@ module.exports = {
     stats: 'errors-only',
     historyApiFallback: true,
     open: true,
-    port: 8081
+    port: 8081,
+    proxy: {
+      '/api/*': 'http://localhost:3001'
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({

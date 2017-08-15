@@ -29,4 +29,14 @@ export default class DeviceListApi {
   static loadLocations () {
     return Transport.get(`${SERVER_API}/location`);
   }
+  static addLocation (location) {
+    return Transport.post(`${SERVER_API}/location`,
+      JSON.stringify({ location }));
+  }
+  static deleteLocation (id) {
+    return Transport.delete(`${SERVER_API}/location/${id}`);
+  }
+  static devicesInLocation (id) {
+    return Transport.get(`${SERVER_API}/location/devices/${id}`);
+  }
 }

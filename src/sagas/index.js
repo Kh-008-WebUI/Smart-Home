@@ -6,7 +6,10 @@ import { watchLoadNotifications,
   watchNotificationChangeStatus } from './notifications.saga';
 import { watchAddDevice,
   watchEditDevice,
-  watchLoadLocations } from './builder.saga';
+  watchLoadLocations,
+  watchAddLocation,
+  watchDeleteLocation,
+  watchDevicesInLocation } from './builder.saga';
 import { watchLogin,
   watchRegistration,
   watchLoadUser,
@@ -18,6 +21,7 @@ import {
   watchDeleteDeviceAsync,
   watchUpdateDeviceAsync,
   watchUpdateDeviceSettings } from './devices.saga.js';
+import { watchWS } from './ws.saga';
 
 export default function* rootSaga () {
   yield all([
@@ -38,7 +42,10 @@ export default function* rootSaga () {
     watchUpdateDeviceSettings(),
     watchLoadUser(),
     watchLogout(),
-    watchLoadLocations()
+    watchLoadLocations(),
+    watchAddLocation(),
+    watchDeleteLocation(),
+    watchDevicesInLocation(),
+    watchWS()
   ]);
 }
-

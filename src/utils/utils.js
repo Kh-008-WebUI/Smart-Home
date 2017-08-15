@@ -56,6 +56,10 @@ export const setItemDefaultData = (item) => {
       break;
     case 'Range':
       item.data = 0;
+      item.params = {
+        minValue: 0,
+        maxValue: 100
+      };
       break;
     case 'Timer':
       item.data = '00:00';
@@ -84,18 +88,3 @@ export const sortEmergencyNotifications =
       listNotifications.unshift(item);
     });
   };
-
-export const webSocket = (msg, notif, updChart) => {
-  const message = JSON.parse(msg.data);
-
-  switch (message.type) {
-    case 'chart':
-      updChart(message.data);
-      break;
-    case 'notification':
-      notif();
-      break;
-    default:
-      break;
-  }
-};

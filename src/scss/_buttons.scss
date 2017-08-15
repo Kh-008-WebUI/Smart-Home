@@ -20,6 +20,16 @@
         color: $text-color-active;
     }
 
+    &:disabled{
+      color: $light-gray;
+      border-color: $light-gray;
+      background: $btn-bg-disabled;
+
+      &:hover{
+        background: $btn-bg-disabled;
+      }
+    }
+
     &--primary {
         background: $color-orange;
 

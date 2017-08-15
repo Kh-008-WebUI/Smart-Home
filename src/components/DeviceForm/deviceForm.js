@@ -8,11 +8,15 @@ import {
   addItem,
   setValue,
   resetProto,
-  loadLocations
+  loadLocations,
+  addLocation,
+  deleteLocation,
+  devicesInLocation
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
+import SelectLocation from '../SelectLocation/SelectLocation';
 import { setItemDefaultData } from '../../utils/utils';
 import { sendNotificationWS } from '../../actions/notifications.action';
 import { updateDevice } from '../../actions/devices.action';
@@ -64,10 +68,8 @@ class DeviceForm extends React.Component {
     this.props.setValue('name', this.name.getValue());
   };
 
-  handleSelectLocation = (val) => {
-    const selectedValue = val.value;
-
-    this.props.setValue('location', selectedValue);
+  selectLocation = (value) => {
+    this.props.setValue('location', value);
   };
 
   handleSubmit = () => {
@@ -83,12 +85,22 @@ class DeviceForm extends React.Component {
       canSubmit: true
     });
   };
+
   disableButton = () => {
     this.setState({
       canSubmit: false
     });
   };
+
   render () {
+    let defaultLocation;
+
+    if (!this.props.settings.location && this.props.locations[0]) {
+      defaultLocation = this.props.locations[0].label;
+    } else {
+      defaultLocation = this.props.settings.location;
+    }
+
     return (
       <Formsy.Form
         onSubmit={this.handleSubmit}
@@ -111,14 +123,15 @@ class DeviceForm extends React.Component {
           value={this.props.settings.name} />
         <div className="input-container">
           <label>Location:</label>
-          <Select
-            name="location"
-            required
-            placeholder="select location"
-            options={ this.props.locations }
-            onChange={ this.handleSelectLocation }
-            value={ this.props.settings.location }
-          />
+            <SelectLocation
+              selectLocation={this.selectLocation}
+              locations={this.props.locations}
+              addLocation={this.props.addLocation}
+              deleteLocation={this.props.deleteLocation}
+              defaultLocation={defaultLocation}
+              deviceExistInLocation={this.props.deviceExistInLocation}
+              deviceInLocation={this.props.deviceInLocation}
+              />
         </div>
         <div>
           <label> Device config:</label>
@@ -141,7 +154,8 @@ function mapStateToProps (store) {
   return {
     settings: store.builder.device,
     status: store.builder.uploadStatus,
-    locations: store.builder.locations
+    locations: store.builder.locations,
+    deviceInLocation: store.builder.deviceInLocation
   };
 }
 function mapDispatchToProps (dispatch) {
@@ -150,9 +164,11 @@ function mapDispatchToProps (dispatch) {
     addItem:  bindActionCreators(addItem, dispatch),
     resetProto: bindActionCreators(resetProto, dispatch),
     addDevice: bindActionCreators(addDevice, dispatch),
-    sendNotificationWS: (message) => dispatch(sendNotificationWS(message)),
     updateDevice: (data, id) => dispatch(updateDevice(data, id)),
-    loadLocations: () => dispatch(loadLocations())
+    loadLocations: () => dispatch(loadLocations()),
+    addLocation: (location) => dispatch(addLocation(location)),
+    deleteLocation: (id) => dispatch(deleteLocation(id)),
+    deviceExistInLocation: (id) => dispatch(devicesInLocation(id))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -164,8 +180,11 @@ DeviceForm.propTypes = {
   addDevice:  PropTypes.func,
   settings: PropTypes.object,
   status: PropTypes.string,
-  sendNotificationWS: PropTypes.func,
   updateDevice: PropTypes.func,
   loadLocations: PropTypes.func,
-  locations: PropTypes.array
+  locations: PropTypes.array,
+  addLocation: PropTypes.func,
+  deleteLocation: PropTypes.func,
+  deviceInLocation: PropTypes.bool,
+  deviceExistInLocation: PropTypes.func
 };
