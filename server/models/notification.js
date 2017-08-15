@@ -27,10 +27,14 @@ const notificationSchema = new Schema({
     default: false,
     validate: [booleanValidator, 'Field must be boolean']
   },
-  viewedByUser: {
-    type: Array,
-    default: []
-  }
+  viewedByUser: [{
+    id: { type: Schema.Types.ObjectId, ref: 'User' },
+    status: {
+      type: Boolean,
+      default: false,
+      validate: [booleanValidator, 'Field must be boolean']
+    }
+  }]
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);
