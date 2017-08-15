@@ -9,32 +9,40 @@ import rootReducer from './reducers/index';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import { Authentication } from './layouts/Authentication/Authentication';
 import rootSaga from './sagas/index';
-import DeviceList from './pages/DeviceList/DeviceList';
 import DevicePage from './pages/DevicePage/DevicePage';
-import Builder from './pages/Builder/Builder';
-import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import LocationList from './pages/LocationList/LocationList';
 import { NotFound } from './components/NotFound/NotFound';
 import { config } from './config/config';
-import AsyncComponent from './components/AsyncComponent/AsyncComponent';
-import Register from './pages/Register/Register';
-
-// import Login from './pages/Login/Login';
+import { loadAsync } from './utils/utils';
+const Login = (props) => (
+  loadAsync(() => import('./pages/Login/Login'), props)
+);
+const Register = (props) => (
+  loadAsync(() => import('./pages/Register/Register'), props)
+);
+const DeviceList = (props) => (
+  loadAsync(() => import('./pages/DeviceList/DeviceList'), props)
+);
+const Builder = (props) => (
+  loadAsync(() => import('./pages/Builder/Builder'), props)
+);
+const Dashboard = (props) => (
+  loadAsync(() => import('./pages/Dashboard/Dashboard'), props)
+);
 
 export const ws = new WebSocket(`ws://${config.origin}/`);
 
 const composeEnhancers = config.isProd ?
   compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, composeEnhancers(),
-  applyMiddleware(sagaMiddleware));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(),
+  applyMiddleware(sagaMiddleware)
+);
 
 sagaMiddleware.run(rootSaga);
-
-
-const Login = AsyncComponent(() => import('./pages/Login/Login'));
-
 
 ReactDOM.render(
   <Provider store={store}>
