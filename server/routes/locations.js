@@ -8,10 +8,8 @@ locationRouter.route('/').get((req, res) => {
       res.json(locations);
     })
     .catch( err => {
-      res.status(500).send({
-        status: 'error',
-        text: 'Something went wrong, try again later.'
-      });
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
     });
 });
 
@@ -23,10 +21,8 @@ locationRouter.route('/').post((req, res) => {
       res.json(location);
     })
     .catch( err => {
-      res.status(500).send({
-        status: 'error',
-        text: 'Could not add the location.'
-      });
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
     });
 });
 
