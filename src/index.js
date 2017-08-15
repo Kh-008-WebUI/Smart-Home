@@ -15,26 +15,26 @@ import Builder from './pages/Builder/Builder';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import LocationList from './pages/LocationList/LocationList';
+import { NotFound } from './components/NotFound/NotFound';
 import { config } from './config/config';
 import AsyncComponent from './components/AsyncComponent/AsyncComponent';
 import Register from './pages/Register/Register';
-import Login from './pages/Login/Login';
+
+// import Login from './pages/Login/Login';
 
 export const ws = new WebSocket(`ws://${config.origin}/`);
 
 const composeEnhancers = config.isProd ?
-  compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeEnhancers(),
   applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
-/*
-  const Login = AsyncComponent(() =>
-  import('./pages/Login/Login')
-  );
-*/
+
+const Login = AsyncComponent(() => import('./pages/Login/Login'));
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -65,6 +65,7 @@ ReactDOM.render(
               <Route path='/builder' component={Builder} />
               <Route exact path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />
+              <Route component={NotFound}/>
             </Switch>
           </MainLayout>
         )} />

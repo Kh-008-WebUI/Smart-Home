@@ -7,7 +7,8 @@ import {
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
-  CLEAR_UPDATE_PROFILE_STATUS }
+  CLEAR_UPDATE_PROFILE_STATUS,
+  UPDATE_USERS_ONLINE }
 from '../constants/index';
 
 const initialState = {
@@ -59,6 +60,21 @@ export const users = (state = initialState, action) => {
         updateProfileStatus: 'FAIL',
         user: { errorText: action.errorText }
       };
+    }
+    case UPDATE_USERS_ONLINE: {
+      const user = action.payload.msg.user;
+
+      const userIndex = state.users.findIndex(item => item._id === user._id);
+
+      const userWithNewStatus = { ...state.users[userIndex], home: user.home };
+
+      const updatedUserArray = [];
+
+      updatedUserArray[userIndex] = userWithNewStatus;
+
+      const updatedUsers = Object.assign([], state.users, updatedUserArray);
+
+      return { ...state, users: updatedUsers };
     }
     default:
       return state;

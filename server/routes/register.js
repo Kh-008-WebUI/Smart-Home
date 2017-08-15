@@ -3,22 +3,14 @@ const registerRouter = express.Router();
 const User = require('../models/user');
 
 registerRouter.route('/').post((req, res) => {
-  User.find(
-    { email: req.body.email },
-    (err, user) => {
-      if (err) {
-        res.statusMessage = 'Internal server error. Try later.';
-        res.status(500).end();
-      };
+  User.find({ email: req.body.email })
+    .then( user => {
       if (user.length > 0) {
           res.statusMessage = 'A user with this email already exists.';
           res.status(500).end();
       } else {
-        User.create(req.body, (err, user) => {
-          if (err) {
-            res.statusMessage = 'Could not create user';
-            res.status(500).end();
-          } else {
+        User.create(req.body)
+          .then( user => {
             req.session.user = user._id;
             req.session.name = user.name;
             user.home = true;
@@ -35,9 +27,16 @@ registerRouter.route('/').post((req, res) => {
                 created: user.created
               }
             });
-          }
-        });
+          })
+          .catch( err => {
+            res.statusMessage = 'Could not create user';
+            res.status(500).end();
+          })
       }
+    })
+    .catch( err => {
+      res.statusMessage = 'Internal server error. Try later.';
+      res.status(500).end();
     });
 });
 

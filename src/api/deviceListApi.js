@@ -33,4 +33,7 @@ export default class DeviceListApi {
     return Transport.post(`${SERVER_API}/location`,
       JSON.stringify({ location }));
   }
+  static deleteLocation (id) {
+    return Transport.delete(`${SERVER_API}/location/${id}`);
+  }
 }
