@@ -1,18 +1,15 @@
 import styles from './scss/index.scss';
+import './pages/Register/Register.scss';
 import createSagaMiddleware from 'redux-saga';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import { Authentication } from './layouts/Authentication/Authentication';
 import rootSaga from './sagas/index';
-import DevicePage from './pages/DevicePage/DevicePage';
-import Profile from './pages/Profile/Profile';
-import LocationList from './pages/LocationList/LocationList';
-import { NotFound } from './components/NotFound/NotFound';
 import { config } from './config/config';
 import { loadAsync } from './utils/utils';
 const Login = (props) => (
@@ -29,6 +26,18 @@ const Builder = (props) => (
 );
 const Dashboard = (props) => (
   loadAsync(() => import('./pages/Dashboard/Dashboard'), props)
+);
+const DevicePage = (props) => (
+  loadAsync(() => import('./pages/DevicePage/DevicePage'), props)
+);
+const Profile = (props) => (
+  loadAsync(() => import('./pages/Profile/Profile'), props)
+);
+const LocationList = (props) => (
+  loadAsync(() => import('./pages/LocationList/LocationList'), props)
+);
+const NotFound = (props) => (
+  loadAsync(() => import('./components/NotFound/NotFound'), props)
 );
 
 export const ws = new WebSocket(`ws://${config.origin}/`);
@@ -60,6 +69,7 @@ ReactDOM.render(
               <Route
                 exact path='/auth/register'
                 component={Register} />
+              <Route component={NotFound}/>
             </Switch>
           </Authentication>
         )} />
