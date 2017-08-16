@@ -1,10 +1,14 @@
 import { UPDATE_USERS_REQUEST,
-  UPDATE_USER_PROFILE_REQUEST } from '../constants/index';
+  UPDATE_USER_PROFILE_REQUEST,
+  DELETE_USER_PROFILE_REQUEST } from '../constants/index';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { usersList, updateProfileRequest } from '../api/usersApi';
+import { usersList,
+  updateProfileRequest,
+  deleteProfileRequest } from '../api/usersApi';
 import { loadUsersSuccess, loadUsersFailed,
   updateProfileSuccess, updateProfileFailed,
+  deleteProfileSuccess, deleteProfileFailed,
   clearUpdateProfileStatus } from '../actions/users.action';
 
 function* getUsersList () {
@@ -29,10 +33,26 @@ function* updateUserProfile (action) {
   }
 }
 
+function* deleteUserProfile (action) {
+  const { response, error } = yield call(deleteProfileRequest, action.payload);
+
+  if (response) {
+    yield put(deleteProfileSuccess(response));
+    yield delay(2000);
+    yield put(clearUpdateProfileStatus());
+  } else {
+    yield put(deleteProfileFailed(error.message));
+  }
+}
+
 export function* watchLoadUsers () {
   yield takeEvery(UPDATE_USERS_REQUEST, getUsersList);
 }
 
 export function* watchUpdateUserProfile () {
   yield takeEvery(UPDATE_USER_PROFILE_REQUEST, updateUserProfile);
+}
+
+export function* watchDeleteUserProfile () {
+  yield takeEvery(DELETE_USER_PROFILE_REQUEST, deleteUserProfile);
 }
