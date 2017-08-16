@@ -3,9 +3,10 @@ const notificationRouter = express.Router();
 const Notification = require('../models/notification.js');
 const User = require('../models/user.js');
 const moment = require('moment');
+const HttpError = require('../errors/HttpError');
 
 notificationRouter.route('/')
-  .get((req, res) => {
+  .get( (req, res, next) => {
     Notification
     .find({ 'time': { '$gte': req.session.userCreatedDate } })
     .sort({ time: -1 })
@@ -13,11 +14,10 @@ notificationRouter.route('/')
       res.json(notifications);
     })
     .catch(err => {
-      res.statusMessage = 'Something went wrong, try again later.';
-      res.status(500).end();
+      next(new HttpError(400));
     });
   })
-  .post((req, res) => {
+  .post( (req, res, next) => {
     const notification = new Notification(req.body);
 
     notification.time = Date.now();
@@ -28,24 +28,22 @@ notificationRouter.route('/')
         res.json({ notification });
       })
       .catch(err => {
-        res.statusMessage = 'Failed to send notification.';
-        res.status(500).end();
+        next(new HttpError(503));
       });
   });
 
 notificationRouter.route('/:id')
-  .get((req, res) => {
+  .get( (req, res, next) => {
     Notification
       .findById(req.params.id)
       .then(notification => {
         res.send(notification);
       })
       .catch(err => {
-        res.statusMessage = 'Failed to find notification.';
-        res.status(500).end();
+        next(new HttpError(404));
       });
   })
-  .put((req, res) => {
+  .put( (req, res, next) => {
     Notification
       .findOne({ _id: req.params.id })
       .then(notification => {
@@ -55,15 +53,14 @@ notificationRouter.route('/:id')
             res.json(notification);
           })
           .catch(error => {
-            res.statusMessage = 'Failed to save notification.';
-            res.status(500).end();
+            next(new HttpError(503));
           });
       })
       .catch(err => {
-        res.send(err);
+        next(new HttpError(500));
       });
   })
-  .delete((req, res) => {
+  .delete( (req, res, next) => {
     Notification
       .findByIdAndRemove(req.params.id)
       .then(notification => {
@@ -73,8 +70,7 @@ notificationRouter.route('/:id')
         });
       })
       .catch(err => {
-        res.statusMessage = 'Failed to delete notification.';
-        res.status(500).end();
+        next(new HttpError(503));
       });
   });
 

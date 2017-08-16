@@ -83,7 +83,7 @@ ReactDOM.render(
               <Route path='/builder' component={Builder} />
               <Route exact path='/user' component={Profile} />
               <Route path='/device/edit/:id' component={Builder} />
-              <Route component={NotFound}/>
+              <Route path='*' component={NotFound}/>
             </Switch>
           </MainLayout>
         )} />

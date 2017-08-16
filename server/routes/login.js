@@ -1,9 +1,10 @@
 const express = require('express');
 const loginRouter = express.Router();
 const User = require('../models/user');
+const HttpError = require('../errors/HttpError');
 
 loginRouter.route('/')
-  .get((req, res) => {
+  .get( (req, res, next) => {
     User.findOne({ '_id': req.session.user })
       .then(user => {
         if (!user) {
@@ -21,12 +22,9 @@ loginRouter.route('/')
           });
         }
       })
-      .catch(err => {
-        res.statusMessage = 'Something went wrong, try again later.';
-        res.status(500).end();
-      });
+      .catch(err => (next(new HttpError(503))));
   })
-  .post((req, res) => {
+  .post( (req, res, next) => {
     User.findOne({ 'email': req.body.email })
       .then(user => {
         if (user && user.checkPassword(req.body.password)) {
@@ -48,17 +46,14 @@ loginRouter.route('/')
               });
             })
             .catch(err => {
-              res.statusMessage = 'Unable to update the database.';
-              res.status(500).end();
+              next(new HttpError(503));
             });
         } else {
-          res.statusMessage = 'You have entered an incorrect email or password.';
-          res.status(500).end();
+          next(new HttpError(403));
         }
       })
       .catch(err => {
-        res.statusMessage = 'Something went wrong, try again later.';
-        res.status(500).end();
+        next(new HttpError(400));
       });
   });
 

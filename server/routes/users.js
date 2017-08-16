@@ -1,33 +1,28 @@
 const express = require('express');
 const userRouter = express.Router();
 const User = require('../models/user.js');
+const HttpError = require('../errors/HttpError');
 
 userRouter.route('/')
-  .get((req, res) => {
+  .get( (req, res, next) => {
     User.find()
       .then( users => {
         res.json(users);
       })
-      .catch( err => {
-        res.statusMessage = 'Failed to find user.';
-        res.status(500).end();
-      })
+      .catch( err => (next(new HttpError(404))));
   })
-  .post((req, res) => {
+  .post( (req, res, next) => {
     const user = new User(req.body);
 
     user.save()
       .then( users => {
         res.json({ message: 'User created' });
       })
-      .catch( err => {
-        res.statusMessage = 'Failed to save.';
-        res.status(500).end();
-      });
+      .catch( err => (next(new HttpError(503))));
   });
 
 userRouter.route('/:id')
-  .get((req, res) => {
+  .get( (req, res, next) => {
     User.findById(req.params.id)
       .then( user => {
           res.send({
@@ -37,33 +32,25 @@ userRouter.route('/:id')
             created: user.created
           });
       })
-      .catch( err => {
-          res.statusMessage = 'Something went wrong, try again later.';
-          res.status(500).end();
-      });
+      .catch( err => (next(new HttpError(404))));
   })
-  .put((req, res) => {
+  .put( (req, res, next) => {
     User.findById(req.params.id)
       .then( user => {
         if (!user) {
-          res.statusMessage = 'Something went wrong, try again later.';
-          res.status(500).end();
+          next(new HttpError(400))
         }
         Object.assign(user, req.body);
         user.save((error) => {
           if (error) {
-            res.statusMessage = 'Failed to save.';
-            res.status(500).end();
+            next(new HttpError(503));
           }
           return res.json(user);
         });
       })
-      .catch( err => {
-        res.statusMessage = 'Something went wrong, try again later.';
-        res.status(500).end();
-      })
+      .catch( err => (next(new HttpError(500))));
   })
-  .delete((req, res) => {
+  .delete( (req, res, next) => {
     User.findByIdAndRemove(req.params.id)
       .then( user => {
         res.send({
@@ -71,10 +58,7 @@ userRouter.route('/:id')
           id: req.params.id
         });
       })
-      .catch( err => {
-        res.statusMessage = 'Failed to delete.';
-        res.status(500).end();
-      });
+      .catch( err => (next(new HttpError(503))));
   });
 
 module.exports = userRouter;
