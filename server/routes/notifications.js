@@ -63,11 +63,11 @@ notificationRouter.route('/:id')
       .findOne({ _id: req.params.id })
       .then(notification => {
         Object.assign(notification, req.body);
-        console.log(notification.viewed);
-        // console.log(notification.viewedByUser);
+        // console.log(notification.viewed);
+        console.log(req.session.user);
         notification.viewedByUser.forEach((item) => {
-          console.log(item.userID);
-          if (item.userID == '5981c3fca39e9b12ea86a176') {
+          // console.log(item.userID);
+          if (item.userID === req.session.user) {
             console.log('909090909');
             item.status = notification.viewed;
           }
