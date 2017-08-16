@@ -5,6 +5,8 @@ import { updateProfileRequest, deleteUserRequest,
   clearUpdateProfileStatus } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
+import { Popup } from '../../components/Popup/Popup';
+import { Button } from '../../components/Button/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Profile.scss';
@@ -22,6 +24,15 @@ class Profile extends Component {
       imageBase64: null
     };
   }
+
+  setPopupShown = (id) => {
+    const currentState = this.state.popupShown;
+
+    this.setState({
+      popupShown: !currentState
+    });
+  };
+
   updateProfile = () => {
     const data = {
       name: this.name.getValue(),
@@ -259,10 +270,33 @@ class Profile extends Component {
               value="Submit" />
               <div className="delete-user-profile__icon">
                   <i className="fa fa-trash"
-                    onClick={this.deleteUser} />
+                    onClick={this.setPopupShown} />
           </div>
           </div>
         </Formsy.Form>
+        <Popup
+          setPopupShown={this.setPopupShown}
+          popupShown={this.state.popupShown}
+          header="Confirm the action"
+          text={'Are you sure you want to delete your account?'}>
+          <Button
+            setPopupShown={this.setPopupShown}
+            okHandler={() => {
+              this.deleteUser();
+              this.setPopupShown();
+            }}
+            className={
+              'btn popup__btn'}
+            innerText={'Ok'}
+          />
+          <Button
+            okHandler={() => {
+              this.setPopupShown();
+            }}
+            className={'btn btn--default popup__btn'}
+            innerText={'Cancel'}
+          />
+        </Popup>
       </div>
     );
   }
