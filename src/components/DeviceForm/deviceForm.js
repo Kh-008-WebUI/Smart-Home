@@ -93,13 +93,7 @@ class DeviceForm extends React.Component {
   };
 
   render () {
-    let defaultLocation;
-
-    if (!this.props.settings.location && this.props.locations[0]) {
-      defaultLocation = this.props.locations[0].label;
-    } else {
-      defaultLocation = this.props.settings.location;
-    }
+    const defaultLocation = this.props.settings.location;
 
     return (
       <Formsy.Form
