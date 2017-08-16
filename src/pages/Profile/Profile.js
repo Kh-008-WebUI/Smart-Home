@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../../components/Auth/Field/Field';
-import { updateProfileRequest,
+import { updateProfileRequest, deleteUserRequest,
   clearUpdateProfileStatus } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
@@ -69,6 +69,10 @@ class Profile extends Component {
     this.fieldImage.classList.toggle('flex-display');
   };
 
+  deleteUser = () => {
+    this.props.deleteUserRequest(this.props.user);
+  }
+
   handleFileSelect = (e) => {
     e.preventDefault();
     this.setState({ updateImageStatus: 'Loading...' });
@@ -109,6 +113,7 @@ class Profile extends Component {
       }, 1000);
     }
   }
+
   render = () => {
     window.addEventListener('dragover', function (e) {
       const evnt = e || event;
@@ -252,6 +257,10 @@ class Profile extends Component {
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active edit"
               value="Submit" />
+              <div className="delete-user-profile__icon">
+                  <i className="fa fa-trash"
+                    onClick={this.deleteUser} />
+          </div>
           </div>
         </Formsy.Form>
       </div>
@@ -269,6 +278,7 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch),
+    deleteUserRequest: bindActionCreators(deleteUserRequest, dispatch),
     clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch)
   };
 }
@@ -278,6 +288,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 Profile.propTypes = {
   updateProfileStatus: PropTypes.string,
   updateProfileRequest: PropTypes.func,
+  deleteUserRequest: PropTypes.func,
   user: PropTypes.object,
   email: PropTypes.object,
   errorText: PropTypes.string,

@@ -9,3 +9,8 @@ export const updateProfileRequest = (data) => {
   return Transport.put(`${SERVER_API}/users/${data._id}`,
     JSON.stringify(data));
 };
+
+export const deleteProfileRequest = (data) => {
+  return Transport.delete(`${SERVER_API}/users/${data._id}`,
+    JSON.stringify(data));
+};

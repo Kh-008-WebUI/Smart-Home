@@ -8,6 +8,9 @@ import {
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
   CLEAR_UPDATE_PROFILE_STATUS,
+  DELETE_USER_PROFILE_REQUEST,
+  DELETE_USER_PROFILE_SUCCESS,
+  DELETE_USER_PROFILE_FAILURE,
   UPDATE_USERS_ONLINE }
 from '../constants/index';
 
@@ -55,6 +58,19 @@ export const users = (state = initialState, action) => {
     case UPDATE_USER_PROFILE_SUCCESS:
       return { ...state, user: action.payload, updateProfileStatus: 'DONE' };
     case UPDATE_USER_PROFILE_FAILURE: {
+      return {
+        ...state,
+        updateProfileStatus: 'FAIL',
+        user: { errorText: action.errorText }
+      };
+    }
+    case DELETE_USER_PROFILE_REQUEST: {
+      return { ...state, updateProfileStatus: 'PENDING' };
+    }
+    case DELETE_USER_PROFILE_SUCCESS: {
+      return { ...state, updateProfileStatus: 'DONE' };
+    }
+    case DELETE_USER_PROFILE_FAILURE: {
       return {
         ...state,
         updateProfileStatus: 'FAIL',

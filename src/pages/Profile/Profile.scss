@@ -140,3 +140,12 @@
     right: 0;
     width: auto;
 }
+
+.signup-field-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-user-profile__icon {
+  margin: 10px;
+}

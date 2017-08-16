@@ -7,6 +7,9 @@ import {
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
   CLEAR_UPDATE_PROFILE_STATUS,
+  DELETE_USER_PROFILE_REQUEST,
+  DELETE_USER_PROFILE_SUCCESS,
+  DELETE_USER_PROFILE_FAILURE,
   UPDATE_USERS_ONLINE
 }
   from '../constants/index';
@@ -71,3 +74,25 @@ export const updateUsersOnline = (payload) => {
     payload
   };
 };
+
+export const deleteUserRequest = (payload) => {
+  return {
+    type: DELETE_USER_PROFILE_REQUEST,
+    payload
+  };
+};
+
+export const deleteProfileSuccess = (payload) => {
+  return {
+    type: DELETE_USER_PROFILE_SUCCESS,
+    payload
+  };
+};
+
+export const deleteProfileFailed = (errorText) => {
+  return {
+    type: DELETE_USER_PROFILE_FAILURE,
+    errorText
+  };
+};
+
