@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-require('./Profile.scss');
+import './Profile.scss';
 
 class Profile extends Component {
   constructor (props) {
