@@ -6,16 +6,15 @@ const moment = require('moment');
 const Notification = require('../models/notification.js');
 
 devicesRouter.route('/').get((req, res) => {
-  Device.find((err, devices) => {
-    if (err) {
-      res.status(500).send({
-        status: 'error',
-        text: 'Something went wrong, try again later.'
+  Device.find()
+    .sort({ views: -1 })
+    .then( devices => {
+      res.json(devices);
+    })
+    .catch( err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
       });
-    } else {
-        res.json(devices);
-    }
-  }).sort({ views: -1 });
 });
 
 devicesRouter.route('/').post((req, res) => {
@@ -25,13 +24,8 @@ devicesRouter.route('/').post((req, res) => {
   device.createdDate = moment().format('LL');
   device.createdBy = req.session.name;
 
-  Device.create(device, (err, device) => {
-    if (err) {
-      res.status(500).send({
-        status: 'error',
-        text: 'Could not add the device.'
-      });
-    } else {
+  Device.create(device)
+    .then( device => {
       const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was created`,
@@ -41,36 +35,36 @@ devicesRouter.route('/').post((req, res) => {
 
       ws.send(JSON.stringify({ type: 'notification' }));
       res.json(device);
-    }
-  });
+    })
+    .catch( err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
+      });
 });
 
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndUpdate({ _id: id },
-    { $inc: { views: 1 } }, { new: true }, (err, device) => {
-      if (err) {
-        res.statusMessage = 'Something went wrong, try again later.';
-        res.status(500).end();
-      }
+  Device.findOneAndUpdate({ _id: id }, { $inc: { views: 1 } }, { new: true })
+    .then( device => {
       if (!device) {
         res.statusMessage = 'Not found';
         res.status(404).end();
-      } else {
-        res.json(device);
+        return;
       }
-    });
+      res.json(device);
+    })
+    .catch( err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
+    })
 });
 
 devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndRemove({ _id: id }, (err, device) => {
-    if (err) {
-      res.statusMessage = 'Something went wrong, could not delete the device.';
-      res.status(500).end();
-    } else {
+  Device.findOneAndRemove({ _id: id })
+    .then( device => {
       const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was deleted`,
@@ -81,19 +75,23 @@ devicesRouter.route('/:id').delete((req, res) => {
 
       ws.send(JSON.stringify({ type: 'notification' }));
       res.json(id);
-    }
-  });
+    })
+    .catch(err => {
+      res.statusMessage = 'Something went wrong, could not delete the device.';
+      res.status(500).end();
+    })
 });
 
 devicesRouter.route('/:id').put((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({ _id: id }, (err, device) => {
-    if (err) {
-      res.statusMessage = 'Something went wrong, try again later.';
-      res.status(500).end();
-    }
-    else {
+  Device.findOne({ _id: id })
+    .then( device => {
+      if(!device){
+        res.statusMessage = 'Device doesn\'t exist';
+        res.status(404).end();
+        return;
+      }
       Object.assign(device, req.body);
       if (Object.keys(req.body).length > 1) {
         device.updetedDate = moment().format('LL');
@@ -116,19 +114,19 @@ devicesRouter.route('/:id').put((req, res) => {
           res.statusMessage = 'Unable to update the database.';
           res.status(400).end();
         });
-    }
-  });
+    })
+    .catch( err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
+    });
 });
 
 devicesRouter.route('/items/:id/:setting').put((req, res) => {
   const id = req.params.id;
   const setting = req.params.setting;
 
-  Device.findOne({ _id: id }, (err, device) => {
-    if (err) {
-      res.statusMessage = 'Something went wrong, try again later.';
-      res.status(500).end();
-    } else {
+  Device.findOne({ _id: id })
+    .then( device => {
       const items = device.items;
 
       items[setting].data = req.body.value;
@@ -145,8 +143,11 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
           res.statusMessage = 'Unable to update the database.';
           res.status(400).end();
         });
-    }
-  });
+    })
+    .catch( err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
+    });
 });
 
 module.exports = devicesRouter;

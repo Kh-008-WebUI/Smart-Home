@@ -43,6 +43,9 @@
       border: 1px #798094 solid;
       border-radius: 4px;
     }
+    .Select-control {
+      overflow: visible;
+    }
     .Select-control, .Select-option {
       background-color: $color-bg-grey;
       color: $text_color_input;
@@ -51,6 +54,15 @@
       font-size: 14px;
       input {
         color: $text_color_input;
+      }
+      &__icon {
+        float: right;
+        color: $color-bg-grey;
+      }
+      &__item{
+        width: 90%;
+        height: 30px;
+        display: inline-block;
       }
     }
     .has-value.Select--single > .Select-control .Select-value .Select-value-label, .Select-input {
@@ -61,18 +73,56 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
     }
-    .Select-menu-outer {
-      border: none;
-      border-radius: 5px;
+    .Select-menu__outer {
+      max-height: 200px;
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      z-index: 1;
     }
     .is-focused:not(.is-open) > .Select-control {
       box-shadow: none;
     }
-    .Select-option.is-focused {
+    .Select-option:hover {
       background-color: rgba(246,168,33,0.8);
       color: $text_color_active;
     }
+
+    .select-menu-container{
+      height: 32px;
+      .select-toggle {
+        float: right;
+        margin-right: 3px;
+        color:$text-color-input;
+      }
+      .select-menu-label{
+        margin: 7px;
+      }
+    }
   }
+  .Select-input-location{
+    border-bottom:1px solid $border-color;
+    background-color: $color-bg-grey;
+  }
+  .Select-input_add-location{
+    border: none;
+    background-color: $color-bg-grey;
+    width: 90%;
+    &:hover{
+      background-color:$color-bg-grey;
+    }
+  }
+  .Select-input_add-location_icon{
+    float: right;
+    margin: 10px 10px 0 0;
+    color: $text_color_input;
+    &:hover{
+      color: rgba(246,168,33,0.8);
+      cursor: pointer;
+    }
+  }
+
+
 
   //buttons styles
 

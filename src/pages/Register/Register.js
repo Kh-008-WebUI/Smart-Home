@@ -9,7 +9,6 @@ import {
   registration,
   clearLoginStatus } from '../../actions/auth.action';
 import { NavLink } from 'react-router-dom';
-require('./Register.scss');
 
 class Register extends Component {
   constructor (props) {

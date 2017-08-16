@@ -19,7 +19,7 @@ import { sortDevicesByLocations } from '../../utils/utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PropTypes from 'prop-types';
-require('./DeviceList.scss');
+import './DeviceList.scss';
 
 class DeviceList extends React.Component {
   constructor (props) {
@@ -54,8 +54,12 @@ class DeviceList extends React.Component {
   }
 
   renderDevices (locations, location) {
+    const devicesList = locations[location].length > 8 ?
+      locations[location].slice(0, 7) :
+      locations[location];
+
     return (
-      locations[location].map((device, i) => {
+      devicesList.map((device, i) => {
         return (
           <DeviceListItem
             data={device}
@@ -85,6 +89,16 @@ class DeviceList extends React.Component {
               transitionEnterTimeout={500}
               transitionLeaveTimeout={300}>
               {this.renderDevices(locations, location)}
+              {locations[location].length > 8 ?
+                <Link
+                  className="device-group__link"
+                  to={`/devices/${location}`}>
+                  <i
+                    className="fa fa-repeat"
+                    aria-hidden="true"></i>
+                  More devices
+                </Link> : null
+              }
             </ReactCSSTransitionGroup>
           </div>
         );
@@ -118,7 +132,6 @@ class DeviceList extends React.Component {
         { this.props.status === 'DONE' && this.props.devices.length === 0 ?
           <span>You need to add device</span> : this.renderDeviceGroup()
         }
-
       </DevicesSection>
     );
   }

@@ -8,7 +8,7 @@ import { login, clearLoginStatus } from '../../actions/auth.action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-require('./Login.scss');
+import './Login.scss';
 import { registrationSuccess } from '../../actions/auth.action';
 
 class Login extends Component {
@@ -19,7 +19,7 @@ class Login extends Component {
     };
   }
   componentDidUpdate () {
-    if (this.props.loginStatus === 'DONE') {
+    if (this.props.loginStatus === 'DONE' && this.props.userData._id) {
       if (this.props.history.length > 3) {
         setTimeout(()=>{
           this.props.history.goBack();
@@ -113,14 +113,13 @@ class Login extends Component {
 function mapStateToProps (store) {
   return {
     loginStatus: store.authentication.status,
-    userData: store.authentication.user,
+    userData: store.authentication.isLogged,
     errorText: store.authentication.errorText
   };
 }
 function mapDispatchToProps (dispatch) {
   return {
     login: bindActionCreators(login, dispatch),
-    registration: (userData) => dispatch(registrationSuccess(userData)),
     clearLoginStatus: () => dispatch(clearLoginStatus())
   };
 }
@@ -132,7 +131,6 @@ Login.propTypes = {
   history: PropTypes.object,
   login: PropTypes.func,
   userData: PropTypes.object,
-  registration: PropTypes.func,
   errorText: PropTypes.string,
   clearLoginStatus: PropTypes.func
 };

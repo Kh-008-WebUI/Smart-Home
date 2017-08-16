@@ -14,7 +14,12 @@ import {
   LOAD_LOCATIONS_SUCCESS,
   LOAD_LOCATIONS,
   ADD_LOCATION_SUCCESS,
-  ADD_LOCATION
+  ADD_LOCATION,
+  DELETE_LOCATION,
+  DELETE_LOCATION_SUCCESS,
+  SET_PARAMS,
+  DEVICES_IN_LOCATION,
+  DEVICES_IN_LOCATION_SUCCESSS
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -91,6 +96,7 @@ export const loadLocationsSuccess = (locations) => {
     locations
   };
 };
+
 export const addLocation = (location) => {
   return {
     type: ADD_LOCATION,
@@ -104,3 +110,40 @@ export const addLocationSuccess = (location) => {
     location
   };
 };
+
+export const setParameters = (id, params) => {
+  return {
+    type: SET_PARAMS,
+    id,
+    params
+  };
+};
+
+export const deleteLocation = (id) => {
+  return {
+    type: DELETE_LOCATION,
+    id
+  };
+};
+
+export const deleteLocationSuccess = (id) => {
+  return {
+    type: DELETE_LOCATION_SUCCESS,
+    id
+  };
+};
+
+export const devicesInLocation = (id) => {
+  return {
+    type: DEVICES_IN_LOCATION,
+    id
+  };
+};
+
+export const devicesInLocationSuccess = (deviceInLocation) => {
+  return {
+    type: DEVICES_IN_LOCATION_SUCCESSS,
+    deviceInLocation
+  };
+};
+

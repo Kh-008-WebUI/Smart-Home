@@ -10,12 +10,10 @@ import {
   getLoggedUser,
   logout,
   clearLoginStatus } from '../../actions/auth.action';
-import { fetchNotificationsRequest } from '../../actions/notifications.action';
 import { Message } from '../../components/Message/Message';
 import { fetchAddNotifications } from '../../actions/notifications.action';
-import { updateChart } from '../../actions/chart.action';
+import { wsMessage } from '../../actions/ws.action';
 import { ws } from '../../index';
-import { webSocket } from '../../utils/utils';
 
 class MainLayout extends Component {
   constructor (props) {
@@ -31,15 +29,14 @@ class MainLayout extends Component {
     };
   }
   componentDidMount () {
-    ws.onmessage = (msg)=>{
-      webSocket(
-        msg,
-        this.props.getNotifications,
-        this.props.updateChart);
+    ws.onmessage = (msg) => {
+      const message = JSON.parse(msg.data);
+
+      this.props.wsMessage(message);
     };
   }
   componentWillMount () {
-    // this.props.getLoggedUser();
+    this.props.getLoggedUser();
   }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
@@ -80,8 +77,7 @@ function mapDispatchToProps (dispatch) {
     getLoggedUser: bindActionCreators(getLoggedUser, dispatch),
     clearLoginStatus: bindActionCreators(clearLoginStatus, dispatch),
     fetchAddNotifications: bindActionCreators(fetchAddNotifications, dispatch),
-    updateChart: bindActionCreators(updateChart, dispatch),
-    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch)
+    wsMessage: bindActionCreators(wsMessage, dispatch)
   };
 }
 
@@ -94,7 +90,6 @@ MainLayout.propTypes = {
   status: PropTypes.string,
   clearLoginStatus: PropTypes.func,
   fetchAddNotifications: PropTypes.func,
-  updateChart: PropTypes.func,
-  getNotifications: PropTypes.func
+  wsMessage: PropTypes.func
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

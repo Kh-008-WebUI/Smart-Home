@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {
   fetchAddNotifications
 } from '../actions/notifications.action';
+import React from 'react';
+import AsyncComponent from '../components/AsyncComponent/AsyncComponent';
 
 export function searchItem (item, searchValue) {
   const result = item.name.toLowerCase()
@@ -56,6 +58,10 @@ export const setItemDefaultData = (item) => {
       break;
     case 'Range':
       item.data = 0;
+      item.params = {
+        minValue: 0,
+        maxValue: 100
+      };
       break;
     case 'Timer':
       item.data = '00:00';
@@ -85,17 +91,6 @@ export const sortEmergencyNotifications =
     });
   };
 
-export const webSocket = (msg, notif, updChart) => {
-  const message = JSON.parse(msg.data);
-
-  switch (message.type) {
-    case 'chart':
-      updChart(message.data);
-      break;
-    case 'notification':
-      notif();
-      break;
-    default:
-      break;
-  }
-};
+export const loadAsync = (getComp, props) => (
+  <AsyncComponent getComponent={ getComp } {...props} />
+);
