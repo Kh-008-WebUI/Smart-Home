@@ -55,7 +55,7 @@ locationRouter.route('/devices/:id').get((req, res) => {
 
   Location.findOne({ _id: id })
     .then(location => {
-      Device.find({ location: location.value })
+      Device.find({ location: location.label })
         .then(devices => {
           if(devices.length > 0){
             res.json({ deviceInLocation: true });

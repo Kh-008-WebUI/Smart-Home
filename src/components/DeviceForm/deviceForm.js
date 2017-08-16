@@ -162,7 +162,8 @@ function mapDispatchToProps (dispatch) {
     loadLocations: () => dispatch(loadLocations()),
     addLocation: (location) => dispatch(addLocation(location)),
     deleteLocation: (id) => dispatch(deleteLocation(id)),
-    deviceExistInLocation: (id) => dispatch(devicesInLocation(id))
+    deviceExistInLocation: (id, callback) =>
+      dispatch(devicesInLocation(id, callback))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);

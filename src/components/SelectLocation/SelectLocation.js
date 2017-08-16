@@ -18,14 +18,18 @@ export default class SelectLocation extends React.Component {
   setPopupShown = (id) => {
     const currentState = this.state.popupShown;
 
-    if (typeof id !== 'undefined') {
-      this.props.deviceExistInLocation(id);
-    }
+    const _setPopupShown = () => {
+      this.setState({
+        popupShown: !currentState,
+        idLocation: id
+      });
+    };
 
-    this.setState({
-      popupShown: !currentState,
-      idLocation: id
-    });
+    if (typeof id !== 'undefined') {
+      this.props.deviceExistInLocation(id, _setPopupShown);
+    } else {
+      _setPopupShown();
+    }
   };
 
   showInputLocation = () => {

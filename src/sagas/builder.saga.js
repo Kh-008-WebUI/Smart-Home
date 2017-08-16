@@ -79,6 +79,7 @@ export function* devicesInLocation (action) {
 
   if (response) {
     yield put(devicesInLocationSuccess(response));
+    yield action.callback();
   } else {
     yield put(addDeviceFailure(error.message));
   }
