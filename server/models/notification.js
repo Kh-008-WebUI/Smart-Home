@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const notificationSchema = new Schema({
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
   time: {
     type: Date,
     default: Date.now,
@@ -26,7 +22,15 @@ const notificationSchema = new Schema({
     type: Boolean,
     default: false,
     validate: [booleanValidator, 'Field must be boolean']
-  }
+  },
+  viewedByUser: [{
+    id: { type: Schema.Types.ObjectId, ref: 'User' },
+    status: {
+      type: Boolean,
+      default: false,
+      validate: [booleanValidator, 'Field must be boolean']
+    }
+  }]
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);
