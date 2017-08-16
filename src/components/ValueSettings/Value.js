@@ -18,6 +18,11 @@ export default class ValueSettings extends React.Component {
       });
     }
   }
+  setValueText = (e) =>{
+    this.props.setItemValue(this.state.value,
+      this.props.itemId,
+      this.props.deviceId);
+  }
 
   onChangeValue = (e) => {
     const newValue = e.target.value;
@@ -25,10 +30,6 @@ export default class ValueSettings extends React.Component {
     this.setState({
       value: newValue
     });
-
-    this.props.setItemValue(newValue,
-      this.props.itemId,
-      this.props.deviceId);
   }
 
   render () {
@@ -41,6 +42,8 @@ export default class ValueSettings extends React.Component {
           value={this.state.value}
           onChange={this.onChangeValue}
         />
+        <i className="fa fa-check value_check-icon"
+          onClick={this.setValueText}></i>
       </div>
     );
   }
