@@ -117,11 +117,19 @@ const reducer = (state = initialState, action) => {
         errorText: action.errorText
       };
     }
-    case LOAD_LOCATIONS_SUCCESS:
+    case LOAD_LOCATIONS_SUCCESS: {
+      const device = Object.assign({}, state.device);
+
+      if (device.location === '') {
+        device.location = action.locations[0].label;
+      }
+
       return {
         ...state,
-        locations: action.locations
+        locations: action.locations,
+        device
       };
+    }
 
     case ADD_LOCATION_SUCCESS: {
       const newLocations = [...state.locations];

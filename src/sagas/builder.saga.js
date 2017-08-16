@@ -47,7 +47,6 @@ export function* loadLocations (action) {
 
   if (response) {
     yield put(loadLocationsSuccess(response));
-    yield put(setValue('location', response[0].label));
   } else {
     yield put(addDeviceFailure(error.message));
   }

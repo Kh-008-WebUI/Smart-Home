@@ -49,7 +49,7 @@ export default class SelectLocation extends React.Component {
       locationValue: location.label
     });
 
-    this.props.selectLocation(location.value);
+    this.props.selectLocation(location.label);
     this.showInputLocation();
   };
 
