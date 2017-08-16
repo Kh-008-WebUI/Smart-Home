@@ -18,6 +18,8 @@ class Profile extends Component {
       allowEditName: false,
       allowEditEmail: false,
       allowEditImage: false,
+      allowEditPassword: false,
+      allowRepeatPassword: false,
       updateImageStatus: 'Drop your photo',
       imageBase64: null
     };
@@ -26,6 +28,8 @@ class Profile extends Component {
     const data = {
       name: this.name.getValue(),
       email: this.email.getValue(),
+      password: this.password.getValue(),
+      passwordRepeat: this.passwordRepeat.getValue(),
       avatar: this.base64Str,
       _id: this.props.user._id
     };
@@ -59,6 +63,22 @@ class Profile extends Component {
     });
     this.fieldEmail.classList.toggle('hidden');
     this.fieldEmail.classList.toggle('flex-display');
+  };
+
+  editPassword = () => {
+    this.setState({
+      allowEditPassword: !this.state.allowEditPassword
+    });
+    this.fieldPassword.classList.toggle('hidden');
+    this.fieldPassword.classList.toggle('flex-display');
+  };
+
+  repeatPassword = () => {
+    this.setState({
+      allowRepeatPassword: !this.state.allowRepeatPassword
+    });
+    this.fieldRepeatPassword.classList.toggle('hidden');
+    this.fieldRepeatPassword.classList.toggle('flex-display');
   };
 
   editImage = () => {
@@ -113,7 +133,7 @@ class Profile extends Component {
     window.addEventListener('dragover', function (e) {
       const evnt = e || event;
 
-      evnt.preventDefault();
+      event.preventDefault();
     }, false);
     window.addEventListener('drop', function (e) {
       const evnt = e || event;
@@ -245,6 +265,73 @@ class Profile extends Component {
                 />
               </div>
             </div>
+            </section>
+            <section className="edit-profile__user-info-password">
+            <div className="edit-profile-password">
+              <div className="edit-profile__user-password-container">
+                <div className="user-password__box">
+                  <p className="user-password__title">Password</p>
+                  <span className="user-password__logged-password">
+                    {this.props.user.password}
+                  </span>
+                </div>
+                <div className="edit-user-info__icon">
+                  <i className="fa fa-pencil edit-user-info fa-password"
+                    onClick={this.editPassword} />
+                </div>
+              </div>
+              <div
+                className="hidden"
+                ref={(el) => {
+                  this.fieldPassword = el;
+                }
+                }>
+                <Field
+                  name="Password"
+                  type="password"
+                  text={'Enter your new password'}
+                  ref={(input) => {
+                    this.password = input;
+                  }}
+                  validations= {{
+                    minLength: 7,
+                    isAlphanumeric: true
+                  }}
+                  validationError="This is not a valid password"
+                />
+              </div>
+            </div>
+            <div className="edit-profile-repeat-password">
+              <div className="edit-profile__user-repeat-password-container">
+                <div className="user-repeat-password__box">
+                  <p className="user-repeat-password__title">Repeat Password</p>
+                  <span className="user-repeat-password__logged-password">
+                    {this.props.user.passwordRepeat}
+                  </span>
+                </div>
+                <div className="edit-user-info__icon">
+                  <i className="fa fa-pencil edit-user-info fa-password"
+                    onClick={this.repeatPassword} />
+                </div>
+              </div>
+              <div
+                className="hidden"
+                ref={(el) => {
+                  this.fieldRepeatPassword = el;
+                }
+                }>
+                <Field
+                  name="Repeat Password"
+                  type="password"
+                  text={'Please repeat your password'}
+                  ref={(input) => {
+                    this.passwordRepeat = input;
+                  }}
+                  validations="equalsField:Password"
+                  validationError="Password does not match"
+                />
+              </div>
+            </div>
           </section>
           <div className="signup-field-group signup-btn-group edit">
             <input
@@ -280,6 +367,8 @@ Profile.propTypes = {
   updateProfileRequest: PropTypes.func,
   user: PropTypes.object,
   email: PropTypes.object,
+  password: PropTypes.object,
+  passwordRepeat: PropTypes.object,
   errorText: PropTypes.string,
   value: PropTypes.object,
   history: PropTypes.object,

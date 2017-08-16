@@ -16,7 +16,7 @@
       }
     }
     @media (min-width: $tablet-min) {
-      width: 335px;
+      width: 374px;
       max-width: inherit;
     }
   }
@@ -66,18 +66,29 @@
   cursor: pointer;
 }
 
+.signup-form.edit .fa-password {
+  padding-top: 0px;
+}
+
 .edit-user-info__icon {
   display: inline-block;
   padding-left: 10px;
 }
 
-.edit-profile__user-info {
+.edit-profile__user-info,
+.edit-profile__user-info-password {
   display: flex;
   flex-wrap: wrap;
 }
 
+.edit-profile__user-info {
+  margin-bottom: 10px;
+}
+
 .edit-profile__user-name-container,
-.edit-profile__user-email-container {
+.edit-profile__user-email-container,
+.edit-profile__user-password-container,
+.edit-profile__user-repeat-password-container {
   display: flex;
   flex-direction: row;
   justify-content: baseline;
@@ -85,20 +96,26 @@
 }
 
 .user-name__box,
-.user-email__box {
+.user-email__box,
+.user-password__box,
+.user-repeat-password__box {
   display: block;
   margin-bottom: 15px;
 }
 
 .user-name__title,
-.user-email__title {
+.user-email__title,
+.user-password__title,
+.user-repeat-password__title {
   color: $text-color-active;
   font-weight: bold;
   padding-bottom: 5px;
 }
 
 .user-name__logged-name,
-.user-email__logged-email {
+.user-email__logged-email,
+.user-password__logged-password,
+.user-repeat-password__logged-password {
   color: $orange;
   font-size: 14px;
 }
@@ -136,9 +153,14 @@
   margin-left: 0px;
 }
 
-.edit-profile__user-info .signup-form__error-message {
+.edit-profile__user-info .signup-form__error-message,
+.edit-profile__user-info-password .signup-form__error-message {
     margin-top: -10px;
     top: 0;
     right: 0;
     width: auto;
+}
+
+.signup-form.edit .signup-form__label {
+  display: none;
 }
