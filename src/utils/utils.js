@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {
   fetchAddNotifications
 } from '../actions/notifications.action';
+import React from 'react';
+import AsyncComponent from '../components/AsyncComponent/AsyncComponent';
 
 export function searchItem (item, searchValue) {
   const result = item.name.toLowerCase()
@@ -88,3 +90,7 @@ export const sortEmergencyNotifications =
       listNotifications.unshift(item);
     });
   };
+
+export const loadAsync = (getComp, props) => (
+  <AsyncComponent getComponent={ getComp } {...props} />
+);

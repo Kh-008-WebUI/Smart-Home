@@ -13,11 +13,9 @@ devicesRouter.route('/').get((req, res) => {
       res.json(devices);
     })
     .catch( err => {
-      res.status(500).send({
-        status: 'error',
-        text: 'Something went wrong, try again later.'
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
       });
-    })
 });
 
 devicesRouter.route('/').post((req, res) => {
@@ -58,11 +56,9 @@ devicesRouter.route('/').post((req, res) => {
         res.json(device);
       });
     })
-    .catch(err => {
-      res.status(500).send({
-        status: 'error',
-        text: 'Could not add the device.'
-      });
+    .catch( err => {
+      res.statusMessage = 'Something went wrong, try again later.';
+      res.status(500).end();
     });
 });
 
@@ -111,6 +107,11 @@ devicesRouter.route('/:id').put((req, res) => {
 
   Device.findOne({ _id: id })
     .then( device => {
+      if(!device){
+        res.statusMessage = 'Device doesn\'t exist';
+        res.status(404).end();
+        return;
+      }
       Object.assign(device, req.body);
       if (Object.keys(req.body).length > 1) {
         device.updetedDate = moment().format('LL');
