@@ -38,7 +38,7 @@ devicesRouter.route('/').post((req, res) => {
 
         userList.forEach((item) => {
           const objItem = {
-            id: item._id,
+            userID: item._id,
             status: false
           };
 

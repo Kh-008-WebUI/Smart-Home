@@ -7,9 +7,22 @@ const moment = require('moment');
 notificationRouter.route('/')
   .get((req, res) => {
     Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .find({ 'time': { '$gte': req.session.userCreatedDate ?
+      req.session.userCreatedDate : new Date(2017, 1, 1) },
+      'viewedByUser.userID': '5981c3fca39e9b12ea86a176'
+    },
+      { 'emergency': '$all',
+        'text': '$all',
+        'viewedByUser': { $elemMatch: { userID: '5981c3fca39e9b12ea86a176' } },
+        'time': '$all',
+        'viewed': '$all'
+      }
+    )
     .sort({ time: -1 })
     .then(notifications => {
+      notifications.forEach((item) => {
+        item.viewed = item.viewedByUser[0].status;
+      });
       res.json(notifications);
     })
     .catch(err => {
@@ -50,6 +63,15 @@ notificationRouter.route('/:id')
       .findOne({ _id: req.params.id })
       .then(notification => {
         Object.assign(notification, req.body);
+        console.log(notification.viewed);
+        // console.log(notification.viewedByUser);
+        notification.viewedByUser.forEach((item) => {
+          console.log(item.userID);
+          if (item.userID == '5981c3fca39e9b12ea86a176') {
+            console.log('909090909');
+            item.status = notification.viewed;
+          }
+        });
         notification.save()
           .then(() => {
             res.json(notification);
