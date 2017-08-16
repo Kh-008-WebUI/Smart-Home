@@ -133,10 +133,11 @@ export const deleteLocationSuccess = (id) => {
   };
 };
 
-export const devicesInLocation = (id) => {
+export const devicesInLocation = (id, callback) => {
   return {
     type: DEVICES_IN_LOCATION,
-    id
+    id,
+    callback
   };
 };
 
