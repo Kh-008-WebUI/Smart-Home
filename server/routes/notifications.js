@@ -6,21 +6,10 @@ const moment = require('moment');
 
 notificationRouter.route('/')
   .get((req, res) => {
-    Notification.find({ 'time': { '$gte': req.session.userCreatedDate } })
+    Notification
+    .find({ 'time': { '$gte': req.session.userCreatedDate } })
     .sort({ time: -1 })
     .then(notifications => {
-      notifications.forEach((item) => {
-        // console.log(notifications);
-        let status = item.viewedByUser.filter((objItem) => {
-          // console.log(objItem.id + ' + ' + req.session.user);
-          if (objItem.id === req.session.user) {
-            console.log('wewwew');
-          };
-          
-        });
-
-        console.log(status);
-      });
       res.json(notifications);
     })
     .catch(err => {
@@ -46,7 +35,8 @@ notificationRouter.route('/')
 
 notificationRouter.route('/:id')
   .get((req, res) => {
-    Notification.findById(req.params.id)
+    Notification
+      .findById(req.params.id)
       .then(notification => {
         res.send(notification);
       })
@@ -56,7 +46,8 @@ notificationRouter.route('/:id')
       });
   })
   .put((req, res) => {
-    Notification.findOne({ _id: req.params.id })
+    Notification
+      .findOne({ _id: req.params.id })
       .then(notification => {
         Object.assign(notification, req.body);
         notification.save()
@@ -73,7 +64,8 @@ notificationRouter.route('/:id')
       });
   })
   .delete((req, res) => {
-    Notification.findByIdAndRemove(req.params.id)
+    Notification
+      .findByIdAndRemove(req.params.id)
       .then(notification => {
         res.send({
           message: 'Note successfully deleted',

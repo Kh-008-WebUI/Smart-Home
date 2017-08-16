@@ -37,7 +37,7 @@ devicesRouter.route('/').post((req, res) => {
       })
       .then(() => {
         let arr = [];
-        
+
         userList.forEach((item) => {
           const objItem = {
             id: item._id,
@@ -54,7 +54,6 @@ devicesRouter.route('/').post((req, res) => {
         });
 
         Notification.create(notification);
-        arr = [];
         ws.send(JSON.stringify({ type: 'notification' }));
         res.json(device);
       });
