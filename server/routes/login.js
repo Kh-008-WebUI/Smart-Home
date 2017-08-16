@@ -32,6 +32,7 @@ loginRouter.route('/')
         if (user && user.checkPassword(req.body.password)) {
           req.session.user = user._id;
           req.session.name = user.name;
+          req.session.userCreatedDate = user.created;
           user.home = true;
           user.save()
             .then(() => {
