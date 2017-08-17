@@ -1,4 +1,4 @@
 export const config = {
-  origin: 'localhost:3001',
-  isProd:false
+  origin: 'peaceful-mountain-19311.herokuapp.com',
+  isProd: true
 };

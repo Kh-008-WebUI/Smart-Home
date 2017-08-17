@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm install pm2 -g",
     "dev": "cross-env NODE_ENV=development nf start -p 3000",
-    "prod": " npm run clean && cross-env NODE_ENV=production webpack --colors --progress -p && npm run node-prod",
-    "clean": "rimraf ./dist/*",
-    "node-prod": "pm2 kill && cross-env NODE_ENV=production pm2 start ./server/index.js --no-daemon",
-    "start": "pm2 kill && pm2 start ./server/index.js --no-daemon --watch"
+    "build": " npm run clean && cross-env NODE_ENV=production webpack --colors --progress -p && npm run start",
+    "clean": "rimraf ./public/*",
+    "start": "pm2 kill && cross-env NODE_ENV=production pm2 start ./server/index.js --no-daemon",
+    "node-prod": "pm2 kill && pm2 start ./server/index.js --no-daemon --watch"
   },
   "babel": {
     "presets": [

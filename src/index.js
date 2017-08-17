@@ -10,7 +10,7 @@ import rootReducer from './reducers/index';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import { Authentication } from './layouts/Authentication/Authentication';
 import rootSaga from './sagas/index';
-import { config } from './config/config';
+import { configRemote } from '../server/config/config';
 import { loadAsync } from './utils/utils';
 const Login = (props) => (
   loadAsync(() => import('./pages/Login/Login'), props)
@@ -40,9 +40,9 @@ const NotFound = (props) => (
   loadAsync(() => import('./components/NotFound/NotFound'), props)
 );
 
-export const ws = new WebSocket(`ws://${config.origin}/`);
+export const ws = new WebSocket(`ws://${configRemote.origin}/`);
 
-const composeEnhancers = config.isProd ?
+const composeEnhancers = configRemote.production ?
   compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

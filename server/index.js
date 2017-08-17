@@ -31,23 +31,22 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     path: '/',
-    domain: 'localhost',
     httpOnly: true,
     maxAge: null
   },
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-const wsClient = new WebSocket('ws://localhost:3001/');
+const wsClient = new WebSocket(`ws://${config.origin}/`);
 
 module.exports = wsClient;
 
 require('./routes/index.js')(router);
 app.use('/api', router);
 
-app.use('/', express.static(__dirname + '/../dist'));
+app.use('/', express.static(__dirname + '/../public'));
 app.get('*',  (req, res) =>
-  res.sendFile(path.join(__dirname + '/../dist/index.html')));
+  res.sendFile(path.join(__dirname + '/../public/index.html')));
 
 mongoose.Promise = global.Promise;
 

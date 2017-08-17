@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from '../../components/Auth/Header/Header';
 import './NotFound.scss';
 
-export const NotFound = (props) => {
+const NotFound = (props) => {
   return (
     <div className="not-found">
       <Header
@@ -17,3 +17,5 @@ export const NotFound = (props) => {
     </div>
   );
 };
+
+export default NotFound;
