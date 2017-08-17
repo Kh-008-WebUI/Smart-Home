@@ -4,6 +4,7 @@ const Device = require('../models/device');
 const ws = require('../index');
 const moment = require('moment');
 const Notification = require('../models/notification.js');
+const User = require('../models/user.js');
 
 devicesRouter.route('/').get((req, res) => {
   Device.find()
@@ -25,21 +26,40 @@ devicesRouter.route('/').post((req, res) => {
   device.createdBy = req.session.name;
 
   Device.create(device)
-    .then( device => {
-      const notification = new Notification({
-        time:  Date.now(),
-        text: `${device.name} was created`,
+    .then(device => {
+      let userList = [];
+
+      User.find()
+      .then(users => {
+        userList = [...users];
+      })
+      .then(() => {
+        let arr = [];
+
+        userList.forEach((item) => {
+          const objItem = {
+            id: item._id,
+            status: false
+          };
+
+          arr.push(objItem);
+        });
+
+        const notification = new Notification({
+          time:  Date.now(),
+          text: `${device.name} was created`,
+          viewedByUser: arr
+        });
+
+        Notification.create(notification);
+        ws.send(JSON.stringify({ type: 'notification' }));
+        res.json(device);
       });
-
-      Notification.create(notification);
-
-      ws.send(JSON.stringify({ type: 'notification' }));
-      res.json(device);
     })
     .catch( err => {
       res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
-      });
+    });
 });
 
 devicesRouter.route('/device/:id').get((req, res) => {
