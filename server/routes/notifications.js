@@ -6,14 +6,16 @@ const moment = require('moment');
 
 notificationRouter.route('/')
   .get((req, res) => {
+    console.log(req.session.user);
+    console.log(req.session.userCreatedDate);
     Notification
     .find({ 'time': { '$gte': req.session.userCreatedDate ?
       req.session.userCreatedDate : new Date(2017, 1, 1) },
-      'viewedByUser.userID': '5981c3fca39e9b12ea86a176'
+      'viewedByUser.userID': req.session.user
     },
       { 'emergency': '$all',
         'text': '$all',
-        'viewedByUser': { $elemMatch: { userID: '5981c3fca39e9b12ea86a176' } },
+        'viewedByUser': { $elemMatch: { userID: req.session.user } },
         'time': '$all',
         'viewed': '$all'
       }
@@ -62,14 +64,16 @@ notificationRouter.route('/:id')
     Notification
       .findOne({ _id: req.params.id })
       .then(notification => {
-        Object.assign(notification, req.body);
+        // Object.assign(notification, req.body);
         // console.log(notification.viewed);
-        console.log(req.session.user);
+        console.log(req.body.viewed);
         notification.viewedByUser.forEach((item) => {
           // console.log(item.userID);
-          if (item.userID === req.session.user) {
-            console.log('909090909');
-            item.status = notification.viewed;
+          if (item.userID == req.session.user) {
+            // console.log(typeof (req.session.user));
+            // console.log('909090909');
+            item.status = req.body.viewed;
+            notification.viewed = item.status;
           }
         });
         notification.save()

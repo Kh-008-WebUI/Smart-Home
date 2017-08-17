@@ -5,11 +5,13 @@ const ws = require('../index');
 const moment = require('moment');
 const Notification = require('../models/notification.js');
 const User = require('../models/user.js');
+const findUsers = require('../utils/findUsers.js');
 
 devicesRouter.route('/').get((req, res) => {
-  Device.find()
+  Device
+    .find()
     .sort({ views: -1 })
-    .then( devices => {
+    .then(devices => {
       res.json(devices);
     })
     .catch( err => {
@@ -25,7 +27,8 @@ devicesRouter.route('/').post((req, res) => {
   device.createdDate = moment().format('LL');
   device.createdBy = req.session.name;
 
-  Device.create(device)
+  Device
+    .create(device)
     .then(device => {
       let userList = [];
 
@@ -44,7 +47,6 @@ devicesRouter.route('/').post((req, res) => {
 
           arr.push(objItem);
         });
-
         const notification = new Notification({
           time:  Date.now(),
           text: `${device.name} was created`,
@@ -56,7 +58,7 @@ devicesRouter.route('/').post((req, res) => {
         res.json(device);
       });
     })
-    .catch( err => {
+    .catch(err => {
       res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
     });
@@ -65,8 +67,9 @@ devicesRouter.route('/').post((req, res) => {
 devicesRouter.route('/device/:id').get((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndUpdate({ _id: id }, { $inc: { views: 1 } }, { new: true })
-    .then( device => {
+  Device
+    .findOneAndUpdate({ _id: id }, { $inc: { views: 1 } }, { new: true })
+    .then(device => {
       if (!device) {
         res.statusMessage = 'Not found';
         res.status(404).end();
@@ -74,21 +77,42 @@ devicesRouter.route('/device/:id').get((req, res) => {
       }
       res.json(device);
     })
-    .catch( err => {
+    .catch(err => {
       res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
-    })
+    });
 });
 
 devicesRouter.route('/:id').delete((req, res) => {
   const id = req.params.id;
 
-  Device.findOneAndRemove({ _id: id })
-    .then( device => {
+  Device
+    .findOneAndRemove({ _id: id })
+    .then(device => {
+
+      // let userList = [];
+
+      // User.find()
+      // .then(users => {
+      //   userList = [...users];
+      // })
+      // .then(() => {
+      //   let arr = [];
+
+      //   userList.forEach((item) => {
+      //     const objItem = {
+      //       userID: item._id,
+      //       status: false
+      //     };
+
+      //     arr.push(objItem);
+      //   });
+
       const notification = new Notification({
         time:  Date.now(),
         text: `${device.name} was deleted`,
         emergency: true
+        // viewedByUser: arr
       });
 
       Notification.create(notification);
@@ -99,14 +123,15 @@ devicesRouter.route('/:id').delete((req, res) => {
     .catch(err => {
       res.statusMessage = 'Something went wrong, could not delete the device.';
       res.status(500).end();
-    })
+    });
 });
 
 devicesRouter.route('/:id').put((req, res) => {
   const id = req.params.id;
 
-  Device.findOne({ _id: id })
-    .then( device => {
+  Device
+    .findOne({ _id: id })
+    .then(device => {
       if(!device){
         res.statusMessage = 'Device doesn\'t exist';
         res.status(404).end();
@@ -135,7 +160,7 @@ devicesRouter.route('/:id').put((req, res) => {
           res.status(400).end();
         });
     })
-    .catch( err => {
+    .catch(err => {
       res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
     });
@@ -145,8 +170,9 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
   const id = req.params.id;
   const setting = req.params.setting;
 
-  Device.findOne({ _id: id })
-    .then( device => {
+  Device
+    .findOne({ _id: id })
+    .then(device => {
       const items = device.items;
 
       items[setting].data = req.body.value;
@@ -164,7 +190,7 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
           res.status(400).end();
         });
     })
-    .catch( err => {
+    .catch(err => {
       res.statusMessage = 'Something went wrong, try again later.';
       res.status(500).end();
     });
