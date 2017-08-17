@@ -1,5 +1,5 @@
 const origin = 'peaceful-mountain-19311.herokuapp.com';
-const port = 5000;
+const port = process.env.PORT || 8080;
 const configRemote = {
   secret: 'MoneyIsPower',
   port,
