@@ -43,8 +43,6 @@ export default class ValueSettings extends React.Component {
           onChange={this.onChangeValue}
           onBlur={this.setTextValue}
         />
-        <i className="fa fa-check value_check-icon"
-          onClick={this.setValueText}></i>
       </div>
     );
   }
