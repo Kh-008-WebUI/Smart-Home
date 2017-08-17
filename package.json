@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development nf start -p 3000",
     "build": " npm run clean && cross-env NODE_ENV=production webpack --colors --progress -p && npm run start",
     "clean": "rimraf ./public/*",
-    "start": "pm2 start ./server/index.js && pm2 logs all",
+    "start": "node ./server/index.js",
     "node-prod": "pm2 kill && pm2 start ./server/index.js --no-daemon --watch"
   },
   "babel": {
