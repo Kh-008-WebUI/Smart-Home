@@ -6,12 +6,16 @@ import { getNotifications,
 import { fetchNotificationsSuccess,
          fetchNotificationsFailed,
         addNotificationsSuccess,
-        changeStatusNotificationSuccess }
+        changeStatusNotificationSuccess,
+        changeStatusAllNotificationsSuccess
+       }
 from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
          NOTIFICATIONS_CHANGE_STATUS,
          SEND_NOTIFICATION_WS,
-         ADD_NOTIFICATIONS } from '../constants/index';
+         ADD_NOTIFICATIONS,
+         NOTIFICATIONS_ALL_CHANGE_STATUS
+       } from '../constants/index';
 import { ws } from '../index';
 
 function* fetchNotifications () {
