@@ -23,7 +23,8 @@ const initialState = {
   device: { items:[] },
   uploadStatus: '',
   devices: [],
-  errorText: ''
+  errorText: '',
+  errorStatus: 0
 };
 
 export const devicesList = (state = initialState, action) => {
@@ -83,7 +84,7 @@ export const devicesList = (state = initialState, action) => {
 
       return {
         ...state,
-        devices:newDevices
+        devices: newDevices
       };
     }
 
@@ -113,7 +114,8 @@ export const devicesList = (state = initialState, action) => {
       return {
         ...state,
         uploadStatus:'FAIL',
-        errorText: action.errorText
+        errorText: action.errorText,
+        errorStatus: action.errorName
       };
     }
 

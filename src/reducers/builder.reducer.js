@@ -16,7 +16,8 @@ import {
   ADD_LOCATION_SUCCESS,
   DELETE_LOCATION_SUCCESS,
   SET_PARAMS,
-  DEVICES_IN_LOCATION_SUCCESSS
+  DEVICES_IN_LOCATION_SUCCESSS,
+  EDIT_DEVICE_FAILURE
 } from '../constants/index';
 
 const initialState = {
@@ -108,6 +109,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state, device: action.device
       };
+    case EDIT_DEVICE_FAILURE:
+      return {
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText
+      };
     case UPDATE_DEVICE_SUCCESS:
       return ({ ...state, uploadStatus:'DONE' });
     case UPDATE_DEVICE_FAILURE: {
@@ -117,11 +124,19 @@ const reducer = (state = initialState, action) => {
         errorText: action.errorText
       };
     }
-    case LOAD_LOCATIONS_SUCCESS:
+    case LOAD_LOCATIONS_SUCCESS: {
+      const device = Object.assign({}, state.device);
+
+      if (device.location === '') {
+        device.location = action.locations[0].label;
+      }
+
       return {
         ...state,
-        locations: action.locations
+        locations: action.locations,
+        device
       };
+    }
 
     case ADD_LOCATION_SUCCESS: {
       const newLocations = [...state.locations];

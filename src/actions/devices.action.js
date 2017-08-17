@@ -65,9 +65,10 @@ export const loadDeviceSuccess = (device) => {
     device
   };
 };
-export const loadDeviceFail = (errorText) => {
+export const loadDeviceFail = (errorText, errorName) => {
   return {
     type: LOAD_DEVICE_FAIL,
+    errorName,
     errorText
   };
 };

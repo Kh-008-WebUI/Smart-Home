@@ -46,7 +46,7 @@ require('./routes/index.js')(router);
 app.use('/api', router);
 
 app.use('/', express.static(__dirname + '/../dist'));
-app.get('*', (req, res) =>
+app.get('*',  (req, res) =>
   res.sendFile(path.join(__dirname + '/../dist/index.html')));
 
 mongoose.Promise = global.Promise;
@@ -99,6 +99,11 @@ wss.send = (data) => {
     client.send(data);
   });
 };
+
+app.use(function(err, req, res, next) {
+  res.statusMessage = err.message || 'Internal server error';
+  res.status(err.status || 500).end();
+});
 
 server.listen(config.port, () => {
   console.log(`node server is working on port ${config.port}...`);
