@@ -8,6 +8,7 @@ import {
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
   CLEAR_UPDATE_PROFILE_STATUS,
+  CLEAR_DELETE_PROFILE_STATUS,
   DELETE_USER_PROFILE_REQUEST,
   DELETE_USER_PROFILE_SUCCESS,
   DELETE_USER_PROFILE_FAILURE,
@@ -68,7 +69,9 @@ export const users = (state = initialState, action) => {
       return { ...state, updateProfileStatus: 'PENDING' };
     }
     case DELETE_USER_PROFILE_SUCCESS: {
-      return { ...state, updateProfileStatus: 'DONE' };
+      return { ...state,
+        updateProfileStatus: 'DONE',
+        deleteProfileStatus: 'DONE' };
     }
     case DELETE_USER_PROFILE_FAILURE: {
       return {
@@ -76,6 +79,9 @@ export const users = (state = initialState, action) => {
         updateProfileStatus: 'FAIL',
         user: { errorText: action.errorText }
       };
+    }
+    case CLEAR_DELETE_PROFILE_STATUS: {
+      return { ...state, updateProfileStatus: '', deleteProfileStatus: '' };
     }
     case UPDATE_USERS_ONLINE: {
       const user = action.payload.msg.user;
