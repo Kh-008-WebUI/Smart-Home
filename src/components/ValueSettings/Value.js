@@ -18,6 +18,11 @@ export default class ValueSettings extends React.Component {
       });
     }
   }
+  setTextValue = (e) => {
+    this.props.setItemValue(this.state.value,
+      this.props.itemId,
+      this.props.deviceId);
+  }
 
   onChangeValue = (e) => {
     const newValue = e.target.value;
@@ -25,10 +30,6 @@ export default class ValueSettings extends React.Component {
     this.setState({
       value: newValue
     });
-
-    this.props.setItemValue(newValue,
-      this.props.itemId,
-      this.props.deviceId);
   }
 
   render () {
@@ -40,6 +41,7 @@ export default class ValueSettings extends React.Component {
           placeholder='Input...'
           value={this.state.value}
           onChange={this.onChangeValue}
+          onBlur={this.setTextValue}
         />
       </div>
     );
