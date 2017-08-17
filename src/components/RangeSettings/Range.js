@@ -97,7 +97,8 @@ export default class RangeSettings extends React.Component {
                 name="min"
                 placeholder="Enter min value"
                 onChange={ this.setMinValue }
-                value={this.state.params.minValue}/>
+                value={ this.state.params.minValue }
+                onBlur={ this.setParams }/>
             </div>
             <div className="range-settings__val">
               <input
@@ -105,13 +106,9 @@ export default class RangeSettings extends React.Component {
                 name="max"
                 placeholder="Enter max value"
                 onChange={ this.setMaxValue }
-                value={this.state.params.maxValue}/>
+                value={ this.state.params.maxValue }
+                onBlur={ this.setParams }/>
             </div>
-            <button
-              onClick={ this.setParams }
-              className="btn range-settings__btn">
-                Submit
-            </button>
           </div> :
           null
         }
@@ -124,7 +121,7 @@ export default class RangeSettings extends React.Component {
           min={min || this.state.params.minValue}
           max={max || this.state.params.maxValue}
           step={1}
-          value={this.state.value}
+          value={ this.state.value }
         />
       </div>
     );

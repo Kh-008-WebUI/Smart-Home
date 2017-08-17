@@ -3,10 +3,12 @@ const Schema = mongoose.Schema;
 
 const locationSchema = new Schema({
   value: {
-    type: String
+    type: String,
+    required: [true, 'Value is required.']
   },
   label: {
-    type: String
+    type: String,
+    required: [true, 'Label is required.']
   }
 });
 
