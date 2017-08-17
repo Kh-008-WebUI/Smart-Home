@@ -9,7 +9,8 @@ import { usersList,
 import { loadUsersSuccess, loadUsersFailed,
   updateProfileSuccess, updateProfileFailed,
   deleteProfileSuccess, deleteProfileFailed,
-  clearUpdateProfileStatus } from '../actions/users.action';
+  clearUpdateProfileStatus,
+  clearDeleteProfileStatus } from '../actions/users.action';
 
 function* getUsersList () {
   const { response, error } = yield call(usersList);
@@ -39,7 +40,7 @@ function* deleteUserProfile (action) {
   if (response) {
     yield put(deleteProfileSuccess(response));
     yield delay(2000);
-    yield put(clearUpdateProfileStatus());
+    yield put(clearDeleteProfileStatus());
   } else {
     yield put(deleteProfileFailed(error.message));
   }
