@@ -1,23 +1,20 @@
 const express = require('express');
 const registerRouter = express.Router();
 const User = require('../models/user');
+const HttpError = require('../errors/HttpError');
 
-registerRouter.route('/').post((req, res) => {
+registerRouter.route('/').post( (req, res, next) => {
   User.find({ email: req.body.email })
     .then( user => {
       if (user.length > 0) {
-          res.statusMessage = 'A user with this email already exists.';
-          res.status(500).end();
+        next(new HttpError(409));
       } else {
         User.create(req.body)
           .then( user => {
             req.session.user = user._id;
             req.session.name = user.name;
             user.home = true;
-            user.save().catch(err => {
-              res.statusMessage = 'Unable to update the database.';
-              res.status(400).end();
-            });
+            user.save().catch(err => (next(new HttpError(503))));
             res.status(200).send({
               status: true,
               userData: {
@@ -29,14 +26,12 @@ registerRouter.route('/').post((req, res) => {
             });
           })
           .catch( err => {
-            res.statusMessage = 'Could not create user';
-            res.status(500).end();
+            next(new HttpError(503));
           })
       }
     })
     .catch( err => {
-      res.statusMessage = 'Internal server error. Try later.';
-      res.status(500).end();
+      next(new HttpError(503));
     });
 });
 
