@@ -6,7 +6,9 @@ import {
   ADD_NOTIFICATION_SUCCESS,
   ADD_NOTIFICATIONS,
   SEND_NOTIFICATION_WS,
-  NOTIFICATIONS_CHANGE_STATUS_SUCCESS
+  NOTIFICATIONS_CHANGE_STATUS_SUCCESS,
+  NOTIFICATIONS_ALL_CHANGE_STATUS_SUCCESS,
+  NOTIFICATIONS_ALL_CHANGE_STATUS
  }
 from '../constants/index';
 
@@ -42,6 +44,20 @@ export const changeStatusNotificationSuccess = (notification) => {
   return {
     type: NOTIFICATIONS_CHANGE_STATUS_SUCCESS,
     notification
+  };
+};
+
+export const changeStatusAllNotifications = (status) => {
+  return {
+    type: NOTIFICATIONS_ALL_CHANGE_STATUS,
+    status
+  };
+};
+
+export const changeStatusAllNotificationsSuccess = (notifications) => {
+  return {
+    type: NOTIFICATIONS_ALL_CHANGE_STATUS_SUCCESS,
+    notifications
   };
 };
 

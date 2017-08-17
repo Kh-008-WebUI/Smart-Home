@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getNotifications,
          addNotifications,
+         changeAllStatus,
         changeStatus } from '../api/notificationsApi';
 import { fetchNotificationsSuccess,
          fetchNotificationsFailed,
