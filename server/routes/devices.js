@@ -119,7 +119,7 @@ devicesRouter.route('/:id').put((req, res, next) => {
         })
         .catch(err => (next(new HttpError(400))));
     })
-    .catch( err => (next(new HttpError(410))));
+    .catch(err => (next(new HttpError(410))));
 });
 
 devicesRouter.route('/items/:id/:setting').put( (req, res, next) => {
