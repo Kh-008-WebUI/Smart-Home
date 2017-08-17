@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(favicon(path.join(__dirname, 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(session({
   secret: config.secret,
   name: 'login',
@@ -44,9 +44,9 @@ module.exports = wsClient;
 require('./routes/index.js')(router);
 app.use('/api', router);
 
-app.use('/', express.static(__dirname + '/../public'));
+app.use('/', express.static(__dirname + '/public'));
 app.get('*',  (req, res) =>
-  res.sendFile(path.join(__dirname + '/../public/index.html')));
+  res.sendFile(path.join(__dirname + '/public/index.html')));
 
 mongoose.Promise = global.Promise;
 
