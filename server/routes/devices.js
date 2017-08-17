@@ -89,36 +89,36 @@ devicesRouter.route('/:id').delete((req, res) => {
   Device
     .findOneAndRemove({ _id: id })
     .then(device => {
+      let userList = [];
 
-      // let userList = [];
+      User.find()
+      .then(users => {
+        userList = [...users];
+      })
+      .then(() => {
+        let arr = [];
 
-      // User.find()
-      // .then(users => {
-      //   userList = [...users];
-      // })
-      // .then(() => {
-      //   let arr = [];
+        userList.forEach((item) => {
+          const objItem = {
+            userID: item._id,
+            status: false
+          };
 
-      //   userList.forEach((item) => {
-      //     const objItem = {
-      //       userID: item._id,
-      //       status: false
-      //     };
+          arr.push(objItem);
+        });
 
-      //     arr.push(objItem);
-      //   });
+        const notification = new Notification({
+          time:  Date.now(),
+          text: `${device.name} was deleted`,
+          emergency: true,
+          viewedByUser: arr
+        });
 
-      const notification = new Notification({
-        time:  Date.now(),
-        text: `${device.name} was deleted`,
-        emergency: true
-        // viewedByUser: arr
+        Notification.create(notification);
+
+        ws.send(JSON.stringify({ type: 'notification' }));
+        res.json(id);
       });
-
-      Notification.create(notification);
-
-      ws.send(JSON.stringify({ type: 'notification' }));
-      res.json(id);
     })
     .catch(err => {
       res.statusMessage = 'Something went wrong, could not delete the device.';
@@ -144,14 +144,37 @@ devicesRouter.route('/:id').put((req, res) => {
       device.save()
         .then(device => {
           if (Object.keys(req.body).length  === 1) {
+
+
+            let userList = [];
+
+            User.find()
+            .then(users => {
+              userList = [...users];
+            })
+            .then(() => {
+              let arr = [];
+
+              userList.forEach((item) => {
+                const objItem = {
+                  userID: item._id,
+                  status: false
+                };
+
+                arr.push(objItem);
+              });
+
+
             const notification = new Notification({
               time:  Date.now(),
-              text: `${device.name} is ${device.status ? 'on' : 'off'}`
+              text: `${device.name} is ${device.status ? 'on' : 'off'}`,
+              viewedByUser: arr
             });
 
             Notification.create(notification);
 
             ws.send(JSON.stringify({ type: 'notification' }));
+            });
           }
           res.json(device);
         })
