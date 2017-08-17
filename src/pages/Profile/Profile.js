@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../../components/Auth/Field/Field';
-import { updateProfileRequest,
+import { updateProfileRequest, deleteUserRequest,
   clearUpdateProfileStatus } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
+import { Popup } from '../../components/Popup/Popup';
+import { Button } from '../../components/Button/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Profile.scss';
@@ -18,14 +20,27 @@ class Profile extends Component {
       allowEditName: false,
       allowEditEmail: false,
       allowEditImage: false,
+      allowEditPassword: false,
+      allowRepeatPassword: false,
       updateImageStatus: 'Drop your photo',
       imageBase64: null
     };
   }
+
+  setPopupShown = (id) => {
+    const currentState = this.state.popupShown;
+
+    this.setState({
+      popupShown: !currentState
+    });
+  };
+
   updateProfile = () => {
     const data = {
       name: this.name.getValue(),
       email: this.email.getValue(),
+      password: this.password.getValue(),
+      passwordRepeat: this.passwordRepeat.getValue(),
       avatar: this.base64Str,
       _id: this.props.user._id
     };
@@ -61,6 +76,22 @@ class Profile extends Component {
     this.fieldEmail.classList.toggle('flex-display');
   };
 
+  editPassword = () => {
+    this.setState({
+      allowEditPassword: !this.state.allowEditPassword
+    });
+    this.fieldPassword.classList.toggle('hidden');
+    this.fieldPassword.classList.toggle('flex-display');
+  };
+
+  repeatPassword = () => {
+    this.setState({
+      allowRepeatPassword: !this.state.allowRepeatPassword
+    });
+    this.fieldRepeatPassword.classList.toggle('hidden');
+    this.fieldRepeatPassword.classList.toggle('flex-display');
+  };
+
   editImage = () => {
     this.setState({
       allowEditImage: !this.state.allowEditImage
@@ -68,6 +99,10 @@ class Profile extends Component {
     this.fieldImage.classList.toggle('hidden');
     this.fieldImage.classList.toggle('flex-display');
   };
+
+  deleteUser = () => {
+    this.props.deleteUserRequest(this.props.user);
+  }
 
   handleFileSelect = (e) => {
     e.preventDefault();
@@ -109,11 +144,12 @@ class Profile extends Component {
       }, 1000);
     }
   }
+
   render = () => {
     window.addEventListener('dragover', function (e) {
       const evnt = e || event;
 
-      evnt.preventDefault();
+      event.preventDefault();
     }, false);
     window.addEventListener('drop', function (e) {
       const evnt = e || event;
@@ -245,6 +281,73 @@ class Profile extends Component {
                 />
               </div>
             </div>
+            </section>
+            <section className="edit-profile__user-info-password">
+            <div className="edit-profile-password">
+              <div className="edit-profile__user-password-container">
+                <div className="user-password__box">
+                  <p className="user-password__title">Password</p>
+                  <span className="user-password__logged-password">
+                    {this.props.user.password}
+                  </span>
+                </div>
+                <div className="edit-user-info__icon">
+                  <i className="fa fa-pencil edit-user-info fa-password"
+                    onClick={this.editPassword} />
+                </div>
+              </div>
+              <div
+                className="hidden"
+                ref={(el) => {
+                  this.fieldPassword = el;
+                }
+                }>
+                <Field
+                  name="Password"
+                  type="password"
+                  text={'Enter your new password'}
+                  ref={(input) => {
+                    this.password = input;
+                  }}
+                  validations= {{
+                    minLength: 7,
+                    isAlphanumeric: true
+                  }}
+                  validationError="This is not a valid password"
+                />
+              </div>
+            </div>
+            <div className="edit-profile-repeat-password">
+              <div className="edit-profile__user-repeat-password-container">
+                <div className="user-repeat-password__box">
+                  <p className="user-repeat-password__title">Repeat Password</p>
+                  <span className="user-repeat-password__logged-password">
+                    {this.props.user.passwordRepeat}
+                  </span>
+                </div>
+                <div className="edit-user-info__icon">
+                  <i className="fa fa-pencil edit-user-info fa-password"
+                    onClick={this.repeatPassword} />
+                </div>
+              </div>
+              <div
+                className="hidden"
+                ref={(el) => {
+                  this.fieldRepeatPassword = el;
+                }
+                }>
+                <Field
+                  name="Repeat Password"
+                  type="password"
+                  text={'Please repeat your password'}
+                  ref={(input) => {
+                    this.passwordRepeat = input;
+                  }}
+                  validations="equalsField:Password"
+                  validationError="Password does not match"
+                />
+              </div>
+            </div>
           </section>
           <div className="signup-field-group signup-btn-group edit">
             <input
@@ -252,8 +355,35 @@ class Profile extends Component {
               disabled={!this.state.canSubmit}
               className="btn btn--signup btn--signup-active edit"
               value="Submit" />
+              <div className="delete-user-profile__icon">
+                  <i className="fa fa-trash"
+                    onClick={this.setPopupShown} />
+          </div>
           </div>
         </Formsy.Form>
+        <Popup
+          setPopupShown={this.setPopupShown}
+          popupShown={this.state.popupShown}
+          header="Confirm the action"
+          text={'Are you sure you want to delete your account?'}>
+          <Button
+            setPopupShown={this.setPopupShown}
+            okHandler={() => {
+              this.deleteUser();
+              this.setPopupShown();
+            }}
+            className={
+              'btn popup__btn'}
+            innerText={'Ok'}
+          />
+          <Button
+            okHandler={() => {
+              this.setPopupShown();
+            }}
+            className={'btn btn--default popup__btn'}
+            innerText={'Cancel'}
+          />
+        </Popup>
       </div>
     );
   }
@@ -269,6 +399,7 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch),
+    deleteUserRequest: bindActionCreators(deleteUserRequest, dispatch),
     clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch)
   };
 }
@@ -278,8 +409,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 Profile.propTypes = {
   updateProfileStatus: PropTypes.string,
   updateProfileRequest: PropTypes.func,
+  deleteUserRequest: PropTypes.func,
   user: PropTypes.object,
   email: PropTypes.object,
+  password: PropTypes.object,
+  passwordRepeat: PropTypes.object,
   errorText: PropTypes.string,
   value: PropTypes.object,
   history: PropTypes.object,
