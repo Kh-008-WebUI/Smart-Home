@@ -14,7 +14,8 @@ import {
   addLocationSuccess,
   deleteLocationSuccess,
   setValue,
-  devicesInLocationSuccess
+  devicesInLocationSuccess,
+  editDeviceFailure
 } from '../actions/builder.action';
 import { loadDevices } from '../actions/devices.action';
 import { delay } from 'redux-saga';
@@ -38,7 +39,7 @@ export function* editDevice (action) {
   if (response) {
     yield put(editDeviceSuccess(response));
   } else {
-    yield put(addDeviceFailure(error.message));
+    yield put(editDeviceFailure(error.message));
   }
 }
 
@@ -47,7 +48,6 @@ export function* loadLocations (action) {
 
   if (response) {
     yield put(loadLocationsSuccess(response));
-    yield put(setValue('location', response[0].label));
   } else {
     yield put(addDeviceFailure(error.message));
   }
@@ -80,6 +80,7 @@ export function* devicesInLocation (action) {
 
   if (response) {
     yield put(devicesInLocationSuccess(response));
+    yield action.callback();
   } else {
     yield put(addDeviceFailure(error.message));
   }

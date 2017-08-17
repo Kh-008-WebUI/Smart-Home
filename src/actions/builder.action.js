@@ -19,7 +19,8 @@ import {
   DELETE_LOCATION_SUCCESS,
   SET_PARAMS,
   DEVICES_IN_LOCATION,
-  DEVICES_IN_LOCATION_SUCCESSS
+  DEVICES_IN_LOCATION_SUCCESSS,
+  EDIT_DEVICE_FAILURE
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -84,6 +85,13 @@ export const editDeviceSuccess = (device) => {
   };
 };
 
+export const editDeviceFalure = (errorText) => {
+  return {
+    type: EDIT_DEVICE_FAILURE,
+    errorText
+  };
+};
+
 export const loadLocations = () => {
   return {
     type: LOAD_LOCATIONS
@@ -133,10 +141,11 @@ export const deleteLocationSuccess = (id) => {
   };
 };
 
-export const devicesInLocation = (id) => {
+export const devicesInLocation = (id, callback) => {
   return {
     type: DEVICES_IN_LOCATION,
-    id
+    id,
+    callback
   };
 };
 

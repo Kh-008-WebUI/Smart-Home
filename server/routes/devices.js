@@ -4,22 +4,19 @@ const Device = require('../models/device');
 const ws = require('../index');
 const moment = require('moment');
 const Notification = require('../models/notification.js');
+const User = require('../models/user.js');
+const HttpError = require('../errors/HttpError');
 
-devicesRouter.route('/').get((req, res) => {
+devicesRouter.route('/').get((req, res, next) => {
   Device.find()
     .sort({ views: -1 })
     .then( devices => {
       res.json(devices);
     })
-    .catch( err => {
-      res.status(500).send({
-        status: 'error',
-        text: 'Something went wrong, try again later.'
-      });
-    })
+    .catch(err => (next(new HttpError(400))));
 });
 
-devicesRouter.route('/').post((req, res) => {
+devicesRouter.route('/').post((req, res, next) => {
   const device = req.body;
 
   device.status = true;
@@ -27,44 +24,55 @@ devicesRouter.route('/').post((req, res) => {
   device.createdBy = req.session.name;
 
   Device.create(device)
-    .then( device => {
-      const notification = new Notification({
-        time:  Date.now(),
-        text: `${device.name} was created`,
-      });
+    .then(device => {
+      let userList = [];
 
-      Notification.create(notification);
+      User.find()
+      .then(users => {
+        userList = [...users];
+      })
+      .then(() => {
+        let arr = [];
 
-      ws.send(JSON.stringify({ type: 'notification' }));
-      res.json(device);
-    })
-    .catch( err => {
-      res.status(500).send({
-        status: 'error',
-        text: 'Could not add the device.'
+        userList.forEach((item) => {
+          const objItem = {
+            id: item._id,
+            status: false
+          };
+
+          arr.push(objItem);
+        });
+
+        const notification = new Notification({
+          time:  Date.now(),
+          text: `${device.name} was created`,
+          viewedByUser: arr
+        });
+
+        Notification.create(notification);
+        ws.send(JSON.stringify({ type: 'notification' }));
+        res.json(device);
       });
     })
+    .catch( err => next(new HttpError(503)));
 });
 
-devicesRouter.route('/device/:id').get((req, res) => {
+devicesRouter.route('/device/:id').get((req, res, next) => {
   const id = req.params.id;
 
   Device.findOneAndUpdate({ _id: id }, { $inc: { views: 1 } }, { new: true })
     .then( device => {
       if (!device) {
-        res.statusMessage = 'Not found';
-        res.status(404).end();
-        return;
+        next(new HttpError(404));
       }
       res.json(device);
     })
     .catch( err => {
-      res.statusMessage = 'Something went wrong, try again later.';
-      res.status(500).end();
+      next(new HttpError(404));
     })
 });
 
-devicesRouter.route('/:id').delete((req, res) => {
+devicesRouter.route('/:id').delete((req, res, next) => {
   const id = req.params.id;
 
   Device.findOneAndRemove({ _id: id })
@@ -80,17 +88,17 @@ devicesRouter.route('/:id').delete((req, res) => {
       ws.send(JSON.stringify({ type: 'notification' }));
       res.json(id);
     })
-    .catch(err => {
-      res.statusMessage = 'Something went wrong, could not delete the device.';
-      res.status(500).end();
-    })
+    .catch(err => (next(new HttpError(501))));
 });
 
-devicesRouter.route('/:id').put((req, res) => {
+devicesRouter.route('/:id').put((req, res, next) => {
   const id = req.params.id;
 
   Device.findOne({ _id: id })
     .then( device => {
+      if(!device){
+        return next(new HttpError(410));
+      }
       Object.assign(device, req.body);
       if (Object.keys(req.body).length > 1) {
         device.updetedDate = moment().format('LL');
@@ -109,18 +117,12 @@ devicesRouter.route('/:id').put((req, res) => {
           }
           res.json(device);
         })
-        .catch(err => {
-          res.statusMessage = 'Unable to update the database.';
-          res.status(400).end();
-        });
+        .catch(err => (next(new HttpError(400))));
     })
-    .catch( err => {
-      res.statusMessage = 'Something went wrong, try again later.';
-      res.status(500).end();
-    });
+    .catch(err => (next(new HttpError(410))));
 });
 
-devicesRouter.route('/items/:id/:setting').put((req, res) => {
+devicesRouter.route('/items/:id/:setting').put( (req, res, next) => {
   const id = req.params.id;
   const setting = req.params.setting;
 
@@ -138,15 +140,9 @@ devicesRouter.route('/items/:id/:setting').put((req, res) => {
         .then(device => {
           res.json(device);
         })
-        .catch(err => {
-          res.statusMessage = 'Unable to update the database.';
-          res.status(400).end();
-        });
+        .catch(err => (next(new HttpError(503))));
     })
-    .catch( err => {
-      res.statusMessage = 'Something went wrong, try again later.';
-      res.status(500).end();
-    });
+    .catch( err => (next(new HttpError(503))));
 });
 
 module.exports = devicesRouter;
