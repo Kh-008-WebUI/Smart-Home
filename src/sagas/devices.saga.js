@@ -45,7 +45,7 @@ export function* loadDeviceSaga (action) {
     yield put(loadDeviceSuccess(response));
     yield put(clearStatus());
   } else {
-    yield put(loadDeviceFail(error.message));
+    yield put(loadDeviceFail(error.message, error.name));
   }
 }
 

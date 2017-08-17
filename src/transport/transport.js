@@ -1,6 +1,15 @@
+function customError (response) {
+  this.name = response.status;
+  this.message = response.statusText;
+  this.stack = (new Error()).stack;
+}
+
+customError.prototype = Object.create(Error.prototype);
+customError.prototype.constructor = customError;
+
 function handleErrors (response) {
   if (!response.ok) {
-    throw Error(response.statusText);
+    throw new customError(response);
   }
   return response.json();
 }

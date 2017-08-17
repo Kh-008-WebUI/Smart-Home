@@ -16,7 +16,8 @@ import {
   ADD_LOCATION_SUCCESS,
   DELETE_LOCATION_SUCCESS,
   SET_PARAMS,
-  DEVICES_IN_LOCATION_SUCCESSS
+  DEVICES_IN_LOCATION_SUCCESSS,
+  EDIT_DEVICE_FAILURE
 } from '../constants/index';
 
 const initialState = {
@@ -107,6 +108,12 @@ const reducer = (state = initialState, action) => {
     case EDIT_DEVICE_SUCCESS:
       return {
         ...state, device: action.device
+      };
+    case EDIT_DEVICE_FAILURE:
+      return {
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText
       };
     case UPDATE_DEVICE_SUCCESS:
       return ({ ...state, uploadStatus:'DONE' });

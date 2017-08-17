@@ -24,7 +24,7 @@ class DevicePage extends React.Component {
 
   componentDidUpdate () {
     if (this.props.status === 'FAIL' &&
-      this.props.errorText === 'Not found.') {
+      this.props.errorCode === 404) {
       this.props.history.push('/404');
     }
   }
@@ -64,7 +64,8 @@ const mapStateToProps = state => ({
   device: state.devicesList.device,
   loadFailed: state.devicesList.loadFailed,
   status: state.devicesList.uploadStatus,
-  errorText: state.devicesList.errorText
+  errorText: state.devicesList.errorText,
+  errorCode: state.devicesList.errorStatus
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -96,7 +97,8 @@ DevicePage.propTypes = {
   status: PropTypes.string,
   clearStatus: PropTypes.func,
   errorText: PropTypes.string,
-  resetDevice: PropTypes.func
+  resetDevice: PropTypes.func,
+  errorCode: PropTypes.number
 };
 
 DevicePage.defaultProps = {

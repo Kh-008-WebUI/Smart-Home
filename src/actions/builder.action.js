@@ -19,7 +19,8 @@ import {
   DELETE_LOCATION_SUCCESS,
   SET_PARAMS,
   DEVICES_IN_LOCATION,
-  DEVICES_IN_LOCATION_SUCCESSS
+  DEVICES_IN_LOCATION_SUCCESSS,
+  EDIT_DEVICE_FAILURE
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -81,6 +82,13 @@ export const editDeviceSuccess = (device) => {
   return {
     type: EDIT_DEVICE_SUCCESS,
     device
+  };
+};
+
+export const editDeviceFalure = (errorText) => {
+  return {
+    type: EDIT_DEVICE_FAILURE,
+    errorText
   };
 };
 
