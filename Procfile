@@ -1,2 +1,2 @@
-web: pm2 kill && cross-env NODE_ENV=production pm2 start ./server/index.js --no-daemon
+web: pm2 start ./server/index.js && pm2 logs all
 api: pm2 kill && pm2 start ./server/index.js --no-daemon --watch
