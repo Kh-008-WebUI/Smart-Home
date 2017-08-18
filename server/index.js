@@ -64,6 +64,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws, req) => {
+  console.log('Ws connection start');
   require('./utils/chartData.js')(ws);
   ws.onmessage = (event) => {
     if (event.type === 'message') {
