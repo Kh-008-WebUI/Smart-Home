@@ -52,6 +52,17 @@ export function* changeNotificationStatus (action) {
     yield put(fetchNotificationsFailed(error.message));
   }
 }
+export function* changeAllNotificationStatus (action) {
+  const { response, error } =
+    yield call(changeAllStatus, action.status);
+
+  if (response) {
+    yield put(changeStatusAllNotificationsSuccess(response));
+    yield call(getNotifications);
+  } else {
+    yield put(fetchNotificationsFailed(error.message));
+  }
+}
 
 export function* watchLoadNotifications () {
   yield takeEvery(NOTIFICATIONS_FETCH_REQUESTED, fetchNotifications);
@@ -68,4 +79,9 @@ export function* watchSendNotificationWS () {
 
 export function* watchNotificationChangeStatus () {
   yield takeEvery(NOTIFICATIONS_CHANGE_STATUS, changeNotificationStatus);
+}
+
+export function* watchNotificationAllStatusChange () {
+  console.log('saga');
+  yield takeEvery(NOTIFICATIONS_ALL_CHANGE_STATUS, changeAllNotificationStatus);
 }

@@ -54,10 +54,9 @@ export const changeStatusAllNotifications = (status) => {
   };
 };
 
-export const changeStatusAllNotificationsSuccess = (notifications) => {
+export const changeStatusAllNotificationsSuccess = () => {
   return {
-    type: NOTIFICATIONS_ALL_CHANGE_STATUS_SUCCESS,
-    notifications
+    type: NOTIFICATIONS_ALL_CHANGE_STATUS_SUCCESS
   };
 };
 
