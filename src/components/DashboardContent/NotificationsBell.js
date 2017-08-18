@@ -46,6 +46,9 @@ class NotificationsBell extends React.Component {
       return { showAllNotify: !prevState.showAllNotify };
     });
   }
+  readAllNotify = () => {
+    this.props.changeStatusNotification();
+  }
   changeButtonText = () => {
     if (this.state.showAllNotify) {
       this.buttonText = 'hide viewed';
@@ -129,9 +132,14 @@ class NotificationsBell extends React.Component {
             </div>
             <div className="notification-button">
               <button
-                className="btn btn--primary"
+                className="btn btn--primary notification-button-show-all"
                 onClick={this.showAllNotify}>
                 {this.buttonText}
+              </button>
+              <button
+                className="btn btn--primary"
+                onClick={this.readAllNotify}>
+                read all
               </button>
             </div>
           </div>

@@ -7,6 +7,7 @@ import {
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
   CLEAR_UPDATE_PROFILE_STATUS,
+  CLEAR_DELETE_PROFILE_STATUS,
   DELETE_USER_PROFILE_REQUEST,
   DELETE_USER_PROFILE_SUCCESS,
   DELETE_USER_PROFILE_FAILURE,
@@ -93,6 +94,12 @@ export const deleteProfileFailed = (errorText) => {
   return {
     type: DELETE_USER_PROFILE_FAILURE,
     errorText
+  };
+};
+
+export const clearDeleteProfileStatus = () => {
+  return {
+    type: CLEAR_DELETE_PROFILE_STATUS
   };
 };
 

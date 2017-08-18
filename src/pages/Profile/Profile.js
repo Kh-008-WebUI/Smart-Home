@@ -143,18 +143,23 @@ class Profile extends Component {
         this.props.history.push('/');
       }, 1000);
     }
+    if (this.props.deleteProfileStatus === 'DONE') {
+      setTimeout(() => {
+        this.props.history.push('/auth');
+      }, 1000);
+    }
   }
 
   render = () => {
     window.addEventListener('dragover', function (e) {
-      const evnt = e || event;
+      const dragoverForBody = e || event;
 
-      event.preventDefault();
+      dragoverForBody.preventDefault();
     }, false);
     window.addEventListener('drop', function (e) {
-      const evnt = e || event;
+      const dropForBody = e || event;
 
-      evnt.preventDefault();
+      dropForBody.preventDefault();
     }, false);
 
     return (
@@ -392,6 +397,7 @@ class Profile extends Component {
 function mapStateToProps (store) {
   return {
     updateProfileStatus: store.users.updateProfileStatus,
+    deleteProfileStatus:  store.users.deleteProfileStatus,
     errorText: store.users.user.errorText,
     user: store.users.user
   };
@@ -410,6 +416,7 @@ Profile.propTypes = {
   updateProfileStatus: PropTypes.string,
   updateProfileRequest: PropTypes.func,
   deleteUserRequest: PropTypes.func,
+  deleteProfileStatus: PropTypes.string,
   user: PropTypes.object,
   email: PropTypes.object,
   password: PropTypes.object,

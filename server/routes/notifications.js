@@ -6,18 +6,32 @@ const moment = require('moment');
 const HttpError = require('../errors/HttpError');
 
 notificationRouter.route('/')
-  .get( (req, res, next) => {
-    Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+ .get((req, res, next) => {
+   Notification
+    .find({ 'time': { '$gte': req.session.userCreatedDate ?
+      req.session.userCreatedDate : new Date(2017, 1, 1) },
+      'viewedByUser.userID': req.session.user
+    },
+     {
+       'emergency': '$all',
+       'text': '$all',
+       'viewedByUser': { $elemMatch: { userID: req.session.user } },
+       'time': '$all',
+       'viewed': '$all'
+     }
+    )
     .sort({ time: -1 })
     .then(notifications => {
+      notifications.forEach((item) => {
+        item.viewed = item.viewedByUser[0].status;
+      });
       res.json(notifications);
     })
     .catch(err => {
       next(new HttpError(400));
     });
-  })
-  .post( (req, res, next) => {
+ })
+  .post((req, res, next) => {
     const notification = new Notification(req.body);
 
     notification.time = Date.now();
@@ -33,7 +47,7 @@ notificationRouter.route('/')
   });
 
 notificationRouter.route('/:id')
-  .get( (req, res, next) => {
+  .get((req, res, next) => {
     Notification
       .findById(req.params.id)
       .then(notification => {
@@ -43,11 +57,16 @@ notificationRouter.route('/:id')
         next(new HttpError(404));
       });
   })
-  .put( (req, res, next) => {
+  .put((req, res, next) => {
     Notification
       .findOne({ _id: req.params.id })
       .then(notification => {
-        Object.assign(notification, req.body);
+        notification.viewedByUser.forEach((item) => {
+          if (item.userID == req.session.user) {
+            item.status = req.body.viewed;
+            notification.viewed = item.status;
+          }
+        });
         notification.save()
           .then(() => {
             res.json(notification);
@@ -60,7 +79,7 @@ notificationRouter.route('/:id')
         next(new HttpError(500));
       });
   })
-  .delete( (req, res, next) => {
+  .delete((req, res, next) => {
     Notification
       .findByIdAndRemove(req.params.id)
       .then(notification => {
