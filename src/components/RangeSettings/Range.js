@@ -33,7 +33,7 @@ export default class RangeSettings extends React.Component {
           }
         });
       } else {
-        e.target.setCustomValidity(`Value shoul be less then ${maxValue}`);
+        e.target.setCustomValidity(`Value shoud be less then ${maxValue}`);
         e.target.reportValidity();
       }
     };
@@ -49,7 +49,7 @@ export default class RangeSettings extends React.Component {
           }
         });
       } else {
-        e.target.setCustomValidity(`Value shoul be less then ${minValue}`);
+        e.target.setCustomValidity(`Value shoud be more then ${minValue}`);
         e.target.reportValidity();
       }
     };
