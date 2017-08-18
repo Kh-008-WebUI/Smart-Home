@@ -44,6 +44,20 @@ notificationRouter.route('/')
       .catch(err => {
         next(new HttpError(503));
       });
+  })
+  .put((req, res, next) => {
+    Notification.update(
+      { 'viewedByUser.userID': '5981c3fca39e9b12ea86a176' },
+      { $set:  { 'viewedByUser.$.status': req.body.status } },
+      { 'multi': true })
+    .then(result => {
+      console.log(req.body.status);
+      res.status(200)
+      .json(result);
+    })
+    .catch(err => {
+      next(new HttpError(503));
+    });
   });
 
 notificationRouter.route('/:id')

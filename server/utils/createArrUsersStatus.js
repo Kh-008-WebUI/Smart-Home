@@ -1,5 +1,3 @@
-const User = require('../models/user.js');
-
 module.exports = (users) => {
   let userList = [...users];
   let arrUsersStatus = [];
