@@ -23,7 +23,7 @@ export default class RangeSettings extends React.Component {
     };
 
     this.setMinValue = (e) => {
-      const min = parseInt(e.target.value) || '';
+      const min = parseInt(e.target.value) || 0;
 
       if (min <= this.state.params.maxValue) {
         this.setState({
@@ -33,15 +33,21 @@ export default class RangeSettings extends React.Component {
           }
         });
       } else {
-        e.target.setCustomValidity(`Value shoul be less then ${maxValue}`);
-        e.target.reportValidity();
+        this.setState({
+          params: {
+            minValue: min,
+            maxValue: min
+          }
+        });
+        this.maxElement.value = min;
       }
     };
 
     this.setMaxValue = (e) => {
-      const max = parseInt(e.target.value) || '';
+      const max = parseInt(e.target.value) || 0;
 
-      if (max > this.state.params.minValue) {
+      if (max >= this.state.params.minValue) {
+        console.log('max is bigger');
         this.setState({
           params: {
             maxValue: max,
@@ -49,8 +55,13 @@ export default class RangeSettings extends React.Component {
           }
         });
       } else {
-        e.target.setCustomValidity(`Value shoul be less then ${minValue}`);
-        e.target.reportValidity();
+        this.setState({
+          params: {
+            maxValue: max,
+            minValue: max
+          }
+        });
+        this.minElement.value = max;
       }
     };
   }
@@ -117,16 +128,18 @@ export default class RangeSettings extends React.Component {
                   name="min"
                   placeholder="Enter min value"
                   onChange={ this.setMinValue }
-                  value={ this.state.params.minValue }
+                   ref={(input) => {this.minElement = input;}}
+                  defaultValue={ this.state.params.minValue }
                   onBlur={ this.setParams }/>
               </div>
               <div className="range-settings__val">
                 <input
                   type="number"
                   name="max"
+                  ref={(input) => {this.maxElement = input;}}
                   placeholder="Enter max value"
                   onChange={ this.setMaxValue }
-                  value={ this.state.params.maxValue }
+                  defaultValue={ this.state.params.maxValue }
                   onBlur={ this.setParams }/>
               </div>
             </div>
