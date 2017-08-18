@@ -36,7 +36,3 @@ module.exports = mongoose.model('Device', deviceSchema);
 function booleanValidator(value) {
   return (value === true || value === 'true' || value === false || value === 'false');
 };
-
-function dateValidator(value) {
-  return (value <= Date.now());
-}
