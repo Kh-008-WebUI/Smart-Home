@@ -37,7 +37,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-const wsClient = new WebSocket(`ws://${config.origin}/`);
+const wsClient = new WebSocket(`wss://${config.origin}/`);
 
 module.exports = wsClient;
 

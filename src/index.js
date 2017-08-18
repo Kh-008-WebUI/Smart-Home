@@ -40,7 +40,7 @@ const NotFound = (props) => (
   loadAsync(() => import('./components/NotFound/NotFound'), props)
 );
 
-export const ws = new WebSocket(`ws://${config.origin}/`);
+export const ws = new WebSocket(`wss://${config.origin}/`);
 
 const composeEnhancers = config.production ?
   compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
