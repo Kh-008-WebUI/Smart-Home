@@ -48,7 +48,6 @@ class NotificationsBell extends React.Component {
   }
   readAllNotify = () => {
     this.props.changeStatusNotification();
-    console.log('111');
   }
   changeButtonText = () => {
     if (this.state.showAllNotify) {

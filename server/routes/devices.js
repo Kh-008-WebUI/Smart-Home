@@ -6,7 +6,7 @@ const moment = require('moment');
 const Notification = require('../models/notification.js');
 const User = require('../models/user.js');
 const HttpError = require('../errors/HttpError');
-const findAllUsers = require('../utils/findAllUsers.js');
+const createArrUsersStatus = require('../utils/createArrUsersStatus.js');
 
 devicesRouter.route('/').get((req, res, next) => {
   Device.find()
@@ -27,27 +27,12 @@ devicesRouter.route('/').post((req, res, next) => {
   Device
     .create(device)
     .then(device => {
-      let userList = [];
-
-      User.find()
-      .then(users => {
-        userList = [...users];
-      })
-      .then(() => {
-        let arr = [];
-
-        userList.forEach((item) => {
-          const objItem = {
-            userID: item._id,
-            status: false
-          };
-
-          arr.push(objItem);
-        });
+      User.find((err, users) => {
+        const arrUsersStatus = createArrUsersStatus(users);
         const notification = new Notification({
           time:  Date.now(),
           text: `${device.name} was created`,
-          viewedByUser: arr
+          viewedByUser: arrUsersStatus
         });
 
         Notification.create(notification);
@@ -55,7 +40,7 @@ devicesRouter.route('/').post((req, res, next) => {
         res.json(device);
       });
     })
-    .catch( err => next(new HttpError(503)));
+    .catch(err => next(new HttpError(503)));
 });
 
 devicesRouter.route('/device/:id').get((req, res, next) => {
@@ -69,9 +54,9 @@ devicesRouter.route('/device/:id').get((req, res, next) => {
       }
       res.json(device);
     })
-    .catch( err => {
+    .catch(err => {
       next(new HttpError(404));
-    })
+    });
 });
 
 devicesRouter.route('/:id').delete((req, res, next) => {
@@ -80,33 +65,16 @@ devicesRouter.route('/:id').delete((req, res, next) => {
   Device
     .findOneAndRemove({ _id: id })
     .then(device => {
-      let userList = [];
-
-      User.find()
-      .then(users => {
-        userList = [...users];
-      })
-      .then(() => {
-        let arr = [];
-
-        userList.forEach((item) => {
-          const objItem = {
-            userID: item._id,
-            status: false
-          };
-
-          arr.push(objItem);
-        });
-
+      User.find((err, users) => {
+        const arrUsersStatus = createArrUsersStatus(users);
         const notification = new Notification({
           time:  Date.now(),
           text: `${device.name} was deleted`,
           emergency: true,
-          viewedByUser: arr
+          viewedByUser: arrUsersStatus
         });
 
         Notification.create(notification);
-
         ws.send(JSON.stringify({ type: 'notification' }));
         res.json(id);
       });
@@ -120,7 +88,7 @@ devicesRouter.route('/:id').put((req, res, next) => {
   Device
     .findOne({ _id: id })
     .then(device => {
-      if(!device){
+      if (!device) {
         return next(new HttpError(410));
       }
       Object.assign(device, req.body);
@@ -130,36 +98,16 @@ devicesRouter.route('/:id').put((req, res, next) => {
       device.save()
         .then(device => {
           if (Object.keys(req.body).length  === 1) {
-
-
-            let userList = [];
-
-            User.find()
-            .then(users => {
-              userList = [...users];
-            })
-            .then(() => {
-              let arr = [];
-
-              userList.forEach((item) => {
-                const objItem = {
-                  userID: item._id,
-                  status: false
-                };
-
-                arr.push(objItem);
+            User.find((err, users) => {
+              const arrUsersStatus = createArrUsersStatus(users);
+              const notification = new Notification({
+                time:  Date.now(),
+                text: `${device.name} is ${device.status ? 'on' : 'off'}`,
+                viewedByUser: arrUsersStatus
               });
 
-
-            const notification = new Notification({
-              time:  Date.now(),
-              text: `${device.name} is ${device.status ? 'on' : 'off'}`,
-              viewedByUser: arr
-            });
-
-            Notification.create(notification);
-
-            ws.send(JSON.stringify({ type: 'notification' }));
+              Notification.create(notification);
+              ws.send(JSON.stringify({ type: 'notification' }));
             });
           }
           res.json(device);
@@ -169,7 +117,7 @@ devicesRouter.route('/:id').put((req, res, next) => {
     .catch(err => (next(new HttpError(410))));
 });
 
-devicesRouter.route('/items/:id/:setting').put( (req, res, next) => {
+devicesRouter.route('/items/:id/:setting').put((req, res, next) => {
   const id = req.params.id;
   const setting = req.params.setting;
 
