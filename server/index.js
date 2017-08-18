@@ -37,7 +37,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-const wsClient = new WebSocket(`ws://${config.origin}/`);
+const wsClient = new WebSocket(`ws://${config.origin}:${config.port}/`);
 
 module.exports = wsClient;
 
@@ -63,8 +63,14 @@ database.once('open', () => {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+function heartbeat() {
+  this.isAlive = true;
+}
+
 wss.on('connection', (ws, req) => {
   console.log('Ws connection start');
+  ws.isAlive = true;
+  ws.on('pong', heartbeat);
   require('./utils/chartData.js')(ws);
   ws.onmessage = (event) => {
     if (event.type === 'message') {
@@ -93,6 +99,15 @@ wss.on('connection', (ws, req) => {
       });
   };
 });
+
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) return ws.terminate();
+
+    ws.isAlive = false;
+    ws.ping('', false, true);
+  });
+}, 30000);
 
 wss.send = (data) => {
   wss.clients.forEach(client => {
