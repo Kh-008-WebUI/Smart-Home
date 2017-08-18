@@ -24,7 +24,7 @@ const notificationSchema = new Schema({
     validate: [booleanValidator, 'Field must be boolean']
   },
   viewedByUser: [{
-    id: { type: Schema.Types.ObjectId, ref: 'User' },
+    userID: { type: Schema.Types.ObjectId },
     status: {
       type: Boolean,
       default: false,
