@@ -44,16 +44,23 @@ notificationRouter.route('/')
       .catch(err => {
         next(new HttpError(503));
       });
-  })
+  });
+
+notificationRouter.route('/viewed')
   .put((req, res, next) => {
-    Notification.update(
-      { 'viewedByUser.userID': '5981c3fca39e9b12ea86a176' },
-      { $set:  { 'viewedByUser.$.status': req.body.status } },
-      { 'multi': true })
+    Notification.find(
+      { 'viewedByUser.userID': req.session.user })
     .then(result => {
-      console.log(req.body.status);
-      res.status(200)
-      .json(result);
+      result.forEach((item) => {
+        item.viewedByUser.forEach((user) => {
+          if((user.userID + '') === req.session.user){
+            user.status = true;
+          }
+        });
+        item.save();
+      })
+
+      res.json(result);
     })
     .catch(err => {
       next(new HttpError(503));

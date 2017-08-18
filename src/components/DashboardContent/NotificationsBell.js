@@ -48,9 +48,7 @@ class NotificationsBell extends React.Component {
     });
   }
   readAllNotify = () => {
-    const statusForAll = true;
-
-    this.props.changeStatusAllNotifications(statusForAll);
+    this.props.changeStatusAllNotifications();
   }
   changeButtonText = () => {
     if (this.state.showAllNotify) {
@@ -163,7 +161,7 @@ function mapDispatchToProps (dispatch) {
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed)),
     changeStatusAllNotifications: (statusForAll) =>
-      dispatch(changeStatusAllNotifications(statusForAll))
+      dispatch(changeStatusAllNotifications())
   };
 }
 

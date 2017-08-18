@@ -34,13 +34,6 @@ const notifications = (state = {
 
       return { ...state, notifications:newNotifications };
     }
-    // case ADD_NOTIFICATION_SUCCESS: {
-    //   const newNotifications = [...state.notifications];
-
-    //   newNotifications.unshift(action.notification.notification);
-
-    //   return { ...state, notifications:newNotifications };
-    // }
     default:
       return state;
   }
