@@ -11,14 +11,14 @@ import {
   loadLocations,
   addLocation,
   deleteLocation,
-  devicesInLocation
+  devicesInLocation,
+  deviceUpdateUploadStatus
 } from '../../actions/builder.action';
 import { connect } from 'react-redux';
 import Formsy, { HOC } from 'formsy-react';
 import Field from '../Auth/Field/Field';
 import SelectLocation from '../SelectLocation/SelectLocation';
 import { setItemDefaultData } from '../../utils/utils';
-import { sendNotificationWS } from '../../actions/notifications.action';
 import { updateDevice } from '../../actions/devices.action';
 
 const itemsToChoose = [
@@ -75,6 +75,7 @@ class DeviceForm extends React.Component {
   handleSubmit = () => {
     if (typeof this.props.settings._id !== 'undefined') {
       this.props.updateDevice(this.props.settings, this.props.settings._id);
+      this.props.deviceUpdateUploadStatus();
     } else {
       this.props.addDevice(this.props.settings);
     }
@@ -163,7 +164,9 @@ function mapDispatchToProps (dispatch) {
     addLocation: (location) => dispatch(addLocation(location)),
     deleteLocation: (id) => dispatch(deleteLocation(id)),
     deviceExistInLocation: (id, callback) =>
-      dispatch(devicesInLocation(id, callback))
+      dispatch(devicesInLocation(id, callback)),
+    deviceUpdateUploadStatus: () =>
+      dispatch(deviceUpdateUploadStatus())
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm);
@@ -181,5 +184,6 @@ DeviceForm.propTypes = {
   addLocation: PropTypes.func,
   deleteLocation: PropTypes.func,
   deviceInLocation: PropTypes.bool,
-  deviceExistInLocation: PropTypes.func
+  deviceExistInLocation: PropTypes.func,
+  deviceUpdateUploadStatus: PropTypes.func
 };

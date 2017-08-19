@@ -13,7 +13,7 @@ import {
   clearAddStatus } from '../../actions/builder.action';
 
 class Builder extends Component {
-  componentWillMount () {
+  componentDidMount () {
     if (typeof this.props.match.params.id !== 'undefined') {
       this.props.editDevice(this.props.match.params.id);
     } else {

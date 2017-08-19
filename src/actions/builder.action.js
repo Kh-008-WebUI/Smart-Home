@@ -20,7 +20,8 @@ import {
   SET_PARAMS,
   DEVICES_IN_LOCATION,
   DEVICES_IN_LOCATION_SUCCESSS,
-  EDIT_DEVICE_FAILURE
+  EDIT_DEVICE_FAILURE,
+  DEVICE_UPDATE_UPLOAD_STATUS_SUCCESS
 } from '../constants/index';
 
 export const addItem = (item) => ({
@@ -75,6 +76,12 @@ export const editDevice = (id) => {
   return {
     type: EDIT_DEVICE,
     id
+  };
+};
+
+export const deviceUpdateUploadStatus = () => {
+  return {
+    type: DEVICE_UPDATE_UPLOAD_STATUS_SUCCESS
   };
 };
 
