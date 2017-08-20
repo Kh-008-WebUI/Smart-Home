@@ -141,7 +141,7 @@ class Profile extends Component {
             onSubmit={this.updateProfile}
             onValid={this.enableButton}
             onInvalid={this.disableButton}>
-            <div className={this.props.user.avatar ?
+            <div className={this.state.imageBase64 || this.props.user.avatar ?
               'profile__photo' : 'profile__photo profile__photo--noavatar'} >
                {this.state.imageBase64 || this.props.user.avatar ? <img
                     src={ this.state.imageBase64 || this.props.user.avatar }
