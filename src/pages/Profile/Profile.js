@@ -221,7 +221,6 @@ class Profile extends Component {
                       className="btn add-photo-btn">
                         Change photo
                       <input
-                        onLoad={this.handleFileSelect}
                         type="file"
                         id="add-photo"
                         className="hide"/>
