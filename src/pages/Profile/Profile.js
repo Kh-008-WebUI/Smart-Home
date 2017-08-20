@@ -217,7 +217,7 @@ class Profile extends Component {
                     <label
                       htmlFor="add-photo"
                       className="btn add-photo-btn">
-                        Change photo
+                        Choose file to upload
                       <input
                         type="file"
                         id="add-photo"
