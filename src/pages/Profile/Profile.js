@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
-import Field from '../../components/Auth/Field/Field';
+import Input from '../../components/Input/Input';
 import { updateProfileRequest, deleteUserRequest,
   clearUpdateProfileStatus } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
@@ -16,13 +16,8 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      disabled: true,
       canSubmit: false,
-      allowEditName: false,
-      allowEditEmail: false,
-      allowEditImage: false,
-      allowEditPassword: false,
-      allowRepeatPassword: false,
-      updateImageStatus: 'Drop your photo',
       imageBase64: null
     };
   }
@@ -60,44 +55,10 @@ class Profile extends Component {
     });
   };
 
-  editName = () => {
+  editData = () => {
     this.setState({
-      allowEditName: !this.state.allowEditName
+      disabled: !this.state.disabled
     });
-    this.fieldName.classList.toggle('hidden');
-    this.fieldName.classList.toggle('flex-display');
-  };
-
-  editEmail = () => {
-    this.setState({
-      allowEditEmail: !this.state.allowEditEmail
-    });
-    this.fieldEmail.classList.toggle('hidden');
-    this.fieldEmail.classList.toggle('flex-display');
-  };
-
-  editPassword = () => {
-    this.setState({
-      allowEditPassword: !this.state.allowEditPassword
-    });
-    this.fieldPassword.classList.toggle('hidden');
-    this.fieldPassword.classList.toggle('flex-display');
-  };
-
-  repeatPassword = () => {
-    this.setState({
-      allowRepeatPassword: !this.state.allowRepeatPassword
-    });
-    this.fieldRepeatPassword.classList.toggle('hidden');
-    this.fieldRepeatPassword.classList.toggle('flex-display');
-  };
-
-  editImage = () => {
-    this.setState({
-      allowEditImage: !this.state.allowEditImage
-    });
-    this.fieldImage.classList.toggle('hidden');
-    this.fieldImage.classList.toggle('flex-display');
   };
 
   deleteUser = () => {
@@ -156,6 +117,7 @@ class Profile extends Component {
 
       dragoverForBody.preventDefault();
     }, false);
+
     window.addEventListener('drop', function (e) {
       const dropForBody = e || event;
 
@@ -163,209 +125,134 @@ class Profile extends Component {
     }, false);
 
     return (
-      <div className="profile-container">
+      <section className="profile">
+        <header className="profile__header">
+          <h1 className="profile__header-title">
+            Profile
+          </h1>
+          <button className="profile__delete btn btn--danger"
+                  onClick={this.setPopupShown}>
+            Delete profile
+          </button>
+        </header>
+        <section className="profile-info">
+          <Formsy.Form
+            className="profile-form clearfix"
+            onSubmit={this.updateProfile}
+            onValid={this.enableButton}
+            onInvalid={this.disableButton}>
+            <div className={this.state.imageBase64 || this.props.user.avatar ?
+              'profile__photo' : 'profile__photo profile__photo--noavatar'} >
+               {this.state.imageBase64 || this.props.user.avatar ? <img
+                    src={ this.state.imageBase64 || this.props.user.avatar }
+                    alt="avatar"/> : null
+              }
+            </div>
+            <div className="profile-info__fields">
+              <Input
+                label={'NAME'}
+                name={'name'}
+                value={this.props.user.name}
+                disabled={this.state.disabled}
+                ref={(input) => {
+                  this.name = input;
+                }}/>
+              <Input
+                label={'EMAIL'}
+                name={'email'}
+                value={this.props.user.email}
+                disabled={this.state.disabled}
+                ref={(input) => {
+                  this.email = input;
+                }}/>
+              {!this.state.disabled ?
+                <fieldset className="profile-info__fields--fieldset">
+                  <legend><h3 className="profile-heading">
+                    Change password:
+                  </h3></legend>
+                  <Input
+                    label={'Old'}
+                    name={'old-psw'}
+                    type={'password'}
+                    placeholder={'Enter the old password'}
+                    disabled={this.state.disabled}
+                    ref={(input) => {
+                      this.passwordOld = input;
+                    }}/>
+                  <Input
+                    label={'New'}
+                    name={'new-psw'}
+                    type={'password'}
+                    placeholder={'Enter the new password'}
+                    disabled={this.state.disabled}
+                    ref={(input) => {
+                      this.password = input;
+                    }}/>
+                  <Input
+                    label={'Repeat'}
+                    name={'repeat-psw'}
+                    type={'password'}
+                    placeholder={'Repeat the password'}
+                    disabled={this.state.disabled}
+                    ref={(input) => {
+                      this.passwordRepeat = input;
+                    }}/>
+                    <div>
+                  </div>
+                </fieldset> : null
+              }
+              {!this.state.disabled ?
+                <div className="profile-info__upload-photo">
+                  <h3 className="profile-heading">Upload new photo</h3>
+                  <div
+                    className="profile__upload-photo--drop"
+                    ref={el => {
+                      this.fieldImage = el;
+                    }}
+                    onDrop={this.handleFileSelect}
+                    onDragOver={this.preventDefault}>
+                    <span>Drop your photo</span>
+                  </div>
+                  <div className="profile__upload-photo--btn">
+                    <label
+                      htmlFor="add-photo"
+                      className="btn add-photo-btn">
+                        Choose file to upload
+                      <input
+                        type="file"
+                        id="add-photo"
+                        className="hide"/>
+                    </label>
+                  </div>
+                </div> : null
+              }
+              <div className="profile-btn-group">
+                {this.state.disabled ?
+                  <button className="profile__update btn"
+                        onClick={this.editData}>
+                    Update info
+                  </button> :
+                  <input
+                    type="submit"
+                    disabled={!this.state.canSubmit}
+                    className="btn btn--success"
+                    value="Save changes" />
+                }
+                {!this.state.disabled ?
+                  <button className="profile__delete btn"
+                          onClick={this.editData}>
+                    Cancel
+                  </button> : null
+                }
+              </div>
+            </div>
+          </Formsy.Form>
+        </section>
         <Message
           clearStatus={this.props.clearStatus}
           status={this.props.updateProfileStatus}
           text={this.props.errorText}
           header={'Error'} />
-        <Formsy.Form
-          onSubmit={this.updateProfile}
-          onValid={this.enableButton}
-          onInvalid={this.disableButton}
-          className="signup-form edit">
-          <div className="profile-header">
-            <div className="profile-header__user-image-box">
-              <div className="profile-header__user-image-edit">
-                <div className={this.props.user.avatar ?
-                  'visible' :
-                  'hidden'
-                }>
-                  <img className="profile-header__user-image"
-                    src={this.props.user.avatar} />
-                </div>
-                <div className={this.props.user.avatar ?
-                  'hidden' :
-                  'visible'
-                }>
-                  <i className="fa fa-user-circle-o photo"></i>
-                </div>
-                <i className="fa fa-pencil edit-user-info edit-image"
-                  onClick={this.editImage} />
-                <div className="hidden"
-                  ref={(el) => {
-                    this.fieldImage = el;
-                  }
-                  }
-                  onDrop={this.handleFileSelect}
-                  onDragOver={this.preventDefault}>
-                  <div>
-                    <div className={
-                      this.state.updateImageStatus !== '' ?
-                        'profile-header__user-drop-aria' :
-                        'profile-header__user-drop-image hidden'
-                    }>{this.state.updateImageStatus}</div>
-                    <img className={
-                      this.state.updateImageStatus !== '' ?
-                        'profile-header__user-image hidden' :
-                        'profile-header__user-image'
-                    }
-                      src={this.state.imageBase64} /></div>
-                </div>
-              </div>
-              <div className="profile-header__user-name">
-                {this.props.user.name}
-              </div>
-            </div>
-          </div>
-          <section className="edit-profile__user-info">
-            <div className="edit-profile-name">
-              <div className="edit-profile__user-name-container">
-                <div className="user-name__box">
-                  <p className="user-name__title">Name</p>
-                  <span className="user-name__logged-name">
-                    {this.props.user.name}
-                  </span>
-                </div>
-                <div className="edit-user-info__icon">
-                  <i className="fa fa-pencil edit-user-info"
-                    onClick={this.editName} />
-                </div>
-              </div>
-              <div
-                className="hidden"
-                ref={(el) => {
-                  this.fieldName = el;
-                }
-                }>
-                <Field
-                  name=" "
-                  type="text"
-                  text={'Enter your new name'}
-                  ref={(input) => {
-                    this.name = input;
-                  }}
-                  value={this.props.user.name}
-                  validations="isAlpha"
-                  validationError="This is not a valid name"
-                  required
-                />
-              </div>
-            </div>
-            <div className="edit-profile-email">
-              <div className="edit-profile__user-email-container">
-                <div className="user-email__box">
-                  <p className="user-email__title">Email</p>
-                  <span className="user-email__logged-email">
-                    {this.props.user.email}
-                  </span>
-                </div>
-                <div className="edit-user-info__icon">
-                  <i className="fa fa-pencil edit-user-info"
-                    onClick={this.editEmail} />
-                </div>
-              </div>
-              <div
-                className="hidden"
-                ref={(el) => {
-                  this.fieldEmail = el;
-                }
-                }>
-                <Field
-                  name=" "
-                  className="hidden"
-                  type="text"
-                  text={'Enter your new e-mail'}
-                  ref={(input) => {
-                    this.email = input;
-                  }}
-                  value={this.props.user.email}
-                  validations="isEmail"
-                  validationError="This is not a valid email"
-                  required
-                />
-              </div>
-            </div>
-            </section>
-            <section className="edit-profile__user-info-password">
-            <div className="edit-profile-password">
-              <div className="edit-profile__user-password-container">
-                <div className="user-password__box">
-                  <p className="user-password__title">Password</p>
-                  <span className="user-password__logged-password">
-                    {this.props.user.password}
-                  </span>
-                </div>
-                <div className="edit-user-info__icon">
-                  <i className="fa fa-pencil edit-user-info fa-password"
-                    onClick={this.editPassword} />
-                </div>
-              </div>
-              <div
-                className="hidden"
-                ref={(el) => {
-                  this.fieldPassword = el;
-                }
-                }>
-                <Field
-                  name="Password"
-                  type="password"
-                  text={'Enter your new password'}
-                  ref={(input) => {
-                    this.password = input;
-                  }}
-                  validations= {{
-                    minLength: 7,
-                    isAlphanumeric: true
-                  }}
-                  validationError="This is not a valid password"
-                />
-              </div>
-            </div>
-            <div className="edit-profile-repeat-password">
-              <div className="edit-profile__user-repeat-password-container">
-                <div className="user-repeat-password__box">
-                  <p className="user-repeat-password__title">Repeat Password</p>
-                  <span className="user-repeat-password__logged-password">
-                    {this.props.user.passwordRepeat}
-                  </span>
-                </div>
-                <div className="edit-user-info__icon">
-                  <i className="fa fa-pencil edit-user-info fa-password"
-                    onClick={this.repeatPassword} />
-                </div>
-              </div>
-              <div
-                className="hidden"
-                ref={(el) => {
-                  this.fieldRepeatPassword = el;
-                }
-                }>
-                <Field
-                  name="Repeat Password"
-                  type="password"
-                  text={'Please repeat your password'}
-                  ref={(input) => {
-                    this.passwordRepeat = input;
-                  }}
-                  validations="equalsField:Password"
-                  validationError="Password does not match"
-                />
-              </div>
-            </div>
-          </section>
-          <div className="signup-field-group signup-btn-group edit">
-            <input
-              type="submit"
-              disabled={!this.state.canSubmit}
-              className="btn btn--signup btn--signup-active edit"
-              value="Submit" />
-              <div className="delete-user-profile__icon">
-                  <i className="fa fa-trash"
-                    onClick={this.setPopupShown} />
-          </div>
-          </div>
-        </Formsy.Form>
         <Popup
           setPopupShown={this.setPopupShown}
           popupShown={this.state.popupShown}
@@ -377,8 +264,7 @@ class Profile extends Component {
               this.deleteUser();
               this.setPopupShown();
             }}
-            className={
-              'btn popup__btn'}
+            className={'btn popup__btn'}
             innerText={'Ok'}
           />
           <Button
@@ -389,7 +275,7 @@ class Profile extends Component {
             innerText={'Cancel'}
           />
         </Popup>
-      </div>
+      </section>
     );
   }
 }
@@ -424,5 +310,7 @@ Profile.propTypes = {
   errorText: PropTypes.string,
   value: PropTypes.object,
   history: PropTypes.object,
-  clearStatus: PropTypes.func
+  clearStatus: PropTypes.func,
+  type: PropTypes.string,
+  setValue: PropTypes.any
 };
