@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
-import Field from '../../components/Auth/Field/Field';
 import Input from '../../components/Input/Input';
 import { updateProfileRequest, deleteUserRequest,
   clearUpdateProfileStatus } from '../../actions/users.action';
