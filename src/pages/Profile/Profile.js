@@ -17,7 +17,6 @@ class Profile extends Component {
 
     this.state = {
       disabled: true,
-      showPswField: false,
       canSubmit: false,
       imageBase64: null
     };
@@ -58,8 +57,7 @@ class Profile extends Component {
 
   editData = () => {
     this.setState({
-      disabled: !this.state.disabled,
-      showPswField: !this.state.showPswField
+      disabled: !this.state.disabled
     });
   };
 
