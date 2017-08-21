@@ -60,8 +60,9 @@ class Chat extends Component {
           className="chat-message"
           placeholder="Type your message..." />
         <input
-          className="btn btn--primary btn--signup btn--signup-active"
+          className="btn btn--primary"
           type="submit"
+          value="Send Message"
           onClick={this.onSubmit} />
       </div>
     );

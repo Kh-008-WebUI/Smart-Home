@@ -13,7 +13,7 @@ const Dashboard = () => (
       <ListDevices />
       <DashChart />
     </div>
-    <div className="dashboard-sidebar">
+    <div className="dashboard-sidebar clearfix">
       <ListUsers />
       <Chat />
     </div>
