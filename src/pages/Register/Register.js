@@ -37,9 +37,7 @@ class Register extends Component {
   }
   componentDidUpdate () {
     if (this.props.regStatus === 'DONE') {
-      setTimeout(()=>{
-        this.props.history.push('/');
-      }, 1000);
+      this.props.history.push('/');
     }
   }
   render () {

@@ -1,0 +1,31 @@
+@import '../../scss/_variables';
+
+.chat {
+  color: $text-color-active;
+
+  &-message {
+    background: $dark-gray;
+    border: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    color: $text-color-active;
+    height: 50px;
+    padding: 7px;
+    resize: none;
+    width: 100%;
+  }
+
+  &-lines {
+    background: $gray;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    height: 300px;
+    overflow-y: auto;
+  }
+
+  &-line {
+    padding: 10px;
+
+    &__colon {
+      margin-right: 1%;
+    }
+  }
+}

@@ -24,13 +24,5 @@
 
 .list-menu-users {
   overflow-y: auto; 
-  max-height: 150px;
-
-  @media (min-width: $tablet-min) {
-    max-height: 290px;
-  }
-
-  @media (min-width: $desktop-min) {
-    max-height: 450px;
-  }
+  max-height: 290px;
 }

@@ -6,7 +6,7 @@ import {
 import { users } from './users.reducer';
 import notificationsReducer from './notifications.reducer';
 import authentication from './auth.reducer';
-import chart from './ws.reducer';
+import ws from './ws.reducer';
 
 const rootReducer = combineReducers({
   searchAndFilter,
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   users,
   notificationsReducer,
   authentication,
-  chart
+  ws
 });
 
 export default rootReducer;

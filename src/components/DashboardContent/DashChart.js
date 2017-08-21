@@ -3,7 +3,6 @@ import './DashChart.scss';
 import Chart from '../../components/Chart/Chart';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 class DashChart extends React.Component {
   constructor (props) {
@@ -23,7 +22,7 @@ class DashChart extends React.Component {
 }
 function mapStateToProps (store) {
   return {
-    data: store.chart.data
+    data: store.ws.chart
   };
 }
 
