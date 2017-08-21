@@ -26,6 +26,7 @@ class Chat extends Component {
     ws.send(JSON.stringify({
       type: 'chat',
       data: {
+        from: this.props.user,
         msg: this.state.message
       }
     }));
@@ -69,12 +70,14 @@ class Chat extends Component {
 
 function mapStateToProps (store) {
   return {
-    data: store.ws.chat
+    data: store.ws.chat,
+    user: store.users.user.name
   };
 }
 
 Chat.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  user: PropTypes.string
 };
 
 export default connect(mapStateToProps)(Chat);

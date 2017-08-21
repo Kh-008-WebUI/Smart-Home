@@ -85,7 +85,7 @@ export const editDeviceSuccess = (device) => {
   };
 };
 
-export const editDeviceFalure = (errorText) => {
+export const editDeviceFailure = (errorText) => {
   return {
     type: EDIT_DEVICE_FAILURE,
     errorText

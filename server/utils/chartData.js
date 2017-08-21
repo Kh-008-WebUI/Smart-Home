@@ -1,5 +1,4 @@
-const data = [
-];
+const data = [];
 
 module.exports = function (ws) {
   ws.send(JSON.stringify({ type: 'chart', data }), (err) => {

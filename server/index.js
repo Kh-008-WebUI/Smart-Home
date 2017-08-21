@@ -10,8 +10,6 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
-const cookie = require('cookie');
-const cookieParser = require('cookie-parser');
 
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,10 +32,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    path: '/',
     domain: 'localhost',
     httpOnly: true,
-    maxAge: null
+    maxAge: 3600000
   },
   store: sessionStore
 }));
@@ -71,35 +68,30 @@ const chart = require('./utils/chartData.js');
 
 wss.on('connection', (ws, req) => {
   chart(wss);
-  const cookies = cookie.parse(req.headers.cookie || '');
-  const sid = cookieParser.signedCookie(cookies['login'], config.secret);
   let sessionData = {};
-  sessionStore.get(sid, function (err, ss) {
-    sessionData = Object.assign({}, ss);
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (event.type === 'message') {
-        wss.send(JSON.stringify({ type: 'users', user: { _id: sessionData.user, home: true } }));
-        if (data.type === 'chat') {
-          Object.assign(data.data, {from: sessionData.name});
-        }
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (event.type === 'message') {
+      if (data.type === 'users') {
+        sessionData.user = data.user._id;
       }
-      wss.send(JSON.stringify(data));
-    };
-    ws.onclose = (event) => {
-      const userOffline = Object.assign({}, { _id: sessionData.user, home: false });
-      const User = require('./models/user');
-      
-      wss.send(JSON.stringify({ type: 'users', user: userOffline }));
-      User.findOne({ _id: userOffline._id })
-        .then(user => {
-          if (user) {
-            user.home = false;
-            user.save();
-          }
-        });
-    };
-  });
+      wss.send(JSON.stringify({ type: 'users', user: { _id: sessionData.user, home: true } }));
+    }
+    wss.send(JSON.stringify(data));
+  };
+  ws.onclose = (event) => {
+    const userOffline = Object.assign({}, { _id: sessionData.user, home: false });
+    const User = require('./models/user');
+
+    wss.send(JSON.stringify({ type: 'users', user: userOffline }));
+    User.findOne({ _id: userOffline._id })
+      .then(user => {
+        if (user) {
+          user.home = false;
+          user.save();
+        }
+      });
+  };
 });
 const chartData = setInterval(function () {
   chart(wss);
