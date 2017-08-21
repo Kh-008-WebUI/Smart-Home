@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import Input from '../../components/Input/Input';
-import { updateProfileRequest, deleteUserRequest,
-  clearUpdateProfileStatus } from '../../actions/users.action';
+import {
+  updateProfileRequest,
+  deleteUserRequest,
+  clearUpdateProfileStatus,
+  uploadPhotoFailure } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
 import { Popup } from '../../components/Popup/Popup';
@@ -18,7 +21,9 @@ class Profile extends Component {
     this.state = {
       disabled: true,
       canSubmit: false,
-      imageBase64: null
+      imageBase64: null,
+      popupShown: false,
+      updateImageStatus: ''
     };
   }
 
@@ -77,7 +82,11 @@ class Profile extends Component {
         const maxFileSize = 1024 * 1024;
 
         if (file.size > maxFileSize) {
-          this.setState({ updateImageStatus: 'Exceeding 1MB limit' });
+          this.props.uploadPhotoFailure('Exceeding 1MB limit');
+          this.setState({
+            updateImageStatus: 'Exceeding 1MB limit',
+            setPopupShown: true
+          });
           return;
         }
 
@@ -292,7 +301,8 @@ function mapDispatchToProps (dispatch) {
   return {
     updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch),
     deleteUserRequest: bindActionCreators(deleteUserRequest, dispatch),
-    clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch)
+    clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch),
+    uploadPhotoFailure: bindActionCreators(uploadPhotoFailure, dispatch)
   };
 }
 
@@ -312,5 +322,6 @@ Profile.propTypes = {
   history: PropTypes.object,
   clearStatus: PropTypes.func,
   type: PropTypes.string,
-  setValue: PropTypes.any
+  setValue: PropTypes.any,
+  uploadPhotoFailure: PropTypes.func
 };
