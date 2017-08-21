@@ -19,15 +19,11 @@ class Login extends Component {
     };
   }
   componentDidUpdate () {
-    if (this.props.loginStatus === 'DONE' && this.props.userData._id) {
+    if (this.props.userData._id) {
       if (this.props.history.length > 3) {
-        setTimeout(()=>{
-          this.props.history.goBack();
-        }, 1000);
+        this.props.history.goBack();
       } else {
-        setTimeout(()=>{
-          this.props.history.push('/');
-        }, 1000);
+        this.props.history.push('/');
       }
     }
   }

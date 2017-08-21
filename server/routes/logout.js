@@ -18,9 +18,10 @@ logoutRouter.route('/')
                   if (err) {
                     next(new HttpError(503))
                   }
-                  res.status(200).send({ userData: {
-                    _id: user._id
-                  }
+                  res.status(200).send({
+                    userData: {
+                      _id: user._id
+                    }
                   });
                 });
               })

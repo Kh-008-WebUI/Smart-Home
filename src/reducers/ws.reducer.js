@@ -1,14 +1,18 @@
 import {
-  UPDATE_CHART
+  UPDATE_CHART,
+  UPDATE_CHAT
 } from '../constants/index';
 
 const initialState = {
-  data:[
-    { day:'02/11/2016', count:180 },
-    { day:'02/1/2016', count:250 },
-    { day:'02/10/2016', count:83 },
-    { day:'02/24/2016', count:430 },
-    { day:'02/15/2016', count:140 }
+  chart:[
+    { day:'4-08', count:230 },
+    { day:'4-09', count:480 },
+    { day:'4-10', count:250 },
+    { day:'4-11', count:380 },
+    { day:'4-12', count:50 }
+  ],
+  chat:[
+    { from:'System', msg:'Welcome to the chatroom' }
   ]
 };
 
@@ -17,7 +21,12 @@ const reducer = (state = initialState, action) => {
     case UPDATE_CHART:
       return {
         ...state,
-        data: action.data
+        chart: action.data
+      };
+    case UPDATE_CHAT:
+      return {
+        ...state,
+        chat: [...state.chat, action.data]
       };
     default:
       return state;
