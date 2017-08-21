@@ -1,7 +1,6 @@
 import './deviceForm.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import { bindActionCreators } from 'redux';
 import {
   addDevice,
