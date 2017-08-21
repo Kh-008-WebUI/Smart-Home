@@ -1,8 +1,7 @@
 import {
-  UPDATE_CHART,
   WS_MESSAGE
 } from '../constants/index';
-import { updateChart } from '../actions/ws.action';
+import { updateChart, updateChat } from '../actions/ws.action';
 import { fetchNotificationsRequest } from '../actions/notifications.action';
 import { updateUsersOnline } from '../actions/users.action';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
@@ -17,6 +16,9 @@ export function* wsMessage (action) {
       break;
     case 'users':
       yield put(updateUsersOnline(action));
+      break;
+    case 'chat':
+      yield put(updateChat(action.msg.data));
       break;
     default:
       break;

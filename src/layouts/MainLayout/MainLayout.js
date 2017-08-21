@@ -29,10 +29,15 @@ class MainLayout extends Component {
     };
   }
   componentDidMount () {
-    ws.onmessage = (msg) => {
-      const message = JSON.parse(msg.data);
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        type: 'init'
+      }));
+      ws.onmessage = (msg) => {
+        const message = JSON.parse(msg.data);
 
-      this.props.wsMessage(message);
+        this.props.wsMessage(message);
+      };
     };
   }
   componentWillMount () {

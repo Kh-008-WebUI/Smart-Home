@@ -15,12 +15,10 @@ export default class LineChart extends Component {
     const margin = { top: 20, right: 20, bottom: 20, left: 50 },
       w = this.props.width - (margin.left + margin.right),
       h = this.props.height - (margin.top + margin.bottom);
-    const parseDate = d3.timeParse('%x');
+    const parseDate = d3.timeParse('%H-%M');
 
     this.data = this.props.data.map((d) => {
       return Object.assign({}, d, { date: parseDate(d[this.props.xData]) });
-    }).sort((a, b) => {
-      return Date.parse(a[this.props.xData]) - Date.parse(b[this.props.xData]);
     });
     const x = d3.scaleTime()
       .domain(d3.extent(this.data, (d) => d.date))
@@ -66,7 +64,7 @@ export default class LineChart extends Component {
               scale={x}
               axisType="x"
               ticks={8}
-              format={'%d/%m'}/>
+              format={'%H:%M'}/>
             <Dots
               x={x}
               y={y}
@@ -98,16 +96,17 @@ LineChart.defaultProps = {
   xData:'day',
   yData:'count',
   data:[
-    { day:'02/11/2016', count:180 },
-    { day:'02/1/2016', count:250 },
-    { day:'02/10/2016', count:83 },
-    { day:'02/24/2016', count:430 },
-    { day:'02/15/2016', count:140 },
-    { day:'02/27/2016', count:310 },
-    { day:'02/17/2016', count:430 },
-    { day:'02/8/2016', count:180 },
-    { day:'02/19/2016', count:150 },
-    { day:'02/2/2016', count:180 },
-    { day:'02/3/2016', count:250 }
+    { day:'4-01', count:310 },
+    { day:'4-02', count:430 },
+    { day:'4-03', count:180 },
+    { day:'4-04', count:150 },
+    { day:'4-05', count:180 },
+    { day:'4-06', count:250 },
+    { day:'4-07', count:110 },
+    { day:'4-08', count:230 },
+    { day:'4-09', count:480 },
+    { day:'4-10', count:250 },
+    { day:'4-11', count:380 },
+    { day:'4-12', count:50 }
   ]
 };
