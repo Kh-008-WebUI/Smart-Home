@@ -41,7 +41,9 @@ class MainLayout extends Component {
     };
   }
   componentWillMount () {
-    this.props.getLoggedUser();
+    if (!this.props.isLogged._id) {
+      this.props.getLoggedUser();
+    }
   }
   componentDidUpdate () {
     if (!this.props.isLogged._id) {
