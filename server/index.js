@@ -10,6 +10,8 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
+const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
 
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +25,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
+
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(session({
   secret: config.secret,
@@ -35,7 +39,7 @@ app.use(session({
     httpOnly: true,
     maxAge: null
   },
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  store: sessionStore
 }));
 
 const wsClient = new WebSocket('ws://localhost:3001/');
@@ -63,37 +67,43 @@ database.once('open', () => {
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+const chart = require('./utils/chartData.js');
 
 wss.on('connection', (ws, req) => {
-  require('./utils/chartData.js')(ws);
-  ws.onmessage = (event) => {
-    if (event.type === 'message') {
+  chart(wss);
+  const cookies = cookie.parse(req.headers.cookie || '');
+  const sid = cookieParser.signedCookie(cookies['login'], config.secret);
+  let sessionData = {};
+  sessionStore.get(sid, function (err, ss) {
+    sessionData = Object.assign({}, ss);
+    ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-
-      if (data.type === 'users') {
-        event.target.user = data.user;
-      }
-    }
-    wss.send(event.data);
-  };
-
-  ws.onclose = (event) => {
-    const userOffline = Object.assign({}, event.target.user, { home: false });
-
-    wss.send(JSON.stringify({ type: 'users', user: userOffline }));
-
-    const User = require('./models/user');
-
-    User.findOne({ _id: userOffline._id })
-      .then(user => {
-        if (user) {
-          user.home = false;
-          user.save();
+      if (event.type === 'message') {
+        wss.send(JSON.stringify({ type: 'users', user: { _id: sessionData.user, home: true } }));
+        if (data.type === 'chat') {
+          Object.assign(data.data, {from: sessionData.name});
         }
-      });
-  };
+      }
+      wss.send(JSON.stringify(data));
+    };
+    ws.onclose = (event) => {
+      const userOffline = Object.assign({}, { _id: sessionData.user, home: false });
+      const User = require('./models/user');
+      
+      wss.send(JSON.stringify({ type: 'users', user: userOffline }));
+      User.findOne({ _id: userOffline._id })
+        .then(user => {
+          if (user) {
+            user.home = false;
+            user.save();
+          }
+        });
+    };
+  });
 });
-
+const chartData = setInterval(function () {
+  chart(wss);
+}, 60000);
 wss.send = (data) => {
   wss.clients.forEach(client => {
     client.send(data);
