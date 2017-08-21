@@ -68,11 +68,7 @@ class Profile extends Component {
   handleFileSelect = (e) => {
     e.preventDefault();
     this.setState({ updateImageStatus: 'Loading...' });
-    let files = e.target.files;
-
-    if (!files) {
-      files = e.dataTransfer.files;
-    }
+    const files = e.target.files ? e.target.files : e.dataTransfer.files;
 
     if (files) {
       const file = files[0];
