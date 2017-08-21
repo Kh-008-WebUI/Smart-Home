@@ -68,7 +68,11 @@ class Profile extends Component {
   handleFileSelect = (e) => {
     e.preventDefault();
     this.setState({ updateImageStatus: 'Loading...' });
-    const files = e.dataTransfer.files;
+    let files = e.target.files;
+
+    if (!files) {
+      files = e.dataTransfer.files;
+    }
 
     if (files) {
       const file = files[0];
@@ -94,6 +98,7 @@ class Profile extends Component {
       }
     }
   }
+
   preventDefault = (event) => {
     event.preventDefault();
   }
@@ -221,6 +226,7 @@ class Profile extends Component {
                       <input
                         type="file"
                         id="add-photo"
+                        onChange={this.handleFileSelect}
                         className="hide"/>
                     </label>
                   </div>
