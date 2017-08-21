@@ -9,21 +9,15 @@ notificationRouter.route('/')
  .get((req, res, next) => {
    Notification
     .find({ 'time': { '$gte': req.session.userCreatedDate ?
-      req.session.userCreatedDate : new Date(2017, 1, 1) },
-      'viewedByUser.userID': req.session.user
-    },
-     {
-       'emergency': '$all',
-       'text': '$all',
-       'viewedByUser': { $elemMatch: { userID: req.session.user } },
-       'time': '$all',
-       'viewed': '$all'
-     }
-    )
+      req.session.userCreatedDate : new Date(2017, 1, 1) } })
     .sort({ time: -1 })
     .then(notifications => {
       notifications.forEach((item) => {
-        item.viewed = item.viewedByUser[0].status;
+        item.viewedByUser.forEach((user) => {
+          if((user.userID + '') === req.session.user){
+            item.viewed = user.status;
+          }
+        });
       });
       res.json(notifications);
     })
@@ -48,16 +42,16 @@ notificationRouter.route('/')
 
 notificationRouter.route('/viewed')
   .put((req, res, next) => {
-    Notification.find(
-      { 'viewedByUser.userID': req.session.user })
+    Notification.find()
     .then(result => {
       result.forEach((item) => {
         item.viewedByUser.forEach((user) => {
           if((user.userID + '') === req.session.user){
             user.status = true;
+            item.save();
+            item.viewed = true;
           }
         });
-        item.save();
       })
 
       res.json(result);
