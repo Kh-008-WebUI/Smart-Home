@@ -165,7 +165,9 @@ class Profile extends Component {
                 disabled={this.state.disabled}
                 ref={(input) => {
                   this.name = input;
-                }}/>
+                }}
+                validations="isAlpha"
+                validationError="Name must contain only letters"/>
               <Input
                 label={'EMAIL'}
                 name={'email'}
@@ -173,7 +175,9 @@ class Profile extends Component {
                 disabled={this.state.disabled}
                 ref={(input) => {
                   this.email = input;
-                }}/>
+                }}
+                validations="isEmail"
+                validationError="This is not a valid email"/>
               {!this.state.disabled ?
                 <fieldset className="profile-info__fields--fieldset">
                   <legend><h3 className="profile-heading">
@@ -187,7 +191,12 @@ class Profile extends Component {
                     disabled={this.state.disabled}
                     ref={(input) => {
                       this.passwordOld = input;
-                    }}/>
+                    }}
+                    validations= {{
+                      minLength: 7,
+                      isAlphanumeric: true
+                    }}
+                    validationError={'Password is not valid'}/>
                   <Input
                     label={'New'}
                     name={'new-psw'}
@@ -196,7 +205,12 @@ class Profile extends Component {
                     disabled={this.state.disabled}
                     ref={(input) => {
                       this.password = input;
-                    }}/>
+                    }}
+                    validations= {{
+                      minLength: 7,
+                      isAlphanumeric: true
+                    }}
+                    validationError={'Password is not valid'}/>
                   <Input
                     label={'Repeat'}
                     name={'repeat-psw'}
@@ -205,7 +219,9 @@ class Profile extends Component {
                     disabled={this.state.disabled}
                     ref={(input) => {
                       this.passwordRepeat = input;
-                    }}/>
+                    }}
+                    validations="equalsField:new-psw"
+                    validationError="Password does not match"/>
                     <div>
                   </div>
                 </fieldset> : null
