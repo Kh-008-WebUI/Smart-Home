@@ -14,7 +14,7 @@ notificationRouter.route('/')
     .then(notifications => {
       notifications.forEach((item) => {
         item.viewedByUser.forEach((user) => {
-          if((user.userID + '') === req.session.user){
+          if ((user.userID + '') === req.session.user) {
             item.viewed = user.status;
           }
         });
@@ -46,14 +46,13 @@ notificationRouter.route('/viewed')
     .then(result => {
       result.forEach((item) => {
         item.viewedByUser.forEach((user) => {
-          if((user.userID + '') === req.session.user){
+          if ((user.userID + '') === req.session.user) {
             user.status = true;
             item.save();
             item.viewed = true;
           }
         });
-      })
-
+      });
       res.json(result);
     })
     .catch(err => {
