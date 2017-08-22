@@ -29,6 +29,7 @@ class Input extends React.Component {
               value={this.props.getValue()}
               placeholder={this.props.placeholder || ''}/>
             <i className="profile-field__input-icon fa-pencil fa "></i>
+            <span className="signup-form__error-message">{errorMessage}</span>
           </label>
         }
       </div>

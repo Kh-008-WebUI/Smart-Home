@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Formsy, { HOC } from 'formsy-react';
 import Input from '../../components/Input/Input';
-import { updateProfileRequest, deleteUserRequest,
-  clearUpdateProfileStatus } from '../../actions/users.action';
+import {
+  updateProfileRequest,
+  deleteUserRequest,
+  clearUpdateProfileStatus,
+  uploadPhotoFailure } from '../../actions/users.action';
 import { bindActionCreators } from 'redux';
 import { Message } from '../../components/Message/Message';
 import { Popup } from '../../components/Popup/Popup';
@@ -18,7 +21,9 @@ class Profile extends Component {
     this.state = {
       disabled: true,
       canSubmit: false,
-      imageBase64: null
+      imageBase64: null,
+      popupShown: false,
+      updateImageStatus: ''
     };
   }
 
@@ -68,7 +73,7 @@ class Profile extends Component {
   handleFileSelect = (e) => {
     e.preventDefault();
     this.setState({ updateImageStatus: 'Loading...' });
-    const files = e.dataTransfer.files;
+    const files = e.target.files ? e.target.files : e.dataTransfer.files;
 
     if (files) {
       const file = files[0];
@@ -77,7 +82,11 @@ class Profile extends Component {
         const maxFileSize = 1024 * 1024;
 
         if (file.size > maxFileSize) {
-          this.setState({ updateImageStatus: 'Exceeding 1MB limit' });
+          this.props.uploadPhotoFailure('Exceeding 1MB limit');
+          this.setState({
+            updateImageStatus: 'Exceeding 1MB limit',
+            setPopupShown: true
+          });
           return;
         }
 
@@ -94,6 +103,7 @@ class Profile extends Component {
       }
     }
   }
+
   preventDefault = (event) => {
     event.preventDefault();
   }
@@ -156,7 +166,9 @@ class Profile extends Component {
                 disabled={this.state.disabled}
                 ref={(input) => {
                   this.name = input;
-                }}/>
+                }}
+                validations="isAlpha"
+                validationError="Name must contain only letters"/>
               <Input
                 label={'EMAIL'}
                 name={'email'}
@@ -164,7 +176,9 @@ class Profile extends Component {
                 disabled={this.state.disabled}
                 ref={(input) => {
                   this.email = input;
-                }}/>
+                }}
+                validations="isEmail"
+                validationError="This is not a valid email"/>
               {!this.state.disabled ?
                 <fieldset className="profile-info__fields--fieldset">
                   <legend><h3 className="profile-heading">
@@ -178,7 +192,12 @@ class Profile extends Component {
                     disabled={this.state.disabled}
                     ref={(input) => {
                       this.passwordOld = input;
-                    }}/>
+                    }}
+                    validations= {{
+                      minLength: 7,
+                      isAlphanumeric: true
+                    }}
+                    validationError={'Password is not valid'}/>
                   <Input
                     label={'New'}
                     name={'new-psw'}
@@ -187,7 +206,12 @@ class Profile extends Component {
                     disabled={this.state.disabled}
                     ref={(input) => {
                       this.password = input;
-                    }}/>
+                    }}
+                    validations= {{
+                      minLength: 7,
+                      isAlphanumeric: true
+                    }}
+                    validationError={'Password is not valid'}/>
                   <Input
                     label={'Repeat'}
                     name={'repeat-psw'}
@@ -196,7 +220,9 @@ class Profile extends Component {
                     disabled={this.state.disabled}
                     ref={(input) => {
                       this.passwordRepeat = input;
-                    }}/>
+                    }}
+                    validations="equalsField:new-psw"
+                    validationError="Password does not match"/>
                     <div>
                   </div>
                 </fieldset> : null
@@ -221,6 +247,7 @@ class Profile extends Component {
                       <input
                         type="file"
                         id="add-photo"
+                        onChange={this.handleFileSelect}
                         className="hide"/>
                     </label>
                   </div>
@@ -292,7 +319,8 @@ function mapDispatchToProps (dispatch) {
   return {
     updateProfileRequest: bindActionCreators(updateProfileRequest, dispatch),
     deleteUserRequest: bindActionCreators(deleteUserRequest, dispatch),
-    clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch)
+    clearStatus: bindActionCreators(clearUpdateProfileStatus, dispatch),
+    uploadPhotoFailure: bindActionCreators(uploadPhotoFailure, dispatch)
   };
 }
 
@@ -312,5 +340,6 @@ Profile.propTypes = {
   history: PropTypes.object,
   clearStatus: PropTypes.func,
   type: PropTypes.string,
-  setValue: PropTypes.any
+  setValue: PropTypes.any,
+  uploadPhotoFailure: PropTypes.func
 };
