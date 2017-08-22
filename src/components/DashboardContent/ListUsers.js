@@ -16,10 +16,6 @@ class ListUsers extends React.Component {
     this.props.loadUsersRequest();
   }
 
-  componentDidUpdate () {
-    window.dispatchEvent(new Event('resize'));
-  }
-
   displayUsers = () => {
     this.props.displayUsers(!this.props.displayUsersStatus);
   }

@@ -75,6 +75,9 @@ wss.on('connection', (ws, req) => {
       if (data.type === 'users') {
         sessionData.user = data.user._id;
       }
+      if (data.type === 'initChart') {
+        chart(wss);
+      }
       wss.send(JSON.stringify({ type: 'users', user: { _id: sessionData.user, home: true } }));
     }
     wss.send(JSON.stringify(data));
