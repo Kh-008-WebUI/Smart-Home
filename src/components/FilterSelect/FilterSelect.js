@@ -10,8 +10,9 @@ const FilterSelect = (props) => {
         onChange={e => props.handleSelect(e.target.value)}>
           {props.options.map(item =>
             <option
-              value={item.value}
-              key={item.value}>
+              value={ item.value}
+              key={item.value}
+              selected={item.value === props.value}>
                 {item.innerText}
               </option>
           )}
@@ -22,7 +23,8 @@ const FilterSelect = (props) => {
 
 FilterSelect.propTypes = {
   handleSelect: PropTypes.func.isRequired,
-  options: PropTypes.array
+  options: PropTypes.array,
+  value: PropTypes.string
 };
 
 export default FilterSelect;
