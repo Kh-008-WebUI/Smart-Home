@@ -61,7 +61,6 @@ notificationRouter.route('/history')
           }
         });
       });
-      console.log('server history');
       res.json(notifications);
     })
     .catch(err => {

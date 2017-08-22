@@ -53,7 +53,6 @@ class NotificationsBell extends React.Component {
   }
   showAllHistory = () => {
     this.props.showAllHistoryNotifications();
-    console.log('componnet');
   }
   changeButtonText = () => {
     if (this.state.showAllNotify) {
