@@ -47,7 +47,6 @@ export default class RangeSettings extends React.Component {
       const max = parseInt(e.target.value) || 0;
 
       if (max >= this.state.params.minValue) {
-        console.log('max is bigger');
         this.setState({
           params: {
             maxValue: max,
@@ -128,7 +127,9 @@ export default class RangeSettings extends React.Component {
                   name="min"
                   placeholder="Enter min value"
                   onChange={ this.setMinValue }
-                   ref={(input) => {this.minElement = input;}}
+                  ref={(input) => {
+                    this.minElement = input;
+                  }}
                   defaultValue={ this.state.params.minValue }
                   onBlur={ this.setParams }/>
               </div>
@@ -136,7 +137,9 @@ export default class RangeSettings extends React.Component {
                 <input
                   type="number"
                   name="max"
-                  ref={(input) => {this.maxElement = input;}}
+                  ref={(input) => {
+                    this.maxElement = input;
+                  }}
                   placeholder="Enter max value"
                   onChange={ this.setMaxValue }
                   defaultValue={ this.state.params.maxValue }
