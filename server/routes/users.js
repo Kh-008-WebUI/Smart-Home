@@ -44,10 +44,8 @@ userRouter.route('/:id')
         .then(
           userByEmail => {
             if (userByEmail._id.toString() !== user._id.toString()) {
-              console.log('email exist');
-              return next(new HttpError(409));
+              next(new HttpError(409));
             }
-           // return res.json(user);
           }
         );
         Object.assign(user, req.body);
