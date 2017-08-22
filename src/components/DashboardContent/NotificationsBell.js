@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest,
-  changeStatusNotification
+  changeStatusNotification,
+  changeStatusAllNotifications
 } from '../../actions/notifications.action';
 import moment from 'moment';
 import {
@@ -47,13 +48,13 @@ class NotificationsBell extends React.Component {
     });
   }
   readAllNotify = () => {
-    this.props.changeStatusNotification();
+    this.props.changeStatusAllNotifications();
   }
   changeButtonText = () => {
     if (this.state.showAllNotify) {
-      this.buttonText = 'hide viewed';
+      this.buttonText = 'Hide viewed';
     } else {
-      this.buttonText = 'show all';
+      this.buttonText = 'Show all';
     }
   }
   addClassNameViewed = (item) => {
@@ -131,16 +132,16 @@ class NotificationsBell extends React.Component {
             </ul>
             </div>
             <div className="notification-button">
-              <button
-                className="btn btn--primary notification-button-show-all"
+              <div
+                className="notification-button-show-all"
                 onClick={this.showAllNotify}>
                 {this.buttonText}
-              </button>
-              <button
-                className="btn btn--primary"
+              </div>
+              <div
+                className="notification-button-read-all"
                 onClick={this.readAllNotify}>
-                read all
-              </button>
+                Read all
+              </div>
             </div>
           </div>
 
@@ -158,7 +159,9 @@ function mapDispatchToProps (dispatch) {
   return {
     getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
     changeStatusNotification: (id, viewed) =>
-      dispatch(changeStatusNotification(id, viewed))
+      dispatch(changeStatusNotification(id, viewed)),
+    changeStatusAllNotifications: (statusForAll) =>
+      dispatch(changeStatusAllNotifications())
   };
 }
 
@@ -167,6 +170,7 @@ NotificationsBell.propTypes = {
   fetchAddNotifications: PropTypes.func,
   getNotifications: PropTypes.any,
   changeStatusNotification: PropTypes.func,
+  changeStatusAllNotifications: PropTypes.func,
   loadNotificationsStatus: PropTypes.string
 };
 
