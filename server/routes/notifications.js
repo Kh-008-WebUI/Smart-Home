@@ -7,11 +7,10 @@ const HttpError = require('../errors/HttpError');
 
 notificationRouter.route('/')
  .get((req, res, next) => {
-    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+   const { pageNumber = 0, itemsPerPage = 0 } = req.query;
 
    Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate ?
-      req.session.userCreatedDate : new Date(2017, 1, 1) } })
+    .find({ 'time': { '$gte': req.session.userCreatedDate } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))
@@ -43,6 +42,31 @@ notificationRouter.route('/')
         next(new HttpError(503));
       });
   });
+
+notificationRouter.route('/history')
+ .get((req, res, next) => {
+   const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+
+   Notification
+    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .sort({ time: -1 })
+    .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
+    .limit(parseInt(itemsPerPage))
+    .then(notifications => {
+      notifications.forEach((item) => {
+        item.viewedByUser.forEach((user) => {
+          if ((user.userID + '') === req.session.user) {
+            item.viewed = user.status;
+          }
+        });
+      });
+      console.log('server history');
+      res.json(notifications);
+    })
+    .catch(err => {
+      next(new HttpError(400));
+    });
+ });
 
 notificationRouter.route('/viewed')
   .put((req, res, next) => {
