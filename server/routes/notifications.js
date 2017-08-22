@@ -8,9 +8,11 @@ const HttpError = require('../errors/HttpError');
 notificationRouter.route('/')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+   const today = moment().startOf('day');
+   console.log(req.session.user);
 
    Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .find({ 'time': { '$gte': today } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))
@@ -48,7 +50,8 @@ notificationRouter.route('/history')
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
 
    Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .find({ 'time': { '$gte': req.session.userCreatedDate,
+      '$lt': moment() } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))

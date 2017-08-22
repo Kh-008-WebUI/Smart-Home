@@ -55,7 +55,7 @@ export function* changeNotificationStatus (action) {
 }
 export function* changeAllNotificationStatus (action) {
   const { response, error } =
-    yield call(showAllHistory);
+    yield call(changeAllStatus);
 
   if (response) {
     yield put(fetchNotificationsSuccess(response));
