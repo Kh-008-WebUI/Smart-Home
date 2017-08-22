@@ -52,9 +52,9 @@ class NotificationsBell extends React.Component {
   }
   changeButtonText = () => {
     if (this.state.showAllNotify) {
-      this.buttonText = 'hide viewed';
+      this.buttonText = 'Hide viewed';
     } else {
-      this.buttonText = 'show all';
+      this.buttonText = 'Show all';
     }
   }
   addClassNameViewed = (item) => {
@@ -134,16 +134,16 @@ class NotificationsBell extends React.Component {
             </ul>
             </div>
             <div className="notification-button">
-              <button
-                className="btn btn--primary notification-button-show-all"
+              <div
+                className="notification-button-show-all"
                 onClick={this.showAllNotify}>
                 {this.buttonText}
-              </button>
-              <button
-                className="btn btn--primary"
+              </div>
+              <div
+                className="notification-button-read-all"
                 onClick={this.readAllNotify}>
-                read all
-              </button>
+                Read all
+              </div>
             </div>
           </div>
 
