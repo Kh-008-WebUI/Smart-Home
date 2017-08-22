@@ -5,7 +5,8 @@ import { watchLoadUsers,
 import { watchLoadNotifications,
   watchAddNotification,
   watchSendNotificationWS,
-  watchNotificationChangeStatus } from './notifications.saga';
+  watchNotificationChangeStatus,
+  watchNotificationAllStatusChange } from './notifications.saga';
 import { watchAddDevice,
   watchEditDevice,
   watchLoadLocations,
@@ -49,6 +50,7 @@ export default function* rootSaga () {
     watchAddLocation(),
     watchDeleteLocation(),
     watchDevicesInLocation(),
-    watchWS()
+    watchWS(),
+    watchNotificationAllStatusChange()
   ]);
 }

@@ -101,16 +101,14 @@
   display: none;
 }
 .notification-button {
-  text-align: center;
-  text-transform: uppercase;
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  color: #f6a821;
   margin: 10px 0 10px;
 }
 .notification-item-emergency {
   color: $warning-color !important;
-}
-
-.notification-button-show-all {
-  margin-right: 5px;
 }
 
 @keyframes blinker {

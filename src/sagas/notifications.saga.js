@@ -6,8 +6,7 @@ import { getNotifications,
 import { fetchNotificationsSuccess,
          fetchNotificationsFailed,
         addNotificationsSuccess,
-        changeStatusNotificationSuccess,
-        changeStatusAllNotificationsSuccess
+        changeStatusNotificationSuccess
        }
 from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
@@ -52,6 +51,16 @@ export function* changeNotificationStatus (action) {
     yield put(fetchNotificationsFailed(error.message));
   }
 }
+export function* changeAllNotificationStatus (action) {
+  const { response, error } =
+    yield call(changeAllStatus);
+
+  if (response) {
+    yield put(fetchNotificationsSuccess(response));
+  } else {
+    yield put(fetchNotificationsFailed(error.message));
+  }
+}
 
 export function* watchLoadNotifications () {
   yield takeEvery(NOTIFICATIONS_FETCH_REQUESTED, fetchNotifications);
@@ -68,4 +77,8 @@ export function* watchSendNotificationWS () {
 
 export function* watchNotificationChangeStatus () {
   yield takeEvery(NOTIFICATIONS_CHANGE_STATUS, changeNotificationStatus);
+}
+
+export function* watchNotificationAllStatusChange () {
+  yield takeEvery(NOTIFICATIONS_ALL_CHANGE_STATUS, changeAllNotificationStatus);
 }
