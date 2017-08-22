@@ -38,8 +38,19 @@ userRouter.route('/:id')
     User.findById(req.params.id)
       .then( user => {
         if (!user) {
-          next(new HttpError(400))
+          next(new HttpError(400));
         }
+        User.findOne({ email: req.body.email })
+        .then(
+          userByEmail => {
+            if (userByEmail._id.toString() !== user._id.toString()) {
+              next(new HttpError(409));
+            }
+          }
+        );
+        // if (!user.checkPassword(req.body.password)) {
+        //   next(new HttpError(403));
+        // }
         Object.assign(user, req.body);
         user.save((error) => {
           if (error) {
