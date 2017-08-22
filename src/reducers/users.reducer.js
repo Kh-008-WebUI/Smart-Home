@@ -62,7 +62,7 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         updateProfileStatus: 'FAIL',
-        user: { errorText: action.errorText }
+        user: { ...state.user, errorText: action.errorText }
       };
     }
     case DELETE_USER_PROFILE_REQUEST: {

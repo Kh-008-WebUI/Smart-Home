@@ -44,13 +44,12 @@ userRouter.route('/:id')
         .then(
           userByEmail => {
             if (userByEmail._id.toString() !== user._id.toString()) {
-              next(new HttpError(409));
+              console.log('email exist');
+              return next(new HttpError(409));
             }
+           // return res.json(user);
           }
         );
-        // if (!user.checkPassword(req.body.password)) {
-        //   next(new HttpError(403));
-        // }
         Object.assign(user, req.body);
         user.save((error) => {
           if (error) {
