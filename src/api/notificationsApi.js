@@ -14,6 +14,10 @@ export const changeAllStatus = () => {
   return Transport.put(`${SERVER_API}/notifications/viewed`);
 };
 
+export const showAllHistory = () => {
+  return Transport.get(`${SERVER_API}/notifications/history`);
+};
+
 export const addNotifications = (message) => {
   return Transport.post(`${SERVER_API}/notifications`,
     JSON.stringify({ text: message }));

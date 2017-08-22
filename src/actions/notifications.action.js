@@ -7,7 +7,8 @@ import {
   ADD_NOTIFICATIONS,
   SEND_NOTIFICATION_WS,
   NOTIFICATIONS_CHANGE_STATUS_SUCCESS,
-  NOTIFICATIONS_ALL_CHANGE_STATUS
+  NOTIFICATIONS_ALL_CHANGE_STATUS,
+  NOTIFICATIONS_SHOW_ALL_HISTORY
  }
 from '../constants/index';
 
@@ -49,6 +50,12 @@ export const changeStatusNotificationSuccess = (notification) => {
 export const changeStatusAllNotifications = () => {
   return {
     type: NOTIFICATIONS_ALL_CHANGE_STATUS
+  };
+};
+
+export const showAllHistoryNotifications = () => {
+  return {
+    type: NOTIFICATIONS_SHOW_ALL_HISTORY
   };
 };
 
