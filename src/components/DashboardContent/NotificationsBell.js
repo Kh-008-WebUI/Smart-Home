@@ -70,8 +70,6 @@ class NotificationsBell extends React.Component {
   }
   render () {
     let listNotify = [...this.props.notifications];
-
-    console.dir(listNotify);
     const emergencyList = listNotify.filter((item) =>
      item.emergency && (item.viewed === false));
 
