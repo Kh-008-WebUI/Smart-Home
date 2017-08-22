@@ -65,7 +65,6 @@ export function* changeAllNotificationStatus (action) {
 }
 
 export function* showAllNotificationHistory (action) {
-  console.log('saga');
   const { response, error } =
     yield call(showAllHistory);
 
