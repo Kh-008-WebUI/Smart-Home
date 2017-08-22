@@ -180,8 +180,7 @@ class Profile extends Component {
                 }}
                 required
                 validations="isEmail"
-                validationError="This is not a valid email"
-                />
+                validationError="This is not a valid email"/>
               {!this.state.disabled ?
                 <fieldset className="profile-info__fields--fieldset">
                   <legend><h3 className="profile-heading">

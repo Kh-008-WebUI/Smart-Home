@@ -45,6 +45,7 @@ userRouter.route('/:id')
           userByEmail => {
             if (userByEmail._id.toString() !== user._id.toString()) {
               next(new HttpError(409));
+              return;
             }
           }
         );
