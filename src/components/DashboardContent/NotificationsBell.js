@@ -142,6 +142,11 @@ class NotificationsBell extends React.Component {
                 onClick={this.readAllNotify}>
                 Read all
               </div>
+              <div
+                className="notification-button-all-history"
+                onClick={this.readAllNotify}>
+                All history
+              </div>
             </div>
           </div>
 
