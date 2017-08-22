@@ -167,6 +167,7 @@ class Profile extends Component {
                 ref={(input) => {
                   this.name = input;
                 }}
+                required
                 validations="isAlpha"
                 validationError="Name must contain only letters"/>
               <Input
@@ -177,8 +178,10 @@ class Profile extends Component {
                 ref={(input) => {
                   this.email = input;
                 }}
+                required
                 validations="isEmail"
-                validationError="This is not a valid email"/>
+                validationError="This is not a valid email"
+                />
               {!this.state.disabled ?
                 <fieldset className="profile-info__fields--fieldset">
                   <legend><h3 className="profile-heading">
