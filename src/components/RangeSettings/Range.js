@@ -23,21 +23,35 @@ export default class RangeSettings extends React.Component {
     };
 
     this.setMinValue = (e) => {
-      this.setState({
-        params: {
-          minValue: parseInt(e.target.value),
-          maxValue: this.state.params.maxValue
-        }
-      });
+      const min = parseInt(e.target.value) || '';
+
+      if (min <= this.state.params.maxValue) {
+        this.setState({
+          params: {
+            minValue: min,
+            maxValue: this.state.params.maxValue
+          }
+        });
+      } else {
+        e.target.setCustomValidity(`Value shoud be less then ${maxValue}`);
+        e.target.reportValidity();
+      }
     };
 
     this.setMaxValue = (e) => {
-      this.setState({
-        params: {
-          maxValue: parseInt(e.target.value),
-          minValue: this.state.params.minValue
-        }
-      });
+      const max = parseInt(e.target.value) || '';
+
+      if (max > this.state.params.minValue) {
+        this.setState({
+          params: {
+            maxValue: max,
+            minValue: this.state.params.minValue
+          }
+        });
+      } else {
+        e.target.setCustomValidity(`Value shoud be more then ${minValue}`);
+        e.target.reportValidity();
+      }
     };
   }
 
@@ -76,9 +90,14 @@ export default class RangeSettings extends React.Component {
   }
 
   setParams = () => {
+    const params = {
+      minValue: this.state.params.minValue || 0,
+      maxValue: this.state.params.maxValue || 100
+    };
+
     this.props.setParameters(
       this.props.itemId,
-      this.state.params);
+      params);
   }
 
   render () {
@@ -91,27 +110,26 @@ export default class RangeSettings extends React.Component {
             <p className="range-settings__title">
               Enter min and max values for setting
             </p>
-            <div className="range-settings__val">
-              <input
-                type="number"
-                name="min"
-                placeholder="Enter min value"
-                onChange={ this.setMinValue }
-                value={this.state.params.minValue}/>
+            <div className="range-settings__group">
+              <div className="range-settings__val">
+                <input
+                  type="number"
+                  name="min"
+                  placeholder="Enter min value"
+                  onChange={ this.setMinValue }
+                  value={ this.state.params.minValue }
+                  onBlur={ this.setParams }/>
+              </div>
+              <div className="range-settings__val">
+                <input
+                  type="number"
+                  name="max"
+                  placeholder="Enter max value"
+                  onChange={ this.setMaxValue }
+                  value={ this.state.params.maxValue }
+                  onBlur={ this.setParams }/>
+              </div>
             </div>
-            <div className="range-settings__val">
-              <input
-                type="number"
-                name="max"
-                placeholder="Enter max value"
-                onChange={ this.setMaxValue }
-                value={this.state.params.maxValue}/>
-            </div>
-            <button
-              onClick={ this.setParams }
-              className="btn range-settings__btn">
-                Submit
-            </button>
           </div> :
           null
         }
@@ -124,7 +142,7 @@ export default class RangeSettings extends React.Component {
           min={min || this.state.params.minValue}
           max={max || this.state.params.maxValue}
           step={1}
-          value={this.state.value}
+          value={ this.state.value }
         />
       </div>
     );

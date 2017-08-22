@@ -5,6 +5,7 @@ import ListUsers from
 '../../components/DashboardContent/ListUsers';
 import './Dashboard.scss';
 import DashChart from '../../components/DashboardContent/DashChart';
+import Chat from '../../components/Chat/Chat';
 
 const Dashboard = () => (
   <div className="dashboard-block clearfix">
@@ -12,8 +13,9 @@ const Dashboard = () => (
       <ListDevices />
       <DashChart />
     </div>
-    <div className="dashboard-sidebar">
+    <div className="dashboard-sidebar clearfix">
       <ListUsers />
+      <Chat />
     </div>
   </div>
 );

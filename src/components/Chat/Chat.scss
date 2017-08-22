@@ -1,0 +1,46 @@
+@import '../../scss/_variables';
+
+.chat {
+  color: $text-color-active;
+
+  @media (min-width: $tablet-min) {
+    width: 45%;
+    max-width: 350px;
+    float: left;
+    margin-left: 80px;
+  }
+
+    @media (min-width: $desktop-min) {
+      float: none;
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+    }
+
+  &-message {
+    background: $dark-gray;
+    border: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    color: $text-color-active;
+    height: 50px;
+    padding: 7px;
+    resize: none;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  &-lines {
+    background: $gray;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    height: 300px;
+    overflow-y: auto;
+  }
+
+  &-line {
+    padding: 10px;
+
+    &__colon {
+      margin-right: 1%;
+    }
+  }
+}

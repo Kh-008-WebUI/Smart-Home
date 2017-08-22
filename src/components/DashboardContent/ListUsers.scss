@@ -6,6 +6,18 @@
   width: 100%;
   margin-bottom: 30px;
 
+  @media (min-width: $tablet-min) {
+    width: 40%;
+    max-width: 300px;
+    float: left;
+  }
+
+  @media (min-width: $desktop-min) {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
   li {
     padding: 5px;
   }
@@ -24,13 +36,5 @@
 
 .list-menu-users {
   overflow-y: auto; 
-  max-height: 150px;
-
-  @media (min-width: $tablet-min) {
-    max-height: 290px;
-  }
-
-  @media (min-width: $desktop-min) {
-    max-height: 450px;
-  }
+  max-height: 290px;
 }

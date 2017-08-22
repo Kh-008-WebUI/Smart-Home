@@ -1,6 +1,7 @@
 import {
   UPDATE_CHART,
-  WS_MESSAGE
+  WS_MESSAGE,
+  UPDATE_CHAT
 } from '../constants/index';
 
 export const updateChart = (data) => ({
@@ -11,4 +12,9 @@ export const updateChart = (data) => ({
 export const wsMessage = (msg) => ({
   type: WS_MESSAGE,
   msg
+});
+
+export const updateChat = (data) => ({
+  type: UPDATE_CHAT,
+  data
 });

@@ -23,6 +23,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
+
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(session({
   secret: config.secret,
@@ -30,12 +32,11 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    path: '/',
     domain: 'localhost',
     httpOnly: true,
-    maxAge: null
+    maxAge: 3600000
   },
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  store: sessionStore
 }));
 
 const wsClient = new WebSocket('ws://localhost:3001/');
@@ -63,27 +64,26 @@ database.once('open', () => {
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+const chart = require('./utils/chartData.js');
 
 wss.on('connection', (ws, req) => {
-  require('./utils/chartData.js')(ws);
+  chart(wss);
+  let sessionData = {};
   ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
     if (event.type === 'message') {
-      const data = JSON.parse(event.data);
-
       if (data.type === 'users') {
-        event.target.user = data.user;
+        sessionData.user = data.user._id;
       }
+      wss.send(JSON.stringify({ type: 'users', user: { _id: sessionData.user, home: true } }));
     }
-    wss.send(event.data);
+    wss.send(JSON.stringify(data));
   };
-
   ws.onclose = (event) => {
-    const userOffline = Object.assign({}, event.target.user, { home: false });
-
-    wss.send(JSON.stringify({ type: 'users', user: userOffline }));
-
+    const userOffline = Object.assign({}, { _id: sessionData.user, home: false });
     const User = require('./models/user');
 
+    wss.send(JSON.stringify({ type: 'users', user: userOffline }));
     User.findOne({ _id: userOffline._id })
       .then(user => {
         if (user) {
@@ -93,7 +93,9 @@ wss.on('connection', (ws, req) => {
       });
   };
 });
-
+const chartData = setInterval(function () {
+  chart(wss);
+}, 60000);
 wss.send = (data) => {
   wss.clients.forEach(client => {
     client.send(data);

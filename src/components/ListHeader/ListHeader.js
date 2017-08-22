@@ -21,11 +21,11 @@ class ListHeader extends React.Component {
 
     this.handleFilterSelect = (filterOption) => {
       this.props.filterAction(filterOption);
-      this.updateUrl({ ...this.initialParams, filter:filterOption });
+      this.updateUrl({ ...this.initialParams, filter: filterOption });
     };
     this.handleSearchResult = (searchValue) => {
       this.props.findItems(searchValue);
-      this.updateUrl({ ...this.initialParams, search:searchValue });
+      this.updateUrl({ ...this.initialParams, search: searchValue });
     };
     this.updateUrl = (params) => {
       const match = this.props.match;
@@ -41,9 +41,14 @@ class ListHeader extends React.Component {
   componentDidMount () {
     const location = this.props.location;
     const searchValue = queryString.parse(location.search).search;
+    const filterValue = queryString.parse(location.search).filter;
 
     if (searchValue) {
       this.handleSearchResult(searchValue);
+    }
+
+    if (filterValue) {
+      this.handleFilterSelect(filterValue);
     }
   }
   componentWillUnmount () {
@@ -57,11 +62,13 @@ class ListHeader extends React.Component {
         <Search
           handleSearch={this.handleSearchResult}
           quantity={this.props.quantity}
+          value={this.initialParams.search}
         />
         <div className="device-list__header--right">
           <FilterSelect
             handleSelect={this.handleFilterSelect}
             options={options}
+            value={this.initialParams.filter}
           />
           <Link to={'/builder'} className="btn btn--primary add-item-button">
             New

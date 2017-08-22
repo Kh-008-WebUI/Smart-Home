@@ -46,6 +46,7 @@ export default class SelectLocation extends React.Component {
 
   deleteSelectedLocation = (id) => {
     this.props.deleteLocation(id);
+    this.setLocationValue(this.props.locations[0]);
   };
 
   setLocationValue = (location) => {

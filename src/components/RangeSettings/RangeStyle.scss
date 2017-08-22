@@ -110,8 +110,6 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .range-settings {
-  display: flex;
-  flex-wrap: wrap;
   margin-bottom: 15px;
 
   &__title {
@@ -119,6 +117,12 @@ input[type=range]:focus::-ms-fill-upper {
     font-size: 14px;
     font-weight: 100;
     margin-bottom: 10px;
+  }
+
+  &__group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   &__val {

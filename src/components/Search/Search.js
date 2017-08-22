@@ -13,6 +13,7 @@ const Search = (props) => {
           type="text"
           name="search"
           placeholder="Find a device"
+          value={props.value}
           className="searchBox__field"
           onChange={e => {
             props.handleSearch(e.target.value);
@@ -24,7 +25,8 @@ const Search = (props) => {
 
 Search.propTypes = {
   handleSearch: PropTypes.func.isRequired,
-  quantity: PropTypes.number
+  quantity: PropTypes.number,
+  value: PropTypes.string
 };
 
 export default Search;
