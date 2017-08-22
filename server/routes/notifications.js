@@ -72,6 +72,7 @@ notificationRouter.route('/history')
 notificationRouter.route('/viewed')
   .put((req, res, next) => {
     Notification.find()
+    .sort({ time: -1 })
     .then(result => {
       result.forEach((item) => {
         item.viewedByUser.forEach((user) => {
