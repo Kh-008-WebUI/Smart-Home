@@ -101,7 +101,7 @@ devicesRouter.route('/:id').put((req, res, next) => {
             User.find((err, users) => {
               const arrUsersStatus = createArrUsersStatus(users);
               const notification = new Notification({
-                time:  Date.now(),
+                time:  moment().toDate(),
                 text: `${device.name} is ${device.status ? 'on' : 'off'}`,
                 viewedByUser: arrUsersStatus
               });

@@ -9,10 +9,9 @@ notificationRouter.route('/')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
    const todayStartTime = moment().startOf('day').toDate();
-
+   
    Notification
-    .find({ 'time': { '$gte': (req.session.userCreatedDate > todayStartTime) ?
-     req.session.userCreatedDate : todayStartTime } })
+    .find({ 'time': { '$gte': req.session.userCreatedDate } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))
@@ -24,6 +23,8 @@ notificationRouter.route('/')
           }
         });
       });
+      // console.log(notifications);
+      console.log('session ' + req.session.userCreatedDate);
       res.json(notifications);
     })
     .catch(err => {
@@ -63,7 +64,7 @@ notificationRouter.route('/history')
           }
         });
       });
-      console.log(req.session.userCreatedDate);
+      console.log('session ' + req.session.userCreatedDate);
       res.json(notifications);
     })
     .catch(err => {
@@ -91,6 +92,7 @@ notificationRouter.route('/viewed')
         return item.time > todayStartTime;
       });
 
+      console.log('session ' + req.session.userCreatedDate);
       res.json(notificationsToday);
     })
     .catch(err => {

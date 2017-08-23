@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const moment = require('moment');
 
 const notificationSchema = new Schema({
   time: {
     type: Date,
-    default: Date.now,
+    default: moment().toDate,
     validate: [dateValidator, 'Date must be in past']
   },
   text: {

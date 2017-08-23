@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const config = require('../config/config.js');
 const Schema = mongoose.Schema;
+const moment = require('moment');
 
 const userSchema = new Schema({
   name: {
@@ -25,7 +26,7 @@ const userSchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now,
+    default: moment().toDate,
     validate: [dateValidator, 'Wrong date']
   },
   avatar: String
