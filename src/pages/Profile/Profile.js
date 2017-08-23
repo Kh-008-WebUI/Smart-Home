@@ -39,6 +39,7 @@ class Profile extends Component {
     const data = {
       name: this.name.getValue(),
       email: this.email.getValue(),
+      passwordOld: this.passwordOld.getValue(),
       password: this.password.getValue(),
       passwordRepeat: this.passwordRepeat.getValue(),
       avatar: this.base64Str,
@@ -167,6 +168,7 @@ class Profile extends Component {
                 ref={(input) => {
                   this.name = input;
                 }}
+                required
                 validations="isAlpha"
                 validationError="Name must contain only letters"/>
               <Input
@@ -177,6 +179,7 @@ class Profile extends Component {
                 ref={(input) => {
                   this.email = input;
                 }}
+                required
                 validations="isEmail"
                 validationError="This is not a valid email"/>
               {!this.state.disabled ?
@@ -334,6 +337,7 @@ Profile.propTypes = {
   user: PropTypes.object,
   email: PropTypes.object,
   password: PropTypes.object,
+  passwordOld: PropTypes.object,
   passwordRepeat: PropTypes.object,
   errorText: PropTypes.string,
   value: PropTypes.object,
