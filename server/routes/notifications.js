@@ -8,10 +8,11 @@ const HttpError = require('../errors/HttpError');
 notificationRouter.route('/')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
-   const today = moment().startOf('day');
+   const todayStartTime = moment().startOf('day').toDate();
 
    Notification
-    .find({ 'time': { '$gte': today } })
+    .find({ 'time': { '$gte': (req.session.userCreatedDate > todayStartTime) ?
+     req.session.userCreatedDate : todayStartTime } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))
@@ -47,6 +48,7 @@ notificationRouter.route('/')
 notificationRouter.route('/history')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+   const todayStartTime = moment().startOf('day').toDate();
 
    Notification
     .find({ 'time': { '$gte': req.session.userCreatedDate } })
@@ -61,6 +63,7 @@ notificationRouter.route('/history')
           }
         });
       });
+      console.log(req.session.userCreatedDate);
       res.json(notifications);
     })
     .catch(err => {
@@ -70,6 +73,8 @@ notificationRouter.route('/history')
 
 notificationRouter.route('/viewed')
   .put((req, res, next) => {
+    const todayStartTime = moment().startOf('day').toDate();
+
     Notification.find()
     .sort({ time: -1 })
     .then(result => {
@@ -82,7 +87,11 @@ notificationRouter.route('/viewed')
           }
         });
       });
-      res.json(result);
+      const notificationsToday = result.filter(item => {
+        return item.time > todayStartTime;
+      });
+
+      res.json(notificationsToday);
     })
     .catch(err => {
       next(new HttpError(503));
