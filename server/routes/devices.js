@@ -132,11 +132,10 @@ devicesRouter.route('/items/:id/:setting').put((req, res, next) => {
 
       device.markModified('items');
 
-      device.save()
+      return device.save()
         .then(device => {
           res.json(device);
         })
-        .catch(err => (next(new HttpError(503))));
     })
     .catch( err => (next(new HttpError(503))));
 });
