@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Devices UI test Device 1`] = `
+<seciton>
+  <div
+    className="device-view__header"
+  >
+    <div
+      className="device-view__name"
+    >
+      <h1>
+        Device Test
+      </h1>
+      <small>
+        Last updated 
+      </small>
+    </div>
+    <div
+      className="device-item__info-status"
+    >
+      <div
+        className="undefined"
+      >
+        <label
+          className="switch"
+        >
+          <input
+            checked={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <div
+            className="slider round"
+          />
+        </label>
+      </div>
+    </div>
+    <a
+      className="fa fa-pencil device-item_info-edit"
+      href="/device/edit/599c8094258df03990fae071"
+      onClick={[Function]}
+    />
+    <div
+      className="device-view__info"
+    >
+      <small>
+        Date of create 
+      </small>
+      <small>
+        August 22, 2017
+      </small>
+      <br />
+      <small>
+        Created by 
+      </small>
+      <small>
+        Bruce
+      </small>
+    </div>
+  </div>
+  <div
+    className="device-view__location"
+  >
+    <h4>
+      <i
+        className="fa fa-map-marker"
+      />
+      Parking
+    </h4>
+  </div>
+  <section
+    className="device-view__settings"
+  >
+    <div
+      className="device-settings__group device-settings__group--toggle"
+    >
+      <div
+        className="device-settings__description"
+      >
+        Toggle
+      </div>
+      <div
+        className="device-settings__item device-settings__item--toggle"
+      >
+        <label
+          className="switch"
+        >
+          <input
+            checked={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <div
+            className="slider round"
+          />
+        </label>
+      </div>
+    </div>
+    <div
+      className="device-settings__group device-settings__group--value"
+    >
+      <div
+        className="device-settings__description"
+      >
+        Value
+      </div>
+      <div
+        className="device-settings__item device-settings__item--value"
+      >
+        <input
+          className="value_input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Input..."
+          type="text"
+          value="hello there"
+        />
+      </div>
+    </div>
+    <div
+      className="device-settings__group device-settings__group--range"
+    >
+      <div
+        className="device-settings__description"
+      >
+        50
+      </div>
+      <div
+        className="device-settings__item device-settings__item--range"
+      >
+        <p
+          className="range_value"
+        >
+          50
+        </p>
+        <input
+          max={100}
+          min={0}
+          onChange={[Function]}
+          onMouseUp={[Function]}
+          step={1}
+          type="range"
+          value={50}
+        />
+      </div>
+    </div>
+  </section>
+</seciton>
+`;
+
+exports[`Devices UI test DeviceListItem 1`] = `
+<div
+  className="device-item"
+>
+  <div
+    className="device-item__info"
+  >
+    <a
+      className="device-item__info-name"
+      href="/devices/device/599c8094258df03990fae071"
+      onClick={[Function]}
+    >
+      Device Test
+    </a>
+    <div
+      className="device-item__info-status"
+    >
+      <div
+        className="undefined"
+      >
+        <label
+          className="switch"
+        >
+          <input
+            checked={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <div
+            className="slider round"
+          />
+        </label>
+      </div>
+    </div>
+  </div>
+  <div
+    className="device-item__description"
+  >
+    <div
+      className="device-item__description-location"
+    >
+      Parking
+    </div>
+    <div
+      className="device-item__description-icon"
+    >
+      <div
+        className="device-item__description-icon-delete"
+      >
+        <a
+          className="fa fa-trash"
+          onClick={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest,
   changeStatusNotification,
-  changeStatusAllNotifications
+  changeStatusAllNotifications,
+  showAllHistoryNotifications
 } from '../../actions/notifications.action';
 import moment from 'moment';
 import {
@@ -49,6 +50,9 @@ class NotificationsBell extends React.Component {
   }
   readAllNotify = () => {
     this.props.changeStatusAllNotifications();
+  }
+  showAllHistory = () => {
+    this.props.showAllHistoryNotifications();
   }
   changeButtonText = () => {
     if (this.state.showAllNotify) {
@@ -142,6 +146,11 @@ class NotificationsBell extends React.Component {
                 onClick={this.readAllNotify}>
                 Read all
               </div>
+              <div
+                className="notification-button-all-history"
+                onClick={this.showAllHistory}>
+                All history
+              </div>
             </div>
           </div>
 
@@ -161,7 +170,9 @@ function mapDispatchToProps (dispatch) {
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed)),
     changeStatusAllNotifications: (statusForAll) =>
-      dispatch(changeStatusAllNotifications())
+      dispatch(changeStatusAllNotifications()),
+    showAllHistoryNotifications: () =>
+      dispatch(showAllHistoryNotifications())
   };
 }
 
@@ -171,6 +182,7 @@ NotificationsBell.propTypes = {
   getNotifications: PropTypes.any,
   changeStatusNotification: PropTypes.func,
   changeStatusAllNotifications: PropTypes.func,
+  showAllHistoryNotifications: PropTypes.func,
   loadNotificationsStatus: PropTypes.string
 };
 
