@@ -18,15 +18,6 @@ class Login extends Component {
       canSubmit: false
     };
   }
-  componentDidUpdate () {
-    if (this.props.userData._id) {
-      if (this.props.history.length > 3) {
-        this.props.history.goBack();
-      } else {
-        this.props.history.push('/');
-      }
-    }
-  }
   addLogin = () => {
     const data = {
       email: this.email.getValue(),

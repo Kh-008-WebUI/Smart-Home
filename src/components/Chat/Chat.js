@@ -15,13 +15,20 @@ class Chat extends Component {
   componentDidUpdate () {
     this.chat.scrollIntoView();
   }
-
+  componentDidMount () {
+    this.chat.scrollIntoView();
+  }
   onMessageInput = (e) => {
     this.setState({
       message: e.target.value
     });
   }
-
+  onEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.onSubmit();
+    }
+  }
   onSubmit = (e) => {
     ws.send(JSON.stringify({
       type: 'chat',
@@ -42,7 +49,7 @@ class Chat extends Component {
           <ul className="chat-lines">
           {this.props.data.map((c, i) => (
             <li key={i} className="chat-line">
-              <span>{c.from}</span>
+              <span className="chat-line__user">{c.from}</span>
               <span className="chat-line__colon">:</span>
               <span>{c.msg}</span>
             </li>
@@ -56,12 +63,14 @@ class Chat extends Component {
         </div>
         <textarea
           onChange={this.onMessageInput}
+          onKeyPress={this.onEnter}
           value={this.state.message}
           className="chat-message"
           placeholder="Type your message..." />
         <input
-          className="btn btn--primary btn--signup btn--signup-active"
+          className="btn btn--primary"
           type="submit"
+          value="Send Message"
           onClick={this.onSubmit} />
       </div>
     );

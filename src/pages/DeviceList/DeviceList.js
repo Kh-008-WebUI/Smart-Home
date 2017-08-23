@@ -115,7 +115,7 @@ class DeviceList extends React.Component {
 
     return (
       <DevicesSection
-        filterOption={this.props.match.params.filterOption}
+        filterOption={filterOption}
         devices={this.props.devices}
         location={this.props.location}
         history={this.props.history}

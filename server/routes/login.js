@@ -8,7 +8,7 @@ loginRouter.route('/')
     User.findOne({ '_id': req.session.user })
       .then(user => {
         if (!user) {
-          res.send({ userData: {} });
+          res.send({userData: null});
         } else {
           res.status(200).send({
             status: true,

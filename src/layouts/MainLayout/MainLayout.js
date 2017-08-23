@@ -28,27 +28,15 @@ class MainLayout extends Component {
       this.setState({ sidebarOpen: !currentState });
     };
   }
-  componentDidMount () {
-    ws.onopen = () => {
-      ws.send(JSON.stringify({
-        type: 'init'
-      }));
-      ws.onmessage = (msg) => {
-        const message = JSON.parse(msg.data);
-
-        this.props.wsMessage(message);
-      };
-    };
-  }
-  componentWillMount () {
-    if (!this.props.isLogged._id) {
-      this.props.getLoggedUser();
-    }
-  }
   componentDidUpdate () {
-    if (!this.props.isLogged._id) {
-      this.props.history.push('/auth');
-    }
+    window.dispatchEvent(new Event('resize'));
+  }
+  componentDidMount () {
+    ws.onmessage = (msg) => {
+      const message = JSON.parse(msg.data);
+
+      this.props.wsMessage(message);
+    };
   }
   render () {
     return (

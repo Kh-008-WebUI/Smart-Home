@@ -7,27 +7,21 @@ const HttpError = require('../errors/HttpError');
 
 notificationRouter.route('/')
  .get((req, res, next) => {
-    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+   const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+   const today = moment().startOf('day');
 
    Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate ?
-      req.session.userCreatedDate : new Date(2017, 1, 1) },
-      'viewedByUser.userID': req.session.user
-    },
-     {
-       'emergency': '$all',
-       'text': '$all',
-       'viewedByUser': { $elemMatch: { userID: req.session.user } },
-       'time': '$all',
-       'viewed': '$all'
-     }
-    )
+    .find({ 'time': { '$gte': today } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))
     .then(notifications => {
       notifications.forEach((item) => {
-        item.viewed = item.viewedByUser[0].status;
+        item.viewedByUser.forEach((user) => {
+          if ((user.userID + '') === req.session.user) {
+            item.viewed = user.status;
+          }
+        });
       });
       res.json(notifications);
     })
@@ -48,6 +42,51 @@ notificationRouter.route('/')
       .catch(err => {
         next(new HttpError(503));
       });
+  });
+
+notificationRouter.route('/history')
+ .get((req, res, next) => {
+   const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+
+   Notification
+    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .sort({ time: -1 })
+    .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
+    .limit(parseInt(itemsPerPage))
+    .then(notifications => {
+      notifications.forEach((item) => {
+        item.viewedByUser.forEach((user) => {
+          if ((user.userID + '') === req.session.user) {
+            item.viewed = user.status;
+          }
+        });
+      });
+      res.json(notifications);
+    })
+    .catch(err => {
+      next(new HttpError(400));
+    });
+ });
+
+notificationRouter.route('/viewed')
+  .put((req, res, next) => {
+    Notification.find()
+    .sort({ time: -1 })
+    .then(result => {
+      result.forEach((item) => {
+        item.viewedByUser.forEach((user) => {
+          if ((user.userID + '') === req.session.user) {
+            user.status = true;
+            item.save();
+            item.viewed = true;
+          }
+        });
+      });
+      res.json(result);
+    })
+    .catch(err => {
+      next(new HttpError(503));
+    });
   });
 
 notificationRouter.route('/:id')

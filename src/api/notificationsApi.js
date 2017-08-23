@@ -10,12 +10,12 @@ export const changeStatus = (id, status) => {
    JSON.stringify({ viewed: status }));
 };
 
-export const changeAllStatus = (status) => {
-  return Transport.put(`${SERVER_API}/notifications/`,
-   JSON.stringify({
-     viewed: status,
-     type: 'changeAllStatus'
-   }));
+export const changeAllStatus = () => {
+  return Transport.put(`${SERVER_API}/notifications/viewed`);
+};
+
+export const showAllHistory = () => {
+  return Transport.get(`${SERVER_API}/notifications/history`);
 };
 
 export const addNotifications = (message) => {
