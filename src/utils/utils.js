@@ -6,11 +6,13 @@ import {
 import React from 'react';
 import AsyncComponent from '../components/AsyncComponent/AsyncComponent';
 
-export function searchItem (item, searchValue) {
-  const result = item.name.toLowerCase()
-    .includes(searchValue.toLowerCase().trim());
+export function searchItem (name, searchValue) {
+  if (typeof name !== 'string') {
+    return false;
+  };
 
-  return result;
+  return name.toLowerCase()
+    .includes(searchValue.toLowerCase().trim());
 }
 
 export const queryFromObject = (params) => {
@@ -38,6 +40,10 @@ const sortDevicesByAlphabet = (devices) => {
 };
 
 export const sortDevicesByLocations = (devices) => {
+  if (typeof devices !== 'array') {
+    return false
+  };
+
   return sortDevicesByAlphabet(devices).reduce((location, device) => {
     if (!location[device.location]) {
       location[device.location] = [];
