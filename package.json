@@ -94,6 +94,6 @@
     "webpack-dev-server": "^2.4.4"
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/jest-css-modules"
+    "transform": {".*": "<rootDir>/node_modules/jest-css-modules"}
   }
 }
