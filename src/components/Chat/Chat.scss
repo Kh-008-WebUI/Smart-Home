@@ -38,9 +38,14 @@
 
   &-line {
     padding: 10px;
-
+    word-wrap: break-word;
+    font-weight: 300;
+    
     &__colon {
-      margin-right: 1%;
+      margin-right: 2%;
+    }
+    &__user {
+      color: orange;
     }
   }
 }

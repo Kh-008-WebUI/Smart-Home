@@ -3,12 +3,15 @@ import './DashChart.scss';
 import Chart from '../../components/Chart/Chart';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ws } from '../../index';
 
 class DashChart extends React.Component {
   constructor (props) {
     super(props);
   }
-
+  componentDidMount () {
+    ws.send(JSON.stringify({ type: 'initChart' }));
+  }
   render () {
     return (
       <div className='chart'>
