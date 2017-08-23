@@ -39,6 +39,7 @@ class Profile extends Component {
     const data = {
       name: this.name.getValue(),
       email: this.email.getValue(),
+      passwordOld: this.passwordOld.getValue(),
       password: this.password.getValue(),
       passwordRepeat: this.passwordRepeat.getValue(),
       avatar: this.base64Str,
@@ -336,6 +337,7 @@ Profile.propTypes = {
   user: PropTypes.object,
   email: PropTypes.object,
   password: PropTypes.object,
+  passwordOld: PropTypes.object,
   passwordRepeat: PropTypes.object,
   errorText: PropTypes.string,
   value: PropTypes.object,
