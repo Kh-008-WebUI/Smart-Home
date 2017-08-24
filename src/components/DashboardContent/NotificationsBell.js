@@ -67,9 +67,6 @@ class NotificationsBell extends React.Component {
     if (!item.viewed) {
       classForNotifyItem += 'notification-item-marker';
     }
-    // if (item.viewed) {
-    //   classForNotifyItem += 'notification-item-marker ';
-    // }
     if (item.emergency) {
       classForNotifyItem += ' notification-item-emergency';
     }
