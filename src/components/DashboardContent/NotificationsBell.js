@@ -116,6 +116,9 @@ class NotificationsBell extends React.Component {
             this.bell = el;
           } }>
           <div className="notification-list__notice">
+            <div className="notification-unread-block">
+              You have no unread messages
+            </div>
             <ul
               onClick={this.changeNotifyView}>
               {listNotify.map((item, key) => {

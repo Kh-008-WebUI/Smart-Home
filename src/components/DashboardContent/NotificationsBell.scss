@@ -114,3 +114,9 @@
 @keyframes blinker {
   50% { opacity: 0; }
 }
+
+.notification-unread-block {
+  text-align: center;
+  color: $text-color-active;
+  font-style: italic;
+}
