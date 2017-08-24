@@ -13,7 +13,8 @@ import {
   DELETE_USER_PROFILE_SUCCESS,
   DELETE_USER_PROFILE_FAILURE,
   UPDATE_USERS_ONLINE,
-  UPLOAD_PHOTO_FAILURE } from '../constants/index';
+  UPLOAD_PHOTO_FAILURE,
+  REGISTER_SUCCESS } from '../constants/index';
 
 const initialState = {
   users: [],
@@ -34,6 +35,11 @@ export const users = (state = initialState, action) => {
       );
     }
     case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.user
+      };
+    case REGISTER_SUCCESS:
       return {
         ...state,
         user: action.user
@@ -62,7 +68,7 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         updateProfileStatus: 'FAIL',
-        user: { errorText: action.errorText }
+        user: { ...state.user, errorText: action.errorText }
       };
     }
     case DELETE_USER_PROFILE_REQUEST: {
@@ -102,7 +108,7 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         updateProfileStatus: 'FAIL',
-        user: { errorText: action.errorText }
+        user: { ...state.user, errorText: action.errorText }
       };
     }
     default:

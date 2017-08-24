@@ -9,7 +9,8 @@ import {
   LOGOUT_PENDING,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
-  LOAD_LOGGED_USER
+  LOAD_LOGGED_USER,
+  DELETE_USER_PROFILE_SUCCESS
 } from '../constants/index';
 
 const initialState = {
@@ -67,6 +68,11 @@ const reducer = (state = initialState, action) => {
       };
     case LOAD_LOGGED_USER:
       return { ...state, status: 'PENDING' };
+    case DELETE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLogged: null
+      };
     default:
       return state;
   }
