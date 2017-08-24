@@ -42,6 +42,7 @@
     "react-router-dom": "^4.1.1",
     "react-select": "^1.0.0-rc.5",
     "redux": "^3.7.1",
+    "redux-auth-wrapper": "^2.0.1",
     "redux-saga": "^0.15.4",
     "reselect": "^3.0.1",
     "serve-favicon": "^2.4.3",
@@ -94,6 +95,8 @@
     "webpack-dev-server": "^2.4.4"
   },
   "jest": {
-    "transform": {".*": "<rootDir>/node_modules/jest-css-modules"}
+    "transform": {
+      ".*": "<rootDir>/node_modules/jest-css-modules"
+    }
   }
 }

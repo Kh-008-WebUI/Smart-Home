@@ -8,13 +8,15 @@ import {
   REGISTER_FAILURE,
   LOGOUT_PENDING,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  LOGOUT_FAILURE,
+  LOAD_LOGGED_USER,
+  DELETE_USER_PROFILE_SUCCESS
 } from '../constants/index';
 
 const initialState = {
   status: '',
   errorText: '',
-  isLogged: {}
+  isLogged: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,7 +33,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status:'FAIL',
-        isLogged: {},
+        isLogged: null,
         errorText: action.errorText
       };
     case CLEAR_LOGIN_STATUS:
@@ -56,13 +58,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         status: '',
-        isLogged: {}
+        isLogged: null
       };
     case LOGOUT_FAILURE:
       return {
         ...state,
         status:'FAIL',
         errorText: action.errorText
+      };
+    case LOAD_LOGGED_USER:
+      return { ...state, status: 'PENDING' };
+    case DELETE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLogged: null
       };
     default:
       return state;
