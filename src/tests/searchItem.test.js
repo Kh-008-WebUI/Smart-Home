@@ -21,5 +21,8 @@ describe (
     it (`Undefined with string.`, () => {
       expect(searchItem(undefined, 'Fridge')).toBe(false);
     });
+    it (`String with empty string.`, () => {
+      expect(searchItem('Washer', '')).toBe(true);
+    });
   }
 );

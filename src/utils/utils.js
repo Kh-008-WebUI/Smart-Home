@@ -9,7 +9,7 @@ import AsyncComponent from '../components/AsyncComponent/AsyncComponent';
 export function searchItem (name, searchValue) {
   if (typeof name !== 'string') {
     return false;
-  };
+  }
 
   return name.toLowerCase()
     .includes(searchValue.toLowerCase().trim());
@@ -40,9 +40,9 @@ const sortDevicesByAlphabet = (devices) => {
 };
 
 export const sortDevicesByLocations = (devices) => {
-  if (typeof devices !== 'array') {
-    return false
-  };
+  if (!Array.isArray(devices)) {
+    return false;
+  }
 
   return sortDevicesByAlphabet(devices).reduce((location, device) => {
     if (!location[device.location]) {
