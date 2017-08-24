@@ -31,23 +31,16 @@ loginRouter.route('/')
           req.session.user = user._id;
           req.session.name = user.name;
           req.session.userCreatedDate = user.created;
-          user.home = true;
-          user.save()
-            .then(() => {
-              res.status(200).send({
-                status: true,
-                userData: {
-                  _id: user._id,
-                  name: user.name,
-                  email: user.email,
-                  created: user.created,
-                  avatar: user.avatar
-                }
-              });
-            })
-            .catch(err => {
-              next(new HttpError(503));
-            });
+          res.status(200).send({
+            status: true,
+            userData: {
+              _id: user._id,
+              name: user.name,
+              email: user.email,
+              created: user.created,
+              avatar: user.avatar
+            }
+          });
         } else {
           next(new HttpError(403));
         }

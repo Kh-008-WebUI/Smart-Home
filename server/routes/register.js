@@ -13,8 +13,6 @@ registerRouter.route('/').post( (req, res, next) => {
           .then( user => {
             req.session.user = user._id;
             req.session.name = user.name;
-            user.home = true;
-            user.save().catch(err => (next(new HttpError(503))));
             res.status(200).send({
               status: true,
               userData: {

@@ -10,6 +10,8 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const MongoStore = require('connect-mongo')(session);
+const cookie = require('cookie');
+const cookieParser = require('cookie-parser')
 
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -65,37 +67,51 @@ database.once('open', () => {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 const chart = require('./utils/chartData.js');
+const sendUserStatus = (req, status) => {
+  if (req.headers.cookie) {
+    const cookies = cookie.parse(req.headers.cookie);
+    const sid = cookieParser.signedCookie(cookies['login'], config.secret); 
+    sessionStore.get(sid, function (err, ss) {
+      if (ss) {
+        wss.send(JSON.stringify({ type: 'users', user: { _id: ss.user, home: status } }));          
+      }
+    });
+  }  
+}
 
 wss.on('connection', (ws, req) => {
+  console.log('Ws connection start');
+  ws.isAlive = true;
+  ws.ping('', false, true);
+  ws.on('pong', function () {
+    this.isAlive = true;
+    sendUserStatus(req, true);
+  });
   chart(wss);
-  let sessionData = {};
   ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
     if (event.type === 'message') {
-      if (data.type === 'users') {
-        sessionData.user = data.user._id;
-      }
       if (data.type === 'initChart') {
         chart(wss);
       }
-      wss.send(JSON.stringify({ type: 'users', user: { _id: sessionData.user, home: true } }));
     }
     wss.send(JSON.stringify(data));
   };
   ws.onclose = (event) => {
-    const userOffline = Object.assign({}, { _id: sessionData.user, home: false });
-    const User = require('./models/user');
-
-    wss.send(JSON.stringify({ type: 'users', user: userOffline }));
-    User.findOne({ _id: userOffline._id })
-      .then(user => {
-        if (user) {
-          user.home = false;
-          user.save();
-        }
-      });
+    sendUserStatus(req, false);
   };
 });
+
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) {
+      return ws.terminate();
+    }
+    ws.isAlive = false;
+    ws.ping('', false, true);
+  });
+}, 30000);
+
 const chartData = setInterval(function () {
   chart(wss);
 }, 60000);

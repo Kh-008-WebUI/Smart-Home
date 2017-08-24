@@ -3,7 +3,7 @@ import './DashChart.scss';
 import Chart from '../../components/Chart/Chart';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ws } from '../../index';
+import { ws } from '../../layouts/MainLayout/MainLayout';
 
 class DashChart extends React.Component {
   constructor (props) {
