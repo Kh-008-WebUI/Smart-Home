@@ -3,16 +3,17 @@ const registerRouter = express.Router();
 const User = require('../models/user');
 const HttpError = require('../errors/HttpError');
 
-registerRouter.route('/').post( (req, res, next) => {
+registerRouter.route('/').post((req, res, next) => {
   User.find({ email: req.body.email })
-    .then( user => {
+    .then(user => {
       if (user.length > 0) {
         next(new HttpError(409));
       } else {
         User.create(req.body)
-          .then( user => {
+          .then(user => {
             req.session.user = user._id;
             req.session.name = user.name;
+            req.session.userCreatedDate = user.created;
             user.home = true;
             user.save().catch(err => (next(new HttpError(503))));
             res.status(200).send({
@@ -25,12 +26,12 @@ registerRouter.route('/').post( (req, res, next) => {
               }
             });
           })
-          .catch( err => {
+          .catch(err => {
             next(new HttpError(503));
           })
       }
     })
-    .catch( err => {
+    .catch(err => {
       next(new HttpError(503));
     });
 });
