@@ -5,7 +5,7 @@ const moment = require('moment');
 const notificationSchema = new Schema({
   time: {
     type: Date,
-    default: moment().toDate,
+    default: Date.now,
     validate: [dateValidator, 'Date must be in past']
   },
   text: {

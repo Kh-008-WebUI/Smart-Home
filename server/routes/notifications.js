@@ -8,10 +8,12 @@ const HttpError = require('../errors/HttpError');
 notificationRouter.route('/')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
-   const todayStartTime = moment().startOf('day').toDate();
-   
+   const todayStartTime = moment().startOf('day').format();
+   const userDateCreated = moment(req.session.userCreatedDate).format();
+
    Notification
-    .find({ 'time': { '$gte': req.session.userCreatedDate } })
+    .find({ 'time': { '$gte': (userDateCreated > todayStartTime) ?
+      userDateCreated : todayStartTime } })
     .sort({ time: -1 })
     .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
     .limit(parseInt(itemsPerPage))
@@ -23,8 +25,6 @@ notificationRouter.route('/')
           }
         });
       });
-      // console.log(notifications);
-      console.log('session ' + req.session.userCreatedDate);
       res.json(notifications);
     })
     .catch(err => {
@@ -64,7 +64,6 @@ notificationRouter.route('/history')
           }
         });
       });
-      console.log('session ' + req.session.userCreatedDate);
       res.json(notifications);
     })
     .catch(err => {
@@ -74,7 +73,8 @@ notificationRouter.route('/history')
 
 notificationRouter.route('/viewed')
   .put((req, res, next) => {
-    const todayStartTime = moment().startOf('day').toDate();
+    const todayStartTime = moment().startOf('day').format();
+    const userDateCreated = moment(req.session.userCreatedDate).format();
 
     Notification.find()
     .sort({ time: -1 })
@@ -89,10 +89,13 @@ notificationRouter.route('/viewed')
         });
       });
       const notificationsToday = result.filter(item => {
-        return item.time > todayStartTime;
+        if (userDateCreated > todayStartTime) {
+          return moment(item.time).format() > userDateCreated;
+        } else {
+          return moment(item.time).format() > todayStartTime;
+        }
       });
-
-      console.log('session ' + req.session.userCreatedDate);
+      
       res.json(notificationsToday);
     })
     .catch(err => {

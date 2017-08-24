@@ -26,7 +26,7 @@ const userSchema = new Schema({
   },
   created: {
     type: Date,
-    default: moment().toDate,
+    default: Date.now,
     validate: [dateValidator, 'Wrong date']
   },
   avatar: String
