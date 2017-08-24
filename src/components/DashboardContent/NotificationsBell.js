@@ -67,6 +67,9 @@ class NotificationsBell extends React.Component {
     if (!item.viewed) {
       classForNotifyItem += 'notification-item-marker';
     }
+    // if (item.viewed) {
+    //   classForNotifyItem += 'notification-item-marker ';
+    // }
     if (item.emergency) {
       classForNotifyItem += ' notification-item-emergency';
     }
@@ -116,7 +119,11 @@ class NotificationsBell extends React.Component {
             this.bell = el;
           } }>
           <div className="notification-list__notice">
-            <div className="notification-unread-block">
+            <div className={ (((unViewedMessages.length) === 0) &&
+              (this.state.showAllNotify === false)) ?
+              'notification-unread-block unread-block-display' :
+              'notification-unread-block'
+              }>
               You have no unread messages
             </div>
             <ul
