@@ -2,6 +2,7 @@ const express = require('express');
 const loginRouter = express.Router();
 const User = require('../models/user');
 const HttpError = require('../errors/HttpError');
+const ws = require('../index');
 
 loginRouter.route('/')
   .get( (req, res, next) => {
@@ -10,6 +11,7 @@ loginRouter.route('/')
         if (!user) {
           res.send({userData: null});
         } else {
+          ws.send(JSON.stringify({ type: 'users', user: { _id: user._id, home: true } }));
           res.status(200).send({
             status: true,
             userData: {

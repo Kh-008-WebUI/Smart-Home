@@ -13,7 +13,10 @@ class Chat extends Component {
   }
 
   componentDidUpdate () {
-    this.chat.scrollIntoView();
+    this.chat.parentNode.scrollTop = this.chat.offsetTop;
+  }
+  componentDidMount () {
+    this.chat.parentNode.scrollTop = this.chat.offsetTop;
   }
   onMessageInput = (e) => {
     this.setState({

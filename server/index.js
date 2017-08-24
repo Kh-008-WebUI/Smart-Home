@@ -82,7 +82,6 @@ const sendUserStatus = (req, status) => {
 wss.on('connection', (ws, req) => {
   console.log('Ws connection start');
   ws.isAlive = true;
-  ws.ping('', false, true);
   ws.on('pong', function () {
     this.isAlive = true;
     sendUserStatus(req, true);
