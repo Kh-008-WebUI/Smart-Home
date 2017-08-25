@@ -10,7 +10,9 @@ class DashChart extends React.Component {
     super(props);
   }
   componentDidMount () {
-    ws.send(JSON.stringify({ type: 'initChart' }));
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ type: 'initChart' }));
+    };
   }
   render () {
     return (
