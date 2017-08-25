@@ -47,7 +47,8 @@ userRouter.route('/:id')
               && userByEmail._id.toString() !== user._id.toString()) {
               throw new HttpError(409);
             }
-            if (req.body.password && !user.checkPassword(req.body.passwordOld)) {
+            if (req.body.password && (!req.body.passwordOld ||
+              !user.checkPassword(req.body.passwordOld))) {
               throw new HttpError(403);
             }
             Object.assign(user, req.body);
