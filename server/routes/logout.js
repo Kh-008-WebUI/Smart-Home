@@ -2,6 +2,7 @@ const express = require('express');
 const logoutRouter = express.Router();
 const User = require('../models/user');
 const HttpError = require('../errors/HttpError');
+const ws = require('../index');
 
 logoutRouter.route('/')
   .get( (req, res, next) => {
@@ -11,23 +12,17 @@ logoutRouter.route('/')
           if (!user) {
             next(new HttpError(404));
           } else {
-            user.home = false;
-            user.save()
-              .then(() => {
-                req.session.destroy(function (err) {
-                  if (err) {
-                    next(new HttpError(503))
-                  }
-                  res.status(200).send({
-                    userData: {
-                      _id: user._id
-                    }
-                  });
-                });
-              })
-              .catch(err => {
-                next(new HttpError(400));
+            req.session.destroy(function (err) {
+              if (err) {
+                next(new HttpError(503))
+              }
+              ws.send(JSON.stringify({ type: 'users', user: { _id: user._id, home: false } }));
+              res.status(200).send({
+                userData: {
+                  _id: user._id
+                }
               });
+            });
           }
         })
         .catch(err => {

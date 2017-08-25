@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Chat.scss';
 import { connect } from 'react-redux';
-import { ws } from '../../index';
+import { ws } from '../../layouts/MainLayout/MainLayout';
 
 class Chat extends Component {
   constructor (props) {
@@ -13,10 +13,10 @@ class Chat extends Component {
   }
 
   componentDidUpdate () {
-    this.chat.scrollIntoView();
+    this.chat.parentNode.scrollTop = this.chat.offsetTop;
   }
   componentDidMount () {
-    this.chat.scrollIntoView();
+    this.chat.parentNode.scrollTop = this.chat.offsetTop;
   }
   onMessageInput = (e) => {
     this.setState({

@@ -10,8 +10,6 @@ import rootSaga from './sagas/index';
 import { config } from './config/config';
 import App from './routes/index';
 
-export const ws = new WebSocket(`ws://${config.origin}/`);
-
 const composeEnhancers = config.isProd ?
   compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();

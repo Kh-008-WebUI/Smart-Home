@@ -13,7 +13,8 @@ import {
 import { Message } from '../../components/Message/Message';
 import { fetchAddNotifications } from '../../actions/notifications.action';
 import { wsMessage } from '../../actions/ws.action';
-import { ws } from '../../index';
+import { config } from '../../config/config';
+export let ws;
 
 class MainLayout extends Component {
   constructor (props) {
@@ -32,6 +33,7 @@ class MainLayout extends Component {
     window.dispatchEvent(new Event('resize'));
   }
   componentDidMount () {
+    ws = new WebSocket(`ws://${config.origin}/`);
     ws.onmessage = (msg) => {
       const message = JSON.parse(msg.data);
 
