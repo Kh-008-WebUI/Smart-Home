@@ -38,23 +38,6 @@ export const devicesList = (state = initialState, action) => {
         ))
       };
 
-    case LOAD_DEVICE: {
-      const device = state.devices.filter((item) => {
-        return item._id === action.id;
-      })[0];
-
-      const devices = Object.assign([],
-        state.devices,
-        device
-      );
-
-      return {
-        ...state,
-        device,
-        devices
-      };
-    }
-
     case LOAD_DEVICE_SUCCESS: {
       return {
         ...state,

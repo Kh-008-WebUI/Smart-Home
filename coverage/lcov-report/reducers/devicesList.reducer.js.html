@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for reducers/devicesList.reducer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\prettify.css" />
+    <link rel="stylesheet" href="..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\index.html">All files</a> / <a href="index.html">reducers</a> devicesList.reducer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.9% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>14/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">26.09% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">42.86% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">38.71% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>12/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { LOAD_DEVICES_SUCCESS } from '../constants/index';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ></span></span></span></span></span></span></span></span>
+import { CHANGE_STATUS } from '../constants/index';
+import { DELETE_DEVICE_SUCCESS,
+  DELETE_DEVICE_FAIL, LOAD_DEVICE,
+  LOAD_DEVICE_SUCCESS,
+  LOAD_DEVICES_PENDING,
+  LOAD_DEVICE_PENDING,
+  LOAD_DEVICE_FAIL,
+  ADD_DEVICE_TO_LIST,
+  UPDATE_DEVICE_SUCCESS,
+  UPDATE_DEVICE_SETTINGS_SUCCESS,
+  UPDATE_DEVICE_FAILURE,
+  CLEAR_STATUS,
+  RESET_DEVICE
+  } from '../constants/index';
+import { LIST_SET_ITEM_VALUE } from '../constants/index';
+import { SEARCH_ITEM } from '../constants/index';
+import { CHANGE_FILTER_OPTION } from '../constants/index';
+&nbsp;
+const initialState = {
+  filterOption: 'all',
+  searchValue: '',
+  device: { items:[] },
+  uploadStatus: '',
+  devices: [],
+  errorText: '',
+  errorStatus: 0
+};
+&nbsp;
+export const devicesList = (state = initialState, action) =&gt; {
+  switch (action.type) {
+    case LOAD_DEVICES_SUCCESS:
+      return {
+        ...state,
+        uploadStatus:'DONE',
+        devices:action.devices.map((item) =&gt; (
+          Object.assign({}, item)
+        ))
+      };
+&nbsp;
+    case LOAD_DEVICE_SUCCESS: {
+      return {
+        ...state,
+        device: action.device,
+        uploadStatus:'DONE'
+      };
+    }
+&nbsp;
+<span class="branch-2 cbranch-no" title="branch not covered" >    case LOAD_DEVICES_PENDING: {</span>
+      re<span class="cstat-no" title="statement not covered" >turn {</span>
+        ...state,
+        uploadStatus:'PENDING'
+      };
+    }
+&nbsp;
+    case RESET_DEVICE: {
+      return {
+        ...state,
+        device: {}
+      };
+    }
+&nbsp;
+    case DELETE_DEVICE_SUCCESS: {
+      const newDevices = state.devices.filter((item) =&gt;{
+        return item._id !== action.id;
+      });
+&nbsp;
+      return {
+        ...state,
+        devices: newDevices
+      };
+    }
+&nbsp;
+<span class="branch-5 cbranch-no" title="branch not covered" >    case DELETE_DEVICE_FAIL: {</span>
+      re<span class="cstat-no" title="statement not covered" >turn {</span>
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText
+      };
+    }
+&nbsp;
+<span class="branch-6 cbranch-no" title="branch not covered" >    case UPDATE_DEVICE_SETTINGS_SUCCESS: {</span>
+      const devices = <span class="cstat-no" title="statement not covered" >state.devices.map(<span class="fstat-no" title="function not covered" >(d</span>evice, index) =&gt; {</span>
+        if<span class="cstat-no" title="statement not covered" > (device._id === action.device._id) {</span>
+          re<span class="cstat-no" title="statement not covered" >turn action.device;</span>
+        } else {
+          re<span class="cstat-no" title="statement not covered" >turn device;</span>
+        }
+      });
+&nbsp;
+      re<span class="cstat-no" title="statement not covered" >turn {</span>
+        ...state, devices, device: action.device
+      };
+    }
+&nbsp;
+<span class="branch-7 cbranch-no" title="branch not covered" >    case LOAD_DEVICE_FAIL: {</span>
+      re<span class="cstat-no" title="statement not covered" >turn {</span>
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText,
+        errorStatus: action.errorName
+      };
+    }
+&nbsp;
+<span class="branch-8 cbranch-no" title="branch not covered" >    case UPDATE_DEVICE_SUCCESS: {</span>
+      const devices = s<span class="cstat-no" title="statement not covered" >tate.devices.map((<span class="fstat-no" title="function not covered" >de</span>vice, index) =&gt; {</span>
+        if<span class="cstat-no" title="statement not covered" > (device._id !== action.id) {</span>
+          re<span class="cstat-no" title="statement not covered" >turn Object.assign({}, device);</span>
+        } else {
+          re<span class="cstat-no" title="statement not covered" >turn action.device;</span>
+        }
+      });
+&nbsp;
+      re<span class="cstat-no" title="statement not covered" >turn {</span>
+        ...state,
+        devices,
+        device: action.device
+      };
+    }
+<span class="branch-9 cbranch-no" title="branch not covered" >    case UPDATE_DEVICE_FAILURE: {</span>
+      re<span class="cstat-no" title="statement not covered" >turn {</span>
+        ...state,
+        uploadStatus:'FAIL',
+        errorText: action.errorText
+      };
+    }
+<span class="branch-10 cbranch-no" title="branch not covered" >    case CLEAR_STATUS:</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state, uploadStatus: '' };</span>
+    default:
+      return state;
+  }
+};
+&nbsp;
+export const searchAndFilter = (state = initialState, action) =&gt; {<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  switch (action.type) {</span>
+    case CHANGE_FILTER_OPTION:
+<span class="cstat-no" title="statement not covered" >      return Object.assign({}, state, {</span>
+        filterOption: action.filterOption
+      });
+&nbsp;
+    case SEARCH_ITEM:
+<span class="cstat-no" title="statement not covered" >      return Object.assign({}, state, {</span>
+        searchValue: action.searchValue
+      });
+    default:
+<span class="cstat-no" title="statement not covered" >      return state;</span>
+  }
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 25 2017 01:58:35 GMT+0300 (Финляндия (лето))
+</div>
+</div>
+<script src="..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\sorter.js"></script>
+</body>
+</html>

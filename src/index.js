@@ -10,10 +10,7 @@ import rootSaga from './sagas/index';
 import { config } from './config/config';
 import App from './routes/index';
 
-export const ws = new WebSocket(`wss://${config.origin}/`);
-
-const composeEnhancers = config.production ?
-  compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = compose;
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
