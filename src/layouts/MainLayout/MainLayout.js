@@ -33,7 +33,7 @@ class MainLayout extends Component {
     window.dispatchEvent(new Event('resize'));
   }
   componentDidMount () {
-    ws = new WebSocket(`ws://${config.origin}/`);
+    ws = new WebSocket(`wss://${config.origin}/`);
     ws.onmessage = (msg) => {
       const message = JSON.parse(msg.data);
 
