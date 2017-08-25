@@ -136,7 +136,7 @@ export default class RangeSettings extends React.Component {
               <div className="range-settings__val">
                 <input
                   type="number"
-                  name="max"
+                  name="mix"
                   ref={(input) => {
                     this.maxElement = input;
                   }}
