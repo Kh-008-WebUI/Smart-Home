@@ -80,22 +80,3 @@ exports[`Settings UI test SelectLocation 1`] = `
   </div>
 </div>
 `;
-
-exports[`Settings UI test ToggleSettings 1`] = `
-<div
-  className="undefined"
->
-  <label
-    className="switch"
-  >
-    <input
-      checked={false}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <div
-      className="slider round"
-    />
-  </label>
-</div>
-`;
