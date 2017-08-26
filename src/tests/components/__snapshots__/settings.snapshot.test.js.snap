@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings UI test RangeSettings 1`] = `
+<div
+  className="undefined"
+>
+  <p
+    className="range_value"
+  >
+    0
+  </p>
+  <input
+    max={100}
+    min={0}
+    onChange={[Function]}
+    onMouseUp={[Function]}
+    step={1}
+    type="range"
+    value={0}
+  />
+</div>
+`;
+
+exports[`Settings UI test SelectLocation 1`] = `
+<div>
+  <div
+    className="Select-control"
+  >
+    <div
+      className="Select-value select-menu-container"
+    >
+      <div
+        className="select-menu-label"
+        onClick={[Function]}
+      >
+        <span
+          className="Select-value-label"
+        >
+          Kitchen
+        </span>
+        <i
+          className="select-toggle fa fa-caret-down"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="popup"
+  >
+    <p
+      className="popup__header"
+    >
+      Confirm the action
+    </p>
+    <p
+      className="popup__text"
+    >
+      Are you sure you want to delete this location?
+    </p>
+    <div
+      className="popup__confirm"
+    >
+      <button
+        className="btn popup__btn"
+        disabled={undefined}
+        onClick={[Function]}
+        type="button"
+      >
+        Ok
+      </button>
+      <button
+        className="btn btn--default popup__btn"
+        disabled={undefined}
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Settings UI test ToggleSettings 1`] = `
+<div
+  className="undefined"
+>
+  <label
+    className="switch"
+  >
+    <input
+      checked={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <div
+      className="slider round"
+    />
+  </label>
+</div>
+`;

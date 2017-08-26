@@ -17,6 +17,6 @@ export const filterItems = createSelector(
     } else if (filterOption === 'off') {
       newArr = items.filter(item => item.status === false);
     }
-    return newArr.filter(item => searchItem(item, searchValue));
+    return newArr.filter(item => searchItem(item.name, searchValue));
   }
 );
