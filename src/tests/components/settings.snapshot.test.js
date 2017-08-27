@@ -25,25 +25,26 @@ const locations = [
 
 describe('Settings UI test', () => {
   it('ToggleSettings', () => {
-    const toggle = shallow(
-      <ToggleSettings />
+    const component = renderer.create(
+        <ToggleSettings
+                setItemValue={jest.fn()}
+                onChange={jest.fn()}/>
     );
 
-    const rendered = toggle.find('input');
-
-    expect(rendered.html().indexOf('checked={false}')).toEqual(-1);
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
   it('SelectLocation', () => {
     const component = renderer.create(
-      <SelectLocation
-            selectLocation={jest.array}
-            locations= {locations}
-            addLocation={jest.fn()}
-            deleteLocation={jest.fn()}
-            defaultLocation='Kitchen'
-            deviceExistInLocation={jest.fn()}
-            deviceInLocation={jest.array}/>
+        <SelectLocation
+              selectLocation={jest.array}
+              locations= {locations}
+              addLocation={jest.fn()}
+              deleteLocation={jest.fn()}
+              defaultLocation='Kitchen'
+              deviceExistInLocation={jest.fn()}
+              deviceInLocation={jest.array}/>
     );
 
     let tree = component.toJSON();
@@ -52,7 +53,8 @@ describe('Settings UI test', () => {
 
   it('RangeSettings', () => {
     const component = renderer.create(
-      <RangeSettings/>
+        <RangeSettings
+              setItemValue={jest.fn()}/>
     );
 
     let tree = component.toJSON();

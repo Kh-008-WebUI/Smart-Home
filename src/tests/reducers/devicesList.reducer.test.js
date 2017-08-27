@@ -1,9 +1,11 @@
-import { devicesList } from '../reducers/devicesList.reducer';
+import { devicesList } from '../../reducers/devicesList.reducer';
 import {
   LOAD_DEVICE_SUCCESS,
   DELETE_DEVICE_SUCCESS,
   LOAD_DEVICES_SUCCESS,
-  RESET_DEVICE } from '../constants/index';
+  RESET_DEVICE,
+  UPDATE_DEVICE_SETTINGS_SUCCESS,
+  UPDATE_DEVICE_SUCCESS } from '../../constants/index';
 
 const initialState = {
   filterOption: 'all',
@@ -46,9 +48,9 @@ const devices = [{
   views : 1
 },
 {
-  _id : '589c8094258df03990fae071',
-  name : 'Device Test',
-  location : 'Parking',
+  _id : '589c8094258df03990foe071',
+  name : 'Device Test2',
+  location : 'Roof',
   status : true,
   createdDate : 'August 22, 2017',
   createdBy : 'Bruce',
@@ -172,6 +174,52 @@ describe('DeviceList Reducer', () => {
     expect(devicesList(currentState,
       {
         type: RESET_DEVICE
+      }
+    )).toEqual(expectedState);
+  });
+
+  it('update device settings', () => {
+    const currentState = Object.assign({}, initialState);
+
+    currentState.device = Object.assign({}, device);
+    currentState.devices = [...devices];
+
+    const expectedState = Object.assign({}, initialState);
+
+    const updatedDevice = devices[1];
+
+    updatedDevice.items[0].data = true;
+
+    expectedState.devices = devices;
+    expectedState.device = updatedDevice;
+
+    expect(devicesList(currentState,
+      {
+        type: UPDATE_DEVICE_SETTINGS_SUCCESS,
+        device: updatedDevice
+      }
+    )).toEqual(expectedState);
+  });
+
+  it('update device ', () => {
+    const currentState = Object.assign({}, initialState);
+
+    currentState.device = Object.assign({}, device);
+    currentState.devices = [...devices];
+
+    const expectedState = Object.assign({}, initialState);
+
+    const updatedDevice = devices[1];
+
+    updatedDevice.status = false;
+    updatedDevice.location = 'Living Room';
+    expectedState.devices = devices;
+    expectedState.device = updatedDevice;
+
+    expect(devicesList(currentState,
+      {
+        type: UPDATE_DEVICE_SUCCESS,
+        device: updatedDevice
       }
     )).toEqual(expectedState);
   });

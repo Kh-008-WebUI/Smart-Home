@@ -1,4 +1,4 @@
-import { searchItem } from '../utils/utils';
+import { searchItem } from '../../utils/utils';
 
 describe (
   `Checks whether the name of the device
