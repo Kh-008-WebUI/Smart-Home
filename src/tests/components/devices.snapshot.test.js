@@ -62,7 +62,4 @@ describe('Devices UI test', () => {
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
-
-
-
 });
