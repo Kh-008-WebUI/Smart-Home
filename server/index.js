@@ -77,7 +77,15 @@ const sendUserStatus = (req, status) => {
     });
   }  
 }
-
+function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) {
+      return ws.terminate();
+    }
+    ws.isAlive = false;
+    ws.ping('', false, true);
+  });
+}
 wss.on('connection', (ws, req) => {
   console.log('Ws connection start');
   ws.isAlive = true;
@@ -92,6 +100,9 @@ wss.on('connection', (ws, req) => {
       if (data.type === 'initChart') {
         chart(wss);
       }
+      if (data.type === 'initUsers') {
+        ping();
+      }
     }
     wss.send(JSON.stringify(data));
   };
@@ -100,15 +111,7 @@ wss.on('connection', (ws, req) => {
   };
 });
 
-const interval = setInterval(function ping() {
-  wss.clients.forEach(function each(ws) {
-    if (ws.isAlive === false) {
-      return ws.terminate();
-    }
-    ws.isAlive = false;
-    ws.ping('', false, true);
-  });
-}, 30000);
+const interval = setInterval(ping, 30000);
 
 const chartData = setInterval(function () {
   chart(wss);

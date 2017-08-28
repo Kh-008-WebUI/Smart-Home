@@ -2,12 +2,14 @@ const express = require('express');
 const userRouter = express.Router();
 const User = require('../models/user.js');
 const HttpError = require('../errors/HttpError');
+const ws = require('../index');
 
 userRouter.route('/')
   .get((req, res, next) => {
     User.find()
       .then(users => {
         res.json(users);
+        ws.send(JSON.stringify({ type: 'initUsers' }));
       })
       .catch(err => (next(new HttpError(404))));
   })

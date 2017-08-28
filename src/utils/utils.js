@@ -28,11 +28,11 @@ export const queryFromObject = (params) => {
 
 const sortDevicesByAlphabet = (devices) => {
   return devices.sort((first, second) => {
-    if (first.location < second.location) {
-      return -1;
-    }
-    if (first.location > second.location) {
+    if (first.name < second.name) {
       return 1;
+    }
+    if (first.name > second.name) {
+      return -1;
     }
 
     return 0;
