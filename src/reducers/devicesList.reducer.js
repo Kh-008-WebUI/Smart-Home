@@ -53,6 +53,13 @@ export const devicesList = (state = initialState, action) => {
       };
     }
 
+    case LOAD_DEVICE_PENDING: {
+      return {
+        ...state,
+        uploadStatus:'PENDING'
+      };
+    }
+
     case RESET_DEVICE: {
       return {
         ...state,

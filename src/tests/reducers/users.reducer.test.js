@@ -1,4 +1,4 @@
-import { users } from '../reducers/users.reducer';
+import { users } from '../../reducers/users.reducer';
 import {
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
@@ -7,7 +7,7 @@ import {
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAILURE,
-  CLEAR_UPDATE_PROFILE_STATUS } from '../constants/index';
+  CLEAR_UPDATE_PROFILE_STATUS } from '../../constants/index';
 
 const initialState = {
   users: [],

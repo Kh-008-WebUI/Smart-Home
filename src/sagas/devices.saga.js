@@ -10,7 +10,8 @@ import {
   updateDeviceSuccess,
   updateDeviceSettingsSuccess,
   updateDeviceFail,
-  clearStatus
+  clearStatus,
+  loadDevicePending
   } from '../actions/devices.action';
 import {
   LOAD_DEVICES,
@@ -39,6 +40,7 @@ export function* loadDevicesSaga () {
 }
 
 export function* loadDeviceSaga (action) {
+  yield put(loadDevicePending());
   const { response, error } = yield call(DeviceListApi.getDevice, action.id);
 
   if (response) {
