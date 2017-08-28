@@ -36,7 +36,7 @@ class DeviceForm extends React.Component {
     };
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.props.loadLocations();
   }
 
@@ -110,7 +110,8 @@ class DeviceForm extends React.Component {
           }}
           text={'Please enter device name'}
           validations={{
-            matchRegexp: /[\w\d\s]+/
+            matchRegexp: /[\w\d\s]+/,
+            maxLength: 18
           }}
           validationError="This is not a valid name"
           required
