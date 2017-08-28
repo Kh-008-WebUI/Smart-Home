@@ -1,5 +1,5 @@
-import reducer, { initialState } from '../reducers/builder.reducer';
-import * as types from '../constants/index';
+import reducer, { initialState } from '../../reducers/builder.reducer';
+import * as types from '../../constants/index';
 
 const items = [{
   name: 'item test',
@@ -15,21 +15,33 @@ const locations = [
 ];
 initialStateWithItem.device = {...initialStateWithItem.device, items };
 
-describe('builder reducer', () => {
-  it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(initialState)
-  })
-
-  it('should handle ADD_ITEM', () => {
+describe('builder reducer', () => {
+
+  it('should return the initial state', () => {
+
+    expect(reducer(undefined, {})).toEqual(initialState)
+
+  })
+
+
+
+  it('should handle ADD_ITEM', () => {
+
     const result = { ...initialState };
     result.device = {...result.device, items };
-    expect(
-      reducer(initialState, {
-        type: types.ADD_ITEM,
+    expect(
+
+      reducer(initialState, {
+
+        type: types.ADD_ITEM,
+
         item: items[0]
-      })
-    ).toEqual(result)
-  })
+      })
+
+    ).toEqual(result)
+
+  })
+
   it('should handle SET', () => {
     const result = { ...initialState };
     result.device = {...result.device, name:items[0].name };
