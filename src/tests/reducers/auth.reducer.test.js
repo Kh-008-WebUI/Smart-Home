@@ -1,4 +1,4 @@
-import reducer from '../reducers/auth.reducer';
+import reducer from '../../reducers/auth.reducer';
 import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
@@ -12,7 +12,7 @@ import {
   LOGOUT_FAILURE,
   LOAD_LOGGED_USER,
   DELETE_USER_PROFILE_SUCCESS
-} from '../constants/index';
+} from '../../constants/index';
 
 const initialState = {
   status: '',

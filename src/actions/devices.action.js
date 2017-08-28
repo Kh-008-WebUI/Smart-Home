@@ -20,7 +20,8 @@ import {
   UPDATE_DEVICE_FAILURE,
   UPDATE_DEVICE_SETTINGS_SUCCESS,
   CLEAR_STATUS,
-  RESET_DEVICE
+  RESET_DEVICE,
+  LOAD_DEVICE_PENDING
  } from '../constants/index';
 import DeviceListApi from '../api/deviceListApi';
 import { put, call } from 'redux-saga/effects';
@@ -50,6 +51,12 @@ export const loadDevice = (id) => {
   return {
     type: LOAD_DEVICE,
     id
+  };
+};
+
+export const loadDevicePending = () => {
+  return {
+    type: LOAD_DEVICE_PENDING
   };
 };
 

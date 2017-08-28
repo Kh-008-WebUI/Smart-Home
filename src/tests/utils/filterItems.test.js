@@ -1,4 +1,4 @@
-import { filterItems } from '../selectors';
+import { filterItems } from '../../selectors';
 
 const state = {
   searchAndFilter: {
