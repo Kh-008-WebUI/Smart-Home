@@ -32,7 +32,7 @@
 }
 
 .notification-list {
-  display: none;
+  visibility: hidden;
   max-height: 400px;
   background: $modals-bg;
   box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
@@ -101,7 +101,7 @@
 	border-radius: 3px;
 }
 .notification-display {
-  display: block;
+  visibility: visible;
 }
 .remove-block {
   display: none;

@@ -2,7 +2,9 @@ import {
   WS_MESSAGE
 } from '../constants/index';
 import { updateChart, updateChat } from '../actions/ws.action';
-import { fetchNotificationsRequest } from '../actions/notifications.action';
+import { fetchNotificationsRequest,
+         requestUnreadNotificationsCount
+} from '../actions/notifications.action';
 import { updateUsersOnline } from '../actions/users.action';
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 
@@ -12,7 +14,10 @@ export function* wsMessage (action) {
       yield put(updateChart(action.msg.data));
       break;
     case 'notification':
-      yield put(fetchNotificationsRequest());
+      yield all([
+        put(fetchNotificationsRequest(1, 10, true)),
+        put(requestUnreadNotificationsCount())
+      ]);
       break;
     case 'users':
       yield put(updateUsersOnline(action));

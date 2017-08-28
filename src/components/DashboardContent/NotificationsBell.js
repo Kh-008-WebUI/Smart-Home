@@ -2,31 +2,41 @@ import React from 'react';
 import './NotificationsBell.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import {
   fetchNotificationsRequest,
   changeStatusNotification,
   changeStatusAllNotifications,
-  showAllHistoryNotifications
+  showAllHistoryNotifications,
+  requestUnreadNotificationsCount
 } from '../../actions/notifications.action';
 import moment from 'moment';
 import {
   findByProperty,
   sortEmergencyNotifications
 } from '../../utils/utils';
+import InfiniteScroll from 'react-infinite-scroller';
 
 class NotificationsBell extends React.Component {
   constructor (props) {
     super(props);
     this.buttonText = '';
     this.state = {
-      showAllNotify: false
+      showAllNotify: false,
+      itemsPerPage: 10
     };
   }
 
   componentDidMount () {
-    this.props.getNotifications();
+    this.props.getUnreadNotificationsCount();
   }
+
+  componentWillReceiveProps (nextProps) {
+    // This way we can determine if a scroller component reload was needed.
+    if (this.props.timestamp !== nextProps.timestamp) {
+      this.scrollComponent.pageLoaded = 1;
+    }
+  }
+
   changeNotifyView = (el) => {
     const id = el.target.closest('li').id;
     const notification = findByProperty(this.props.notifications, '_id', id);
@@ -72,6 +82,9 @@ class NotificationsBell extends React.Component {
     }
     return classForNotifyItem;
   }
+  loadItems (page) {
+    this.props.getNotifications(page, this.state.itemsPerPage);
+  }
   render () {
     let listNotify = [...this.props.notifications];
     const emergencyList = listNotify.filter((item) =>
@@ -105,9 +118,9 @@ class NotificationsBell extends React.Component {
               </div>
               <div
                 className={
-                  unViewedMessages.length === 0 ?
+                  this.props.unreadCount === 0 ?
                   'remove-block' : 'notification-round' }>
-                  {unViewedMessages.length}
+                  {this.props.unreadCount}
               </div>
           </div>
         </div>
@@ -123,6 +136,15 @@ class NotificationsBell extends React.Component {
               }>
               You have no unread messages
             </div>
+            <InfiniteScroll
+              threshold={-7}
+              useWindow={false}
+              loadMore={this.loadItems.bind(this)}
+              hasMore={this.props.willLoadMore}
+              ref={scrollComponent => {
+                this.scrollComponent = scrollComponent;
+              }}
+            >
             <ul
               onClick={this.changeNotifyView}>
               {listNotify.map((item, key) => {
@@ -141,6 +163,7 @@ class NotificationsBell extends React.Component {
               })
               }
             </ul>
+            </InfiniteScroll>
             </div>
             <div className="notification-button">
               <div
@@ -168,18 +191,24 @@ class NotificationsBell extends React.Component {
 function mapStateToProps (store) {
   return {
     notifications: store.notificationsReducer.notifications,
-    loadNotificationsStatus: store.notificationsReducer.loadNotificationsStatus
+    loadNotificationsStatus: store.notificationsReducer.loadNotificationsStatus,
+    willLoadMore: store.notificationsReducer.willLoadMore,
+    unreadCount: store.notificationsReducer.unreadCount,
+    timestamp: store.notificationsReducer.timestamp
   };
 }
 function mapDispatchToProps (dispatch) {
   return {
-    getNotifications: bindActionCreators(fetchNotificationsRequest, dispatch),
+    getNotifications: (pageNumber, itemsPerPage) =>
+      dispatch(fetchNotificationsRequest(pageNumber, itemsPerPage)),
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed)),
     changeStatusAllNotifications: (statusForAll) =>
       dispatch(changeStatusAllNotifications()),
     showAllHistoryNotifications: () =>
-      dispatch(showAllHistoryNotifications())
+      dispatch(showAllHistoryNotifications()),
+    getUnreadNotificationsCount: () =>
+      dispatch(requestUnreadNotificationsCount())
   };
 }
 
@@ -190,7 +219,16 @@ NotificationsBell.propTypes = {
   changeStatusNotification: PropTypes.func,
   changeStatusAllNotifications: PropTypes.func,
   showAllHistoryNotifications: PropTypes.func,
-  loadNotificationsStatus: PropTypes.string
+  loadNotificationsStatus: PropTypes.string,
+  willLoadMore: PropTypes.bool,
+  unreadCount: PropTypes.number,
+  getUnreadNotificationsCount: PropTypes.func,
+  timestamp: PropTypes.number
+};
+
+NotificationsBell.defaultProps = {
+  willLoadMore: true,
+  unreadCount: 0
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBell);

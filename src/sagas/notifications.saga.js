@@ -1,13 +1,18 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, all, takeEvery } from 'redux-saga/effects';
 import { getNotifications,
          addNotifications,
          changeAllStatus,
          showAllHistory,
-        changeStatus } from '../api/notificationsApi';
+         changeStatus,
+         getTodaysUnreadNotificationsCount
+       }
+from '../api/notificationsApi';
 import { fetchNotificationsSuccess,
          fetchNotificationsFailed,
         addNotificationsSuccess,
-        changeStatusNotificationSuccess
+        changeStatusNotificationSuccess,
+        requestUnreadNotificationsCountSuccess,
+        requestUnreadNotificationsCount
        }
 from '../actions/notifications.action';
 import { NOTIFICATIONS_FETCH_REQUESTED,
@@ -15,15 +20,20 @@ import { NOTIFICATIONS_FETCH_REQUESTED,
          SEND_NOTIFICATION_WS,
          ADD_NOTIFICATIONS,
          NOTIFICATIONS_ALL_CHANGE_STATUS,
-         NOTIFICATIONS_SHOW_ALL_HISTORY
+         NOTIFICATIONS_SHOW_ALL_HISTORY,
+         UNREAD_NOTIFICATIONS_COUNT_REQUESTED
        } from '../constants/index';
 import { ws } from '../index';
 
-function* fetchNotifications () {
-  const { response, error } = yield call(getNotifications);
+function* fetchNotifications ({ pageNumber, itemsPerPage, reload }) {
+  const { response, error } = yield call(
+    getNotifications,
+    pageNumber,
+    itemsPerPage
+  );
 
   if (response) {
-    yield put(fetchNotificationsSuccess(response));
+    yield put(fetchNotificationsSuccess(response, itemsPerPage, reload));
   } else {
     yield put(fetchNotificationsFailed(error.message));
   }
@@ -43,12 +53,24 @@ export function* sendNotificationWS (action) {
   yield ws.send(action.message);
 }
 
+export function* getUnreadNotificationsCount () {
+  const { response, error } =
+    yield call(getTodaysUnreadNotificationsCount);
+
+  if (response) {
+    yield put(requestUnreadNotificationsCountSuccess(response));
+  }
+}
+
 export function* changeNotificationStatus (action) {
   const { response, error } =
     yield call(changeStatus, action.id, action.viewed);
 
   if (response) {
-    yield put(changeStatusNotificationSuccess(response));
+    yield all([
+      put(changeStatusNotificationSuccess(response)),
+      put(requestUnreadNotificationsCount())
+    ]);
   } else {
     yield put(fetchNotificationsFailed(error.message));
   }
@@ -98,4 +120,11 @@ export function* watchNotificationAllStatusChange () {
 
 export function* watchNotificationShowAllHistory () {
   yield takeEvery(NOTIFICATIONS_SHOW_ALL_HISTORY, showAllNotificationHistory);
+}
+
+export function* watchUnreadNotificationsCountRequested () {
+  yield takeEvery(
+    UNREAD_NOTIFICATIONS_COUNT_REQUESTED,
+    getUnreadNotificationsCount
+  );
 }

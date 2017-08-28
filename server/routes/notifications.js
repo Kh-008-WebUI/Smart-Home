@@ -5,6 +5,23 @@ const User = require('../models/user.js');
 const moment = require('moment');
 const HttpError = require('../errors/HttpError');
 
+notificationRouter.route('/today/unreadCount')
+ .get((req, res, next) => {
+    const todayStartTime = moment().startOf('day').format();
+    const userDateCreated = moment(req.session.userCreatedDate).format();
+
+    Notification
+    .count({
+      'time': { '$gte': (userDateCreated > todayStartTime) ?
+          userDateCreated
+        : todayStartTime
+      },
+      'viewed' : false
+    })
+    .then(unreadCount => res.json({ unreadCount }))
+    .catch(err => next(new HttpError(500, err.message)));
+  });
+
 notificationRouter.route('/')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
@@ -27,9 +44,7 @@ notificationRouter.route('/')
       });
       res.json(notifications);
     })
-    .catch(err => {
-      next(new HttpError(400));
-    });
+    .catch(err => next(new HttpError(500, err.message)));
  })
   .post((req, res, next) => {
     const notification = new Notification(req.body);

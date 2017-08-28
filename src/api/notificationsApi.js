@@ -1,8 +1,10 @@
 import Transport from '../transport/transport';
 import { SERVER_API } from '../constants/index';
 
-export const getNotifications = () => {
-  return Transport.get(`${SERVER_API}/notifications`);
+export const getNotifications = (pageNumber = 0, itemsPerPage = 0) => {
+  return Transport.get(
+    `${SERVER_API}/notifications
+?itemsPerPage=${itemsPerPage}&pageNumber=${pageNumber}`);
 };
 
 export const changeStatus = (id, status) => {
@@ -21,4 +23,9 @@ export const showAllHistory = () => {
 export const addNotifications = (message) => {
   return Transport.post(`${SERVER_API}/notifications`,
     JSON.stringify({ text: message }));
+};
+
+export const getTodaysUnreadNotificationsCount = () => {
+  return Transport.get(
+    `${SERVER_API}/notifications/today/unreadCount`);
 };
