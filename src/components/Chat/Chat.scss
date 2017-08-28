@@ -31,6 +31,10 @@
     padding: 7px;
     resize: none;
     width: 100%;
+
+    &:focus {
+      outline: black auto 1px;
+    }
   }
 
   &-lines {
@@ -41,12 +45,14 @@
   }
 
   &-line {
-    padding: 10px;
+    padding-left: 10px;
+    margin: 10px 0;
     word-wrap: break-word;
     font-weight: 300;
+    font-size: 15px;
     
     &__colon {
-      margin-right: 2%;
+      margin-right: 3%;
     }
     &__user {
       color: orange;

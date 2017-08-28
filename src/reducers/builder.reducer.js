@@ -21,7 +21,7 @@ import {
   DEVICE_UPDATE_UPLOAD_STATUS_SUCCESS
 } from '../constants/index';
 
-const initialState = {
+export const initialState = {
   errorText: '',
   uploadStatus:'',
   device:{

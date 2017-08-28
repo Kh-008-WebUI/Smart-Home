@@ -30,16 +30,18 @@ class Chat extends Component {
     }
   }
   onSubmit = (e) => {
-    ws.send(JSON.stringify({
-      type: 'chat',
-      data: {
-        from: this.props.user,
-        msg: this.state.message
-      }
-    }));
-    this.setState({
-      message: ''
-    });
+    if (this.state.message !== '') {
+      ws.send(JSON.stringify({
+        type: 'chat',
+        data: {
+          from: this.props.user,
+          msg: this.state.message
+        }
+      }));
+      this.setState({
+        message: ''
+      });
+    }
   }
   render () {
     return (

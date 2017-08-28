@@ -1,6 +1,6 @@
 import React from 'react';
-import DeviceListItem from '../components/DeviceListItem/DeviceListItem';
-import { Device } from '../components/Device/Device';
+import DeviceListItem from '../../components/DeviceListItem/DeviceListItem';
+import { Device } from '../../components/Device/Device';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router';
 
