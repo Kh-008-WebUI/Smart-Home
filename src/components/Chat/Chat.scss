@@ -16,7 +16,12 @@
       max-width: 100%;
       margin-left: 0;
     }
-
+  &__btn {
+    border-radius: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    margin-top: -4px;
+    width: 100%;
+  }
   &-message {
     background: $dark-gray;
     border: 0;
@@ -26,7 +31,10 @@
     padding: 7px;
     resize: none;
     width: 100%;
-    margin-bottom: 10px;
+
+    &:focus {
+      outline: black auto 1px;
+    }
   }
 
   &-lines {
@@ -37,12 +45,14 @@
   }
 
   &-line {
-    padding: 10px;
+    padding-left: 10px;
+    margin: 10px 0;
     word-wrap: break-word;
     font-weight: 300;
+    font-size: 15px;
     
     &__colon {
-      margin-right: 2%;
+      margin-right: 3%;
     }
     &__user {
       color: orange;

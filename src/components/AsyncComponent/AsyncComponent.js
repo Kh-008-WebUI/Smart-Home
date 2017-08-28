@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Message } from '../../components/Message/Message';
 
 export default class AsyncComponent extends React.Component {
   constructor (props) {
@@ -23,7 +24,8 @@ export default class AsyncComponent extends React.Component {
   render () {
     const { Component } = this.state;
 
-    return !Component ? null : <Component {...this.props}/>;
+    return !Component ?
+      <Message status='PENDING'/> : <Component {...this.props}/>;
   }
 }
 

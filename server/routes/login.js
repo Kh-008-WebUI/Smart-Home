@@ -33,6 +33,7 @@ loginRouter.route('/')
           req.session.user = user._id;
           req.session.name = user.name;
           req.session.userCreatedDate = user.created;
+          ws.send(JSON.stringify({ type: 'users', user: { _id: user._id, home: true } }));
           res.status(200).send({
             status: true,
             userData: {

@@ -30,16 +30,18 @@ class Chat extends Component {
     }
   }
   onSubmit = (e) => {
-    ws.send(JSON.stringify({
-      type: 'chat',
-      data: {
-        from: this.props.user,
-        msg: this.state.message
-      }
-    }));
-    this.setState({
-      message: ''
-    });
+    if (this.state.message !== '') {
+      ws.send(JSON.stringify({
+        type: 'chat',
+        data: {
+          from: this.props.user,
+          msg: this.state.message
+        }
+      }));
+      this.setState({
+        message: ''
+      });
+    }
   }
   render () {
     return (
@@ -68,7 +70,7 @@ class Chat extends Component {
           className="chat-message"
           placeholder="Type your message..." />
         <input
-          className="btn btn--primary"
+          className="chat__btn btn btn--primary"
           type="submit"
           value="Send Message"
           onClick={this.onSubmit} />

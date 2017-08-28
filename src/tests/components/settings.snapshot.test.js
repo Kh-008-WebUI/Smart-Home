@@ -3,7 +3,6 @@ import ToggleSettings from '../../components/ToggleSettings/ToggleSettings';
 import SelectLocation from '../../components/SelectLocation/SelectLocation';
 import RangeSettings from '../../components/RangeSettings/Range';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
 
 const locations = [
   {
