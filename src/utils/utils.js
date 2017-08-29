@@ -87,21 +87,13 @@ export const findByProperty = (collection, property, propertyValue) => {
 
 export const sortEmergencyNotifications =
   (listEmergency, listNotifications) => {
-    console.dir(listNotifications);
     const listNotify = listNotifications.filter(item => {
       return item.emergency === false;
     });
 
-    console.dir(listNotify);
-    // listNotify.forEach((item, index) => {
-    //   if (item.emergency) {
-    //     listNotify.splice(index, 1);
-    //   }
-    // });
     listEmergency.forEach((item) => {
       listNotify.unshift(item);
     });
-    console.dir(listNotify);
     return listNotify;
   };
 
