@@ -6,7 +6,7 @@ const ws = require('../index');
 
 userRouter.route('/')
   .get((req, res, next) => {
-    User.find()
+    User.find({}, { name: true, avatar: true })
       .then(users => {
         res.json(users);
         ws.send(JSON.stringify({ type: 'initUsers' }));
@@ -58,7 +58,13 @@ userRouter.route('/:id')
               if (error) {
                 next(new HttpError(503));
               }
-              return res.json(user);
+              res.send({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                created: user.created,
+                avatar: user.avatar
+              });
             }
             );
           }
