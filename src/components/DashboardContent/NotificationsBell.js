@@ -30,10 +30,18 @@ class NotificationsBell extends React.Component {
     this.props.getUnreadNotificationsCount();
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillUpdate (nextProps, nextState) {
     // This way we can determine if a scroller component reload was needed.
-    if (this.props.timestamp !== nextProps.timestamp) {
+    if (this.props.timestamp !== nextProps.timestamp ||
+        this.state.willShowReadNotifications !==
+        nextState.willShowReadNotifications) {
       this.scrollComponent.pageLoaded = 1;
+    }
+
+    if (this.state.willShowReadNotifications !==
+        nextState.willShowReadNotifications) {
+      // these aren't the droids you're looking for
+      setTimeout(() => this.loadItems(1, true), 0);
     }
   }
 
@@ -57,9 +65,6 @@ class NotificationsBell extends React.Component {
         willShowReadNotifications: !prevState.willShowReadNotifications
       };
     });
-
-    this.props.willLoadMore = true;
-    this.scrollComponent.pageLoaded = 1;
   }
   readAllNotify = () => {
     this.props.changeStatusAllNotifications();
@@ -85,12 +90,16 @@ class NotificationsBell extends React.Component {
     }
     return classForNotifyItem;
   }
-  loadItems (page) {
+  loadItems (page, reload = false) {
     if (this.state.willShowReadNotifications) {
-      this.props.getNotifications(page, this.state.itemsPerPage);
+      this.props.getNotifications(page, this.state.itemsPerPage, reload);
     }
     else {
-      this.props.getUnreadNotificationsOfToday(page, this.state.itemsPerPage);
+      this.props.getUnreadNotificationsOfToday(
+        page,
+        this.state.itemsPerPage,
+        reload
+      );
     }
   }
   render () {
@@ -103,6 +112,12 @@ class NotificationsBell extends React.Component {
     }
     const classForBellEmergency =
       'fa fa-bell-o notification-bell__icon bell-emergency';
+
+    const unViewedMessages = listNotify.filter((item) => !item.viewed);
+
+    if (!this.state.willShowReadNotifications) {
+      listNotify = unViewedMessages;
+    }
 
     this.changeButtonText();
     return (
@@ -141,7 +156,7 @@ class NotificationsBell extends React.Component {
               You have no unread messages
             </div>
             <InfiniteScroll
-              threshold={-7}
+              threshold={-24}
               useWindow={false}
               loadMore={this.loadItems.bind(this)}
               hasMore={this.props.willLoadMore}
@@ -203,19 +218,19 @@ function mapStateToProps (store) {
 }
 function mapDispatchToProps (dispatch) {
   return {
-    getNotifications: (pageNumber, itemsPerPage) =>
+    getNotifications: (pageNumber, itemsPerPage, reload) =>
       dispatch(fetchNotificationsRequest(
         pageNumber,
         itemsPerPage,
-        false,
+        reload,
         false
       )
     ),
-    getUnreadNotificationsOfToday: (pageNumber, itemsPerPage) =>
+    getUnreadNotificationsOfToday: (pageNumber, itemsPerPage, reload) =>
       dispatch(fetchNotificationsRequest(
         pageNumber,
         itemsPerPage,
-        false,
+        reload,
         true
       )
     ),
