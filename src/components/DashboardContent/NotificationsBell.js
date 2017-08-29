@@ -156,7 +156,7 @@ class NotificationsBell extends React.Component {
               You have no unread messages
             </div>
             <InfiniteScroll
-              threshold={-24}
+              threshold={-10}
               useWindow={false}
               loadMore={this.loadItems.bind(this)}
               hasMore={this.props.willLoadMore}
@@ -236,7 +236,7 @@ function mapDispatchToProps (dispatch) {
     ),
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed)),
-    changeStatusAllNotifications: (statusForAll) =>
+    changeStatusAllNotifications: () =>
       dispatch(changeStatusAllNotifications()),
     showAllHistoryNotifications: () =>
       dispatch(showAllHistoryNotifications()),

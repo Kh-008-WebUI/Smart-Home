@@ -104,7 +104,10 @@ export function* changeAllNotificationStatus (action) {
     yield call(changeAllStatus);
 
   if (response) {
-    yield put(fetchNotificationsSuccess(response));
+    yield all([
+      put(fetchNotificationsSuccess(response, 10, true)),
+      put(requestUnreadNotificationsCount())
+    ]);
   } else {
     yield put(fetchNotificationsFailed(error.message));
   }
