@@ -6,7 +6,7 @@ const ws = require('../index');
 
 userRouter.route('/')
   .get((req, res, next) => {
-    User.find()
+    User.find({}, { name: true, avatar: true })
       .then(users => {
         res.json(users);
         ws.send(JSON.stringify({ type: 'initUsers' }));
