@@ -23,6 +23,7 @@ function* fetchNotifications () {
   const { response, error } = yield call(getNotifications);
 
   if (response) {
+    console.log(response);
     yield put(fetchNotificationsSuccess(response));
   } else {
     yield put(fetchNotificationsFailed(error.message));

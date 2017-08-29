@@ -87,14 +87,17 @@ export const findByProperty = (collection, property, propertyValue) => {
 
 export const sortEmergencyNotifications =
   (listEmergency, listNotifications) => {
-    listNotifications.forEach((item, index) => {
+    const listNotify = [...listNotifications];
+
+    listNotify.forEach((item, index) => {
       if (item.emergency && (item.viewed === false)) {
-        listNotifications.splice(index, 1);
+        listNotify.splice(index, 1);
       }
     });
     listEmergency.forEach((item) => {
-      listNotifications.unshift(item);
+      listNotify.unshift(item);
     });
+    return listNotify;
   };
 
 export const loadAsync = (getComp, props) => (

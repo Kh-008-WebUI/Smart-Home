@@ -95,7 +95,7 @@ notificationRouter.route('/viewed')
           return moment(item.time).format() > todayStartTime;
         }
       });
-      
+
       res.json(notificationsToday);
     })
     .catch(err => {
