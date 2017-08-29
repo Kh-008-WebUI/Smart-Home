@@ -1,5 +1,6 @@
 import { call, put, all, takeEvery } from 'redux-saga/effects';
 import { getNotifications,
+         getTodaysUnreadNotifications,
          addNotifications,
          changeAllStatus,
          showAllHistory,
@@ -25,12 +26,35 @@ import { NOTIFICATIONS_FETCH_REQUESTED,
        } from '../constants/index';
 import { ws } from '../index';
 
-function* fetchNotifications ({ pageNumber, itemsPerPage, reload }) {
-  const { response, error } = yield call(
-    getNotifications,
+function* fetchNotifications ({
     pageNumber,
-    itemsPerPage
-  );
+    itemsPerPage,
+    reload,
+    unreadOnly
+  }) {
+  let response;
+  let error;
+
+  if (unreadOnly) {
+    let opt = yield call(
+      getTodaysUnreadNotifications,
+      pageNumber,
+      itemsPerPage
+    );
+
+    response = opt.response;
+    error = opt.error;
+  }
+  else {
+    let opt = yield call(
+      getNotifications,
+      pageNumber,
+      itemsPerPage
+    );
+
+    response = opt.response;
+    error = opt.error;
+  }
 
   if (response) {
     yield put(fetchNotificationsSuccess(response, itemsPerPage, reload));

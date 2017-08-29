@@ -57,4 +57,3 @@ const notifications = (state = {
 };
 
 export default notifications;
-

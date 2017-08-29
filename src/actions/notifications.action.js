@@ -10,7 +10,9 @@ import {
   NOTIFICATIONS_ALL_CHANGE_STATUS,
   NOTIFICATIONS_SHOW_ALL_HISTORY,
   UNREAD_NOTIFICATIONS_COUNT_REQUESTED,
-  UNREAD_NOTIFICATIONS_COUNT_FETCH_SUCCESS
+  UNREAD_NOTIFICATIONS_COUNT_FETCH_SUCCESS,
+  UNREAD_TODAYS_NOTIFICATIONS_REQUESTED,
+  ALL_TODAYS_NOTIFICATIONS_REQUESTED
  }
 from '../constants/index';
 
@@ -36,12 +38,14 @@ export const fetchNotificationsFailed = (payload) => {
 export const fetchNotificationsRequest = (
   pageNumber,
   itemsPerPage,
-  reload = false) => {
+  reload = false,
+  unreadOnly = true) => {
   return {
     type: NOTIFICATIONS_FETCH_REQUESTED,
     pageNumber,
     itemsPerPage,
-    reload
+    reload,
+    unreadOnly
   };
 };
 
@@ -105,3 +109,17 @@ export const requestUnreadNotificationsCountSuccess = ({ unreadCount }) => {
     unreadCount
   };
 };
+
+// export const requestTodaysUnreadNotifications = ({ unread }) => {
+//   return {
+//     type: UNREAD_TODAYS_NOTIFICATIONS_REQUESTED,
+//     unread
+//   };
+// };
+
+// export const requestAllTodaysNotifications = ({ notificationsOfToday }) => {
+//   return {
+//     type: ALL_TODAYS_NOTIFICATIONS_REQUESTED,
+//     notificationsOfToday
+//   };
+// };

@@ -3,7 +3,7 @@ import { SERVER_API } from '../constants/index';
 
 export const getNotifications = (pageNumber = 0, itemsPerPage = 0) => {
   return Transport.get(
-    `${SERVER_API}/notifications
+    `${SERVER_API}/notifications/today
 ?itemsPerPage=${itemsPerPage}&pageNumber=${pageNumber}`);
 };
 
@@ -28,4 +28,17 @@ export const addNotifications = (message) => {
 export const getTodaysUnreadNotificationsCount = () => {
   return Transport.get(
     `${SERVER_API}/notifications/today/unreadCount`);
+};
+
+export const getTodaysUnreadNotifications = (
+  pageNumber = 0,
+  itemsPerPage = 0) => {
+  return Transport.get(
+    `${SERVER_API}/notifications/today/unread
+?itemsPerPage=${itemsPerPage}&pageNumber=${pageNumber}`);
+};
+
+export const getNotificationsOfToday = () => {
+  return Transport.get(
+    `${SERVER_API}/notifications/today/notificationsOfToday`);
 };

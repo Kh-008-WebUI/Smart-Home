@@ -21,7 +21,7 @@ class NotificationsBell extends React.Component {
     super(props);
     this.buttonText = '';
     this.state = {
-      showAllNotify: false,
+      willShowReadNotifications: false,
       itemsPerPage: 10
     };
   }
@@ -47,16 +47,19 @@ class NotificationsBell extends React.Component {
     if (this.props.loadNotificationsStatus !== 'ERROR') {
       this.bell.classList.toggle('notification-display');
     }
-    if (this.state.showAllNotify) {
-      this.setState((prevState) => {
-        return { showAllNotify: !prevState.showAllNotify };
-      });
+    if (this.state.willShowReadNotifications) {
+      this.toggleReadNotificaitonsVisibility();
     }
   }
-  showAllNotify = () => {
+  toggleReadNotificaitonsVisibility = () => {
     this.setState((prevState) => {
-      return { showAllNotify: !prevState.showAllNotify };
+      return {
+        willShowReadNotifications: !prevState.willShowReadNotifications
+      };
     });
+
+    this.props.willLoadMore = true;
+    this.scrollComponent.pageLoaded = 1;
   }
   readAllNotify = () => {
     this.props.changeStatusAllNotifications();
@@ -65,7 +68,7 @@ class NotificationsBell extends React.Component {
     this.props.showAllHistoryNotifications();
   }
   changeButtonText = () => {
-    if (this.state.showAllNotify) {
+    if (this.state.willShowReadNotifications) {
       this.buttonText = 'Hide viewed';
     } else {
       this.buttonText = 'Show all';
@@ -83,7 +86,12 @@ class NotificationsBell extends React.Component {
     return classForNotifyItem;
   }
   loadItems (page) {
-    this.props.getNotifications(page, this.state.itemsPerPage);
+    if (this.state.willShowReadNotifications) {
+      this.props.getNotifications(page, this.state.itemsPerPage);
+    }
+    else {
+      this.props.getUnreadNotificationsOfToday(page, this.state.itemsPerPage);
+    }
   }
   render () {
     let listNotify = [...this.props.notifications];
@@ -95,11 +103,7 @@ class NotificationsBell extends React.Component {
     }
     const classForBellEmergency =
       'fa fa-bell-o notification-bell__icon bell-emergency';
-    const unViewedMessages = listNotify.filter((item) => !item.viewed);
 
-    if (!this.state.showAllNotify) {
-      listNotify = unViewedMessages;
-    }
     this.changeButtonText();
     return (
       <div className="notification">
@@ -129,8 +133,8 @@ class NotificationsBell extends React.Component {
             this.bell = el;
           } }>
           <div className="notification-list__notice">
-            <div className={ (((unViewedMessages.length) === 0) &&
-              (this.state.showAllNotify === false)) ?
+            <div className={ (((this.props.unreadCount.length) === 0) &&
+              (this.state.willShowReadNotifications === false)) ?
               'notification-unread-block unread-block-display' :
               'notification-unread-block'
               }>
@@ -168,7 +172,7 @@ class NotificationsBell extends React.Component {
             <div className="notification-button">
               <div
                 className="notification-button-show-all"
-                onClick={this.showAllNotify}>
+                onClick={this.toggleReadNotificaitonsVisibility}>
                 {this.buttonText}
               </div>
               <div
@@ -200,7 +204,21 @@ function mapStateToProps (store) {
 function mapDispatchToProps (dispatch) {
   return {
     getNotifications: (pageNumber, itemsPerPage) =>
-      dispatch(fetchNotificationsRequest(pageNumber, itemsPerPage)),
+      dispatch(fetchNotificationsRequest(
+        pageNumber,
+        itemsPerPage,
+        false,
+        false
+      )
+    ),
+    getUnreadNotificationsOfToday: (pageNumber, itemsPerPage) =>
+      dispatch(fetchNotificationsRequest(
+        pageNumber,
+        itemsPerPage,
+        false,
+        true
+      )
+    ),
     changeStatusNotification: (id, viewed) =>
       dispatch(changeStatusNotification(id, viewed)),
     changeStatusAllNotifications: (statusForAll) =>
@@ -215,7 +233,8 @@ function mapDispatchToProps (dispatch) {
 NotificationsBell.propTypes = {
   notifications: PropTypes.array,
   fetchAddNotifications: PropTypes.func,
-  getNotifications: PropTypes.any,
+  getNotifications: PropTypes.func,
+  getUnreadNotificationsOfToday: PropTypes.func,
   changeStatusNotification: PropTypes.func,
   changeStatusAllNotifications: PropTypes.func,
   showAllHistoryNotifications: PropTypes.func,

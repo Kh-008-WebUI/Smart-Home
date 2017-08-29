@@ -4,6 +4,7 @@ const Notification = require('../models/notification.js');
 const User = require('../models/user.js');
 const moment = require('moment');
 const HttpError = require('../errors/HttpError');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 notificationRouter.route('/today/unreadCount')
  .get((req, res, next) => {
@@ -16,13 +17,44 @@ notificationRouter.route('/today/unreadCount')
           userDateCreated
         : todayStartTime
       },
-      'viewed' : false
+      'viewedByUser': {
+        '$elemMatch': {
+          'userID': ObjectId(req.session.user),
+          'status': false
+        }
+      }
     })
     .then(unreadCount => res.json({ unreadCount }))
     .catch(err => next(new HttpError(500, err.message)));
   });
 
-notificationRouter.route('/')
+ notificationRouter.route('/today/unread')
+ .get((req, res, next) => {
+    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
+    const todayStartTime = moment().startOf('day').format();
+    const userDateCreated = moment(req.session.userCreatedDate).format();
+
+    Notification
+    .find({
+      'time': { '$gte': (userDateCreated > todayStartTime) ?
+          userDateCreated
+        : todayStartTime
+      },
+      'viewedByUser': {
+        '$elemMatch': {
+          'userID': ObjectId(req.session.user),
+          'status': false
+        }
+      }
+    })
+    .sort({ time: -1 })
+    .skip(parseInt(pageNumber > 0 ? (pageNumber - 1) * itemsPerPage : 0))
+    .limit(parseInt(itemsPerPage))
+    .then(unreadNotifications => res.json(unreadNotifications))
+    .catch(err => next(new HttpError(500, err.message)));
+  });
+
+notificationRouter.route('/today')
  .get((req, res, next) => {
    const { pageNumber = 0, itemsPerPage = 0 } = req.query;
    const todayStartTime = moment().startOf('day').format();
