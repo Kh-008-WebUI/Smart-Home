@@ -73,20 +73,22 @@ class NotificationsBell extends React.Component {
     return classForNotifyItem;
   }
   render () {
+    console.log(this.props.notifications);
     let listNotify = [...this.props.notifications];
     let test = [...this.props.notifications];
 
-    console.dir(test);
-    console.dir(this.props.notifications);
-    console.dir(listNotify);
-    const emergencyList = listNotify.filter((item) =>
+    // console.dir(test);
+    // console.dir(this.props.notifications);
+    // console.dir(listNotify);
+    const emergencyListUnviewed = listNotify.filter((item) =>
      item.emergency && (item.viewed === false));
+    const emergencyListAll = listNotify.filter(item => item.emergency);
 
-    console.dir(emergencyList);
-    if (emergencyList.length) {
-      listNotify = sortEmergencyNotifications(emergencyList, listNotify);
+    // console.dir(emergencyList);
+    if (emergencyListAll.length) {
+      listNotify = sortEmergencyNotifications(emergencyListAll, listNotify);
     }
-    console.dir(listNotify);
+    // console.dir(listNotify);
     const classForBellEmergency =
       'fa fa-bell-o notification-bell__icon bell-emergency';
     const unViewedMessages = listNotify.filter((item) => !item.viewed);
@@ -101,7 +103,7 @@ class NotificationsBell extends React.Component {
           <div className="notification-bell-self"
             onClick={this.displayNotifyBell}>
               <i className={
-                emergencyList.length === 0 ?
+                emergencyListUnviewed.length === 0 ?
                 'fa fa-bell-o notification-bell__icon' :
                 classForBellEmergency
                 }>
