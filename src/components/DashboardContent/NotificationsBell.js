@@ -74,11 +74,12 @@ class NotificationsBell extends React.Component {
   }
   render () {
     let listNotify = [...this.props.notifications];
-    const emergencyList = listNotify.filter((item) =>
+    const emergencyListUnviewed = listNotify.filter((item) =>
      item.emergency && (item.viewed === false));
+    const emergencyListAll = listNotify.filter(item => item.emergency);
 
-    if (emergencyList.length) {
-      sortEmergencyNotifications(emergencyList, listNotify);
+    if (emergencyListAll.length) {
+      listNotify = sortEmergencyNotifications(emergencyListAll, listNotify);
     }
     const classForBellEmergency =
       'fa fa-bell-o notification-bell__icon bell-emergency';
@@ -94,7 +95,7 @@ class NotificationsBell extends React.Component {
           <div className="notification-bell-self"
             onClick={this.displayNotifyBell}>
               <i className={
-                emergencyList.length === 0 ?
+                emergencyListUnviewed.length === 0 ?
                 'fa fa-bell-o notification-bell__icon' :
                 classForBellEmergency
                 }>
